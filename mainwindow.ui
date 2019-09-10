@@ -1,0 +1,971 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>708</width>
+    <height>761</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QPushButton" name="pushButton_Send">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>110</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Send</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_InitConnectionModule1">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>110</y>
+      <width>151</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Init Connection Module 1</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_InitConnectionModule2">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>140</y>
+      <width>151</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Init Connection Module 2</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>50</y>
+      <width>223</width>
+      <height>206</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QLabel" name="label_Source">
+         <property name="text">
+          <string>Source</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_Module">
+         <property name="text">
+          <string>Module</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_Type">
+         <property name="text">
+          <string>Type</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_Parameter">
+         <property name="text">
+          <string>Parameter</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_Sign">
+         <property name="text">
+          <string>Sign</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_Length">
+         <property name="text">
+          <string>Length</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_Payload">
+         <property name="text">
+          <string>Payload</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLineEdit" name="lineEdit_Source">
+         <property name="text">
+          <string>1</string>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBox_Module">
+         <item>
+          <property name="text">
+           <string>1</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>2</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBox_Type">
+         <item>
+          <property name="text">
+           <string>1</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>2</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBox_Parameter">
+         <item>
+          <property name="text">
+           <string>1</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>2</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>3</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>4</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>5</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>6</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>7</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>8</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>9</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>a</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>b</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>c</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>d</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>e</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>f</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>g</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_Sign">
+         <property name="text">
+          <string>1</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_Length">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_Payload">
+         <property name="text">
+          <string>123</string>
+         </property>
+         <property name="maxLength">
+          <number>10</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>20</y>
+      <width>231</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QLabel" name="label_SerialPort">
+       <property name="text">
+        <string>Serial port</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox_Port">
+       <property name="currentIndex">
+        <number>-1</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_Open">
+       <property name="text">
+        <string>Open</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>0</y>
+      <width>231</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="label_Status">
+       <property name="text">
+        <string>Status</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_ShowStatus">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(255, 0, 0);</string>
+       </property>
+       <property name="text">
+        <string>&lt;color:red&gt;Closed&lt;/&gt;</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::RichText</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>260</y>
+      <width>514</width>
+      <height>445</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="Modules">
+     <item>
+      <widget class="Line" name="line">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="FullModule1">
+       <item>
+        <widget class="Line" name="line_5">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_Module1">
+         <property name="text">
+          <string>Module 1</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="ParametersAndStates">
+         <item>
+          <layout class="QVBoxLayout" name="Module1Parameters">
+           <item>
+            <widget class="QLabel" name="label_Module1_Voltage">
+             <property name="text">
+              <string>Voltage</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module1_Current">
+             <property name="text">
+              <string>Current</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module1_Frequency">
+             <property name="text">
+              <string>Frequency</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module1_Power">
+             <property name="text">
+              <string>Power</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module1_Parameter1">
+             <property name="text">
+              <string>Parameter 1</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module1_Parameter2">
+             <property name="text">
+              <string>Parameter 2</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module1_Parameter3">
+             <property name="text">
+              <string>Parameter 3</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module1_Parameter4">
+             <property name="text">
+              <string>Parameter 4</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module1_Parameter5">
+             <property name="text">
+              <string>Parameter 5</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module1_Parameter6">
+             <property name="text">
+              <string>Parameter 6</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module1_Parameter7">
+             <property name="text">
+              <string>Parameter 7</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module1_Parameter8">
+             <property name="text">
+              <string>Parameter 8</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module1_Parameter9">
+             <property name="text">
+              <string>Parameter 9</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module1_Parameter10">
+             <property name="text">
+              <string>Parameter 10</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="Module1ParameterStates">
+           <item>
+            <widget class="QLabel" name="label_Module1_Voltage_State">
+             <property name="text">
+              <string>&lt;font color='green'&gt;Enabled&lt;/font&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module1_Current_State">
+             <property name="text">
+              <string>&lt;font color='green'&gt;Enabled&lt;/font&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module1_Frequency_State">
+             <property name="text">
+              <string>&lt;font color='green'&gt;Enabled&lt;/font&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module1_Power_State">
+             <property name="text">
+              <string>&lt;font color='green'&gt;Enabled&lt;/font&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module1_Parameter1_State">
+             <property name="text">
+              <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module1_Parameter2_State">
+             <property name="text">
+              <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module1_Parameter3_State">
+             <property name="text">
+              <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module1_Parameter4_State">
+             <property name="text">
+              <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module1_Parameter5_State">
+             <property name="text">
+              <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module1_Parameter6_State">
+             <property name="text">
+              <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module1_Parameter7_State">
+             <property name="text">
+              <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module1_Parameter8_State">
+             <property name="text">
+              <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module1_Parameter9_State">
+             <property name="text">
+              <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module1_Parameter10_State">
+             <property name="text">
+              <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="ValuesModule1Parameters">
+           <item>
+            <widget class="QLCDNumber" name="lcdNumber_Value_Module1_Voltage"/>
+           </item>
+           <item>
+            <widget class="QLCDNumber" name="lcdNumber_Value_Module1_Current"/>
+           </item>
+           <item>
+            <widget class="QLCDNumber" name="lcdNumber_Value_Module1_Frequency"/>
+           </item>
+           <item>
+            <widget class="QLCDNumber" name="lcdNumber_Value_Module1_Power"/>
+           </item>
+           <item>
+            <widget class="QLCDNumber" name="lcdNumber_Value_Module1_Parameter1"/>
+           </item>
+           <item>
+            <widget class="QLCDNumber" name="lcdNumber_Value_Module1_Parameter2"/>
+           </item>
+           <item>
+            <widget class="QLCDNumber" name="lcdNumber_Value_Module1_Parameter3"/>
+           </item>
+           <item>
+            <widget class="QLCDNumber" name="lcdNumber_Value_Module1_Parameter4"/>
+           </item>
+           <item>
+            <widget class="QLCDNumber" name="lcdNumber_Value_Module1_Parameter5"/>
+           </item>
+           <item>
+            <widget class="QLCDNumber" name="lcdNumber_Value_Module1_Parameter6"/>
+           </item>
+           <item>
+            <widget class="QLCDNumber" name="lcdNumber_Value_Module1_Parameter7"/>
+           </item>
+           <item>
+            <widget class="QLCDNumber" name="lcdNumber_Value_Module1_Parameter8"/>
+           </item>
+           <item>
+            <widget class="QLCDNumber" name="lcdNumber_Value_Module1_Parameter9"/>
+           </item>
+           <item>
+            <widget class="QLCDNumber" name="lcdNumber_Value_Module1_Parameter10"/>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="Line" name="line_7">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="Line" name="line_3">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="Line" name="line_4">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="FullModule2">
+       <item>
+        <widget class="Line" name="line_6">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_Module2">
+         <property name="text">
+          <string>Module 2</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="Module2">
+         <item>
+          <layout class="QVBoxLayout" name="Module2Parameters">
+           <item>
+            <widget class="QLabel" name="label_Module2_Voltage">
+             <property name="text">
+              <string>Voltage</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module2_Current">
+             <property name="text">
+              <string>Current</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module2_Frequency">
+             <property name="text">
+              <string>Frequency</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module2_Power">
+             <property name="text">
+              <string>Power</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module2_Parameter1">
+             <property name="text">
+              <string>Parameter 1</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module2_Parameter2">
+             <property name="text">
+              <string>Parameter 2</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module2_Parameter3">
+             <property name="text">
+              <string>Parameter 3</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module2_Parameter4">
+             <property name="text">
+              <string>Parameter 4</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module2_Parameter5">
+             <property name="text">
+              <string>Parameter 5</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module2_Parameter6">
+             <property name="text">
+              <string>Parameter 6</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module2_Parameter7">
+             <property name="text">
+              <string>Parameter 7</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module2_Parameter8">
+             <property name="text">
+              <string>Parameter 8</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module2_Parameter9">
+             <property name="text">
+              <string>Parameter 9</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module2_Parameter10">
+             <property name="text">
+              <string>Parameter 10</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="Module2ParameterStates">
+           <item>
+            <widget class="QLabel" name="label_Module2_Voltage_State">
+             <property name="text">
+              <string>&lt;font color='green'&gt;Enabled&lt;/font&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module2_Current_State">
+             <property name="text">
+              <string>&lt;font color='green'&gt;Enabled&lt;/font&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module2_Frequency_State">
+             <property name="text">
+              <string>&lt;font color='green'&gt;Enabled&lt;/font&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module2_Power_State">
+             <property name="text">
+              <string>&lt;font color='green'&gt;Enabled&lt;/font&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module2_Parameter1_State">
+             <property name="text">
+              <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module2_Parameter2_State">
+             <property name="text">
+              <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module2_Parameter3_State">
+             <property name="text">
+              <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module2_Parameter4_State">
+             <property name="text">
+              <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module2_Parameter5_State">
+             <property name="text">
+              <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module2_Parameter6_State">
+             <property name="text">
+              <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module2_Parameter7_State">
+             <property name="text">
+              <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module2_Parameter8_State">
+             <property name="text">
+              <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module2_Parameter9_State">
+             <property name="text">
+              <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_Module2_Parameter10_State">
+             <property name="text">
+              <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="ValuesModule2Parameters">
+           <item>
+            <widget class="QLCDNumber" name="lcdNumber_Value_Module2_Voltage"/>
+           </item>
+           <item>
+            <widget class="QLCDNumber" name="lcdNumber_Value_Module2_Current"/>
+           </item>
+           <item>
+            <widget class="QLCDNumber" name="lcdNumber_Value_Module2_Frequency"/>
+           </item>
+           <item>
+            <widget class="QLCDNumber" name="lcdNumber_Value_Module2_Power"/>
+           </item>
+           <item>
+            <widget class="QLCDNumber" name="lcdNumber_Value_Module2_Parameter1"/>
+           </item>
+           <item>
+            <widget class="QLCDNumber" name="lcdNumber_Value_Module2_Parameter2"/>
+           </item>
+           <item>
+            <widget class="QLCDNumber" name="lcdNumber_Value_Module2_Parameter3"/>
+           </item>
+           <item>
+            <widget class="QLCDNumber" name="lcdNumber_Value_Module2_Parameter4"/>
+           </item>
+           <item>
+            <widget class="QLCDNumber" name="lcdNumber_Value_Module2_Parameter5"/>
+           </item>
+           <item>
+            <widget class="QLCDNumber" name="lcdNumber_Value_Module2_Parameter6"/>
+           </item>
+           <item>
+            <widget class="QLCDNumber" name="lcdNumber_Value_Module2_Parameter7"/>
+           </item>
+           <item>
+            <widget class="QLCDNumber" name="lcdNumber_Value_Module2_Parameter8"/>
+           </item>
+           <item>
+            <widget class="QLCDNumber" name="lcdNumber_Value_Module2_Parameter9"/>
+           </item>
+           <item>
+            <widget class="QLCDNumber" name="lcdNumber_Value_Module2_Parameter10"/>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="Line" name="line_8">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="Line" name="line_2">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>708</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
