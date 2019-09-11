@@ -87,6 +87,7 @@ void MainWindow::serialReceived()
 void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
 {
     convertFrameTableToUARTstruct(reinterpret_cast<const uint8_t*>(receivedBytes.constData()), s_UARTFrame);
+    float value_float;
 
     Module* currentModule;
 
@@ -112,14 +113,6 @@ void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
         qDebug() << "Data transfer frame";
         break;
 
-//    case '2':
-//        qDebug() << "Init connection frame";
-//        break;
-
-//    case '3':
-//        qDebug() << "Deinit connection frame";
-//        break;
-
     case '4':
         qDebug() << "Enable parameter";
 
@@ -127,33 +120,43 @@ void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
         {
         case '1':
             qDebug() << "Parameter 1";
+            currentModule->enableParameter(0);
             break;
         case '2':
             qDebug() << "Parameter 2";
+            currentModule->enableParameter(1);
             break;
         case '3':
             qDebug() << "Parameter 3";
+            currentModule->enableParameter(2);
             break;
         case '4':
             qDebug() << "Parameter 4";
+            currentModule->enableParameter(3);
             break;
         case '5':
             qDebug() << "Parameter 5";
+            currentModule->enableParameter(4);
             break;
         case '6':
             qDebug() << "Parameter 6";
+            currentModule->enableParameter(5);
             break;
         case '7':
             qDebug() << "Parameter 7";
+            currentModule->enableParameter(6);
             break;
         case '8':
             qDebug() << "Parameter 8";
+            currentModule->enableParameter(7);
             break;
         case '9':
             qDebug() << "Parameter 9";
+            currentModule->enableParameter(8);
             break;
         case 'a':
             qDebug() << "Parameter 10";
+            currentModule->enableParameter(9);
             break;
         default:
             qDebug() << "Wrong parameter number";
@@ -168,33 +171,43 @@ void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
         {
         case '1':
             qDebug() << "Parameter 1";
+            currentModule->disableParameter(0);
             break;
         case '2':
             qDebug() << "Parameter 2";
+            currentModule->disableParameter(1);
             break;
         case '3':
             qDebug() << "Parameter 3";
+            currentModule->disableParameter(2);
             break;
         case '4':
             qDebug() << "Parameter 4";
+            currentModule->disableParameter(3);
             break;
         case '5':
             qDebug() << "Parameter 5";
+            currentModule->disableParameter(4);
             break;
         case '6':
             qDebug() << "Parameter 6";
+            currentModule->disableParameter(5);
             break;
         case '7':
             qDebug() << "Parameter 7";
+            currentModule->disableParameter(6);
             break;
         case '8':
             qDebug() << "Parameter 8";
+            currentModule->disableParameter(7);
             break;
         case '9':
             qDebug() << "Parameter 9";
+            currentModule->disableParameter(8);
             break;
         case 'a':
             qDebug() << "Parameter 10";
+            currentModule->disableParameter(9);
             break;
         default:
             qDebug() << "Wrong parameter number";
@@ -205,63 +218,59 @@ void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
     case '6':
         qDebug() << "Set parameter";
 
+        value_float = std::stof((char*)(s_UARTFrame.payload));
+
         switch(s_UARTFrame.parameter)
         {
         case '1':
             qDebug() << "Parameter 1";
             qDebug() << "Value: " << s_UARTFrame.payload;
+            currentModule->setParameter(0,value_float);
             break;
         case '2':
             qDebug() << "Parameter 2";
             qDebug() << "Value: " << s_UARTFrame.payload;
+            currentModule->setParameter(1,value_float);
             break;
         case '3':
             qDebug() << "Parameter 3";
             qDebug() << "Value: " << s_UARTFrame.payload;
+            currentModule->setParameter(2,value_float);
             break;
         case '4':
             qDebug() << "Parameter 4";
             qDebug() << "Value: " << s_UARTFrame.payload;
+            currentModule->setParameter(3,value_float);
             break;
         case '5':
             qDebug() << "Parameter 5";
             qDebug() << "Value: " << s_UARTFrame.payload;
+            currentModule->setParameter(4,value_float);
             break;
         case '6':
             qDebug() << "Parameter 6";
             qDebug() << "Value: " << s_UARTFrame.payload;
+            currentModule->setParameter(5,value_float);
             break;
         case '7':
             qDebug() << "Parameter 7";
             qDebug() << "Value: " << s_UARTFrame.payload;
+            currentModule->setParameter(6,value_float);
             break;
         case '8':
             qDebug() << "Parameter 8";
             qDebug() << "Value: " << s_UARTFrame.payload;
+            currentModule->setParameter(7,value_float);
             break;
         case '9':
             qDebug() << "Parameter 9";
             qDebug() << "Value: " << s_UARTFrame.payload;
+            currentModule->setParameter(8,value_float);
             break;
         case 'a':
             qDebug() << "Parameter 10";
             qDebug() << "Value: " << s_UARTFrame.payload;
-            break;
-        case 'b':
-            qDebug() << "Voltage";
-            qDebug() << "Value: " << s_UARTFrame.payload;
-            break;
-        case 'c':
-            qDebug() << "Current";
-            qDebug() << "Value: " << s_UARTFrame.payload;
-            break;
-        case 'd':
-            qDebug() << "Frequency";
-            qDebug() << "Value: " << s_UARTFrame.payload;
-            break;
-        case 'e':
-            qDebug() << "Power";
-            qDebug() << "Value: " << s_UARTFrame.payload;
+            currentModule->setParameter(9,value_float);
             break;
 
         default:
@@ -410,4 +419,60 @@ void MainWindow::on_pushButton_InitConnectionModule1_clicked()
 void MainWindow::on_pushButton_InitConnectionModule2_clicked()
 {
     InitConnectionModule(2);
+}
+
+void MainWindow::on_pushButton_StartLinear_clicked()
+{
+    QString strStartValue = ui->lineEdit_StartValue->text();
+    QString strStopValue = ui->lineEdit_StopValue->text();
+
+    int startValue = strStartValue.toInt();
+    int stopValue = strStopValue.toInt();
+
+    uint8_t UART_MessageToTransmit[FRAME_SIZE] = {0};
+
+    s_UARTFrame.source = '1';
+    s_UARTFrame.module = ui->comboBox_Module->currentText().at(0).toLatin1();
+    s_UARTFrame.function = '1'; //data transfer frame
+    s_UARTFrame.parameter = ui->comboBox_Parameter->currentText().at(0).toLatin1();;
+    s_UARTFrame.sign = ui->lineEdit_Sign->text().at(0).toLatin1();
+
+    //uint8_t length_int = ui->lineEdit_Payload->text().length();
+
+    uint8_t length_int = s_UARTFrame.length - '0';
+
+    s_UARTFrame.length = length_int + '0'; //convert int to ascii representation of the int
+
+    ui->lineEdit_Length->setText(QString::number(length_int));
+
+    //s_UARTFrame.payload()
+
+    UART_MessageToTransmit[0] = s_UARTFrame.source;
+    UART_MessageToTransmit[1] = s_UARTFrame.module;
+    UART_MessageToTransmit[2] = s_UARTFrame.function;
+    UART_MessageToTransmit[3] = s_UARTFrame.parameter;
+    UART_MessageToTransmit[4] = s_UARTFrame.sign;
+    UART_MessageToTransmit[5] = s_UARTFrame.length;
+
+    QString enteredPayload = ui->lineEdit_Payload->text();
+
+    int i;
+
+    for(int i=startValue; i < stopValue; i++)
+    {
+
+        sprintf((char*)s_UARTFrame.payload, "%ld", i);
+
+        appendCRCtoFrame(UART_MessageToTransmit);
+
+        qDebug("Data Frame is: %s", UART_MessageToTransmit);
+
+        serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
+        //frame[6 + i] = uint8_t(enteredPayload[i].toLatin1()); //payload starts from 6th element up to [6 + length] element
+    }
+}
+
+void MainWindow::on_pushButton_StartSine_clicked()
+{
+
 }

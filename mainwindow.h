@@ -36,6 +36,10 @@ private slots:
     void on_pushButton_InitConnectionModule1_clicked();
     void on_pushButton_InitConnectionModule2_clicked();
 
+    void on_pushButton_StartLinear_clicked();
+
+    void on_pushButton_StartSine_clicked();
+
 private:
     Ui::MainWindow *ui;
     QSerialPort* serial;
