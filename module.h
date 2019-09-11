@@ -10,11 +10,13 @@ public:
     void disableParameter(int index);
     void setParameter(int index, float value);
     bool getParameterState(int index);
-    float getParameterValue(int index);
+    double getParameterValue(int index);
+    bool* getParameterStatesTable();
+    double* getParameterValuesTable();
 
 private:
-    bool parameters[10] {false};
-    float values[10] {0.0};
+    bool parameterStates[10] {false};
+    double parameterValues[10] {0.0};
 };
 
 #endif // MODULE1_H

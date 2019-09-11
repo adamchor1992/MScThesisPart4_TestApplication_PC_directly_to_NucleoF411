@@ -23,6 +23,7 @@ public:
     void convertUARTstructToFrameTable(const UARTFrameStruct_t & frameStructure, uint8_t frame[]);
     void initPortList();
     void fullFrameReceived(QByteArray & receivedBytes);
+    void updateGUI();
 
 private slots:
     void openPort(QString portName);
@@ -37,7 +38,6 @@ private slots:
     void on_pushButton_InitConnectionModule2_clicked();
 
     void on_pushButton_StartLinear_clicked();
-
     void on_pushButton_StartSine_clicked();
 
 private:

@@ -21,6 +21,8 @@ MainWindow::MainWindow(QWidget *parent) :
     initPortList();
 
     connect(serial,SIGNAL(readyRead()), this, SLOT(serialReceived()));
+
+    updateGUI();
 }
 
 MainWindow::~MainWindow()
@@ -49,17 +51,29 @@ void MainWindow::appendCRCtoFrame(uint8_t frame[])
 
 void MainWindow::convertFrameTableToUARTstruct(const uint8_t frameTable[],UARTFrameStruct_t & frameStructure)
 {
-    //not used currently
+    frameStructure.source = frameTable[0];
+    frameStructure.module = frameTable[1];
+    frameStructure.function = frameTable[2];
+    frameStructure.parameter = frameTable[3];
+    frameStructure.sign = frameTable[4];
+    frameStructure.length = frameTable[5];
+
+    uint8_t length_int = frameStructure.length - '0';
+
+    for(uint8_t i=0; i < length_int; i++)
+    {
+        frameStructure.payload[i] = frameTable[6 + i];
+    }
 }
 
-void MainWindow::convertUARTstructToFrameTable(const UARTFrameStruct_t & frameStructure, uint8_t frame[])
+void MainWindow::convertUARTstructToFrameTable(const UARTFrameStruct_t & frameStructure, uint8_t frameTable[])
 {
-    frame[0] = frameStructure.source;
-    frame[1] = frameStructure.module;
-    frame[2] = frameStructure.function;
-    frame[3] = frameStructure.parameter;
-    frame[4] = frameStructure.sign;
-    frame[5] = frameStructure.length;
+    frameTable[0] = frameStructure.source;
+    frameTable[1] = frameStructure.module;
+    frameTable[2] = frameStructure.function;
+    frameTable[3] = frameStructure.parameter;
+    frameTable[4] = frameStructure.sign;
+    frameTable[5] = frameStructure.length;
 
     uint8_t length_int = frameStructure.length - '0';
 
@@ -67,7 +81,7 @@ void MainWindow::convertUARTstructToFrameTable(const UARTFrameStruct_t & frameSt
 
     for(uint8_t i=0; i < length_int; i++)
     {
-        frame[6 + i] = uint8_t(enteredPayload[i].toLatin1()); //payload starts from 6th element up to [6 + length] element
+        frameTable[6 + i] = uint8_t(enteredPayload[i].toLatin1()); //payload starts from 6th element up to [6 + length] element
     }
 }
 
@@ -87,9 +101,12 @@ void MainWindow::serialReceived()
 void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
 {
     convertFrameTableToUARTstruct(reinterpret_cast<const uint8_t*>(receivedBytes.constData()), s_UARTFrame);
-    float value_float;
 
-    Module* currentModule;
+    qDebug("Received Frame is: %s", receivedBytes.constData());
+
+    double value_double;
+
+    Module* currentModule = nullptr;
 
     if(s_UARTFrame.module == '1')
     {
@@ -162,6 +179,8 @@ void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
             qDebug() << "Wrong parameter number";
             assert(false);
         }
+
+        updateGUI();
         break;
 
     case '5':
@@ -213,70 +232,74 @@ void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
             qDebug() << "Wrong parameter number";
             assert(false);
         }
+
+        updateGUI();
         break;
 
     case '6':
         qDebug() << "Set parameter";
 
-        value_float = std::stof((char*)(s_UARTFrame.payload));
+        value_double = std::stof((char*)(s_UARTFrame.payload));
 
         switch(s_UARTFrame.parameter)
         {
         case '1':
             qDebug() << "Parameter 1";
             qDebug() << "Value: " << s_UARTFrame.payload;
-            currentModule->setParameter(0,value_float);
+            currentModule->setParameter(0,value_double);
             break;
         case '2':
             qDebug() << "Parameter 2";
             qDebug() << "Value: " << s_UARTFrame.payload;
-            currentModule->setParameter(1,value_float);
+            currentModule->setParameter(1,value_double);
             break;
         case '3':
             qDebug() << "Parameter 3";
             qDebug() << "Value: " << s_UARTFrame.payload;
-            currentModule->setParameter(2,value_float);
+            currentModule->setParameter(2,value_double);
             break;
         case '4':
             qDebug() << "Parameter 4";
             qDebug() << "Value: " << s_UARTFrame.payload;
-            currentModule->setParameter(3,value_float);
+            currentModule->setParameter(3,value_double);
             break;
         case '5':
             qDebug() << "Parameter 5";
             qDebug() << "Value: " << s_UARTFrame.payload;
-            currentModule->setParameter(4,value_float);
+            currentModule->setParameter(4,value_double);
             break;
         case '6':
             qDebug() << "Parameter 6";
             qDebug() << "Value: " << s_UARTFrame.payload;
-            currentModule->setParameter(5,value_float);
+            currentModule->setParameter(5,value_double);
             break;
         case '7':
             qDebug() << "Parameter 7";
             qDebug() << "Value: " << s_UARTFrame.payload;
-            currentModule->setParameter(6,value_float);
+            currentModule->setParameter(6,value_double);
             break;
         case '8':
             qDebug() << "Parameter 8";
             qDebug() << "Value: " << s_UARTFrame.payload;
-            currentModule->setParameter(7,value_float);
+            currentModule->setParameter(7,value_double);
             break;
         case '9':
             qDebug() << "Parameter 9";
             qDebug() << "Value: " << s_UARTFrame.payload;
-            currentModule->setParameter(8,value_float);
+            currentModule->setParameter(8,value_double);
             break;
         case 'a':
             qDebug() << "Parameter 10";
             qDebug() << "Value: " << s_UARTFrame.payload;
-            currentModule->setParameter(9,value_float);
+            currentModule->setParameter(9,value_double);
             break;
 
         default:
             qDebug() << "Wrong parameter number";
             assert(false);
         }
+
+        updateGUI();
         break;
 
     default:
@@ -456,23 +479,63 @@ void MainWindow::on_pushButton_StartLinear_clicked()
 
     QString enteredPayload = ui->lineEdit_Payload->text();
 
-    int i;
-
-    for(int i=startValue; i < stopValue; i++)
+    for(int i = startValue; i < stopValue; i++)
     {
 
-        sprintf((char*)s_UARTFrame.payload, "%ld", i);
+        sprintf((char*)s_UARTFrame.payload, "%d", i);
 
         appendCRCtoFrame(UART_MessageToTransmit);
 
         qDebug("Data Frame is: %s", UART_MessageToTransmit);
 
         serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
-        //frame[6 + i] = uint8_t(enteredPayload[i].toLatin1()); //payload starts from 6th element up to [6 + length] element
     }
 }
 
 void MainWindow::on_pushButton_StartSine_clicked()
 {
 
+}
+
+void MainWindow::updateGUI()
+{
+    /*Offset introduced to omit power, voltage etc. parameters*/
+    int OFFSET = 4;
+
+    QWidget* module1ParameterStateLabelsTable[10];
+    QWidget* module2ParameterStateLabelsTable[10];
+    QWidget* module1ParameterValueLabelsTable[10];
+    QWidget* module2ParameterValueLabelsTable[10];
+
+    for(int i = 0; i<10; i++)
+    {
+        module1ParameterStateLabelsTable[i] = ui->Module1ParameterStates->itemAt(i + OFFSET)->widget();
+        module2ParameterStateLabelsTable[i] = ui->Module2ParameterStates->itemAt(i + OFFSET)->widget();
+        module1ParameterValueLabelsTable[i] = ui->ValuesModule1Parameters->itemAt(i + OFFSET)->widget();
+        module2ParameterValueLabelsTable[i] = ui->ValuesModule2Parameters->itemAt(i + OFFSET)->widget();
+    }
+
+    for(int i = 0; i<10; i++)
+    {
+        if((module1->getParameterStatesTable())[i] == true)
+        {
+            dynamic_cast<QLabel*>(*(module1ParameterStateLabelsTable + i))->setText("<font color='green'>Enabled</font>");
+        }
+        else
+        {
+            dynamic_cast<QLabel*>(*(module1ParameterStateLabelsTable + i))->setText("<font color='red'>Disabled</font>");
+        }
+
+        if((module2->getParameterStatesTable())[i] == true)
+        {
+            dynamic_cast<QLabel*>(*(module2ParameterStateLabelsTable + i))->setText("<font color='green'>Enabled</font>");
+        }
+        else
+        {
+            dynamic_cast<QLabel*>(*(module2ParameterStateLabelsTable + i))->setText("<font color='red'>Disabled</font>");
+        }
+
+        dynamic_cast<QLCDNumber*>(*(module1ParameterValueLabelsTable + i))->display((module1->getParameterValuesTable())[i]);
+        dynamic_cast<QLCDNumber*>(*(module2ParameterValueLabelsTable + i))->display((module2->getParameterValuesTable())[i]);
+    }
 }
