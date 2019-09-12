@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QDebug>
 #include "QtSerialPort/QSerialPort"
 #include "uart_frame_struct.h"
 #include "module.h"
@@ -18,28 +19,24 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void appendCRCtoFrame(uint8_t frame[]);
-    void convertFrameTableToUARTstruct(const uint8_t frame[], UARTFrameStruct_t & frameStructure);
-    void convertUARTstructToFrameTable(const UARTFrameStruct_t & frameStructure, uint8_t frame[]);
     void initPortList();
     void fullFrameReceived(QByteArray & receivedBytes);
     void updateGUI();
+    void InitConnectionModule(int module);
+    void openPort(QString portName);
+    void sendFrame();
+    void startLinearGraph();
+    void startSineGraph();
 
 private slots:
-    void openPort(QString portName);
-    void sendMessage();
-    void serialReceived();
-    //void writeData(qint64 bytes);
-    void InitConnectionModule(int module);
-
     void on_pushButton_Open_clicked();
     void on_pushButton_Send_pressed();
-
     void on_pushButton_InitConnectionModule1_clicked();
     void on_pushButton_InitConnectionModule2_clicked();
-
     void on_pushButton_StartLinear_clicked();
     void on_pushButton_StartSine_clicked();
+
+    void serialDataReceived();
 
 private:
     Ui::MainWindow *ui;

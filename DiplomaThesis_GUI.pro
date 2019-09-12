@@ -27,13 +27,15 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-        module.cpp
+        module.cpp \
+        utilities.cpp
 
 HEADERS += \
         crc32.h \
         mainwindow.h \
         module.h \
-        uart_frame_struct.h
+        uart_frame_struct.h \
+        utilities.h
 
 FORMS += \
         mainwindow.ui

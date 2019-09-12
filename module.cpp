@@ -15,7 +15,7 @@ void Module::disableParameter(int index)
     parameterStates[index] = false;
 }
 
-void Module::setParameter(int index, float value)
+void Module::setParameter(int index, double value)
 {
     parameterValues[index] = value;
 }

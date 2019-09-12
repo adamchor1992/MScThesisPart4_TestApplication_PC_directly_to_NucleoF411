@@ -1,11 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "QDebug"
-#include "crc32.h"
-#include <iostream>
 #include <QSerialPortInfo>
-#include <assert.h>
-#include <windows.h> // for Sleep
+
+#include "utilities.h"
+
 
 #define FRAME_SIZE 20
 
@@ -21,8 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     initPortList();
 
-    connect(serial,SIGNAL(readyRead()), this, SLOT(serialReceived()));
-    //connect(serial,SIGNAL(bytesWritten()), this, SLOT(serialReceived()));
+    connect(serial,SIGNAL(readyRead()), this, SLOT(serialDataReceived()));
 
     updateGUI();
 }
@@ -32,91 +29,8 @@ MainWindow::~MainWindow()
     delete ui;
     delete module1;
     delete  module2;
+    delete serial;
 }
-
-void MainWindow::appendCRCtoFrame(uint8_t frame[])
-{
-    uint32_t CRC_Value_Calculated = Calculate_CRC32((char*)frame, 16);
-    uint32_t* CRC_Address = &CRC_Value_Calculated;
-    uint8_t *p1, *p2, *p3, *p4;
-
-    p1 = ((uint8_t*)CRC_Address);
-    p2 = ((uint8_t*)CRC_Address + 1);
-    p3 = ((uint8_t*)CRC_Address + 2);
-    p4 = ((uint8_t*)CRC_Address + 3);
-
-    frame[19] = *p1;
-    frame[18] = *p2;
-    frame[17] = *p3;
-    frame[16] = *p4;
-}
-
-void MainWindow::convertFrameTableToUARTstruct(const uint8_t frameTable[],UARTFrameStruct_t & frameStructure)
-{
-    frameStructure.source = frameTable[0];
-    frameStructure.module = frameTable[1];
-    frameStructure.function = frameTable[2];
-    frameStructure.parameter = frameTable[3];
-    frameStructure.sign = frameTable[4];
-    frameStructure.length = frameTable[5];
-
-    uint8_t length_int = frameStructure.length - '0';
-
-    for(uint8_t i=0; i < length_int; i++)
-    {
-        frameStructure.payload[i] = frameTable[6 + i];
-    }
-}
-
-void MainWindow::convertUARTstructToFrameTable(const UARTFrameStruct_t & frameStructure, uint8_t frameTable[])
-{
-    frameTable[0] = frameStructure.source;
-    frameTable[1] = frameStructure.module;
-    frameTable[2] = frameStructure.function;
-    frameTable[3] = frameStructure.parameter;
-    frameTable[4] = frameStructure.sign;
-    frameTable[5] = frameStructure.length;
-
-    uint8_t length_int = frameStructure.length - '0';
-
-    QString enteredPayload = ui->lineEdit_Payload->text();
-
-    for(uint8_t i=0; i < length_int; i++)
-    {
-        frameTable[6 + i] = uint8_t(enteredPayload[i].toLatin1()); //payload starts from 6th element up to [6 + length] element
-    }
-}
-
-void MainWindow::serialReceived()
-{
-    static QByteArray receivedBytes;
-
-    receivedBytes += serial->readAll();
-
-    if(receivedBytes.size() == FRAME_SIZE)
-    {
-        fullFrameReceived(receivedBytes);
-        receivedBytes.clear();
-    }
-}
-
-//void MainWindow::writeData(qint64 bytes)
-//{
-//    static QByteArray bytesToWrite;
-//    static int fullByteCount = 0;
-
-//    fullByteCount += bytes;
-
-//    if(fullByteCount == 20)
-//    {
-//        serial->write(bytesToWrite,20);
-
-//        bytesToWrite.clear();
-//        fullByteCount = 0;
-//    }
-
-
-//}
 
 void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
 {
@@ -420,7 +334,7 @@ void MainWindow::InitConnectionModule(int module)
     serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
 }
 
-void MainWindow::sendMessage()
+void MainWindow::sendFrame()
 {
     uint8_t UART_MessageToTransmit[FRAME_SIZE] = {0};
 
@@ -430,9 +344,16 @@ void MainWindow::sendMessage()
     s_UARTFrame.parameter = ui->comboBox_Parameter->currentText().at(0).toLatin1();;
     s_UARTFrame.sign = ui->lineEdit_Sign->text().at(0).toLatin1();
 
-    uint8_t length_int = ui->lineEdit_Payload->text().length();
+    QString enteredPayload = ui->lineEdit_Payload->text();
+
+    uint8_t length_int = enteredPayload.length();
 
     s_UARTFrame.length = length_int + '0'; //convert int to ascii representation of the int
+
+    for(int i=0; i<length_int;i++)
+    {
+        s_UARTFrame.payload[i] = enteredPayload.at(i).toLatin1();
+    }
 
     ui->lineEdit_Length->setText(QString::number(length_int));
 
@@ -444,27 +365,53 @@ void MainWindow::sendMessage()
     serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
 }
 
-void MainWindow::on_pushButton_Open_clicked()
+void MainWindow::startLinearGraph()
 {
-    openPort(ui->comboBox_Port->currentText());
+    QString strStartValue = ui->lineEdit_StartValue->text();
+    QString strStopValue = ui->lineEdit_StopValue->text();
+
+    int startValue = strStartValue.toInt();
+    int stopValue = strStopValue.toInt();
+
+    if(startValue > stopValue)
+        return;
+
+    uint8_t UART_MessageToTransmit[FRAME_SIZE] = {0};
+
+    s_UARTFrame.source = '1';
+    s_UARTFrame.module = ui->comboBox_Module->currentText().at(0).toLatin1();
+    s_UARTFrame.function = '1'; //data transfer frame
+    s_UARTFrame.parameter = ui->comboBox_Parameter->currentText().at(0).toLatin1();;
+    s_UARTFrame.sign = ui->lineEdit_Sign->text().at(0).toLatin1();
+
+    uint8_t length_int;
+
+    double value_double;
+
+    for(int i = startValue; i < stopValue; i++)
+    {
+        value_double = i;
+
+        sprintf((char*)s_UARTFrame.payload, "%.1lf", value_double);
+
+        length_int = strlen((char*)s_UARTFrame.payload);
+
+        s_UARTFrame.length = length_int + '0'; // convert from int to ASCII
+
+        convertUARTstructToFrameTable(s_UARTFrame, UART_MessageToTransmit);
+
+        qDebug("Data Frame is: %s", UART_MessageToTransmit);
+
+        appendCRCtoFrame(UART_MessageToTransmit);
+
+        serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
+        serial->waitForBytesWritten(3000);
+        serial->flush();
+        Sleep(uint(20));
+    }
 }
 
-void MainWindow::on_pushButton_Send_pressed()
-{
-    sendMessage();
-}
-
-void MainWindow::on_pushButton_InitConnectionModule1_clicked()
-{
-    InitConnectionModule(1);
-}
-
-void MainWindow::on_pushButton_InitConnectionModule2_clicked()
-{
-    InitConnectionModule(2);
-}
-
-void MainWindow::on_pushButton_StartLinear_clicked()
+void MainWindow::startSineGraph()
 {
     QString strStartValue = ui->lineEdit_StartValue->text();
     QString strStopValue = ui->lineEdit_StopValue->text();
@@ -480,54 +427,31 @@ void MainWindow::on_pushButton_StartLinear_clicked()
     s_UARTFrame.parameter = ui->comboBox_Parameter->currentText().at(0).toLatin1();;
     s_UARTFrame.sign = ui->lineEdit_Sign->text().at(0).toLatin1();
 
-    //uint8_t length_int = ui->lineEdit_Payload->text().length();
-
-    //uint8_t length_int = s_UARTFrame.length - '0';
-
-    //s_UARTFrame.length = length_int + '0'; //convert int to ascii representation of the int
-
-    //ui->lineEdit_Length->setText(QString::number(length_int));
-
-    //s_UARTFrame.payload()
-
-    UART_MessageToTransmit[0] = s_UARTFrame.source;
-    UART_MessageToTransmit[1] = s_UARTFrame.module;
-    UART_MessageToTransmit[2] = s_UARTFrame.function;
-    UART_MessageToTransmit[3] = s_UARTFrame.parameter;
-    UART_MessageToTransmit[4] = s_UARTFrame.sign;
-
-    //convertUARTstructToFrameTable(s_UARTFrame, UART_MessageToTransmit);
-
     uint8_t length_int;
+
+    double value;
 
     for(int i = startValue; i < stopValue; i++)
     {
-        sprintf((char*)s_UARTFrame.payload, "%d", i);
+        value = (sin(i*3.14159/180) * 999.0); //scale by 999
+
+        sprintf((char*)s_UARTFrame.payload, "%.2lf", value);
 
         length_int = strlen((char*)s_UARTFrame.payload);
 
-        UART_MessageToTransmit[5] = length_int + '0';
+        s_UARTFrame.length = length_int + '0'; // convert from int to ASCII
 
-        for(uint8_t i=0; i < length_int; i++)
-        {
-            UART_MessageToTransmit[6 + i] = s_UARTFrame.payload[i]; //payload starts from 6th element up to [6 + length] element
-        }
+        convertUARTstructToFrameTable(s_UARTFrame, UART_MessageToTransmit);
 
         qDebug("Data Frame is: %s", UART_MessageToTransmit);
-        qDebug() << "message length" << strlen((char*)UART_MessageToTransmit);
 
         appendCRCtoFrame(UART_MessageToTransmit);
 
         serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
         serial->waitForBytesWritten(3000);
         serial->flush();
-        Sleep(uint(10));
+        Sleep(uint(7));
     }
-}
-
-void MainWindow::on_pushButton_StartSine_clicked()
-{
-
 }
 
 void MainWindow::updateGUI()
@@ -571,4 +495,49 @@ void MainWindow::updateGUI()
         dynamic_cast<QLCDNumber*>(*(module1ParameterValueLabelsTable + i))->display((module1->getParameterValuesTable())[i]);
         dynamic_cast<QLCDNumber*>(*(module2ParameterValueLabelsTable + i))->display((module2->getParameterValuesTable())[i]);
     }
+}
+
+/*Slot*/
+void MainWindow::serialDataReceived()
+{
+    static QByteArray receivedBytes;
+
+    receivedBytes += serial->readAll();
+
+    if(receivedBytes.size() == FRAME_SIZE)
+    {
+        fullFrameReceived(receivedBytes);
+        receivedBytes.clear();
+    }
+}
+
+/*Button slots*/
+void MainWindow::on_pushButton_Open_clicked()
+{
+    openPort(ui->comboBox_Port->currentText());
+}
+
+void MainWindow::on_pushButton_Send_pressed()
+{
+    sendFrame();
+}
+
+void MainWindow::on_pushButton_InitConnectionModule1_clicked()
+{
+    InitConnectionModule(1);
+}
+
+void MainWindow::on_pushButton_InitConnectionModule2_clicked()
+{
+    InitConnectionModule(2);
+}
+
+void MainWindow::on_pushButton_StartLinear_clicked()
+{
+    startLinearGraph();
+}
+
+void MainWindow::on_pushButton_StartSine_clicked()
+{
+    startSineGraph();
 }
