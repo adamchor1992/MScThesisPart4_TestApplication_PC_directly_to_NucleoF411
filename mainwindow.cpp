@@ -5,6 +5,7 @@
 #include <iostream>
 #include <QSerialPortInfo>
 #include <assert.h>
+#include <windows.h> // for Sleep
 
 #define FRAME_SIZE 20
 
@@ -21,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     initPortList();
 
     connect(serial,SIGNAL(readyRead()), this, SLOT(serialReceived()));
+    //connect(serial,SIGNAL(bytesWritten()), this, SLOT(serialReceived()));
 
     updateGUI();
 }
@@ -97,6 +99,24 @@ void MainWindow::serialReceived()
         receivedBytes.clear();
     }
 }
+
+//void MainWindow::writeData(qint64 bytes)
+//{
+//    static QByteArray bytesToWrite;
+//    static int fullByteCount = 0;
+
+//    fullByteCount += bytes;
+
+//    if(fullByteCount == 20)
+//    {
+//        serial->write(bytesToWrite,20);
+
+//        bytesToWrite.clear();
+//        fullByteCount = 0;
+//    }
+
+
+//}
 
 void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
 {
@@ -385,7 +405,7 @@ void MainWindow::InitConnectionModule(int module)
 
     s_UARTFrame.source = '1';
     s_UARTFrame.module = module + '0'; //convert int to ascii representation
-    s_UARTFrame.function = '1';
+    s_UARTFrame.function = '2';
     s_UARTFrame.parameter = '1';
     s_UARTFrame.sign = '1';
     s_UARTFrame.length = length_int + '0'; //convert int to ascii representation of the int
@@ -406,7 +426,7 @@ void MainWindow::sendMessage()
 
     s_UARTFrame.source = '1';
     s_UARTFrame.module = ui->comboBox_Module->currentText().at(0).toLatin1();
-    s_UARTFrame.function = '2';
+    s_UARTFrame.function = '1';
     s_UARTFrame.parameter = ui->comboBox_Parameter->currentText().at(0).toLatin1();;
     s_UARTFrame.sign = ui->lineEdit_Sign->text().at(0).toLatin1();
 
@@ -462,11 +482,11 @@ void MainWindow::on_pushButton_StartLinear_clicked()
 
     //uint8_t length_int = ui->lineEdit_Payload->text().length();
 
-    uint8_t length_int = s_UARTFrame.length - '0';
+    //uint8_t length_int = s_UARTFrame.length - '0';
 
-    s_UARTFrame.length = length_int + '0'; //convert int to ascii representation of the int
+    //s_UARTFrame.length = length_int + '0'; //convert int to ascii representation of the int
 
-    ui->lineEdit_Length->setText(QString::number(length_int));
+    //ui->lineEdit_Length->setText(QString::number(length_int));
 
     //s_UARTFrame.payload()
 
@@ -475,20 +495,33 @@ void MainWindow::on_pushButton_StartLinear_clicked()
     UART_MessageToTransmit[2] = s_UARTFrame.function;
     UART_MessageToTransmit[3] = s_UARTFrame.parameter;
     UART_MessageToTransmit[4] = s_UARTFrame.sign;
-    UART_MessageToTransmit[5] = s_UARTFrame.length;
 
-    QString enteredPayload = ui->lineEdit_Payload->text();
+    //convertUARTstructToFrameTable(s_UARTFrame, UART_MessageToTransmit);
+
+    uint8_t length_int;
 
     for(int i = startValue; i < stopValue; i++)
     {
-
         sprintf((char*)s_UARTFrame.payload, "%d", i);
+
+        length_int = strlen((char*)s_UARTFrame.payload);
+
+        UART_MessageToTransmit[5] = length_int + '0';
+
+        for(uint8_t i=0; i < length_int; i++)
+        {
+            UART_MessageToTransmit[6 + i] = s_UARTFrame.payload[i]; //payload starts from 6th element up to [6 + length] element
+        }
+
+        qDebug("Data Frame is: %s", UART_MessageToTransmit);
+        qDebug() << "message length" << strlen((char*)UART_MessageToTransmit);
 
         appendCRCtoFrame(UART_MessageToTransmit);
 
-        qDebug("Data Frame is: %s", UART_MessageToTransmit);
-
         serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
+        serial->waitForBytesWritten(3000);
+        serial->flush();
+        Sleep(uint(10));
     }
 }
 

@@ -29,6 +29,7 @@ private slots:
     void openPort(QString portName);
     void sendMessage();
     void serialReceived();
+    //void writeData(qint64 bytes);
     void InitConnectionModule(int module);
 
     void on_pushButton_Open_clicked();
