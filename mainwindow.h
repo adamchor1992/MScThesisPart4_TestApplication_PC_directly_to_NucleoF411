@@ -42,13 +42,13 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QSerialPort* serial;
-    Module* module1;
-    Module* module2;
+    QSerialPort* m_serial;
+    Module* m_module1;
+    Module* m_module2;
 
-    UARTFrameStruct_t s_UARTFrame;
+    UARTFrameStruct_t m_s_UARTFrame;
 
-    bool m_StopPressed;
+    bool m_stopPressed;
 };
 
 #endif // MAINWINDOW_H

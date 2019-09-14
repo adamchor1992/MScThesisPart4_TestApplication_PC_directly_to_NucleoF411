@@ -13,15 +13,15 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    serial = new QSerialPort(this);
-    module1 = new Module;
-    module2 = new Module;
+    m_serial = new QSerialPort(this);
+    m_module1 = new Module;
+    m_module2 = new Module;
 
-    m_StopPressed = false;
+    m_stopPressed = false;
 
     initPortList();
 
-    connect(serial,SIGNAL(readyRead()), this, SLOT(serialDataReceived()));
+    connect(m_serial,SIGNAL(readyRead()), this, SLOT(serialDataReceived()));
 
     updateGUI();
 }
@@ -29,14 +29,14 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete module1;
-    delete  module2;
-    delete serial;
+    delete m_module1;
+    delete m_module2;
+    delete m_serial;
 }
 
 void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
 {
-    convertFrameTableToUARTstruct(reinterpret_cast<const uint8_t*>(receivedBytes.constData()), s_UARTFrame);
+    convertFrameTableToUARTstruct(reinterpret_cast<const uint8_t*>(receivedBytes.constData()), m_s_UARTFrame);
 
     qDebug("Received Frame is: %s", receivedBytes.constData());
 
@@ -44,15 +44,15 @@ void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
 
     Module* currentModule = nullptr;
 
-    if(s_UARTFrame.module == '1')
+    if(m_s_UARTFrame.module == '1')
     {
         qDebug() << "Module 1";
-        currentModule = module1;
+        currentModule = m_module1;
     }
-    else if(s_UARTFrame.module == '2')
+    else if(m_s_UARTFrame.module == '2')
     {
         qDebug() << "Module 2";
-        currentModule = module2;
+        currentModule = m_module2;
     }
     else
     {
@@ -60,7 +60,7 @@ void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
         assert(false);
     }
 
-    switch(s_UARTFrame.function)
+    switch(m_s_UARTFrame.function)
     {
     case '1':
         qDebug() << "Data transfer frame";
@@ -69,7 +69,7 @@ void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
     case '4':
         qDebug() << "Enable parameter";
 
-        switch(s_UARTFrame.parameter)
+        switch(m_s_UARTFrame.parameter)
         {
         case '1':
             qDebug() << "Parameter 1";
@@ -122,7 +122,7 @@ void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
     case '5':
         qDebug() << "Disable parameter";
 
-        switch(s_UARTFrame.parameter)
+        switch(m_s_UARTFrame.parameter)
         {
         case '1':
             qDebug() << "Parameter 1";
@@ -175,58 +175,58 @@ void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
     case '6':
         qDebug() << "Set parameter";
 
-        value_double = std::stof((char*)(s_UARTFrame.payload));
+        value_double = std::stof((char*)(m_s_UARTFrame.payload));
 
-        switch(s_UARTFrame.parameter)
+        switch(m_s_UARTFrame.parameter)
         {
         case '1':
             qDebug() << "Parameter 1";
-            qDebug() << "Value: " << s_UARTFrame.payload;
+            qDebug() << "Value: " << m_s_UARTFrame.payload;
             currentModule->setParameter(0,value_double);
             break;
         case '2':
             qDebug() << "Parameter 2";
-            qDebug() << "Value: " << s_UARTFrame.payload;
+            qDebug() << "Value: " << m_s_UARTFrame.payload;
             currentModule->setParameter(1,value_double);
             break;
         case '3':
             qDebug() << "Parameter 3";
-            qDebug() << "Value: " << s_UARTFrame.payload;
+            qDebug() << "Value: " << m_s_UARTFrame.payload;
             currentModule->setParameter(2,value_double);
             break;
         case '4':
             qDebug() << "Parameter 4";
-            qDebug() << "Value: " << s_UARTFrame.payload;
+            qDebug() << "Value: " << m_s_UARTFrame.payload;
             currentModule->setParameter(3,value_double);
             break;
         case '5':
             qDebug() << "Parameter 5";
-            qDebug() << "Value: " << s_UARTFrame.payload;
+            qDebug() << "Value: " << m_s_UARTFrame.payload;
             currentModule->setParameter(4,value_double);
             break;
         case '6':
             qDebug() << "Parameter 6";
-            qDebug() << "Value: " << s_UARTFrame.payload;
+            qDebug() << "Value: " << m_s_UARTFrame.payload;
             currentModule->setParameter(5,value_double);
             break;
         case '7':
             qDebug() << "Parameter 7";
-            qDebug() << "Value: " << s_UARTFrame.payload;
+            qDebug() << "Value: " << m_s_UARTFrame.payload;
             currentModule->setParameter(6,value_double);
             break;
         case '8':
             qDebug() << "Parameter 8";
-            qDebug() << "Value: " << s_UARTFrame.payload;
+            qDebug() << "Value: " << m_s_UARTFrame.payload;
             currentModule->setParameter(7,value_double);
             break;
         case '9':
             qDebug() << "Parameter 9";
-            qDebug() << "Value: " << s_UARTFrame.payload;
+            qDebug() << "Value: " << m_s_UARTFrame.payload;
             currentModule->setParameter(8,value_double);
             break;
         case 'a':
             qDebug() << "Parameter 10";
-            qDebug() << "Value: " << s_UARTFrame.payload;
+            qDebug() << "Value: " << m_s_UARTFrame.payload;
             currentModule->setParameter(9,value_double);
             break;
 
@@ -287,20 +287,20 @@ void MainWindow::initPortList()
 
 void MainWindow::openPort(QString portName)
 {
-    serial->setPortName(portName);
+    m_serial->setPortName(portName);
 
-    if(serial->isOpen())
+    if(m_serial->isOpen())
     {
         return;
     }
 
-    serial->setBaudRate(QSerialPort::Baud115200);
-    serial->setDataBits(QSerialPort::Data8);
-    serial->setParity(QSerialPort::NoParity);
-    serial->setStopBits(QSerialPort::OneStop);
-    serial->setFlowControl(QSerialPort::NoFlowControl);
+    m_serial->setBaudRate(QSerialPort::Baud115200);
+    m_serial->setDataBits(QSerialPort::Data8);
+    m_serial->setParity(QSerialPort::NoParity);
+    m_serial->setStopBits(QSerialPort::OneStop);
+    m_serial->setFlowControl(QSerialPort::NoFlowControl);
 
-    if(serial->open(QIODevice::ReadWrite))
+    if(m_serial->open(QIODevice::ReadWrite))
     {
         qDebug("Opened successfully");
         ui->label_ShowStatus->setText("<font color='green'>Open</font>");
@@ -319,52 +319,52 @@ void MainWindow::InitConnectionModule(int module)
 
     uint8_t length_int = enteredPayload.length();
 
-    s_UARTFrame.source = '1';
-    s_UARTFrame.module = module + '0'; //convert int to ascii representation
-    s_UARTFrame.function = '2';
-    s_UARTFrame.parameter = '1';
-    s_UARTFrame.sign = '1';
-    s_UARTFrame.length = length_int + '0'; //convert int to ascii representation of the int
+    m_s_UARTFrame.source = '1';
+    m_s_UARTFrame.module = module + '0'; //convert int to ascii representation
+    m_s_UARTFrame.function = '2';
+    m_s_UARTFrame.parameter = '1';
+    m_s_UARTFrame.sign = '1';
+    m_s_UARTFrame.length = length_int + '0'; //convert int to ascii representation of the int
 
     ui->lineEdit_Length->setText(QString::number(length_int));
 
-    convertUARTstructToFrameTable(s_UARTFrame,UART_MessageToTransmit);
+    convertUARTstructToFrameTable(m_s_UARTFrame,UART_MessageToTransmit);
     appendCRCtoFrame(UART_MessageToTransmit);
 
     qDebug("Init Frame is: %s", UART_MessageToTransmit);
 
-    serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
+    m_serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
 }
 
 void MainWindow::sendFrame()
 {
     uint8_t UART_MessageToTransmit[FRAME_SIZE] = {0};
 
-    s_UARTFrame.source = '1';
-    s_UARTFrame.module = ui->comboBox_Module->currentText().at(0).toLatin1();
-    s_UARTFrame.function = '1';
-    s_UARTFrame.parameter = ui->comboBox_Parameter->currentText().at(0).toLatin1();;
-    s_UARTFrame.sign = ui->lineEdit_Sign->text().at(0).toLatin1();
+    m_s_UARTFrame.source = '1';
+    m_s_UARTFrame.module = ui->comboBox_Module->currentText().at(0).toLatin1();
+    m_s_UARTFrame.function = '1';
+    m_s_UARTFrame.parameter = ui->comboBox_Parameter->currentText().at(0).toLatin1();;
+    m_s_UARTFrame.sign = ui->lineEdit_Sign->text().at(0).toLatin1();
 
     QString enteredPayload = ui->lineEdit_Payload->text();
 
     uint8_t length_int = enteredPayload.length();
 
-    s_UARTFrame.length = length_int + '0'; //convert int to ascii representation of the int
+    m_s_UARTFrame.length = length_int + '0'; //convert int to ascii representation of the int
 
     for(int i=0; i<length_int;i++)
     {
-        s_UARTFrame.payload[i] = enteredPayload.at(i).toLatin1();
+        m_s_UARTFrame.payload[i] = enteredPayload.at(i).toLatin1();
     }
 
     ui->lineEdit_Length->setText(QString::number(length_int));
 
-    convertUARTstructToFrameTable(s_UARTFrame,UART_MessageToTransmit);
+    convertUARTstructToFrameTable(m_s_UARTFrame,UART_MessageToTransmit);
     appendCRCtoFrame(UART_MessageToTransmit);
 
     qDebug("Data Frame is: %s", UART_MessageToTransmit);
 
-    serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
+    m_serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
 }
 
 void MainWindow::startLinearGraph()
@@ -380,11 +380,11 @@ void MainWindow::startLinearGraph()
 
     uint8_t UART_MessageToTransmit[FRAME_SIZE] = {0};
 
-    s_UARTFrame.source = '1';
-    s_UARTFrame.module = ui->comboBox_Module->currentText().at(0).toLatin1();
-    s_UARTFrame.function = '1'; //data transfer frame
-    s_UARTFrame.parameter = ui->comboBox_Parameter->currentText().at(0).toLatin1();;
-    s_UARTFrame.sign = ui->lineEdit_Sign->text().at(0).toLatin1();
+    m_s_UARTFrame.source = '1';
+    m_s_UARTFrame.module = ui->comboBox_Module->currentText().at(0).toLatin1();
+    m_s_UARTFrame.function = '1'; //data transfer frame
+    m_s_UARTFrame.parameter = ui->comboBox_Parameter->currentText().at(0).toLatin1();;
+    m_s_UARTFrame.sign = ui->lineEdit_Sign->text().at(0).toLatin1();
 
     uint8_t length_int;
 
@@ -394,30 +394,30 @@ void MainWindow::startLinearGraph()
     {
         value_double = i;
 
-        sprintf((char*)s_UARTFrame.payload, "%.1lf", value_double);
+        sprintf((char*)m_s_UARTFrame.payload, "%.1lf", value_double);
 
-        length_int = strlen((char*)s_UARTFrame.payload);
+        length_int = strlen((char*)m_s_UARTFrame.payload);
 
-        s_UARTFrame.length = length_int + '0'; // convert from int to ASCII
+        m_s_UARTFrame.length = length_int + '0'; // convert from int to ASCII
 
-        convertUARTstructToFrameTable(s_UARTFrame, UART_MessageToTransmit);
+        convertUARTstructToFrameTable(m_s_UARTFrame, UART_MessageToTransmit);
 
         qDebug("Data Frame is: %s", UART_MessageToTransmit);
 
         appendCRCtoFrame(UART_MessageToTransmit);
 
-        serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
-        serial->waitForBytesWritten(3000);
-        serial->flush();
+        m_serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
+        m_serial->waitForBytesWritten(3000);
+        m_serial->flush();
 
         Sleep(uint(7));
 
         QCoreApplication::processEvents();
 
-        if (m_StopPressed)
+        if (m_stopPressed)
         {
             qDebug("STOP PRESSED");
-            m_StopPressed = false;
+            m_stopPressed = false;
             return;
         }
     }
@@ -433,11 +433,11 @@ void MainWindow::startSineGraph()
 
     uint8_t UART_MessageToTransmit[FRAME_SIZE] = {0};
 
-    s_UARTFrame.source = '1';
-    s_UARTFrame.module = ui->comboBox_Module->currentText().at(0).toLatin1();
-    s_UARTFrame.function = '1'; //data transfer frame
-    s_UARTFrame.parameter = ui->comboBox_Parameter->currentText().at(0).toLatin1();;
-    s_UARTFrame.sign = ui->lineEdit_Sign->text().at(0).toLatin1();
+    m_s_UARTFrame.source = '1';
+    m_s_UARTFrame.module = ui->comboBox_Module->currentText().at(0).toLatin1();
+    m_s_UARTFrame.function = '1'; //data transfer frame
+    m_s_UARTFrame.parameter = ui->comboBox_Parameter->currentText().at(0).toLatin1();;
+    m_s_UARTFrame.sign = ui->lineEdit_Sign->text().at(0).toLatin1();
 
     uint8_t length_int;
 
@@ -447,30 +447,30 @@ void MainWindow::startSineGraph()
     {
         value = (sin(i*3.14159/180) * 999.0); //scale by 999
 
-        sprintf((char*)s_UARTFrame.payload, "%.2lf", value);
+        sprintf((char*)m_s_UARTFrame.payload, "%.2lf", value);
 
-        length_int = strlen((char*)s_UARTFrame.payload);
+        length_int = strlen((char*)m_s_UARTFrame.payload);
 
-        s_UARTFrame.length = length_int + '0'; // convert from int to ASCII
+        m_s_UARTFrame.length = length_int + '0'; // convert from int to ASCII
 
-        convertUARTstructToFrameTable(s_UARTFrame, UART_MessageToTransmit);
+        convertUARTstructToFrameTable(m_s_UARTFrame, UART_MessageToTransmit);
 
         qDebug("Data Frame is: %s", UART_MessageToTransmit);
 
         appendCRCtoFrame(UART_MessageToTransmit);
 
-        serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
-        serial->waitForBytesWritten(3000);
-        serial->flush();
+        m_serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
+        m_serial->waitForBytesWritten(3000);
+        m_serial->flush();
 
         Sleep(uint(7));
 
         QCoreApplication::processEvents();
 
-        if (m_StopPressed)
+        if (m_stopPressed)
         {
             qDebug("STOP PRESSED");
-            m_StopPressed = false;
+            m_stopPressed = false;
             return;
         }
     }
@@ -496,7 +496,7 @@ void MainWindow::updateGUI()
 
     for(int i = 0; i<10; i++)
     {
-        if((module1->getParameterStatesTable())[i] == true)
+        if((m_module1->getParameterStatesTable())[i] == true)
         {
             dynamic_cast<QLabel*>(*(module1ParameterStateLabelsTable + i))->setText("<font color='green'>Enabled</font>");
         }
@@ -505,7 +505,7 @@ void MainWindow::updateGUI()
             dynamic_cast<QLabel*>(*(module1ParameterStateLabelsTable + i))->setText("<font color='red'>Disabled</font>");
         }
 
-        if((module2->getParameterStatesTable())[i] == true)
+        if((m_module2->getParameterStatesTable())[i] == true)
         {
             dynamic_cast<QLabel*>(*(module2ParameterStateLabelsTable + i))->setText("<font color='green'>Enabled</font>");
         }
@@ -514,8 +514,8 @@ void MainWindow::updateGUI()
             dynamic_cast<QLabel*>(*(module2ParameterStateLabelsTable + i))->setText("<font color='red'>Disabled</font>");
         }
 
-        dynamic_cast<QLCDNumber*>(*(module1ParameterValueLabelsTable + i))->display((module1->getParameterValuesTable())[i]);
-        dynamic_cast<QLCDNumber*>(*(module2ParameterValueLabelsTable + i))->display((module2->getParameterValuesTable())[i]);
+        dynamic_cast<QLCDNumber*>(*(module1ParameterValueLabelsTable + i))->display((m_module1->getParameterValuesTable())[i]);
+        dynamic_cast<QLCDNumber*>(*(module2ParameterValueLabelsTable + i))->display((m_module2->getParameterValuesTable())[i]);
     }
 }
 
@@ -524,7 +524,7 @@ void MainWindow::serialDataReceived()
 {
     static QByteArray receivedBytes;
 
-    receivedBytes += serial->readAll();
+    receivedBytes += m_serial->readAll();
 
     if(receivedBytes.size() == FRAME_SIZE)
     {
@@ -566,5 +566,5 @@ void MainWindow::on_pushButton_StartSine_clicked()
 
 void MainWindow::on_pushButton_Stop_clicked()
 {
-    m_StopPressed = true;
+    m_stopPressed = true;
 }
