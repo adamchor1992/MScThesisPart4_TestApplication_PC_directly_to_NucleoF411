@@ -315,25 +315,55 @@ void MainWindow::openPort(QString portName)
 void MainWindow::InitConnectionModule(int module)
 {
     uint8_t UART_MessageToTransmit[FRAME_SIZE] = {0};
-    QString enteredPayload = ui->lineEdit_Payload->text();
-
-    uint8_t length_int = enteredPayload.length();
 
     m_s_UARTFrame.source = '1';
     m_s_UARTFrame.module = module + '0'; //convert int to ascii representation
     m_s_UARTFrame.function = '2';
-    m_s_UARTFrame.parameter = '1';
     m_s_UARTFrame.sign = '1';
-    m_s_UARTFrame.length = length_int + '0'; //convert int to ascii representation of the int
+
+    uint8_t length_int;
 
     ui->lineEdit_Length->setText(QString::number(length_int));
 
-    convertUARTstructToFrameTable(m_s_UARTFrame,UART_MessageToTransmit);
-    appendCRCtoFrame(UART_MessageToTransmit);
+    const char initInfoValues[5][10] = {"Samsung",
+                                        "Converter",
+                                        "SP-200",
+                                        "100Mhz",
+                                        "1.2"};
 
-    qDebug("Init Frame is: %s", UART_MessageToTransmit);
+    for(int i = 0; i < 5; i++)
+    {
+        m_s_UARTFrame.parameter = '1' + i;
 
-    m_serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
+        /*Clear payload*/
+        for(int i=0;i<10;i++)
+        {
+            m_s_UARTFrame.payload[i] = '\0';
+        }
+
+        /*Clear frame*/
+        for(int i=0;i<10;i++)
+        {
+            UART_MessageToTransmit[6+i] = '\0';
+        }
+
+        sprintf((char*)m_s_UARTFrame.payload, "%s", initInfoValues[i]);
+
+        length_int = strlen((char*)m_s_UARTFrame.payload);
+
+        m_s_UARTFrame.length = length_int + '0'; // convert from int to ASCII
+
+        convertUARTstructToFrameTable(m_s_UARTFrame, UART_MessageToTransmit);
+        appendCRCtoFrame(UART_MessageToTransmit);
+
+        qDebug("Init Frame is: %s", UART_MessageToTransmit);
+
+        m_serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
+        m_serial->waitForBytesWritten(3000);
+        m_serial->flush();
+
+        Sleep(uint(50));
+    }
 }
 
 void MainWindow::sendFrame()
