@@ -17,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
     module1 = new Module;
     module2 = new Module;
 
+    m_StopPressed = false;
+
     initPortList();
 
     connect(serial,SIGNAL(readyRead()), this, SLOT(serialDataReceived()));
@@ -407,7 +409,17 @@ void MainWindow::startLinearGraph()
         serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
         serial->waitForBytesWritten(3000);
         serial->flush();
-        Sleep(uint(20));
+
+        Sleep(uint(7));
+
+        QCoreApplication::processEvents();
+
+        if (m_StopPressed)
+        {
+            qDebug("STOP PRESSED");
+            m_StopPressed = false;
+            return;
+        }
     }
 }
 
@@ -450,7 +462,17 @@ void MainWindow::startSineGraph()
         serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
         serial->waitForBytesWritten(3000);
         serial->flush();
+
         Sleep(uint(7));
+
+        QCoreApplication::processEvents();
+
+        if (m_StopPressed)
+        {
+            qDebug("STOP PRESSED");
+            m_StopPressed = false;
+            return;
+        }
     }
 }
 
@@ -540,4 +562,9 @@ void MainWindow::on_pushButton_StartLinear_clicked()
 void MainWindow::on_pushButton_StartSine_clicked()
 {
     startSineGraph();
+}
+
+void MainWindow::on_pushButton_Stop_clicked()
+{
+    m_StopPressed = true;
 }

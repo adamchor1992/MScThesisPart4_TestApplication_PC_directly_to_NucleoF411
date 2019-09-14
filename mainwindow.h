@@ -38,6 +38,8 @@ private slots:
 
     void serialDataReceived();
 
+    void on_pushButton_Stop_clicked();
+
 private:
     Ui::MainWindow *ui;
     QSerialPort* serial;
@@ -45,6 +47,8 @@ private:
     Module* module2;
 
     UARTFrameStruct_t s_UARTFrame;
+
+    bool m_StopPressed;
 };
 
 #endif // MAINWINDOW_H
