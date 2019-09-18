@@ -32,6 +32,7 @@ SOURCES += \
 
 HEADERS += \
         crc32.h \
+        defines.h \
         mainwindow.h \
         module.h \
         uart_frame_struct.h \

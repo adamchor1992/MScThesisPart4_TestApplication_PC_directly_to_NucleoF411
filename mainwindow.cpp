@@ -1,11 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QSerialPortInfo>
-
 #include "utilities.h"
-
-
-#define FRAME_SIZE 20
+#include "defines.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -44,12 +41,12 @@ void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
 
     Module* currentModule = nullptr;
 
-    if(m_s_UARTFrame.module == '1')
+    if(m_s_UARTFrame.module == MODULE1)
     {
         qDebug() << "Module 1";
         currentModule = m_module1;
     }
-    else if(m_s_UARTFrame.module == '2')
+    else if(m_s_UARTFrame.module == MODULE2)
     {
         qDebug() << "Module 2";
         currentModule = m_module2;
@@ -62,52 +59,52 @@ void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
 
     switch(m_s_UARTFrame.function)
     {
-    case '1':
+    case DATA_FRAME:
         qDebug() << "Data transfer frame";
         break;
 
-    case '4':
+    case ENABLE_PARAMETER_FRAME:
         qDebug() << "Enable parameter";
 
         switch(m_s_UARTFrame.parameter)
         {
-        case '1':
+        case PARAMETER1:
             qDebug() << "Parameter 1";
             currentModule->enableParameter(0);
             break;
-        case '2':
+        case PARAMETER2:
             qDebug() << "Parameter 2";
             currentModule->enableParameter(1);
             break;
-        case '3':
+        case PARAMETER3:
             qDebug() << "Parameter 3";
             currentModule->enableParameter(2);
             break;
-        case '4':
+        case PARAMETER4:
             qDebug() << "Parameter 4";
             currentModule->enableParameter(3);
             break;
-        case '5':
+        case PARAMETER5:
             qDebug() << "Parameter 5";
             currentModule->enableParameter(4);
             break;
-        case '6':
+        case PARAMETER6:
             qDebug() << "Parameter 6";
             currentModule->enableParameter(5);
             break;
-        case '7':
+        case PARAMETER7:
             qDebug() << "Parameter 7";
             currentModule->enableParameter(6);
             break;
-        case '8':
+        case PARAMETER8:
             qDebug() << "Parameter 8";
             currentModule->enableParameter(7);
             break;
-        case '9':
+        case PARAMETER9:
             qDebug() << "Parameter 9";
             currentModule->enableParameter(8);
             break;
-        case 'a':
+        case PARAMETER10:
             qDebug() << "Parameter 10";
             currentModule->enableParameter(9);
             break;
@@ -119,48 +116,48 @@ void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
         updateGUI();
         break;
 
-    case '5':
+    case DISABLE_PARAMETER_FRAME:
         qDebug() << "Disable parameter";
 
         switch(m_s_UARTFrame.parameter)
         {
-        case '1':
+        case PARAMETER1:
             qDebug() << "Parameter 1";
             currentModule->disableParameter(0);
             break;
-        case '2':
+        case PARAMETER2:
             qDebug() << "Parameter 2";
             currentModule->disableParameter(1);
             break;
-        case '3':
+        case PARAMETER3:
             qDebug() << "Parameter 3";
             currentModule->disableParameter(2);
             break;
-        case '4':
+        case PARAMETER4:
             qDebug() << "Parameter 4";
             currentModule->disableParameter(3);
             break;
-        case '5':
+        case PARAMETER5:
             qDebug() << "Parameter 5";
             currentModule->disableParameter(4);
             break;
-        case '6':
+        case PARAMETER6:
             qDebug() << "Parameter 6";
             currentModule->disableParameter(5);
             break;
-        case '7':
+        case PARAMETER7:
             qDebug() << "Parameter 7";
             currentModule->disableParameter(6);
             break;
-        case '8':
+        case PARAMETER8:
             qDebug() << "Parameter 8";
             currentModule->disableParameter(7);
             break;
-        case '9':
+        case PARAMETER9:
             qDebug() << "Parameter 9";
             currentModule->disableParameter(8);
             break;
-        case 'a':
+        case PARAMETER10:
             qDebug() << "Parameter 10";
             currentModule->disableParameter(9);
             break;
@@ -172,59 +169,59 @@ void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
         updateGUI();
         break;
 
-    case '6':
+    case SET_PARAMETER_FRAME:
         qDebug() << "Set parameter";
 
         value_double = std::stof((char*)(m_s_UARTFrame.payload));
 
         switch(m_s_UARTFrame.parameter)
         {
-        case '1':
+        case PARAMETER1:
             qDebug() << "Parameter 1";
             qDebug() << "Value: " << m_s_UARTFrame.payload;
             currentModule->setParameter(0,value_double);
             break;
-        case '2':
+        case PARAMETER2:
             qDebug() << "Parameter 2";
             qDebug() << "Value: " << m_s_UARTFrame.payload;
             currentModule->setParameter(1,value_double);
             break;
-        case '3':
+        case PARAMETER3:
             qDebug() << "Parameter 3";
             qDebug() << "Value: " << m_s_UARTFrame.payload;
             currentModule->setParameter(2,value_double);
             break;
-        case '4':
+        case PARAMETER4:
             qDebug() << "Parameter 4";
             qDebug() << "Value: " << m_s_UARTFrame.payload;
             currentModule->setParameter(3,value_double);
             break;
-        case '5':
+        case PARAMETER5:
             qDebug() << "Parameter 5";
             qDebug() << "Value: " << m_s_UARTFrame.payload;
             currentModule->setParameter(4,value_double);
             break;
-        case '6':
+        case PARAMETER6:
             qDebug() << "Parameter 6";
             qDebug() << "Value: " << m_s_UARTFrame.payload;
             currentModule->setParameter(5,value_double);
             break;
-        case '7':
+        case PARAMETER7:
             qDebug() << "Parameter 7";
             qDebug() << "Value: " << m_s_UARTFrame.payload;
             currentModule->setParameter(6,value_double);
             break;
-        case '8':
+        case PARAMETER8:
             qDebug() << "Parameter 8";
             qDebug() << "Value: " << m_s_UARTFrame.payload;
             currentModule->setParameter(7,value_double);
             break;
-        case '9':
+        case PARAMETER9:
             qDebug() << "Parameter 9";
             qDebug() << "Value: " << m_s_UARTFrame.payload;
             currentModule->setParameter(8,value_double);
             break;
-        case 'a':
+        case PARAMETER10:
             qDebug() << "Parameter 10";
             qDebug() << "Value: " << m_s_UARTFrame.payload;
             currentModule->setParameter(9,value_double);
@@ -316,20 +313,20 @@ void MainWindow::InitConnectionModule(int module)
 {
     uint8_t UART_MessageToTransmit[FRAME_SIZE] = {0};
 
-    m_s_UARTFrame.source = '1';
+    m_s_UARTFrame.source = SOURCE_TARGET1;
     m_s_UARTFrame.module = module + '0'; //convert int to ascii representation
-    m_s_UARTFrame.function = '2';
-    m_s_UARTFrame.sign = '1';
+    m_s_UARTFrame.function = INIT_FRAME;
+    m_s_UARTFrame.sign = POSITIVE_SIGN;
 
-    uint8_t length_int;
-
-    ui->lineEdit_Length->setText(QString::number(length_int));
+    ui->lineEdit_Length->setText("N/A - Init frame");
 
     const char initInfoValues[5][10] = {"Samsung",
                                         "Converter",
                                         "SP-200",
                                         "100Mhz",
                                         "1.2"};
+
+    uint8_t length_int;
 
     for(int i = 0; i < 5; i++)
     {
@@ -366,15 +363,25 @@ void MainWindow::InitConnectionModule(int module)
     }
 }
 
-void MainWindow::sendFrame()
+void MainWindow::sendCustomDataFrame()
 {
     uint8_t UART_MessageToTransmit[FRAME_SIZE] = {0};
 
-    m_s_UARTFrame.source = '1';
+    m_s_UARTFrame.source = SOURCE_TARGET1;
     m_s_UARTFrame.module = ui->comboBox_Module->currentText().at(0).toLatin1();
-    m_s_UARTFrame.function = '1';
-    m_s_UARTFrame.parameter = ui->comboBox_Parameter->currentText().at(0).toLatin1();;
-    m_s_UARTFrame.sign = ui->lineEdit_Sign->text().at(0).toLatin1();
+    m_s_UARTFrame.function = DATA_FRAME;
+    m_s_UARTFrame.parameter = ui->comboBox_Parameter->currentText().at(0).toLatin1();
+
+    if(ui->lineEdit_Payload->text().at(0).toLatin1() == '-')
+    {
+        ui->lineEdit_Sign->setText("2");
+        m_s_UARTFrame.sign = NEGATIVE_SIGN;
+    }
+    else
+    {
+        ui->lineEdit_Sign->setText("1");
+        m_s_UARTFrame.sign = POSITIVE_SIGN;
+    }
 
     QString enteredPayload = ui->lineEdit_Payload->text();
 
@@ -397,7 +404,7 @@ void MainWindow::sendFrame()
     m_serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
 }
 
-void MainWindow::startLinearGraph()
+void MainWindow::startLinearGraph(int signalCount)
 {
     QString strStartValue = ui->lineEdit_StartValue->text();
     QString strStopValue = ui->lineEdit_StopValue->text();
@@ -408,52 +415,15 @@ void MainWindow::startLinearGraph()
     if(startValue > stopValue)
         return;
 
-    uint8_t UART_MessageToTransmit[FRAME_SIZE] = {0};
-
-    m_s_UARTFrame.source = '1';
+    m_s_UARTFrame.source = SOURCE_TARGET1;
     m_s_UARTFrame.module = ui->comboBox_Module->currentText().at(0).toLatin1();
-    m_s_UARTFrame.function = '1'; //data transfer frame
-    m_s_UARTFrame.parameter = ui->comboBox_Parameter->currentText().at(0).toLatin1();;
+    m_s_UARTFrame.function = DATA_FRAME;
     m_s_UARTFrame.sign = ui->lineEdit_Sign->text().at(0).toLatin1();
 
-    uint8_t length_int;
-
-    double value_double;
-
-    for(int i = startValue; i < stopValue; i++)
-    {
-        value_double = i;
-
-        sprintf((char*)m_s_UARTFrame.payload, "%.1lf", value_double);
-
-        length_int = strlen((char*)m_s_UARTFrame.payload);
-
-        m_s_UARTFrame.length = length_int + '0'; // convert from int to ASCII
-
-        convertUARTstructToFrameTable(m_s_UARTFrame, UART_MessageToTransmit);
-
-        qDebug("Data Frame is: %s", UART_MessageToTransmit);
-
-        appendCRCtoFrame(UART_MessageToTransmit);
-
-        m_serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
-        m_serial->waitForBytesWritten(3000);
-        m_serial->flush();
-
-        Sleep(uint(7));
-
-        QCoreApplication::processEvents();
-
-        if (m_stopPressed)
-        {
-            qDebug("STOP PRESSED");
-            m_stopPressed = false;
-            return;
-        }
-    }
+    sendLinear(startValue, stopValue, signalCount);
 }
 
-void MainWindow::startSineGraph()
+void MainWindow::startSineGraph(int signalCount)
 {
     QString strStartValue = ui->lineEdit_StartValue->text();
     QString strStopValue = ui->lineEdit_StopValue->text();
@@ -461,47 +431,129 @@ void MainWindow::startSineGraph()
     int startValue = strStartValue.toInt();
     int stopValue = strStopValue.toInt();
 
-    uint8_t UART_MessageToTransmit[FRAME_SIZE] = {0};
+    if(startValue > stopValue)
+        return;
 
-    m_s_UARTFrame.source = '1';
+    m_s_UARTFrame.source = SOURCE_TARGET1;
     m_s_UARTFrame.module = ui->comboBox_Module->currentText().at(0).toLatin1();
-    m_s_UARTFrame.function = '1'; //data transfer frame
-    m_s_UARTFrame.parameter = ui->comboBox_Parameter->currentText().at(0).toLatin1();;
+    m_s_UARTFrame.function = DATA_FRAME;
     m_s_UARTFrame.sign = ui->lineEdit_Sign->text().at(0).toLatin1();
 
-    uint8_t length_int;
+    sendSine(startValue, stopValue, signalCount);
+}
 
+void MainWindow::sendLinear(int startValue, int stopValue, int signalCount)
+{
+    uint8_t UART_MessageToTransmit[FRAME_SIZE] = {0};
+    uint8_t length_int;
     double value;
+    uint8_t parameters[4] = {VOLTAGE_PARAMETER, CURRENT_PARAMETER, FREQUENCY_PARAMETER, POWER_PARAMETER};
 
     for(int i = startValue; i < stopValue; i++)
     {
-        value = (sin(i*3.14159/180) * 999.0); //scale by 999
-
-        sprintf((char*)m_s_UARTFrame.payload, "%.2lf", value);
-
-        length_int = strlen((char*)m_s_UARTFrame.payload);
-
-        m_s_UARTFrame.length = length_int + '0'; // convert from int to ASCII
-
-        convertUARTstructToFrameTable(m_s_UARTFrame, UART_MessageToTransmit);
-
-        qDebug("Data Frame is: %s", UART_MessageToTransmit);
-
-        appendCRCtoFrame(UART_MessageToTransmit);
-
-        m_serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
-        m_serial->waitForBytesWritten(3000);
-        m_serial->flush();
-
-        Sleep(uint(7));
-
-        QCoreApplication::processEvents();
-
-        if (m_stopPressed)
+        for(int j=0; j < signalCount;j++)
         {
-            qDebug("STOP PRESSED");
-            m_stopPressed = false;
-            return;
+            m_s_UARTFrame.parameter = parameters[j]; // send with one of 4 parameters
+
+            value = i;
+
+            /*Change parameter values so that graph lines do not overlap each other*/
+            switch(j)
+            {
+            case 1:
+                value = value * 0.75;
+                break;
+            case 2:
+                value = value * 0.5;
+                break;
+            case 3:
+                value = value * 0.25;
+                break;
+            }
+
+            sprintf((char*)m_s_UARTFrame.payload, "%.1lf", value);
+
+            length_int = strlen((char*)m_s_UARTFrame.payload);
+
+            m_s_UARTFrame.length = length_int + '0'; // convert from int to ASCII
+
+            convertUARTstructToFrameTable(m_s_UARTFrame, UART_MessageToTransmit);
+            appendCRCtoFrame(UART_MessageToTransmit);
+
+            qDebug("Data Frame is: %s", UART_MessageToTransmit);
+
+            m_serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
+            m_serial->waitForBytesWritten(3000);
+            m_serial->flush();
+
+            Sleep(uint(6));
+
+            QCoreApplication::processEvents();
+
+            if (m_stopPressed)
+            {
+                qDebug("STOP PRESSED");
+                m_stopPressed = false;
+                return;
+            }
+        }
+    }
+}
+
+void MainWindow::sendSine(int startValue, int stopValue, int signalCount)
+{
+    uint8_t UART_MessageToTransmit[FRAME_SIZE] = {0};
+    uint8_t length_int;
+    double value;
+    uint8_t parameters[4] = {VOLTAGE_PARAMETER, CURRENT_PARAMETER, FREQUENCY_PARAMETER, POWER_PARAMETER};
+
+    for(int i = startValue; i < stopValue; i++)
+    {
+        for(int j=0; j < signalCount;j++)
+        {
+            m_s_UARTFrame.parameter = parameters[j]; // send with one of 4 parameters
+
+            value = (sin(i*3.14159/180) * 999.0); //scale by 999
+
+            /*Change parameter values so that graph lines do not overlap each other*/
+            switch(j)
+            {
+            case 1:
+                value = value * 0.75;
+                break;
+            case 2:
+                value = value * 0.5;
+                break;
+            case 3:
+                value = value * 0.25;
+                break;
+            }
+
+            sprintf((char*)m_s_UARTFrame.payload, "%.1lf", value);
+
+            length_int = strlen((char*)m_s_UARTFrame.payload);
+
+            m_s_UARTFrame.length = length_int + '0'; // convert from int to ASCII
+
+            convertUARTstructToFrameTable(m_s_UARTFrame, UART_MessageToTransmit);
+            appendCRCtoFrame(UART_MessageToTransmit);
+
+            qDebug("Data Frame is: %s", UART_MessageToTransmit);
+
+            m_serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
+            m_serial->waitForBytesWritten(3000);
+            m_serial->flush();
+
+            Sleep(uint(6));
+
+            QCoreApplication::processEvents();
+
+            if (m_stopPressed)
+            {
+                qDebug("STOP PRESSED");
+                m_stopPressed = false;
+                return;
+            }
         }
     }
 }
@@ -571,7 +623,7 @@ void MainWindow::on_pushButton_Open_clicked()
 
 void MainWindow::on_pushButton_Send_pressed()
 {
-    sendFrame();
+    sendCustomDataFrame();
 }
 
 void MainWindow::on_pushButton_InitConnectionModule1_clicked()
@@ -584,17 +636,52 @@ void MainWindow::on_pushButton_InitConnectionModule2_clicked()
     InitConnectionModule(2);
 }
 
-void MainWindow::on_pushButton_StartLinear_clicked()
+void MainWindow::on_pushButton_StartLinear_1signal_clicked()
 {
-    startLinearGraph();
+    startLinearGraph(1);
 }
 
-void MainWindow::on_pushButton_StartSine_clicked()
+void MainWindow::on_pushButton_StartLinear_2signals_clicked()
+{ 
+    startLinearGraph(2);
+}
+
+void MainWindow::on_pushButton_StartLinear_3signals_clicked()
 {
-    startSineGraph();
+    startLinearGraph(3);
+}
+
+void MainWindow::on_pushButton_StartLinear_4signals_clicked()
+{
+    startLinearGraph(4);
+}
+
+void MainWindow::on_pushButton_StartSine_1signal_clicked()
+{
+    startSineGraph(1);
+}
+
+void MainWindow::on_pushButton_StartSine_2signals_clicked()
+{
+    startSineGraph(2);
+}
+
+void MainWindow::on_pushButton_StartSine_3signals_clicked()
+{
+    startSineGraph(3);
+}
+
+void MainWindow::on_pushButton_StartSine_4signals_clicked()
+{
+    startSineGraph(4);
 }
 
 void MainWindow::on_pushButton_Stop_clicked()
 {
     m_stopPressed = true;
+}
+
+void MainWindow::on_pushButton_SimulateParametersSequence_clicked()
+{
+    startSineGraph(4);
 }

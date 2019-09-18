@@ -36,7 +36,7 @@
       <x>11</x>
       <y>11</y>
       <width>686</width>
-      <height>674</height>
+      <height>695</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -214,17 +214,13 @@
               </widget>
              </item>
              <item>
-              <widget class="QComboBox" name="comboBox_Type">
-               <item>
-                <property name="text">
-                 <string>1</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>2</string>
-                </property>
-               </item>
+              <widget class="QLineEdit" name="lineEdit_Type">
+               <property name="text">
+                <string>1</string>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
               </widget>
              </item>
              <item>
@@ -306,6 +302,9 @@
                <property name="text">
                 <string>1</string>
                </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
               </widget>
              </item>
              <item>
@@ -318,7 +317,7 @@
              <item>
               <widget class="QLineEdit" name="lineEdit_Payload">
                <property name="text">
-                <string>123</string>
+                <string>123.456</string>
                </property>
                <property name="maxLength">
                 <number>10</number>
@@ -336,6 +335,16 @@
            </property>
            <property name="text">
             <string>Send</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_SimulateParametersSequence">
+           <property name="styleSheet">
+            <string notr="true">color: blue</string>
+           </property>
+           <property name="text">
+            <string>Simulate parameters sequence</string>
            </property>
           </widget>
          </item>
@@ -13364,17 +13373,44 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>780</x>
-      <y>60</y>
-      <width>174</width>
-      <height>24</height>
+      <x>740</x>
+      <y>50</y>
+      <width>251</width>
+      <height>216</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="StartValue">
-     <property name="leftMargin">
-      <number>0</number>
-     </property>
-     <item>
+    <layout class="QGridLayout" name="startButtons">
+     <item row="5" column="1">
+      <widget class="QPushButton" name="pushButton_StartSine_3signals">
+       <property name="styleSheet">
+        <string notr="true">color: blue</string>
+       </property>
+       <property name="text">
+        <string>Start Sine 3 signals</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QPushButton" name="pushButton_StartLinear_3signals">
+       <property name="styleSheet">
+        <string notr="true">color: blue</string>
+       </property>
+       <property name="text">
+        <string>Start Linear 3 signals</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0" colspan="2">
+      <widget class="QPushButton" name="pushButton_Stop">
+       <property name="styleSheet">
+        <string notr="true">color:red</string>
+       </property>
+       <property name="text">
+        <string>STOP</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
       <widget class="QLabel" name="label_StartValue">
        <property name="text">
         <string>Start</string>
@@ -13384,7 +13420,17 @@
        </property>
       </widget>
      </item>
-     <item>
+     <item row="3" column="0">
+      <widget class="QPushButton" name="pushButton_StartLinear_1signal">
+       <property name="styleSheet">
+        <string notr="true">color: blue</string>
+       </property>
+       <property name="text">
+        <string>Start Linear 1 signal</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
       <widget class="QLineEdit" name="lineEdit_StartValue">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -13393,26 +13439,74 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>1</string>
+        <string>0</string>
        </property>
        <property name="readOnly">
         <bool>false</bool>
        </property>
       </widget>
      </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>780</x>
-      <y>90</y>
-      <width>172</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="StopValue">
-     <item>
+     <item row="4" column="1">
+      <widget class="QPushButton" name="pushButton_StartSine_2signals">
+       <property name="styleSheet">
+        <string notr="true">color: blue</string>
+       </property>
+       <property name="text">
+        <string>Start Sine 2 signals</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QPushButton" name="pushButton_StartLinear_2signals">
+       <property name="styleSheet">
+        <string notr="true">color: blue</string>
+       </property>
+       <property name="text">
+        <string>Start Linear 2 signals</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="lineEdit_StopValue">
+       <property name="text">
+        <string>720</string>
+       </property>
+       <property name="readOnly">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="QPushButton" name="pushButton_StartSine_4signals">
+       <property name="styleSheet">
+        <string notr="true">color: blue</string>
+       </property>
+       <property name="text">
+        <string>Start Sine 4 signals</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QPushButton" name="pushButton_StartSine_1signal">
+       <property name="styleSheet">
+        <string notr="true">color: blue</string>
+       </property>
+       <property name="text">
+        <string>Start Sine 1 signal</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QPushButton" name="pushButton_StartLinear_4signals">
+       <property name="styleSheet">
+        <string notr="true">color: blue</string>
+       </property>
+       <property name="text">
+        <string>Start Linear 4 signals</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
       <widget class="QLabel" name="label_StopValue">
        <property name="text">
         <string>Stop</string>
@@ -13422,62 +13516,7 @@
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QLineEdit" name="lineEdit_StopValue">
-       <property name="text">
-        <string>360</string>
-       </property>
-       <property name="readOnly">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
     </layout>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>770</x>
-      <y>140</y>
-      <width>195</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="StartButtons">
-     <item>
-      <widget class="QPushButton" name="pushButton_StartLinear">
-       <property name="styleSheet">
-        <string notr="true">color: blue</string>
-       </property>
-       <property name="text">
-        <string>Start Linear</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_StartSine">
-       <property name="styleSheet">
-        <string notr="true">color: blue</string>
-       </property>
-       <property name="text">
-        <string>Start Sine</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QPushButton" name="pushButton_Stop">
-    <property name="geometry">
-     <rect>
-      <x>830</x>
-      <y>180</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>STOP</string>
-    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
