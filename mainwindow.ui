@@ -227,7 +227,7 @@
               <widget class="QComboBox" name="comboBox_Parameter">
                <item>
                 <property name="text">
-                 <string>b=Voltage</string>
+                 <string>v=Voltage</string>
                 </property>
                </item>
                <item>
@@ -237,12 +237,12 @@
                </item>
                <item>
                 <property name="text">
-                 <string>d=Frequency</string>
+                 <string>f=Frequency</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>e=Power</string>
+                 <string>p=Power</string>
                 </property>
                </item>
                <item>
@@ -13376,7 +13376,7 @@
       <x>740</x>
       <y>50</y>
       <width>251</width>
-      <height>216</height>
+      <height>219</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="startButtons">
@@ -13513,6 +13513,32 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_Multiplier">
+       <property name="text">
+        <string>Multiplier</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="lineEdit_Multiplier">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>1</string>
+       </property>
+       <property name="readOnly">
+        <bool>false</bool>
        </property>
       </widget>
      </item>

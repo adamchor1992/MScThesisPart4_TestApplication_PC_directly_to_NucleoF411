@@ -372,18 +372,21 @@ void MainWindow::sendCustomDataFrame()
     m_s_UARTFrame.function = DATA_FRAME;
     m_s_UARTFrame.parameter = ui->comboBox_Parameter->currentText().at(0).toLatin1();
 
-    if(ui->lineEdit_Payload->text().at(0).toLatin1() == '-')
+    QString enteredPayload = ui->lineEdit_Payload->text();
+
+    if(enteredPayload.at(0).toLatin1() == '-')
     {
         ui->lineEdit_Sign->setText("2");
         m_s_UARTFrame.sign = NEGATIVE_SIGN;
+
+        /*Remove minus sign*/
+        enteredPayload.remove(0,1);
     }
     else
     {
         ui->lineEdit_Sign->setText("1");
         m_s_UARTFrame.sign = POSITIVE_SIGN;
     }
-
-    QString enteredPayload = ui->lineEdit_Payload->text();
 
     uint8_t length_int = enteredPayload.length();
 
@@ -449,13 +452,26 @@ void MainWindow::sendLinear(int startValue, int stopValue, int signalCount)
     double value;
     uint8_t parameters[4] = {VOLTAGE_PARAMETER, CURRENT_PARAMETER, FREQUENCY_PARAMETER, POWER_PARAMETER};
 
+    double multiplier = (ui->lineEdit_Multiplier->text()).toDouble();
+
     for(int i = startValue; i < stopValue; i++)
     {
         for(int j=0; j < signalCount;j++)
         {
             m_s_UARTFrame.parameter = parameters[j]; // send with one of 4 parameters
 
-            value = i;
+            value = multiplier * i;
+
+            if(value < 0)
+            {
+                /*Change value sign back to positive and mark it as negative in UART frame*/
+                value = value * (-1);
+                m_s_UARTFrame.sign = NEGATIVE_SIGN;
+            }
+            else
+            {
+                m_s_UARTFrame.sign = POSITIVE_SIGN;
+            }
 
             /*Change parameter values so that graph lines do not overlap each other*/
             switch(j)
@@ -486,7 +502,7 @@ void MainWindow::sendLinear(int startValue, int stopValue, int signalCount)
             m_serial->waitForBytesWritten(3000);
             m_serial->flush();
 
-            Sleep(uint(6));
+            Sleep(uint(20));
 
             QCoreApplication::processEvents();
 
@@ -507,13 +523,26 @@ void MainWindow::sendSine(int startValue, int stopValue, int signalCount)
     double value;
     uint8_t parameters[4] = {VOLTAGE_PARAMETER, CURRENT_PARAMETER, FREQUENCY_PARAMETER, POWER_PARAMETER};
 
+    double multiplier = (ui->lineEdit_Multiplier->text()).toDouble();
+
     for(int i = startValue; i < stopValue; i++)
     {
         for(int j=0; j < signalCount;j++)
         {
             m_s_UARTFrame.parameter = parameters[j]; // send with one of 4 parameters
 
-            value = (sin(i*3.14159/180) * 999.0); //scale by 999
+            value = multiplier * (sin(i*3.14159/180) * 999.0); //scale by 999
+
+            if(value < 0)
+            {
+                /*Change value sign back to positive and mark it as negative in UART frame*/
+                value = value * (-1);
+                m_s_UARTFrame.sign = NEGATIVE_SIGN;
+            }
+            else
+            {
+                m_s_UARTFrame.sign = POSITIVE_SIGN;
+            }
 
             /*Change parameter values so that graph lines do not overlap each other*/
             switch(j)
@@ -544,7 +573,7 @@ void MainWindow::sendSine(int startValue, int stopValue, int signalCount)
             m_serial->waitForBytesWritten(3000);
             m_serial->flush();
 
-            Sleep(uint(6));
+            Sleep(uint(20));
 
             QCoreApplication::processEvents();
 
