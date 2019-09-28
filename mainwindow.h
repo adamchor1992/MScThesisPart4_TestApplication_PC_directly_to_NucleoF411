@@ -22,9 +22,10 @@ public:
     void initPortList();
     void fullFrameReceived(QByteArray & receivedBytes);
     void updateGUI();
-    void InitConnectionModule(int module);
+    void initConnectionModule(int module);
     void openPort(QString portName);
     void closePort(QString portName);
+    void initModuleParametersList();
     void sendCustomDataFrame();
     void startLinearGraph(int signalCount);
     void startSineGraph(int signalCount);

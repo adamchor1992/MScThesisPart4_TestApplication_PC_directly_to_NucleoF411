@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>976</width>
-    <height>815</height>
+    <height>885</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -273,26 +273,6 @@
         <widget class="QComboBox" name="comboBox_Parameter">
          <item>
           <property name="text">
-           <string>v=Voltage</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>c=Current</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>f=Frequency</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>p=Power</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
            <string>1</string>
           </property>
          </item>
@@ -361,7 +341,7 @@
        <item row="0" column="0">
         <widget class="QLabel" name="label_StartValue">
          <property name="text">
-          <string>Start</string>
+          <string>Start x</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -387,7 +367,7 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label_StopValue">
          <property name="text">
-          <string>Stop</string>
+          <string>Stop x</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -546,7 +526,11 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="lineEdit_Vendor"/>
+        <widget class="QLineEdit" name="lineEdit_Vendor">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
        <item row="9" column="1">
         <widget class="QPushButton" name="pushButton_InitConnectionModule2">
@@ -559,10 +543,18 @@
         </widget>
        </item>
        <item row="6" column="1">
-        <widget class="QLineEdit" name="lineEdit_Parameter2Name"/>
+        <widget class="QLineEdit" name="lineEdit_Parameter2Name">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QLineEdit" name="lineEdit_Model"/>
+        <widget class="QLineEdit" name="lineEdit_Model">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_Type_2">
@@ -575,7 +567,11 @@
         </widget>
        </item>
        <item row="3" column="1">
-        <widget class="QLineEdit" name="lineEdit_Speed"/>
+        <widget class="QLineEdit" name="lineEdit_Speed">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
        <item row="7" column="0">
         <widget class="QLabel" name="label_Parameter1Name_3">
@@ -588,7 +584,11 @@
         </widget>
        </item>
        <item row="7" column="1">
-        <widget class="QLineEdit" name="lineEdit_Parameter3Name"/>
+        <widget class="QLineEdit" name="lineEdit_Parameter3Name">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
        <item row="4" column="0">
         <widget class="QLabel" name="label_Version">
@@ -651,7 +651,11 @@
         </widget>
        </item>
        <item row="5" column="1">
-        <widget class="QLineEdit" name="lineEdit_Parameter1Name"/>
+        <widget class="QLineEdit" name="lineEdit_Parameter1Name">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
        <item row="9" column="0">
         <widget class="QPushButton" name="pushButton_InitConnectionModule1">
@@ -664,10 +668,18 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLineEdit" name="lineEdit_ModuleType"/>
+        <widget class="QLineEdit" name="lineEdit_ModuleType">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
        <item row="4" column="1">
-        <widget class="QLineEdit" name="lineEdit_Version"/>
+        <widget class="QLineEdit" name="lineEdit_Version">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
        <item row="10" column="0">
         <widget class="QPushButton" name="pushButton_DeinitConnectionModule1">
@@ -690,7 +702,11 @@
         </widget>
        </item>
        <item row="8" column="1">
-        <widget class="QLineEdit" name="lineEdit_Parameter4Name"/>
+        <widget class="QLineEdit" name="lineEdit_Parameter4Name">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

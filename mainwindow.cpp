@@ -3,6 +3,9 @@
 #include <QSerialPortInfo>
 #include "utilities.h"
 #include "defines.h"
+#include <fstream>
+#include <string>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -309,8 +312,10 @@ void MainWindow::openPort(QString portName)
 
     if(m_serial->open(QIODevice::ReadWrite))
     {
-        qDebug("Opened successfully");
+        qDebug("Port opened successfully");
         ui->label_ShowStatus->setText("<font color='green'>Open</font>");
+
+        initModuleParametersList();
 
         ui->groupBox_ModuleControls->setEnabled(true);
         ui->groupBox_CustomFrameControls ->setEnabled(true);
@@ -336,7 +341,7 @@ void MainWindow::closePort(QString portName)
         /*Ensure port was closed*/
         if(m_serial->isOpen() == false)
         {
-            qDebug("Closed successfully");
+            qDebug("Port closed successfully");
             ui->label_ShowStatus->setText("<font color='red'>Close</font>");
 
             ui->groupBox_ModuleControls->setEnabled(false);
@@ -357,7 +362,48 @@ void MainWindow::closePort(QString portName)
     }
 }
 
-void MainWindow::InitConnectionModule(int module)
+void MainWindow::initModuleParametersList()
+{
+    std::ifstream inputFile;
+
+    inputFile.open("parameters.txt", std::ios_base::in);
+
+    if(inputFile.is_open())
+    {
+        qDebug("parameters.txt opened successfully");
+
+        std::string inputBuffer;
+
+        /*Initialize module info from file*/
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_Vendor->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_ModuleType->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_Model->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_Speed->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_Version->setText(QString::fromStdString(inputBuffer));
+
+        /*Initialize parameter names from file*/
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_Parameter1Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_Parameter2Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_Parameter3Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_Parameter4Name->setText(QString::fromStdString(inputBuffer));
+    }
+    else
+    {
+        qDebug("Could not open parameters.txt");
+        assert(false);
+    }
+}
+
+void MainWindow::initConnectionModule(int module)
 {
     uint8_t UART_MessageToTransmit[FRAME_SIZE] = {0};
 
@@ -368,15 +414,30 @@ void MainWindow::InitConnectionModule(int module)
 
     ui->lineEdit_Length->setText("N/A - Init frame");
 
-    const char initInfoValues[5][10] = {"Samsung",
-                                        "Converter",
-                                        "SP-200",
-                                        "100Mhz",
-                                        "1.2"};
+    /*5 Module info values and names of 4 parameters*/
+    QString initInfoValues[MODULE_INIT_INFO_VALUE_COUNT] = {ui->lineEdit_Vendor->text(),
+                                                            ui->lineEdit_ModuleType->text(),
+                                                            ui->lineEdit_Model->text(),
+                                                            ui->lineEdit_Speed->text(),
+                                                            ui->lineEdit_Version->text(),
+                                                            ui->lineEdit_Parameter1Name->text(),
+                                                            ui->lineEdit_Parameter2Name->text(),
+                                                            ui->lineEdit_Parameter3Name->text(),
+                                                            ui->lineEdit_Parameter4Name->text()};
+
+    for(auto value : initInfoValues)
+    {
+        if(value.size() > 10)
+        {
+            QMessageBox::warning(this, "Warning", "Module initialization parameter value is too long,"
+                                                  " maximum allowed length is 10. Aborting module initialization");
+            return;
+        }
+    }
 
     uint8_t length_int;
 
-    for(int i = 0; i < 5; i++)
+    for(int i = 0; i < MODULE_INIT_INFO_VALUE_COUNT; i++)
     {
         m_s_UARTFrame.parameter = '1' + i;
 
@@ -392,7 +453,7 @@ void MainWindow::InitConnectionModule(int module)
             UART_MessageToTransmit[6+i] = '\0';
         }
 
-        sprintf((char*)m_s_UARTFrame.payload, "%s", initInfoValues[i]);
+        sprintf((char*)m_s_UARTFrame.payload, "%s", initInfoValues[i].toStdString().c_str());
 
         length_int = strlen((char*)m_s_UARTFrame.payload);
 
@@ -466,7 +527,10 @@ void MainWindow::startLinearGraph(int signalCount)
     int stopValue = strStopValue.toInt();
 
     if(startValue > stopValue)
+    {
+        QMessageBox::warning(this, "Warning", "Start values is higher than stop value, aborting");
         return;
+    }
 
     m_s_UARTFrame.source = SOURCE_TARGET1;
     m_s_UARTFrame.module = ui->comboBox_Module->currentText().at(0).toLatin1();
@@ -485,7 +549,10 @@ void MainWindow::startSineGraph(int signalCount)
     int stopValue = strStopValue.toInt();
 
     if(startValue > stopValue)
+    {
+        QMessageBox::warning(this, "Warning", "Start values is higher than stop value, aborting");
         return;
+    }
 
     m_s_UARTFrame.source = SOURCE_TARGET1;
     m_s_UARTFrame.module = ui->comboBox_Module->currentText().at(0).toLatin1();
@@ -504,13 +571,13 @@ void MainWindow::sendLinear(int startValue, int stopValue, int signalCount)
 
     double multiplier = (ui->lineEdit_Multiplier->text()).toDouble();
 
-    for(int i = startValue; i < stopValue; i++)
+    for(int x = startValue; x < stopValue; x++)
     {
-        for(int j=0; j < signalCount;j++)
+        for(int signalNumber = 0; signalNumber < signalCount; signalNumber++)
         {
-            m_s_UARTFrame.parameter = parameters[j]; // send with one of 4 parameters
+            m_s_UARTFrame.parameter = parameters[signalNumber]; // send with one of 4 parameters
 
-            value = multiplier * i;
+            value = multiplier * x * 0.001;
 
             if(value < 0)
             {
@@ -524,7 +591,7 @@ void MainWindow::sendLinear(int startValue, int stopValue, int signalCount)
             }
 
             /*Change parameter values so that graph lines do not overlap each other*/
-            switch(j)
+            switch(signalNumber)
             {
             case 1:
                 value = value * 0.75;
@@ -537,7 +604,7 @@ void MainWindow::sendLinear(int startValue, int stopValue, int signalCount)
                 break;
             }
 
-            sprintf((char*)m_s_UARTFrame.payload, "%.1lf", value);
+            sprintf((char*)m_s_UARTFrame.payload, "%.3lf", value);
 
             length_int = strlen((char*)m_s_UARTFrame.payload);
 
@@ -574,14 +641,18 @@ void MainWindow::sendSine(int startValue, int stopValue, int signalCount)
     uint8_t parameters[4] = {VOLTAGE_PARAMETER, CURRENT_PARAMETER, FREQUENCY_PARAMETER, POWER_PARAMETER};
 
     double multiplier = (ui->lineEdit_Multiplier->text()).toDouble();
+    double radianInverse = 3.14159/180;
 
-    for(int i = startValue; i < stopValue; i++)
+    int phaseShift[4] = {0, 120, 240, 360};
+
+    for(int x = startValue; x < stopValue; x++)
     {
-        for(int j=0; j < signalCount;j++)
+        for(int signalNumber = 0; signalNumber < signalCount; signalNumber++)
         {
-            m_s_UARTFrame.parameter = parameters[j]; // send with one of 4 parameters
+            m_s_UARTFrame.parameter = parameters[signalNumber]; // send with one of 4 parameters
 
-            value = multiplier * (sin(i*3.14159/180));
+            /*Multiply by radian inverse to get rid of radian unit and calculate sine of x measured in degrees*/
+            value = multiplier * (sin(x * radianInverse + phaseShift[signalNumber]));
 
             if(value < 0)
             {
@@ -592,20 +663,6 @@ void MainWindow::sendSine(int startValue, int stopValue, int signalCount)
             else
             {
                 m_s_UARTFrame.sign = POSITIVE_SIGN;
-            }
-
-            /*Change parameter values so that graph lines do not overlap each other*/
-            switch(j)
-            {
-            case 1:
-                value = value * 0.75;
-                break;
-            case 2:
-                value = value * 0.5;
-                break;
-            case 3:
-                value = value * 0.25;
-                break;
             }
 
             sprintf((char*)m_s_UARTFrame.payload, "%.3lf", value);
@@ -714,12 +771,12 @@ void MainWindow::on_pushButton_Send_pressed()
 
 void MainWindow::on_pushButton_InitConnectionModule1_clicked()
 {
-    InitConnectionModule(1);
+    initConnectionModule(1);
 }
 
 void MainWindow::on_pushButton_InitConnectionModule2_clicked()
 {
-    InitConnectionModule(2);
+    initConnectionModule(2);
 }
 
 void MainWindow::on_pushButton_StartLinear_1signal_clicked()

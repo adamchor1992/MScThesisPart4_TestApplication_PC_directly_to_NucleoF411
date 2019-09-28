@@ -37,5 +37,6 @@
 #define NEGATIVE_SIGN '2'
 
 #define FRAME_SIZE 20
+#define MODULE_INIT_INFO_VALUE_COUNT 9
 
 #endif // DEFINES_H
