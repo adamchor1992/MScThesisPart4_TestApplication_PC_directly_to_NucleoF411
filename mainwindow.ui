@@ -15,85 +15,91 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_7">
-    <item row="1" column="0">
-     <widget class="QGroupBox" name="groupBox_ModuleInitializationControls">
+    <item row="0" column="0">
+     <widget class="QGroupBox" name="groupBox_ComPortControls">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="styleSheet">
        <string notr="true">font:bold</string>
       </property>
       <property name="title">
-       <string>Module Initialization</string>
+       <string>COM Port Settings</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
-      <layout class="QGridLayout" name="gridLayout">
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3">
        <item row="0" column="0">
-        <widget class="QLabel" name="label_Vendor">
+        <widget class="QLabel" name="label_Status">
          <property name="text">
-          <string>Vendor</string>
+          <string>Status</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="lineEdit_Vendor"/>
+        <widget class="QLabel" name="label_ShowStatus">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 0, 0);</string>
+         </property>
+         <property name="text">
+          <string>&lt;color:red&gt;Closed&lt;/&gt;</string>
+         </property>
+         <property name="textFormat">
+          <enum>Qt::RichText</enum>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QLabel" name="label_Type_2">
+        <widget class="QLabel" name="label_SerialPort">
          <property name="text">
-          <string>Type</string>
+          <string>Serial port</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLineEdit" name="lineEdit_ModuleType"/>
+        <widget class="QComboBox" name="comboBox_Port">
+         <property name="currentIndex">
+          <number>-1</number>
+         </property>
+         <property name="insertPolicy">
+          <enum>QComboBox::InsertAtBottom</enum>
+         </property>
+         <property name="sizeAdjustPolicy">
+          <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+         </property>
+        </widget>
        </item>
        <item row="2" column="0">
-        <widget class="QLabel" name="label_Model">
+        <widget class="QPushButton" name="pushButton_Open">
          <property name="text">
-          <string>Model</string>
+          <string>Open</string>
          </property>
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QLineEdit" name="lineEdit_Model"/>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_Speed">
+        <widget class="QPushButton" name="pushButton_Close">
          <property name="text">
-          <string>Speed</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QLineEdit" name="lineEdit_Speed"/>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_Version">
-         <property name="text">
-          <string>Version</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QLineEdit" name="lineEdit_Version"/>
-       </item>
-       <item row="5" column="0">
-        <widget class="QPushButton" name="pushButton_InitConnectionModule1">
-         <property name="styleSheet">
-          <string notr="true">color: blue</string>
-         </property>
-         <property name="text">
-          <string>Init Connection Module 1</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1">
-        <widget class="QPushButton" name="pushButton_InitConnectionModule2">
-         <property name="styleSheet">
-          <string notr="true">color: blue</string>
-         </property>
-         <property name="text">
-          <string>Init Connection Module 2</string>
+          <string>Close</string>
          </property>
         </widget>
        </item>
@@ -117,6 +123,9 @@
          <property name="text">
           <string>Source</string>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
         </widget>
        </item>
        <item row="0" column="1">
@@ -133,6 +142,9 @@
         <widget class="QLabel" name="label_Module">
          <property name="text">
           <string>Module</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -155,6 +167,9 @@
          <property name="text">
           <string>Type</string>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
         </widget>
        </item>
        <item row="2" column="1">
@@ -172,12 +187,18 @@
          <property name="text">
           <string>Parameter</string>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
         </widget>
        </item>
        <item row="4" column="0">
         <widget class="QLabel" name="label_Sign">
          <property name="text">
           <string>Sign</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -196,6 +217,9 @@
          <property name="text">
           <string>Length</string>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
         </widget>
        </item>
        <item row="5" column="1">
@@ -209,6 +233,9 @@
         <widget class="QLabel" name="label_Payload">
          <property name="text">
           <string>Payload</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -496,35 +523,22 @@
       </layout>
      </widget>
     </item>
-    <item row="0" column="0">
-     <widget class="QGroupBox" name="groupBox_ComPortControls">
-      <property name="font">
-       <font>
-        <weight>75</weight>
-        <italic>false</italic>
-        <bold>true</bold>
-       </font>
-      </property>
+    <item row="1" column="0">
+     <widget class="QGroupBox" name="groupBox_ModuleControls">
       <property name="styleSheet">
        <string notr="true">font:bold</string>
       </property>
       <property name="title">
-       <string>COM Port Settings</string>
+       <string>Module Control</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
-      <property name="flat">
-       <bool>false</bool>
-      </property>
-      <property name="checkable">
-       <bool>false</bool>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_3">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_Status">
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_Speed">
          <property name="text">
-          <string>Status</string>
+          <string>Speed</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -532,57 +546,151 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLabel" name="label_ShowStatus">
+        <widget class="QLineEdit" name="lineEdit_Vendor"/>
+       </item>
+       <item row="9" column="1">
+        <widget class="QPushButton" name="pushButton_InitConnectionModule2">
          <property name="styleSheet">
-          <string notr="true">color: rgb(255, 0, 0);</string>
+          <string notr="true">color: blue</string>
          </property>
          <property name="text">
-          <string>&lt;color:red&gt;Closed&lt;/&gt;</string>
-         </property>
-         <property name="textFormat">
-          <enum>Qt::RichText</enum>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
+          <string>Init Connection Module 2</string>
          </property>
         </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QLineEdit" name="lineEdit_Parameter2Name"/>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="lineEdit_Model"/>
        </item>
        <item row="1" column="0">
-        <widget class="QLabel" name="label_SerialPort">
+        <widget class="QLabel" name="label_Type_2">
          <property name="text">
-          <string>Serial port</string>
+          <string>Type</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
-        <widget class="QComboBox" name="comboBox_Port">
-         <property name="currentIndex">
-          <number>-1</number>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="lineEdit_Speed"/>
+       </item>
+       <item row="7" column="0">
+        <widget class="QLabel" name="label_Parameter1Name_3">
+         <property name="text">
+          <string>Parameter 3 name</string>
          </property>
-         <property name="insertPolicy">
-          <enum>QComboBox::InsertAtBottom</enum>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
-         <property name="sizeAdjustPolicy">
-          <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+        </widget>
+       </item>
+       <item row="7" column="1">
+        <widget class="QLineEdit" name="lineEdit_Parameter3Name"/>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_Version">
+         <property name="text">
+          <string>Version</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_Vendor">
+         <property name="text">
+          <string>Vendor</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="label_Parameter1Name_2">
+         <property name="text">
+          <string>Parameter 2 name</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_Parameter1Name">
+         <property name="text">
+          <string>Parameter 1 name</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="1">
+        <widget class="QPushButton" name="pushButton_DeinitConnectionModule2">
+         <property name="styleSheet">
+          <string notr="true">color: blue</string>
+         </property>
+         <property name="text">
+          <string>Deinit Connection Module 2</string>
          </property>
         </widget>
        </item>
        <item row="2" column="0">
-        <widget class="QPushButton" name="pushButton_Open">
+        <widget class="QLabel" name="label_Model">
          <property name="text">
-          <string>Open</string>
+          <string>Model</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
-        <widget class="QPushButton" name="pushButton_Close">
+       <item row="5" column="1">
+        <widget class="QLineEdit" name="lineEdit_Parameter1Name"/>
+       </item>
+       <item row="9" column="0">
+        <widget class="QPushButton" name="pushButton_InitConnectionModule1">
+         <property name="styleSheet">
+          <string notr="true">color: blue</string>
+         </property>
          <property name="text">
-          <string>Close</string>
+          <string>Init Connection Module 1</string>
          </property>
         </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="lineEdit_ModuleType"/>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="lineEdit_Version"/>
+       </item>
+       <item row="10" column="0">
+        <widget class="QPushButton" name="pushButton_DeinitConnectionModule1">
+         <property name="styleSheet">
+          <string notr="true">color: blue</string>
+         </property>
+         <property name="text">
+          <string>Deinit Connection Module 1</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="0">
+        <widget class="QLabel" name="label_Parameter1Name_4">
+         <property name="text">
+          <string>Parameter 4 name</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="1">
+        <widget class="QLineEdit" name="lineEdit_Parameter4Name"/>
        </item>
       </layout>
      </widget>

@@ -21,6 +21,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_serial,SIGNAL(readyRead()), this, SLOT(serialDataReceived()));
 
     updateGUI();
+
+    ui->groupBox_ModuleControls->setEnabled(false);
+    ui->groupBox_CustomFrameControls ->setEnabled(false);
+    ui->groupBox_GraphControls->setEnabled(false);
+    ui->groupBox_Module1->setEnabled(false);
+    ui->groupBox_Module2->setEnabled(false);
 }
 
 MainWindow::~MainWindow()
@@ -288,8 +294,10 @@ void MainWindow::openPort(QString portName)
 {
     m_serial->setPortName(portName);
 
+    /*Check if port is already open*/
     if(m_serial->isOpen())
     {
+        qDebug("Port is already open");
         return;
     }
 
@@ -303,11 +311,49 @@ void MainWindow::openPort(QString portName)
     {
         qDebug("Opened successfully");
         ui->label_ShowStatus->setText("<font color='green'>Open</font>");
+
+        ui->groupBox_ModuleControls->setEnabled(true);
+        ui->groupBox_CustomFrameControls ->setEnabled(true);
+        ui->groupBox_GraphControls->setEnabled(true);
+        ui->groupBox_Module1->setEnabled(true);
+        ui->groupBox_Module2->setEnabled(true);
     }
     else
     {
         qDebug("Could not open port");
         ui->label_ShowStatus->setText("Closed");
+    }
+}
+
+void MainWindow::closePort(QString portName)
+{
+    m_serial->setPortName(portName);
+
+    if(m_serial->isOpen() == true)
+    {
+        m_serial->close();
+
+        /*Ensure port was closed*/
+        if(m_serial->isOpen() == false)
+        {
+            qDebug("Closed successfully");
+            ui->label_ShowStatus->setText("<font color='red'>Close</font>");
+
+            ui->groupBox_ModuleControls->setEnabled(false);
+            ui->groupBox_CustomFrameControls ->setEnabled(false);
+            ui->groupBox_GraphControls->setEnabled(false);
+            ui->groupBox_Module1->setEnabled(false);
+            ui->groupBox_Module2->setEnabled(false);
+        }
+        else
+        {
+            /*Could not close port*/
+            assert(false);
+        }
+    }
+    else
+    {
+        qDebug("Port is not open, cannot close");
     }
 }
 
@@ -654,6 +700,11 @@ void MainWindow::serialDataReceived()
 void MainWindow::on_pushButton_Open_clicked()
 {
     openPort(ui->comboBox_Port->currentText());
+}
+
+void MainWindow::on_pushButton_Close_clicked()
+{
+    closePort(ui->comboBox_Port->currentText());
 }
 
 void MainWindow::on_pushButton_Send_pressed()

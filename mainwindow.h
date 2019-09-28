@@ -24,6 +24,7 @@ public:
     void updateGUI();
     void InitConnectionModule(int module);
     void openPort(QString portName);
+    void closePort(QString portName);
     void sendCustomDataFrame();
     void startLinearGraph(int signalCount);
     void startSineGraph(int signalCount);
@@ -47,6 +48,8 @@ private slots:
     void on_pushButton_StartSine_4signals_clicked();
     void on_pushButton_Stop_clicked();
     void on_pushButton_SimulateParametersSequence_clicked();
+
+    void on_pushButton_Close_clicked();
 
 private:
     Ui::MainWindow *ui;
