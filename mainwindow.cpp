@@ -33,6 +33,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
 {
+    qDebug("FULL FRAME RECEIVED");
+
     convertFrameTableToUARTstruct(reinterpret_cast<const uint8_t*>(receivedBytes.constData()), m_s_UARTFrame);
 
     qDebug("Received Frame is: %s", receivedBytes.constData());
@@ -405,6 +407,8 @@ void MainWindow::sendCustomDataFrame()
     qDebug("Data Frame is: %s", UART_MessageToTransmit);
 
     m_serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
+    m_serial->waitForBytesWritten(3000);
+    m_serial->flush();
 }
 
 void MainWindow::startLinearGraph(int signalCount)
@@ -531,7 +535,7 @@ void MainWindow::sendSine(int startValue, int stopValue, int signalCount)
         {
             m_s_UARTFrame.parameter = parameters[j]; // send with one of 4 parameters
 
-            value = multiplier * (sin(i*3.14159/180) * 999.0); //scale by 999
+            value = multiplier * (sin(i*3.14159/180));
 
             if(value < 0)
             {
@@ -558,7 +562,7 @@ void MainWindow::sendSine(int startValue, int stopValue, int signalCount)
                 break;
             }
 
-            sprintf((char*)m_s_UARTFrame.payload, "%.1lf", value);
+            sprintf((char*)m_s_UARTFrame.payload, "%.3lf", value);
 
             length_int = strlen((char*)m_s_UARTFrame.payload);
 
@@ -633,11 +637,13 @@ void MainWindow::updateGUI()
 /*Slot*/
 void MainWindow::serialDataReceived()
 {
+    qDebug("Something received");
+
     static QByteArray receivedBytes;
 
     receivedBytes += m_serial->readAll();
 
-    if(receivedBytes.size() == FRAME_SIZE)
+    if(receivedBytes.size() >= FRAME_SIZE)
     {
         fullFrameReceived(receivedBytes);
         receivedBytes.clear();
