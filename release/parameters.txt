@@ -1,0 +1,9 @@
+Samsung
+Converter
+SP-200
+100Mhz
+1.2
+Param1
+Param2
+Param3
+Param4
