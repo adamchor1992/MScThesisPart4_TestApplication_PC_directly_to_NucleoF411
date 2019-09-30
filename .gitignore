@@ -1,0 +1,4 @@
+*.user
+release/*.o
+release/*.cpp
+release/*.h
