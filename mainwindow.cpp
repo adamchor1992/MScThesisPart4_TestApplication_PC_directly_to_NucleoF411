@@ -400,20 +400,53 @@ void MainWindow::initModuleParametersList()
         /*Initialize parameter names from file*/
         getline(inputFile,inputBuffer);
         ui->lineEdit_Parameter1Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module1_CustomParameter1->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_CustomParameter1->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module1_CustomParameter1Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_CustomParameter1Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
         ui->lineEdit_Parameter2Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module1_CustomParameter2->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_CustomParameter2->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module1_CustomParameter2Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_CustomParameter2Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
         ui->lineEdit_Parameter3Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module1_CustomParameter3->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_CustomParameter3->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module1_CustomParameter3Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_CustomParameter3Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
         ui->lineEdit_Parameter4Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module1_CustomParameter4->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_CustomParameter4->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module1_CustomParameter4Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_CustomParameter4Name->setText(QString::fromStdString(inputBuffer));
+
+        /*Initialize settable parameter names from file*/
+        getline(inputFile,inputBuffer);
+        ui->label_Module1_SettableParameter1Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_SettableParameter1Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module1_SettableParameter2Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_SettableParameter2Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module1_SettableParameter3Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_SettableParameter3Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module1_SettableParameter4Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_SettableParameter4Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module1_SettableParameter5Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_SettableParameter5Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module1_SettableParameter6Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_SettableParameter6Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module1_SettableParameter7Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_SettableParameter7Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module1_SettableParameter8Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_SettableParameter8Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module1_SettableParameter9Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_SettableParameter9Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module1_SettableParameter10Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_SettableParameter10Name->setText(QString::fromStdString(inputBuffer));
+
     }
     else
     {
@@ -447,7 +480,18 @@ void MainWindow::initConnectionModule(int module)
                                                             ui->lineEdit_Parameter1Name->text(),
                                                             ui->lineEdit_Parameter2Name->text(),
                                                             ui->lineEdit_Parameter3Name->text(),
-                                                            ui->lineEdit_Parameter4Name->text()};
+                                                            ui->lineEdit_Parameter4Name->text(),
+                                                            ui->label_Module1_SettableParameter1Name->text(),
+                                                            ui->label_Module1_SettableParameter2Name->text(),
+                                                            ui->label_Module1_SettableParameter3Name->text(),
+                                                            ui->label_Module1_SettableParameter4Name->text(),
+                                                            ui->label_Module1_SettableParameter5Name->text(),
+                                                            ui->label_Module1_SettableParameter6Name->text(),
+                                                            ui->label_Module1_SettableParameter7Name->text(),
+                                                            ui->label_Module1_SettableParameter8Name->text(),
+                                                            ui->label_Module1_SettableParameter9Name->text(),
+                                                            ui->label_Module1_SettableParameter10Name->text()
+                                                           };
 
     for(auto value : initInfoValues)
     {

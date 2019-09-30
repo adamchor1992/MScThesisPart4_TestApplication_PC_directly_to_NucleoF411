@@ -2513,7 +2513,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLCDNumber" name="lcdNumber_Value_Module1_Parameter1">
+          <widget class="QLCDNumber" name="lcdNumber_Value_Module1_SettableParameter1">
            <property name="palette">
             <palette>
              <active>
@@ -2959,7 +2959,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLCDNumber" name="lcdNumber_Value_Module1_Parameter2">
+          <widget class="QLCDNumber" name="lcdNumber_Value_Module1_SettableParameter2">
            <property name="palette">
             <palette>
              <active>
@@ -3405,7 +3405,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLCDNumber" name="lcdNumber_Value_Module1_Parameter3">
+          <widget class="QLCDNumber" name="lcdNumber_Value_Module1_SettableParameter3">
            <property name="palette">
             <palette>
              <active>
@@ -3851,7 +3851,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLCDNumber" name="lcdNumber_Value_Module1_Parameter4">
+          <widget class="QLCDNumber" name="lcdNumber_Value_Module1_SettableParameter4">
            <property name="palette">
             <palette>
              <active>
@@ -4297,7 +4297,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLCDNumber" name="lcdNumber_Value_Module1_Parameter5">
+          <widget class="QLCDNumber" name="lcdNumber_Value_Module1_SettableParameter5">
            <property name="palette">
             <palette>
              <active>
@@ -4743,7 +4743,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLCDNumber" name="lcdNumber_Value_Module1_Parameter6">
+          <widget class="QLCDNumber" name="lcdNumber_Value_Module1_SettableParameter6">
            <property name="palette">
             <palette>
              <active>
@@ -5189,7 +5189,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLCDNumber" name="lcdNumber_Value_Module1_Parameter7">
+          <widget class="QLCDNumber" name="lcdNumber_Value_Module1_SettableParameter7">
            <property name="palette">
             <palette>
              <active>
@@ -5635,7 +5635,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLCDNumber" name="lcdNumber_Value_Module1_Parameter8">
+          <widget class="QLCDNumber" name="lcdNumber_Value_Module1_SettableParameter8">
            <property name="palette">
             <palette>
              <active>
@@ -6081,7 +6081,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLCDNumber" name="lcdNumber_Value_Module1_Parameter9">
+          <widget class="QLCDNumber" name="lcdNumber_Value_Module1_SettableParameter9">
            <property name="palette">
             <palette>
              <active>
@@ -6527,7 +6527,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLCDNumber" name="lcdNumber_Value_Module1_Parameter10">
+          <widget class="QLCDNumber" name="lcdNumber_Value_Module1_SettableParameter10">
            <property name="palette">
             <palette>
              <active>
@@ -6977,7 +6977,7 @@
        <item row="0" column="0">
         <layout class="QVBoxLayout" name="Module1Parameters">
          <item>
-          <widget class="QLabel" name="label_Module1_CustomParameter1">
+          <widget class="QLabel" name="label_Module1_CustomParameter1Name">
            <property name="text">
             <string>Null</string>
            </property>
@@ -6987,7 +6987,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_CustomParameter2">
+          <widget class="QLabel" name="label_Module1_CustomParameter2Name">
            <property name="text">
             <string>Null</string>
            </property>
@@ -6997,7 +6997,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_CustomParameter3">
+          <widget class="QLabel" name="label_Module1_CustomParameter3Name">
            <property name="text">
             <string>Null</string>
            </property>
@@ -7007,7 +7007,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_CustomParameter4">
+          <widget class="QLabel" name="label_Module1_CustomParameter4Name">
            <property name="text">
             <string>Null</string>
            </property>
@@ -7017,7 +7017,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_Parameter1">
+          <widget class="QLabel" name="label_Module1_SettableParameter1Name">
            <property name="text">
             <string>Parameter 1</string>
            </property>
@@ -7027,7 +7027,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_Parameter2">
+          <widget class="QLabel" name="label_Module1_SettableParameter2Name">
            <property name="text">
             <string>Parameter 2</string>
            </property>
@@ -7037,7 +7037,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_Parameter3">
+          <widget class="QLabel" name="label_Module1_SettableParameter3Name">
            <property name="text">
             <string>Parameter 3</string>
            </property>
@@ -7047,7 +7047,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_Parameter4">
+          <widget class="QLabel" name="label_Module1_SettableParameter4Name">
            <property name="text">
             <string>Parameter 4</string>
            </property>
@@ -7057,7 +7057,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_Parameter5">
+          <widget class="QLabel" name="label_Module1_SettableParameter5Name">
            <property name="text">
             <string>Parameter 5</string>
            </property>
@@ -7067,7 +7067,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_Parameter6">
+          <widget class="QLabel" name="label_Module1_SettableParameter6Name">
            <property name="text">
             <string>Parameter 6</string>
            </property>
@@ -7077,7 +7077,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_Parameter7">
+          <widget class="QLabel" name="label_Module1_SettableParameter7Name">
            <property name="text">
             <string>Parameter 7</string>
            </property>
@@ -7087,7 +7087,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_Parameter8">
+          <widget class="QLabel" name="label_Module1_SettableParameter8Name">
            <property name="text">
             <string>Parameter 8</string>
            </property>
@@ -7097,7 +7097,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_Parameter9">
+          <widget class="QLabel" name="label_Module1_SettableParameter9Name">
            <property name="text">
             <string>Parameter 9</string>
            </property>
@@ -7107,7 +7107,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_Parameter10">
+          <widget class="QLabel" name="label_Module1_SettableParameter10Name">
            <property name="text">
             <string>Parameter 10</string>
            </property>
@@ -7161,7 +7161,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_Parameter1_State">
+          <widget class="QLabel" name="label_Module1_SettableParameter1_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
@@ -7171,7 +7171,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_Parameter2_State">
+          <widget class="QLabel" name="label_Module1_SettableParameter2_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
@@ -7181,7 +7181,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_Parameter3_State">
+          <widget class="QLabel" name="label_Module1_SettableParameter3_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
@@ -7191,7 +7191,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_Parameter4_State">
+          <widget class="QLabel" name="label_Module1_SettableParameter4_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
@@ -7201,7 +7201,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_Parameter5_State">
+          <widget class="QLabel" name="label_Module1_SettableParameter5_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
@@ -7211,7 +7211,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_Parameter6_State">
+          <widget class="QLabel" name="label_Module1_SettableParameter6_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
@@ -7221,7 +7221,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_Parameter7_State">
+          <widget class="QLabel" name="label_Module1_SettableParameter7_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
@@ -7231,7 +7231,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_Parameter8_State">
+          <widget class="QLabel" name="label_Module1_SettableParameter8_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
@@ -7241,7 +7241,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_Parameter9_State">
+          <widget class="QLabel" name="label_Module1_SettableParameter9_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
@@ -7251,7 +7251,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_Parameter10_State">
+          <widget class="QLabel" name="label_Module1_SettableParameter10_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
@@ -7280,7 +7280,7 @@
        <item row="0" column="0">
         <layout class="QVBoxLayout" name="Module2Parameters">
          <item>
-          <widget class="QLabel" name="label_Module2_CustomParameter1">
+          <widget class="QLabel" name="label_Module2_CustomParameter1Name">
            <property name="text">
             <string>Null</string>
            </property>
@@ -7290,7 +7290,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_CustomParameter2">
+          <widget class="QLabel" name="label_Module2_CustomParameter2Name">
            <property name="text">
             <string>Null</string>
            </property>
@@ -7300,7 +7300,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_CustomParameter3">
+          <widget class="QLabel" name="label_Module2_CustomParameter3Name">
            <property name="text">
             <string>Null</string>
            </property>
@@ -7310,7 +7310,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_CustomParameter4">
+          <widget class="QLabel" name="label_Module2_CustomParameter4Name">
            <property name="text">
             <string>Null</string>
            </property>
@@ -7320,7 +7320,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_Parameter1">
+          <widget class="QLabel" name="label_Module2_SettableParameter1Name">
            <property name="text">
             <string>Parameter 1</string>
            </property>
@@ -7330,7 +7330,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_Parameter2">
+          <widget class="QLabel" name="label_Module2_SettableParameter2Name">
            <property name="text">
             <string>Parameter 2</string>
            </property>
@@ -7340,7 +7340,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_Parameter3">
+          <widget class="QLabel" name="label_Module2_SettableParameter3Name">
            <property name="text">
             <string>Parameter 3</string>
            </property>
@@ -7350,7 +7350,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_Parameter4">
+          <widget class="QLabel" name="label_Module2_SettableParameter4Name">
            <property name="text">
             <string>Parameter 4</string>
            </property>
@@ -7360,7 +7360,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_Parameter5">
+          <widget class="QLabel" name="label_Module2_SettableParameter5Name">
            <property name="text">
             <string>Parameter 5</string>
            </property>
@@ -7370,7 +7370,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_Parameter6">
+          <widget class="QLabel" name="label_Module2_SettableParameter6Name">
            <property name="text">
             <string>Parameter 6</string>
            </property>
@@ -7380,7 +7380,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_Parameter7">
+          <widget class="QLabel" name="label_Module2_SettableParameter7Name">
            <property name="text">
             <string>Parameter 7</string>
            </property>
@@ -7390,7 +7390,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_Parameter8">
+          <widget class="QLabel" name="label_Module2_SettableParameter8Name">
            <property name="text">
             <string>Parameter 8</string>
            </property>
@@ -7400,7 +7400,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_Parameter9">
+          <widget class="QLabel" name="label_Module2_SettableParameter9Name">
            <property name="text">
             <string>Parameter 9</string>
            </property>
@@ -7410,7 +7410,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_Parameter10">
+          <widget class="QLabel" name="label_Module2_SettableParameter10Name">
            <property name="text">
             <string>Parameter 10</string>
            </property>
@@ -7464,7 +7464,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_Parameter1_State">
+          <widget class="QLabel" name="label_Module2_SettableParameter1_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
@@ -7474,7 +7474,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_Parameter2_State">
+          <widget class="QLabel" name="label_Module2_SettableParameter2_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
@@ -7484,7 +7484,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_Parameter3_State">
+          <widget class="QLabel" name="label_Module2_SettableParameter3_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
@@ -7494,7 +7494,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_Parameter4_State">
+          <widget class="QLabel" name="label_Module2_SettableParameter4_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
@@ -7504,7 +7504,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_Parameter5_State">
+          <widget class="QLabel" name="label_Module2_SettableParameter5_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
@@ -7514,7 +7514,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_Parameter6_State">
+          <widget class="QLabel" name="label_Module2_SettableParameter6_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
@@ -7524,7 +7524,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_Parameter7_State">
+          <widget class="QLabel" name="label_Module2_SettableParameter7_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
@@ -7534,7 +7534,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_Parameter8_State">
+          <widget class="QLabel" name="label_Module2_SettableParameter8_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
@@ -7544,7 +7544,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_Parameter9_State">
+          <widget class="QLabel" name="label_Module2_SettableParameter9_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
@@ -7554,7 +7554,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_Parameter10_State">
+          <widget class="QLabel" name="label_Module2_SettableParameter10_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
@@ -9352,7 +9352,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLCDNumber" name="lcdNumber_Value_Module2_Parameter1">
+          <widget class="QLCDNumber" name="lcdNumber_Value_Module2_SettableParameter1">
            <property name="palette">
             <palette>
              <active>
@@ -9798,7 +9798,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLCDNumber" name="lcdNumber_Value_Module2_Parameter2">
+          <widget class="QLCDNumber" name="lcdNumber_Value_Module2_SettableParameter2">
            <property name="palette">
             <palette>
              <active>
@@ -10244,7 +10244,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLCDNumber" name="lcdNumber_Value_Module2_Parameter3">
+          <widget class="QLCDNumber" name="lcdNumber_Value_Module2_SettableParameter3">
            <property name="palette">
             <palette>
              <active>
@@ -10690,7 +10690,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLCDNumber" name="lcdNumber_Value_Module2_Parameter4">
+          <widget class="QLCDNumber" name="lcdNumber_Value_Module2_SettableParameter4">
            <property name="palette">
             <palette>
              <active>
@@ -11136,7 +11136,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLCDNumber" name="lcdNumber_Value_Module2_Parameter5">
+          <widget class="QLCDNumber" name="lcdNumber_Value_Module2_SettableParameter5">
            <property name="palette">
             <palette>
              <active>
@@ -11582,7 +11582,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLCDNumber" name="lcdNumber_Value_Module2_Parameter6">
+          <widget class="QLCDNumber" name="lcdNumber_Value_Module2_SettableParameter6">
            <property name="palette">
             <palette>
              <active>
@@ -12028,7 +12028,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLCDNumber" name="lcdNumber_Value_Module2_Parameter7">
+          <widget class="QLCDNumber" name="lcdNumber_Value_Module2_SettableParameter7">
            <property name="palette">
             <palette>
              <active>
@@ -12474,7 +12474,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLCDNumber" name="lcdNumber_Value_Module2_Parameter8">
+          <widget class="QLCDNumber" name="lcdNumber_Value_Module2_SettableParameter8">
            <property name="palette">
             <palette>
              <active>
@@ -12920,7 +12920,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLCDNumber" name="lcdNumber_Value_Module2_Parameter9">
+          <widget class="QLCDNumber" name="lcdNumber_Value_Module2_SettableParameter9">
            <property name="palette">
             <palette>
              <active>
@@ -13366,7 +13366,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLCDNumber" name="lcdNumber_Value_Module2_Parameter10">
+          <widget class="QLCDNumber" name="lcdNumber_Value_Module2_SettableParameter10">
            <property name="palette">
             <palette>
              <active>
