@@ -376,25 +376,44 @@ void MainWindow::initModuleParametersList()
 
         /*Initialize module info from file*/
         getline(inputFile,inputBuffer);
-        ui->lineEdit_Vendor->setText(QString::fromStdString(inputBuffer));
+        ui->label_InitParameter1Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
-        ui->lineEdit_ModuleType->setText(QString::fromStdString(inputBuffer));
+        ui->label_InitParameter2Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
-        ui->lineEdit_Model->setText(QString::fromStdString(inputBuffer));
+        ui->label_InitParameter3Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
-        ui->lineEdit_Speed->setText(QString::fromStdString(inputBuffer));
+        ui->label_InitParameter4Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
-        ui->lineEdit_Version->setText(QString::fromStdString(inputBuffer));
+        ui->label_InitParameter5Name->setText(QString::fromStdString(inputBuffer));
+
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_InitParameter1Value->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_InitParameter2Value->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_InitParameter3Value->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_InitParameter4Value->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_InitParameter5Value->setText(QString::fromStdString(inputBuffer));
 
         /*Initialize parameter names from file*/
         getline(inputFile,inputBuffer);
         ui->lineEdit_Parameter1Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module1_CustomParameter1->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_CustomParameter1->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
         ui->lineEdit_Parameter2Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module1_CustomParameter2->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_CustomParameter2->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
         ui->lineEdit_Parameter3Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module1_CustomParameter3->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_CustomParameter3->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
         ui->lineEdit_Parameter4Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module1_CustomParameter4->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_CustomParameter4->setText(QString::fromStdString(inputBuffer));
     }
     else
     {
@@ -415,11 +434,16 @@ void MainWindow::initConnectionModule(int module)
     ui->lineEdit_Length->setText("N/A - Init frame");
 
     /*5 Module info values and names of 4 parameters*/
-    QString initInfoValues[MODULE_INIT_INFO_VALUE_COUNT] = {ui->lineEdit_Vendor->text(),
-                                                            ui->lineEdit_ModuleType->text(),
-                                                            ui->lineEdit_Model->text(),
-                                                            ui->lineEdit_Speed->text(),
-                                                            ui->lineEdit_Version->text(),
+    QString initInfoValues[MODULE_INIT_INFO_VALUE_COUNT] = {ui->label_InitParameter1Name->text(),
+                                                            ui->label_InitParameter2Name->text(),
+                                                            ui->label_InitParameter3Name->text(),
+                                                            ui->label_InitParameter4Name->text(),
+                                                            ui->label_InitParameter5Name->text(),
+                                                            ui->lineEdit_InitParameter1Value->text(),
+                                                            ui->lineEdit_InitParameter2Value->text(),
+                                                            ui->lineEdit_InitParameter3Value->text(),
+                                                            ui->lineEdit_InitParameter4Value->text(),
+                                                            ui->lineEdit_InitParameter5Value->text(),
                                                             ui->lineEdit_Parameter1Name->text(),
                                                             ui->lineEdit_Parameter2Name->text(),
                                                             ui->lineEdit_Parameter3Name->text(),
@@ -439,7 +463,7 @@ void MainWindow::initConnectionModule(int module)
 
     for(int i = 0; i < MODULE_INIT_INFO_VALUE_COUNT; i++)
     {
-        m_s_UARTFrame.parameter = '1' + i;
+        m_s_UARTFrame.parameter = 'a' + i;
 
         /*Clear payload*/
         for(int i=0;i<10;i++)

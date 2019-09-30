@@ -516,9 +516,9 @@
       </property>
       <layout class="QGridLayout" name="gridLayout">
        <item row="3" column="0">
-        <widget class="QLabel" name="label_Speed">
+        <widget class="QLabel" name="label_InitParameter4Name">
          <property name="text">
-          <string>Speed</string>
+          <string>Null</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -526,7 +526,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="lineEdit_Vendor">
+        <widget class="QLineEdit" name="lineEdit_InitParameter1Value">
          <property name="readOnly">
           <bool>true</bool>
          </property>
@@ -550,16 +550,16 @@
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QLineEdit" name="lineEdit_Model">
+        <widget class="QLineEdit" name="lineEdit_InitParameter3Value">
          <property name="readOnly">
           <bool>true</bool>
          </property>
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QLabel" name="label_Type_2">
+        <widget class="QLabel" name="label_InitParameter2Name">
          <property name="text">
-          <string>Type</string>
+          <string>Null</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -567,14 +567,14 @@
         </widget>
        </item>
        <item row="3" column="1">
-        <widget class="QLineEdit" name="lineEdit_Speed">
+        <widget class="QLineEdit" name="lineEdit_InitParameter4Value">
          <property name="readOnly">
           <bool>true</bool>
          </property>
         </widget>
        </item>
        <item row="7" column="0">
-        <widget class="QLabel" name="label_Parameter1Name_3">
+        <widget class="QLabel" name="label_Parameter3Name">
          <property name="text">
           <string>Parameter 3 name</string>
          </property>
@@ -591,9 +591,9 @@
         </widget>
        </item>
        <item row="4" column="0">
-        <widget class="QLabel" name="label_Version">
+        <widget class="QLabel" name="label_InitParameter5Name">
          <property name="text">
-          <string>Version</string>
+          <string>Null</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -601,9 +601,9 @@
         </widget>
        </item>
        <item row="0" column="0">
-        <widget class="QLabel" name="label_Vendor">
+        <widget class="QLabel" name="label_InitParameter1Name">
          <property name="text">
-          <string>Vendor</string>
+          <string>Null</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -611,7 +611,7 @@
         </widget>
        </item>
        <item row="6" column="0">
-        <widget class="QLabel" name="label_Parameter1Name_2">
+        <widget class="QLabel" name="label_Parameter2Name">
          <property name="text">
           <string>Parameter 2 name</string>
          </property>
@@ -641,9 +641,9 @@
         </widget>
        </item>
        <item row="2" column="0">
-        <widget class="QLabel" name="label_Model">
+        <widget class="QLabel" name="label_InitParameter3Name">
          <property name="text">
-          <string>Model</string>
+          <string>Null</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -668,14 +668,14 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLineEdit" name="lineEdit_ModuleType">
+        <widget class="QLineEdit" name="lineEdit_InitParameter2Value">
          <property name="readOnly">
           <bool>true</bool>
          </property>
         </widget>
        </item>
        <item row="4" column="1">
-        <widget class="QLineEdit" name="lineEdit_Version">
+        <widget class="QLineEdit" name="lineEdit_InitParameter5Value">
          <property name="readOnly">
           <bool>true</bool>
          </property>
@@ -692,7 +692,7 @@
         </widget>
        </item>
        <item row="8" column="0">
-        <widget class="QLabel" name="label_Parameter1Name_4">
+        <widget class="QLabel" name="label_Parameter4Name">
          <property name="text">
           <string>Parameter 4 name</string>
          </property>
@@ -726,7 +726,7 @@
        <item row="0" column="2">
         <layout class="QVBoxLayout" name="ValuesModule1Parameters">
          <item>
-          <widget class="QLCDNumber" name="lcdNumber_Value_Module1_Voltage">
+          <widget class="QLCDNumber" name="lcdNumber_Value_Module1_CustomParameter1">
            <property name="palette">
             <palette>
              <active>
@@ -1172,7 +1172,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLCDNumber" name="lcdNumber_Value_Module1_Current">
+          <widget class="QLCDNumber" name="lcdNumber_Value_Module1_CustomParameter2">
            <property name="palette">
             <palette>
              <active>
@@ -1618,7 +1618,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLCDNumber" name="lcdNumber_Value_Module1_Frequency">
+          <widget class="QLCDNumber" name="lcdNumber_Value_Module1_CustomParameter3">
            <property name="palette">
             <palette>
              <active>
@@ -2064,7 +2064,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLCDNumber" name="lcdNumber_Value_Module1_Power">
+          <widget class="QLCDNumber" name="lcdNumber_Value_Module1_CustomParameter4">
            <property name="palette">
             <palette>
              <active>
@@ -6977,30 +6977,42 @@
        <item row="0" column="0">
         <layout class="QVBoxLayout" name="Module1Parameters">
          <item>
-          <widget class="QLabel" name="label_Module1_Voltage">
+          <widget class="QLabel" name="label_Module1_CustomParameter1">
            <property name="text">
-            <string>Voltage</string>
+            <string>Null</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_Current">
+          <widget class="QLabel" name="label_Module1_CustomParameter2">
            <property name="text">
-            <string>Current</string>
+            <string>Null</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_Frequency">
+          <widget class="QLabel" name="label_Module1_CustomParameter3">
            <property name="text">
-            <string>Frequency</string>
+            <string>Null</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_Power">
+          <widget class="QLabel" name="label_Module1_CustomParameter4">
            <property name="text">
-            <string>Power</string>
+            <string>Null</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -7009,12 +7021,18 @@
            <property name="text">
             <string>Parameter 1</string>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="label_Module1_Parameter2">
            <property name="text">
             <string>Parameter 2</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -7023,12 +7041,18 @@
            <property name="text">
             <string>Parameter 3</string>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="label_Module1_Parameter4">
            <property name="text">
             <string>Parameter 4</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -7037,12 +7061,18 @@
            <property name="text">
             <string>Parameter 5</string>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="label_Module1_Parameter6">
            <property name="text">
             <string>Parameter 6</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -7051,12 +7081,18 @@
            <property name="text">
             <string>Parameter 7</string>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="label_Module1_Parameter8">
            <property name="text">
             <string>Parameter 8</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -7065,12 +7101,18 @@
            <property name="text">
             <string>Parameter 9</string>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="label_Module1_Parameter10">
            <property name="text">
             <string>Parameter 10</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -7079,30 +7121,42 @@
        <item row="0" column="1">
         <layout class="QVBoxLayout" name="Module1ParameterStates">
          <item>
-          <widget class="QLabel" name="label_Module1_Voltage_State">
+          <widget class="QLabel" name="label_Module1_CustomParameter1_State">
            <property name="text">
             <string>&lt;font color='green'&gt;Enabled&lt;/font&gt;</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_Current_State">
+          <widget class="QLabel" name="label_Module1_CustomParameter2_State">
            <property name="text">
             <string>&lt;font color='green'&gt;Enabled&lt;/font&gt;</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_Frequency_State">
+          <widget class="QLabel" name="label_Module1_CustomParameter3_State">
            <property name="text">
             <string>&lt;font color='green'&gt;Enabled&lt;/font&gt;</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module1_Power_State">
+          <widget class="QLabel" name="label_Module1_CustomParameter4_State">
            <property name="text">
             <string>&lt;font color='green'&gt;Enabled&lt;/font&gt;</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -7111,12 +7165,18 @@
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="label_Module1_Parameter2_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -7125,12 +7185,18 @@
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="label_Module1_Parameter4_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -7139,12 +7205,18 @@
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="label_Module1_Parameter6_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -7153,12 +7225,18 @@
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="label_Module1_Parameter8_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -7167,12 +7245,18 @@
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="label_Module1_Parameter10_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -7196,30 +7280,42 @@
        <item row="0" column="0">
         <layout class="QVBoxLayout" name="Module2Parameters">
          <item>
-          <widget class="QLabel" name="label_Module2_Voltage">
+          <widget class="QLabel" name="label_Module2_CustomParameter1">
            <property name="text">
-            <string>Voltage</string>
+            <string>Null</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_Current">
+          <widget class="QLabel" name="label_Module2_CustomParameter2">
            <property name="text">
-            <string>Current</string>
+            <string>Null</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_Frequency">
+          <widget class="QLabel" name="label_Module2_CustomParameter3">
            <property name="text">
-            <string>Frequency</string>
+            <string>Null</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_Power">
+          <widget class="QLabel" name="label_Module2_CustomParameter4">
            <property name="text">
-            <string>Power</string>
+            <string>Null</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -7228,12 +7324,18 @@
            <property name="text">
             <string>Parameter 1</string>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="label_Module2_Parameter2">
            <property name="text">
             <string>Parameter 2</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -7242,12 +7344,18 @@
            <property name="text">
             <string>Parameter 3</string>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="label_Module2_Parameter4">
            <property name="text">
             <string>Parameter 4</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -7256,12 +7364,18 @@
            <property name="text">
             <string>Parameter 5</string>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="label_Module2_Parameter6">
            <property name="text">
             <string>Parameter 6</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -7270,12 +7384,18 @@
            <property name="text">
             <string>Parameter 7</string>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="label_Module2_Parameter8">
            <property name="text">
             <string>Parameter 8</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -7284,12 +7404,18 @@
            <property name="text">
             <string>Parameter 9</string>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="label_Module2_Parameter10">
            <property name="text">
             <string>Parameter 10</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -7298,30 +7424,42 @@
        <item row="0" column="1">
         <layout class="QVBoxLayout" name="Module2ParameterStates">
          <item>
-          <widget class="QLabel" name="label_Module2_Voltage_State">
+          <widget class="QLabel" name="label_Module2_CustomParameter1_State">
            <property name="text">
             <string>&lt;font color='green'&gt;Enabled&lt;/font&gt;</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_Current_State">
+          <widget class="QLabel" name="label_Module2_CustomParameter2_State">
            <property name="text">
             <string>&lt;font color='green'&gt;Enabled&lt;/font&gt;</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_Frequency_State">
+          <widget class="QLabel" name="label_Module2_CustomParameter3_State">
            <property name="text">
             <string>&lt;font color='green'&gt;Enabled&lt;/font&gt;</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Module2_Power_State">
+          <widget class="QLabel" name="label_Module2_CustomParameter4_State">
            <property name="text">
             <string>&lt;font color='green'&gt;Enabled&lt;/font&gt;</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -7330,12 +7468,18 @@
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="label_Module2_Parameter2_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -7344,12 +7488,18 @@
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="label_Module2_Parameter4_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -7358,12 +7508,18 @@
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="label_Module2_Parameter6_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -7372,12 +7528,18 @@
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="label_Module2_Parameter8_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -7386,12 +7548,18 @@
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="label_Module2_Parameter10_State">
            <property name="text">
             <string>&lt;font color='red'&gt;Disabled&lt;/font&gt;</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -7400,7 +7568,7 @@
        <item row="0" column="2">
         <layout class="QVBoxLayout" name="ValuesModule2Parameters">
          <item>
-          <widget class="QLCDNumber" name="lcdNumber_Value_Module2_Voltage">
+          <widget class="QLCDNumber" name="lcdNumber_Value_Module2_CustomParameter1">
            <property name="palette">
             <palette>
              <active>
@@ -7846,7 +8014,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLCDNumber" name="lcdNumber_Value_Module2_Current">
+          <widget class="QLCDNumber" name="lcdNumber_Value_Module2_CustomParameter2">
            <property name="palette">
             <palette>
              <active>
@@ -8292,7 +8460,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLCDNumber" name="lcdNumber_Value_Module2_Frequency">
+          <widget class="QLCDNumber" name="lcdNumber_Value_Module2_CustomParameter3">
            <property name="palette">
             <palette>
              <active>
@@ -8738,7 +8906,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLCDNumber" name="lcdNumber_Value_Module2_Power">
+          <widget class="QLCDNumber" name="lcdNumber_Value_Module2_CustomParameter4">
            <property name="palette">
             <palette>
              <active>
