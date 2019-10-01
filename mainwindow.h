@@ -23,6 +23,7 @@ public:
     void fullFrameReceived(QByteArray & receivedBytes);
     void updateGUI();
     void initConnectionModule(int module);
+    void deinitConnectionModule(int module);
     void openPort(QString portName);
     void closePort(QString portName);
     void initModuleParametersList();
@@ -51,6 +52,10 @@ private slots:
     void on_pushButton_SimulateParametersSequence_clicked();
 
     void on_pushButton_Close_clicked();
+
+    void on_pushButton_DeinitConnectionModule1_clicked();
+
+    void on_pushButton_DeinitConnectionModule2_clicked();
 
 private:
     Ui::MainWindow *ui;

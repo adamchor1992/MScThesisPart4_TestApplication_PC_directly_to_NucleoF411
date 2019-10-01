@@ -540,6 +540,30 @@ void MainWindow::initConnectionModule(int module)
     }
 }
 
+void MainWindow::deinitConnectionModule(int module)
+{
+    uint8_t UART_MessageToTransmit[FRAME_SIZE] = {0};
+
+    m_s_UARTFrame.source = SOURCE_TARGET1;
+    m_s_UARTFrame.module = module + '0'; //convert int to ascii representation
+    m_s_UARTFrame.function = DEINIT_FRAME;
+    m_s_UARTFrame.sign = POSITIVE_SIGN;
+    m_s_UARTFrame.parameter = '0';
+    m_s_UARTFrame.payload[0] = '\0';
+    m_s_UARTFrame.length = '1';
+
+    ui->lineEdit_Length->setText("N/A - Deinit frame");
+
+    convertUARTstructToFrameTable(m_s_UARTFrame, UART_MessageToTransmit);
+    appendCRCtoFrame(UART_MessageToTransmit);
+
+    qDebug("Deinit Frame is: %s", UART_MessageToTransmit);
+
+    m_serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
+    m_serial->waitForBytesWritten(3000);
+    m_serial->flush();
+}
+
 void MainWindow::sendCustomDataFrame()
 {
     uint8_t UART_MessageToTransmit[FRAME_SIZE] = {0};
@@ -845,6 +869,16 @@ void MainWindow::on_pushButton_InitConnectionModule1_clicked()
 void MainWindow::on_pushButton_InitConnectionModule2_clicked()
 {
     initConnectionModule(2);
+}
+
+void MainWindow::on_pushButton_DeinitConnectionModule1_clicked()
+{
+    deinitConnectionModule(1);
+}
+
+void MainWindow::on_pushButton_DeinitConnectionModule2_clicked()
+{
+    deinitConnectionModule(2);
 }
 
 void MainWindow::on_pushButton_StartLinear_1signal_clicked()
