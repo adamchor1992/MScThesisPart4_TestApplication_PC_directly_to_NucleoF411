@@ -1,8 +1,8 @@
-InitParam1
-InitParam2
-InitParam3
-InitParam4
-InitParam5
+InitPar1
+InitPar2
+InitPar3
+InitPar4
+InitPar5
 Samsung
 Converter
 SP-200

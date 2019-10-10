@@ -185,6 +185,12 @@ void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
 
         value_double = std::stof((char*)(m_s_UARTFrame.payload));
 
+        if(m_s_UARTFrame.sign == NEGATIVE_SIGN)
+        {
+            /*Make value negative if it was marked as negative in UART Frame*/
+            value_double = value_double * (-1);
+        }
+
         switch(m_s_UARTFrame.parameter)
         {
         case PARAMETER1:
@@ -466,7 +472,6 @@ void MainWindow::initConnectionModule(int module)
 
     ui->lineEdit_Length->setText("N/A - Init frame");
 
-    /*5 Module info values and names of 4 parameters*/
     QString initInfoValues[MODULE_INIT_INFO_VALUE_COUNT] = {ui->label_InitParameter1Name->text(),
                                                             ui->label_InitParameter2Name->text(),
                                                             ui->label_InitParameter3Name->text(),
