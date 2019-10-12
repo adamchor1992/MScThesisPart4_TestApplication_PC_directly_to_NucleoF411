@@ -7,6 +7,7 @@
 /*Module field*/
 #define MODULE1 '1'
 #define MODULE2 '2'
+#define MODULE3 '3'
 
 /*Function field*/
 #define DATA_FRAME '1'

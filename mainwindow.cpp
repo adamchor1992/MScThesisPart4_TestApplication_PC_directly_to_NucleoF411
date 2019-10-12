@@ -13,15 +13,17 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    m_serial = new QSerialPort(this);
-    m_module1 = new Module;
-    m_module2 = new Module;
+    m_pSerial = new QSerialPort(this);
+    m_pModule1 = new Module;
+    m_pModule2 = new Module;
+    m_pModule3 = new Module;
+    m_pTableView = new TableView(ui);
 
     m_stopPressed = false;
 
     initPortList();
 
-    connect(m_serial,SIGNAL(readyRead()), this, SLOT(serialDataReceived()));
+    connect(m_pSerial,SIGNAL(readyRead()), this, SLOT(serialDataReceived()));
 
     updateGUI();
 
@@ -30,23 +32,41 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->groupBox_GraphControls->setEnabled(false);
     ui->groupBox_Module1->setEnabled(false);
     ui->groupBox_Module2->setEnabled(false);
+    ui->groupBox_Module3->setEnabled(false);
+
+    m_pTableView->initFrameDisplay();
+
+    this->setWindowState(Qt::WindowMaximized);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete m_module1;
-    delete m_module2;
-    delete m_serial;
+    delete m_pModule1;
+    delete m_pModule2;
+    delete m_pModule3;
+    delete m_pSerial;
+    delete m_pTableView;
 }
 
 void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
 {
     qDebug("FULL FRAME RECEIVED");
 
-    convertFrameTableToUARTstruct(reinterpret_cast<const uint8_t*>(receivedBytes.constData()), m_s_UARTFrame);
+    convertFrameTableToUartStruct(reinterpret_cast<const uint8_t*>(receivedBytes.constData()), m_s_UARTFrame);
 
     qDebug("Received Frame is: %s", receivedBytes.constData());
+
+    uint8_t uartReceivedFrame[FRAME_SIZE] = {0};
+
+    for(int i=0; i<FRAME_SIZE; i++)
+    {
+        uartReceivedFrame[i] = receivedBytes.at(i);
+    }
+
+    m_pTableView->updateFrame(uartReceivedFrame, true);
+
+    QCoreApplication::processEvents();
 
     double value_double;
 
@@ -55,12 +75,17 @@ void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
     if(m_s_UARTFrame.module == MODULE1)
     {
         qDebug() << "Module 1";
-        currentModule = m_module1;
+        currentModule = m_pModule1;
     }
     else if(m_s_UARTFrame.module == MODULE2)
     {
         qDebug() << "Module 2";
-        currentModule = m_module2;
+        currentModule = m_pModule2;
+    }
+    else if(m_s_UARTFrame.module == MODULE3)
+    {
+        qDebug() << "Module 3";
+        currentModule = m_pModule3;
     }
     else
     {
@@ -301,22 +326,22 @@ void MainWindow::initPortList()
 
 void MainWindow::openPort(QString portName)
 {
-    m_serial->setPortName(portName);
+    m_pSerial->setPortName(portName);
 
     /*Check if port is already open*/
-    if(m_serial->isOpen())
+    if(m_pSerial->isOpen())
     {
         qDebug("Port is already open");
         return;
     }
 
-    m_serial->setBaudRate(QSerialPort::Baud115200);
-    m_serial->setDataBits(QSerialPort::Data8);
-    m_serial->setParity(QSerialPort::NoParity);
-    m_serial->setStopBits(QSerialPort::OneStop);
-    m_serial->setFlowControl(QSerialPort::NoFlowControl);
+    m_pSerial->setBaudRate(QSerialPort::Baud115200);
+    m_pSerial->setDataBits(QSerialPort::Data8);
+    m_pSerial->setParity(QSerialPort::NoParity);
+    m_pSerial->setStopBits(QSerialPort::OneStop);
+    m_pSerial->setFlowControl(QSerialPort::NoFlowControl);
 
-    if(m_serial->open(QIODevice::ReadWrite))
+    if(m_pSerial->open(QIODevice::ReadWrite))
     {
         qDebug("Port opened successfully");
         ui->label_ShowStatus->setText("<font color='green'>Open</font>");
@@ -328,6 +353,7 @@ void MainWindow::openPort(QString portName)
         ui->groupBox_GraphControls->setEnabled(true);
         ui->groupBox_Module1->setEnabled(true);
         ui->groupBox_Module2->setEnabled(true);
+        ui->groupBox_Module3->setEnabled(true);
     }
     else
     {
@@ -338,14 +364,14 @@ void MainWindow::openPort(QString portName)
 
 void MainWindow::closePort(QString portName)
 {
-    m_serial->setPortName(portName);
+    m_pSerial->setPortName(portName);
 
-    if(m_serial->isOpen() == true)
+    if(m_pSerial->isOpen() == true)
     {
-        m_serial->close();
+        m_pSerial->close();
 
         /*Ensure port was closed*/
-        if(m_serial->isOpen() == false)
+        if(m_pSerial->isOpen() == false)
         {
             qDebug("Port closed successfully");
             ui->label_ShowStatus->setText("<font color='red'>Close</font>");
@@ -532,16 +558,20 @@ void MainWindow::initConnectionModule(int module)
 
         m_s_UARTFrame.length = length_int + '0'; // convert from int to ASCII
 
-        convertUARTstructToFrameTable(m_s_UARTFrame, UART_MessageToTransmit);
-        appendCRCtoFrame(UART_MessageToTransmit);
+        convertUartStructToFrameTable(m_s_UARTFrame, UART_MessageToTransmit);
+        appendCrcToFrame(UART_MessageToTransmit);
 
         qDebug("Init Frame is: %s", UART_MessageToTransmit);
 
-        m_serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
-        m_serial->waitForBytesWritten(3000);
-        m_serial->flush();
+        m_pTableView->updateFrame(UART_MessageToTransmit, false);
 
-        Sleep(uint(50));
+        m_pSerial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
+        m_pSerial->waitForBytesWritten(3000);
+        m_pSerial->flush();
+
+        Sleep(uint(20));
+
+        QCoreApplication::processEvents();
     }
 }
 
@@ -559,14 +589,16 @@ void MainWindow::deinitConnectionModule(int module)
 
     ui->lineEdit_Length->setText("N/A - Deinit frame");
 
-    convertUARTstructToFrameTable(m_s_UARTFrame, UART_MessageToTransmit);
-    appendCRCtoFrame(UART_MessageToTransmit);
+    convertUartStructToFrameTable(m_s_UARTFrame, UART_MessageToTransmit);
+    appendCrcToFrame(UART_MessageToTransmit);
 
     qDebug("Deinit Frame is: %s", UART_MessageToTransmit);
 
-    m_serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
-    m_serial->waitForBytesWritten(3000);
-    m_serial->flush();
+    m_pTableView->updateFrame(UART_MessageToTransmit, false);
+
+    m_pSerial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
+    m_pSerial->waitForBytesWritten(3000);
+    m_pSerial->flush();
 }
 
 void MainWindow::sendCustomDataFrame()
@@ -605,14 +637,16 @@ void MainWindow::sendCustomDataFrame()
 
     ui->lineEdit_Length->setText(QString::number(length_int));
 
-    convertUARTstructToFrameTable(m_s_UARTFrame,UART_MessageToTransmit);
-    appendCRCtoFrame(UART_MessageToTransmit);
+    convertUartStructToFrameTable(m_s_UARTFrame,UART_MessageToTransmit);
+    appendCrcToFrame(UART_MessageToTransmit);
 
     qDebug("Data Frame is: %s", UART_MessageToTransmit);
 
-    m_serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
-    m_serial->waitForBytesWritten(3000);
-    m_serial->flush();
+    m_pTableView->updateFrame(UART_MessageToTransmit, false);
+
+    m_pSerial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
+    m_pSerial->waitForBytesWritten(3000);
+    m_pSerial->flush();
 }
 
 void MainWindow::startLinearGraph(int signalCount)
@@ -707,14 +741,16 @@ void MainWindow::sendLinear(int startValue, int stopValue, int signalCount)
 
             m_s_UARTFrame.length = length_int + '0'; // convert from int to ASCII
 
-            convertUARTstructToFrameTable(m_s_UARTFrame, UART_MessageToTransmit);
-            appendCRCtoFrame(UART_MessageToTransmit);
+            convertUartStructToFrameTable(m_s_UARTFrame, UART_MessageToTransmit);
+            appendCrcToFrame(UART_MessageToTransmit);
 
             qDebug("Data Frame is: %s", UART_MessageToTransmit);
 
-            m_serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
-            m_serial->waitForBytesWritten(3000);
-            m_serial->flush();
+            m_pTableView->updateFrame(UART_MessageToTransmit, false);
+
+            m_pSerial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
+            m_pSerial->waitForBytesWritten(3000);
+            m_pSerial->flush();
 
             Sleep(uint(20));
 
@@ -768,14 +804,16 @@ void MainWindow::sendSine(int startValue, int stopValue, int signalCount)
 
             m_s_UARTFrame.length = length_int + '0'; // convert from int to ASCII
 
-            convertUARTstructToFrameTable(m_s_UARTFrame, UART_MessageToTransmit);
-            appendCRCtoFrame(UART_MessageToTransmit);
+            convertUartStructToFrameTable(m_s_UARTFrame, UART_MessageToTransmit);
+            appendCrcToFrame(UART_MessageToTransmit);
 
             qDebug("Data Frame is: %s", UART_MessageToTransmit);
 
-            m_serial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
-            m_serial->waitForBytesWritten(3000);
-            m_serial->flush();
+            m_pTableView->updateFrame(UART_MessageToTransmit, false);
+
+            m_pSerial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
+            m_pSerial->waitForBytesWritten(3000);
+            m_pSerial->flush();
 
             Sleep(uint(20));
 
@@ -798,20 +836,24 @@ void MainWindow::updateGUI()
 
     QWidget* module1ParameterStateLabelsTable[10];
     QWidget* module2ParameterStateLabelsTable[10];
+    QWidget* module3ParameterStateLabelsTable[10];
     QWidget* module1ParameterValueLabelsTable[10];
     QWidget* module2ParameterValueLabelsTable[10];
+    QWidget* module3ParameterValueLabelsTable[10];
 
     for(int i = 0; i<10; i++)
     {
         module1ParameterStateLabelsTable[i] = ui->Module1ParameterStates->itemAt(i + OFFSET)->widget();
         module2ParameterStateLabelsTable[i] = ui->Module2ParameterStates->itemAt(i + OFFSET)->widget();
+        module3ParameterStateLabelsTable[i] = ui->Module3ParameterStates->itemAt(i + OFFSET)->widget();
         module1ParameterValueLabelsTable[i] = ui->ValuesModule1Parameters->itemAt(i + OFFSET)->widget();
         module2ParameterValueLabelsTable[i] = ui->ValuesModule2Parameters->itemAt(i + OFFSET)->widget();
+        module3ParameterValueLabelsTable[i] = ui->ValuesModule3Parameters->itemAt(i + OFFSET)->widget();
     }
 
     for(int i = 0; i<10; i++)
     {
-        if((m_module1->getParameterStatesTable())[i] == true)
+        if((m_pModule1->getParameterStatesTable())[i] == true)
         {
             dynamic_cast<QLabel*>(*(module1ParameterStateLabelsTable + i))->setText("<font color='green'>Enabled</font>");
         }
@@ -820,7 +862,7 @@ void MainWindow::updateGUI()
             dynamic_cast<QLabel*>(*(module1ParameterStateLabelsTable + i))->setText("<font color='red'>Disabled</font>");
         }
 
-        if((m_module2->getParameterStatesTable())[i] == true)
+        if((m_pModule2->getParameterStatesTable())[i] == true)
         {
             dynamic_cast<QLabel*>(*(module2ParameterStateLabelsTable + i))->setText("<font color='green'>Enabled</font>");
         }
@@ -829,8 +871,18 @@ void MainWindow::updateGUI()
             dynamic_cast<QLabel*>(*(module2ParameterStateLabelsTable + i))->setText("<font color='red'>Disabled</font>");
         }
 
-        dynamic_cast<QLCDNumber*>(*(module1ParameterValueLabelsTable + i))->display((m_module1->getParameterValuesTable())[i]);
-        dynamic_cast<QLCDNumber*>(*(module2ParameterValueLabelsTable + i))->display((m_module2->getParameterValuesTable())[i]);
+        if((m_pModule3->getParameterStatesTable())[i] == true)
+        {
+            dynamic_cast<QLabel*>(*(module3ParameterStateLabelsTable + i))->setText("<font color='green'>Enabled</font>");
+        }
+        else
+        {
+            dynamic_cast<QLabel*>(*(module3ParameterStateLabelsTable + i))->setText("<font color='red'>Disabled</font>");
+        }
+
+        dynamic_cast<QLCDNumber*>(*(module1ParameterValueLabelsTable + i))->display((m_pModule1->getParameterValuesTable())[i]);
+        dynamic_cast<QLCDNumber*>(*(module2ParameterValueLabelsTable + i))->display((m_pModule2->getParameterValuesTable())[i]);
+        dynamic_cast<QLCDNumber*>(*(module3ParameterValueLabelsTable + i))->display((m_pModule3->getParameterValuesTable())[i]);
     }
 }
 
@@ -841,7 +893,7 @@ void MainWindow::serialDataReceived()
 
     static QByteArray receivedBytes;
 
-    receivedBytes += m_serial->readAll();
+    receivedBytes += m_pSerial->readAll();
 
     if(receivedBytes.size() >= FRAME_SIZE)
     {

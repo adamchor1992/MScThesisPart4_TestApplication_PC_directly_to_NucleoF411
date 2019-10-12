@@ -1,7 +1,7 @@
 #ifndef UART_FRAME_STRUCT_H
 #define UART_FRAME_STRUCT_H
 
-#define FRAME_SIZE 20
+//#define FRAME_SIZE 20
 
 #include <stdint.h>
 

@@ -1,7 +1,7 @@
 #include "utilities.h"
 
 /*This function merely copies table elements to structure fields, no additional logic included*/
-void convertFrameTableToUARTstruct(const uint8_t frameTable[],UARTFrameStruct_t & frameStructure)
+void convertFrameTableToUartStruct(const uint8_t frameTable[],UARTFrameStruct_t & frameStructure)
 {
     frameStructure.source = frameTable[0];
     frameStructure.module = frameTable[1];
@@ -19,7 +19,7 @@ void convertFrameTableToUARTstruct(const uint8_t frameTable[],UARTFrameStruct_t 
 }
 
 /*This function merely copies structure fields to table elements, no additional logic included*/
-void convertUARTstructToFrameTable(const UARTFrameStruct_t & frameStructure, uint8_t frameTable[])
+void convertUartStructToFrameTable(const UARTFrameStruct_t & frameStructure, uint8_t frameTable[])
 {
     frameTable[0] = frameStructure.source;
     frameTable[1] = frameStructure.module;
@@ -36,7 +36,7 @@ void convertUARTstructToFrameTable(const UARTFrameStruct_t & frameStructure, uin
     }
 }
 
-uint32_t Calculate_CRC32 (char *data, int len)
+uint32_t calculateCrc32 (char *data, int len)
 {
   uint32_t crc = 0xffffffff;
   while (len--)
@@ -44,9 +44,9 @@ uint32_t Calculate_CRC32 (char *data, int len)
   return crc;
 }
 
-void appendCRCtoFrame(uint8_t frame[])
+void appendCrcToFrame(uint8_t frame[])
 {
-    uint32_t CRC_Value_Calculated = Calculate_CRC32((char*)frame, 16);
+    uint32_t CRC_Value_Calculated = calculateCrc32((char*)frame, 16);
     uint32_t* CRC_Address = &CRC_Value_Calculated;
     uint8_t *p1, *p2, *p3, *p4;
 

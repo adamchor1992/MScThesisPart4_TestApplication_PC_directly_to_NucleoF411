@@ -6,6 +6,7 @@
 #include "QtSerialPort/QSerialPort"
 #include "uart_frame_struct.h"
 #include "module.h"
+#include "tableview.h"
 
 namespace Ui {
 class MainWindow;
@@ -19,6 +20,7 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void initFrameDisplay();
     void initPortList();
     void fullFrameReceived(QByteArray & receivedBytes);
     void updateGUI();
@@ -59,9 +61,11 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QSerialPort* m_serial;
-    Module* m_module1;
-    Module* m_module2;
+    QSerialPort* m_pSerial;
+    Module* m_pModule1;
+    Module* m_pModule2;
+    Module* m_pModule3;
+    TableView* m_pTableView;
 
     UARTFrameStruct_t m_s_UARTFrame;
 

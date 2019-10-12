@@ -8,9 +8,9 @@
 #include <windows.h> // for Sleep
 #include "crc32.h"
 
-void convertFrameTableToUARTstruct(const uint8_t frameTable[],UARTFrameStruct_t & frameStructure);
-void convertUARTstructToFrameTable(const UARTFrameStruct_t & frameStructure, uint8_t frameTable[]);
-uint32_t Calculate_CRC32 (char *data, int len);
-void appendCRCtoFrame(uint8_t frame[]);
+void convertFrameTableToUartStruct(const uint8_t frameTable[], UARTFrameStruct_t & frameStructure);
+void convertUartStructToFrameTable(const UARTFrameStruct_t & frameStructure, uint8_t frameTable[]);
+uint32_t calculateCrc32 (char *data, int len);
+void appendCrcToFrame(uint8_t frame[]);
 
 #endif // UTILITIES_H
