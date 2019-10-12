@@ -14,11 +14,13 @@
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
+#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLCDNumber>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QTableWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -96,6 +98,9 @@ public:
     QPushButton *pushButton_DeinitConnectionModule1;
     QLabel *label_Parameter4Name;
     QLineEdit *lineEdit_Parameter4Name;
+    QGroupBox *groupBox_2;
+    QGridLayout *gridLayout_8;
+    QTableWidget *tableWidget;
     QGroupBox *groupBox_Module1;
     QGridLayout *gridLayout_5;
     QVBoxLayout *ValuesModule1Parameters;
@@ -190,12 +195,13 @@ public:
     QLCDNumber *lcdNumber_Value_Module2_SettableParameter8;
     QLCDNumber *lcdNumber_Value_Module2_SettableParameter9;
     QLCDNumber *lcdNumber_Value_Module2_SettableParameter10;
+    QGroupBox *groupBox;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(976, 885);
+        MainWindow->resize(976, 1094);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         gridLayout_7 = new QGridLayout(centralWidget);
@@ -480,7 +486,7 @@ public:
         gridLayout_4->addWidget(pushButton_Stop, 7, 0, 1, 2);
 
 
-        gridLayout_7->addWidget(groupBox_GraphControls, 0, 2, 2, 1);
+        gridLayout_7->addWidget(groupBox_GraphControls, 0, 2, 2, 2);
 
         groupBox_ModuleControls = new QGroupBox(centralWidget);
         groupBox_ModuleControls->setObjectName(QString::fromUtf8("groupBox_ModuleControls"));
@@ -625,6 +631,73 @@ public:
 
         gridLayout_7->addWidget(groupBox_ModuleControls, 1, 0, 1, 1);
 
+        groupBox_2 = new QGroupBox(centralWidget);
+        groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
+        groupBox_2->setStyleSheet(QString::fromUtf8("font:bold"));
+        groupBox_2->setAlignment(Qt::AlignCenter);
+        gridLayout_8 = new QGridLayout(groupBox_2);
+        gridLayout_8->setSpacing(6);
+        gridLayout_8->setContentsMargins(11, 11, 11, 11);
+        gridLayout_8->setObjectName(QString::fromUtf8("gridLayout_8"));
+        tableWidget = new QTableWidget(groupBox_2);
+        if (tableWidget->columnCount() < 20)
+            tableWidget->setColumnCount(20);
+        QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(0, __qtablewidgetitem);
+        QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(1, __qtablewidgetitem1);
+        QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(2, __qtablewidgetitem2);
+        QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(3, __qtablewidgetitem3);
+        QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(4, __qtablewidgetitem4);
+        QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(5, __qtablewidgetitem5);
+        QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(6, __qtablewidgetitem6);
+        QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(7, __qtablewidgetitem7);
+        QTableWidgetItem *__qtablewidgetitem8 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(8, __qtablewidgetitem8);
+        QTableWidgetItem *__qtablewidgetitem9 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(9, __qtablewidgetitem9);
+        QTableWidgetItem *__qtablewidgetitem10 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(10, __qtablewidgetitem10);
+        QTableWidgetItem *__qtablewidgetitem11 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(11, __qtablewidgetitem11);
+        QTableWidgetItem *__qtablewidgetitem12 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(12, __qtablewidgetitem12);
+        QTableWidgetItem *__qtablewidgetitem13 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(13, __qtablewidgetitem13);
+        QTableWidgetItem *__qtablewidgetitem14 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(14, __qtablewidgetitem14);
+        QTableWidgetItem *__qtablewidgetitem15 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(15, __qtablewidgetitem15);
+        QTableWidgetItem *__qtablewidgetitem16 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(16, __qtablewidgetitem16);
+        QTableWidgetItem *__qtablewidgetitem17 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(17, __qtablewidgetitem17);
+        QTableWidgetItem *__qtablewidgetitem18 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(18, __qtablewidgetitem18);
+        QTableWidgetItem *__qtablewidgetitem19 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(19, __qtablewidgetitem19);
+        if (tableWidget->rowCount() < 1)
+            tableWidget->setRowCount(1);
+        QTableWidgetItem *__qtablewidgetitem20 = new QTableWidgetItem();
+        tableWidget->setVerticalHeaderItem(0, __qtablewidgetitem20);
+        tableWidget->setObjectName(QString::fromUtf8("tableWidget"));
+        tableWidget->setRowCount(1);
+        tableWidget->setColumnCount(20);
+        tableWidget->horizontalHeader()->setMinimumSectionSize(37);
+        tableWidget->horizontalHeader()->setDefaultSectionSize(45);
+        tableWidget->verticalHeader()->setMinimumSectionSize(23);
+
+        gridLayout_8->addWidget(tableWidget, 0, 0, 1, 1);
+
+
+        gridLayout_7->addWidget(groupBox_2, 2, 0, 2, 4);
+
         groupBox_Module1 = new QGroupBox(centralWidget);
         groupBox_Module1->setObjectName(QString::fromUtf8("groupBox_Module1"));
         groupBox_Module1->setStyleSheet(QString::fromUtf8("font:bold"));
@@ -702,6 +775,7 @@ public:
         palette.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush3);
 #endif
         lcdNumber_Value_Module1_CustomParameter1->setPalette(palette);
+        lcdNumber_Value_Module1_CustomParameter1->setDigitCount(10);
 
         ValuesModule1Parameters->addWidget(lcdNumber_Value_Module1_CustomParameter1);
 
@@ -763,6 +837,7 @@ public:
         palette1.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush3);
 #endif
         lcdNumber_Value_Module1_CustomParameter2->setPalette(palette1);
+        lcdNumber_Value_Module1_CustomParameter2->setDigitCount(10);
 
         ValuesModule1Parameters->addWidget(lcdNumber_Value_Module1_CustomParameter2);
 
@@ -824,6 +899,7 @@ public:
         palette2.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush3);
 #endif
         lcdNumber_Value_Module1_CustomParameter3->setPalette(palette2);
+        lcdNumber_Value_Module1_CustomParameter3->setDigitCount(10);
 
         ValuesModule1Parameters->addWidget(lcdNumber_Value_Module1_CustomParameter3);
 
@@ -885,6 +961,7 @@ public:
         palette3.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush3);
 #endif
         lcdNumber_Value_Module1_CustomParameter4->setPalette(palette3);
+        lcdNumber_Value_Module1_CustomParameter4->setDigitCount(10);
         lcdNumber_Value_Module1_CustomParameter4->setSegmentStyle(QLCDNumber::Filled);
 
         ValuesModule1Parameters->addWidget(lcdNumber_Value_Module1_CustomParameter4);
@@ -947,6 +1024,7 @@ public:
         palette4.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush3);
 #endif
         lcdNumber_Value_Module1_SettableParameter1->setPalette(palette4);
+        lcdNumber_Value_Module1_SettableParameter1->setDigitCount(10);
 
         ValuesModule1Parameters->addWidget(lcdNumber_Value_Module1_SettableParameter1);
 
@@ -1008,6 +1086,7 @@ public:
         palette5.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush3);
 #endif
         lcdNumber_Value_Module1_SettableParameter2->setPalette(palette5);
+        lcdNumber_Value_Module1_SettableParameter2->setDigitCount(10);
 
         ValuesModule1Parameters->addWidget(lcdNumber_Value_Module1_SettableParameter2);
 
@@ -1069,6 +1148,7 @@ public:
         palette6.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush3);
 #endif
         lcdNumber_Value_Module1_SettableParameter3->setPalette(palette6);
+        lcdNumber_Value_Module1_SettableParameter3->setDigitCount(10);
 
         ValuesModule1Parameters->addWidget(lcdNumber_Value_Module1_SettableParameter3);
 
@@ -1130,6 +1210,7 @@ public:
         palette7.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush3);
 #endif
         lcdNumber_Value_Module1_SettableParameter4->setPalette(palette7);
+        lcdNumber_Value_Module1_SettableParameter4->setDigitCount(10);
 
         ValuesModule1Parameters->addWidget(lcdNumber_Value_Module1_SettableParameter4);
 
@@ -1191,6 +1272,7 @@ public:
         palette8.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush3);
 #endif
         lcdNumber_Value_Module1_SettableParameter5->setPalette(palette8);
+        lcdNumber_Value_Module1_SettableParameter5->setDigitCount(10);
 
         ValuesModule1Parameters->addWidget(lcdNumber_Value_Module1_SettableParameter5);
 
@@ -1252,6 +1334,7 @@ public:
         palette9.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush3);
 #endif
         lcdNumber_Value_Module1_SettableParameter6->setPalette(palette9);
+        lcdNumber_Value_Module1_SettableParameter6->setDigitCount(10);
 
         ValuesModule1Parameters->addWidget(lcdNumber_Value_Module1_SettableParameter6);
 
@@ -1313,6 +1396,7 @@ public:
         palette10.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush3);
 #endif
         lcdNumber_Value_Module1_SettableParameter7->setPalette(palette10);
+        lcdNumber_Value_Module1_SettableParameter7->setDigitCount(10);
 
         ValuesModule1Parameters->addWidget(lcdNumber_Value_Module1_SettableParameter7);
 
@@ -1374,6 +1458,7 @@ public:
         palette11.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush3);
 #endif
         lcdNumber_Value_Module1_SettableParameter8->setPalette(palette11);
+        lcdNumber_Value_Module1_SettableParameter8->setDigitCount(10);
 
         ValuesModule1Parameters->addWidget(lcdNumber_Value_Module1_SettableParameter8);
 
@@ -1435,6 +1520,7 @@ public:
         palette12.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush3);
 #endif
         lcdNumber_Value_Module1_SettableParameter9->setPalette(palette12);
+        lcdNumber_Value_Module1_SettableParameter9->setDigitCount(10);
 
         ValuesModule1Parameters->addWidget(lcdNumber_Value_Module1_SettableParameter9);
 
@@ -1496,6 +1582,7 @@ public:
         palette13.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush3);
 #endif
         lcdNumber_Value_Module1_SettableParameter10->setPalette(palette13);
+        lcdNumber_Value_Module1_SettableParameter10->setDigitCount(10);
 
         ValuesModule1Parameters->addWidget(lcdNumber_Value_Module1_SettableParameter10);
 
@@ -1683,7 +1770,7 @@ public:
         gridLayout_5->addLayout(Module1ParameterStates, 0, 1, 1, 1);
 
 
-        gridLayout_7->addWidget(groupBox_Module1, 2, 0, 1, 1);
+        gridLayout_7->addWidget(groupBox_Module1, 4, 0, 1, 1);
 
         groupBox_Module2 = new QGroupBox(centralWidget);
         groupBox_Module2->setObjectName(QString::fromUtf8("groupBox_Module2"));
@@ -1934,6 +2021,7 @@ public:
         palette14.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush3);
 #endif
         lcdNumber_Value_Module2_CustomParameter1->setPalette(palette14);
+        lcdNumber_Value_Module2_CustomParameter1->setDigitCount(10);
 
         ValuesModule2Parameters->addWidget(lcdNumber_Value_Module2_CustomParameter1);
 
@@ -1995,6 +2083,7 @@ public:
         palette15.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush3);
 #endif
         lcdNumber_Value_Module2_CustomParameter2->setPalette(palette15);
+        lcdNumber_Value_Module2_CustomParameter2->setDigitCount(10);
 
         ValuesModule2Parameters->addWidget(lcdNumber_Value_Module2_CustomParameter2);
 
@@ -2056,6 +2145,7 @@ public:
         palette16.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush3);
 #endif
         lcdNumber_Value_Module2_CustomParameter3->setPalette(palette16);
+        lcdNumber_Value_Module2_CustomParameter3->setDigitCount(10);
 
         ValuesModule2Parameters->addWidget(lcdNumber_Value_Module2_CustomParameter3);
 
@@ -2117,6 +2207,7 @@ public:
         palette17.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush3);
 #endif
         lcdNumber_Value_Module2_CustomParameter4->setPalette(palette17);
+        lcdNumber_Value_Module2_CustomParameter4->setDigitCount(10);
 
         ValuesModule2Parameters->addWidget(lcdNumber_Value_Module2_CustomParameter4);
 
@@ -2178,6 +2269,7 @@ public:
         palette18.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush3);
 #endif
         lcdNumber_Value_Module2_SettableParameter1->setPalette(palette18);
+        lcdNumber_Value_Module2_SettableParameter1->setDigitCount(10);
 
         ValuesModule2Parameters->addWidget(lcdNumber_Value_Module2_SettableParameter1);
 
@@ -2239,6 +2331,7 @@ public:
         palette19.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush3);
 #endif
         lcdNumber_Value_Module2_SettableParameter2->setPalette(palette19);
+        lcdNumber_Value_Module2_SettableParameter2->setDigitCount(10);
 
         ValuesModule2Parameters->addWidget(lcdNumber_Value_Module2_SettableParameter2);
 
@@ -2300,6 +2393,7 @@ public:
         palette20.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush3);
 #endif
         lcdNumber_Value_Module2_SettableParameter3->setPalette(palette20);
+        lcdNumber_Value_Module2_SettableParameter3->setDigitCount(10);
 
         ValuesModule2Parameters->addWidget(lcdNumber_Value_Module2_SettableParameter3);
 
@@ -2361,6 +2455,7 @@ public:
         palette21.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush3);
 #endif
         lcdNumber_Value_Module2_SettableParameter4->setPalette(palette21);
+        lcdNumber_Value_Module2_SettableParameter4->setDigitCount(10);
 
         ValuesModule2Parameters->addWidget(lcdNumber_Value_Module2_SettableParameter4);
 
@@ -2422,6 +2517,7 @@ public:
         palette22.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush3);
 #endif
         lcdNumber_Value_Module2_SettableParameter5->setPalette(palette22);
+        lcdNumber_Value_Module2_SettableParameter5->setDigitCount(10);
 
         ValuesModule2Parameters->addWidget(lcdNumber_Value_Module2_SettableParameter5);
 
@@ -2483,6 +2579,7 @@ public:
         palette23.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush3);
 #endif
         lcdNumber_Value_Module2_SettableParameter6->setPalette(palette23);
+        lcdNumber_Value_Module2_SettableParameter6->setDigitCount(10);
 
         ValuesModule2Parameters->addWidget(lcdNumber_Value_Module2_SettableParameter6);
 
@@ -2544,6 +2641,7 @@ public:
         palette24.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush3);
 #endif
         lcdNumber_Value_Module2_SettableParameter7->setPalette(palette24);
+        lcdNumber_Value_Module2_SettableParameter7->setDigitCount(10);
 
         ValuesModule2Parameters->addWidget(lcdNumber_Value_Module2_SettableParameter7);
 
@@ -2605,6 +2703,7 @@ public:
         palette25.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush3);
 #endif
         lcdNumber_Value_Module2_SettableParameter8->setPalette(palette25);
+        lcdNumber_Value_Module2_SettableParameter8->setDigitCount(10);
 
         ValuesModule2Parameters->addWidget(lcdNumber_Value_Module2_SettableParameter8);
 
@@ -2666,6 +2765,7 @@ public:
         palette26.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush3);
 #endif
         lcdNumber_Value_Module2_SettableParameter9->setPalette(palette26);
+        lcdNumber_Value_Module2_SettableParameter9->setDigitCount(10);
 
         ValuesModule2Parameters->addWidget(lcdNumber_Value_Module2_SettableParameter9);
 
@@ -2727,6 +2827,7 @@ public:
         palette27.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush3);
 #endif
         lcdNumber_Value_Module2_SettableParameter10->setPalette(palette27);
+        lcdNumber_Value_Module2_SettableParameter10->setDigitCount(10);
 
         ValuesModule2Parameters->addWidget(lcdNumber_Value_Module2_SettableParameter10);
 
@@ -2734,7 +2835,14 @@ public:
         gridLayout_6->addLayout(ValuesModule2Parameters, 0, 2, 1, 1);
 
 
-        gridLayout_7->addWidget(groupBox_Module2, 2, 1, 1, 1);
+        gridLayout_7->addWidget(groupBox_Module2, 4, 1, 1, 1);
+
+        groupBox = new QGroupBox(centralWidget);
+        groupBox->setObjectName(QString::fromUtf8("groupBox"));
+        groupBox->setStyleSheet(QString::fromUtf8("font:bold"));
+        groupBox->setAlignment(Qt::AlignCenter);
+
+        gridLayout_7->addWidget(groupBox, 4, 2, 1, 2);
 
         MainWindow->setCentralWidget(centralWidget);
 
@@ -2813,6 +2921,47 @@ public:
         pushButton_InitConnectionModule1->setText(QCoreApplication::translate("MainWindow", "Init Connection Module 1", nullptr));
         pushButton_DeinitConnectionModule1->setText(QCoreApplication::translate("MainWindow", "Deinit Connection Module 1", nullptr));
         label_Parameter4Name->setText(QCoreApplication::translate("MainWindow", "Parameter 4 name", nullptr));
+        groupBox_2->setTitle(QCoreApplication::translate("MainWindow", "Frame monitoring", nullptr));
+        QTableWidgetItem *___qtablewidgetitem = tableWidget->horizontalHeaderItem(0);
+        ___qtablewidgetitem->setText(QCoreApplication::translate("MainWindow", "Source", nullptr));
+        QTableWidgetItem *___qtablewidgetitem1 = tableWidget->horizontalHeaderItem(1);
+        ___qtablewidgetitem1->setText(QCoreApplication::translate("MainWindow", "Module", nullptr));
+        QTableWidgetItem *___qtablewidgetitem2 = tableWidget->horizontalHeaderItem(2);
+        ___qtablewidgetitem2->setText(QCoreApplication::translate("MainWindow", "Function", nullptr));
+        QTableWidgetItem *___qtablewidgetitem3 = tableWidget->horizontalHeaderItem(3);
+        ___qtablewidgetitem3->setText(QCoreApplication::translate("MainWindow", "Parameter", nullptr));
+        QTableWidgetItem *___qtablewidgetitem4 = tableWidget->horizontalHeaderItem(4);
+        ___qtablewidgetitem4->setText(QCoreApplication::translate("MainWindow", "Sign", nullptr));
+        QTableWidgetItem *___qtablewidgetitem5 = tableWidget->horizontalHeaderItem(5);
+        ___qtablewidgetitem5->setText(QCoreApplication::translate("MainWindow", "Length", nullptr));
+        QTableWidgetItem *___qtablewidgetitem6 = tableWidget->horizontalHeaderItem(6);
+        ___qtablewidgetitem6->setText(QCoreApplication::translate("MainWindow", "P1", nullptr));
+        QTableWidgetItem *___qtablewidgetitem7 = tableWidget->horizontalHeaderItem(7);
+        ___qtablewidgetitem7->setText(QCoreApplication::translate("MainWindow", "P2", nullptr));
+        QTableWidgetItem *___qtablewidgetitem8 = tableWidget->horizontalHeaderItem(8);
+        ___qtablewidgetitem8->setText(QCoreApplication::translate("MainWindow", "P3", nullptr));
+        QTableWidgetItem *___qtablewidgetitem9 = tableWidget->horizontalHeaderItem(9);
+        ___qtablewidgetitem9->setText(QCoreApplication::translate("MainWindow", "P4", nullptr));
+        QTableWidgetItem *___qtablewidgetitem10 = tableWidget->horizontalHeaderItem(10);
+        ___qtablewidgetitem10->setText(QCoreApplication::translate("MainWindow", "P5", nullptr));
+        QTableWidgetItem *___qtablewidgetitem11 = tableWidget->horizontalHeaderItem(11);
+        ___qtablewidgetitem11->setText(QCoreApplication::translate("MainWindow", "P6", nullptr));
+        QTableWidgetItem *___qtablewidgetitem12 = tableWidget->horizontalHeaderItem(12);
+        ___qtablewidgetitem12->setText(QCoreApplication::translate("MainWindow", "P7", nullptr));
+        QTableWidgetItem *___qtablewidgetitem13 = tableWidget->horizontalHeaderItem(13);
+        ___qtablewidgetitem13->setText(QCoreApplication::translate("MainWindow", "P8", nullptr));
+        QTableWidgetItem *___qtablewidgetitem14 = tableWidget->horizontalHeaderItem(14);
+        ___qtablewidgetitem14->setText(QCoreApplication::translate("MainWindow", "P9", nullptr));
+        QTableWidgetItem *___qtablewidgetitem15 = tableWidget->horizontalHeaderItem(15);
+        ___qtablewidgetitem15->setText(QCoreApplication::translate("MainWindow", "P10", nullptr));
+        QTableWidgetItem *___qtablewidgetitem16 = tableWidget->horizontalHeaderItem(16);
+        ___qtablewidgetitem16->setText(QCoreApplication::translate("MainWindow", "CRC1", nullptr));
+        QTableWidgetItem *___qtablewidgetitem17 = tableWidget->horizontalHeaderItem(17);
+        ___qtablewidgetitem17->setText(QCoreApplication::translate("MainWindow", "CRC2", nullptr));
+        QTableWidgetItem *___qtablewidgetitem18 = tableWidget->horizontalHeaderItem(18);
+        ___qtablewidgetitem18->setText(QCoreApplication::translate("MainWindow", "CRC3", nullptr));
+        QTableWidgetItem *___qtablewidgetitem19 = tableWidget->horizontalHeaderItem(19);
+        ___qtablewidgetitem19->setText(QCoreApplication::translate("MainWindow", "CRC4", nullptr));
         groupBox_Module1->setTitle(QCoreApplication::translate("MainWindow", "Module 1", nullptr));
         label_Module1_CustomParameter1Name->setText(QCoreApplication::translate("MainWindow", "Null", nullptr));
         label_Module1_CustomParameter2Name->setText(QCoreApplication::translate("MainWindow", "Null", nullptr));
@@ -2871,6 +3020,7 @@ public:
         label_Module2_SettableParameter8_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
         label_Module2_SettableParameter9_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
         label_Module2_SettableParameter10_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        groupBox->setTitle(QCoreApplication::translate("MainWindow", "Module 3 Placeholder", nullptr));
     } // retranslateUi
 
 };

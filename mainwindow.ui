@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>976</width>
-    <height>885</height>
+    <height>1094</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -326,7 +326,7 @@
       </layout>
      </widget>
     </item>
-    <item row="0" column="2" rowspan="2">
+    <item row="0" column="2" rowspan="2" colspan="2">
      <widget class="QGroupBox" name="groupBox_GraphControls">
       <property name="styleSheet">
        <string notr="true">font:bold</string>
@@ -711,7 +711,146 @@
       </layout>
      </widget>
     </item>
-    <item row="2" column="0">
+    <item row="2" column="0" rowspan="2" colspan="4">
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="styleSheet">
+       <string notr="true">font:bold</string>
+      </property>
+      <property name="title">
+       <string>Frame monitoring</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_8">
+       <item row="0" column="0">
+        <widget class="QTableWidget" name="tableWidget">
+         <property name="rowCount">
+          <number>1</number>
+         </property>
+         <property name="columnCount">
+          <number>20</number>
+         </property>
+         <attribute name="horizontalHeaderMinimumSectionSize">
+          <number>37</number>
+         </attribute>
+         <attribute name="horizontalHeaderDefaultSectionSize">
+          <number>45</number>
+         </attribute>
+         <attribute name="verticalHeaderMinimumSectionSize">
+          <number>23</number>
+         </attribute>
+         <row>
+          <property name="text">
+           <string/>
+          </property>
+         </row>
+         <column>
+          <property name="text">
+           <string>Source</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Module</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Function</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Parameter</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Sign</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Length</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>P1</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>P2</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>P3</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>P4</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>P5</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>P6</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>P7</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>P8</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>P9</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>P10</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>CRC1</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>CRC2</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>CRC3</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>CRC4</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="4" column="0">
      <widget class="QGroupBox" name="groupBox_Module1">
       <property name="styleSheet">
        <string notr="true">font:bold</string>
@@ -1169,6 +1308,9 @@
              </disabled>
             </palette>
            </property>
+           <property name="digitCount">
+            <number>10</number>
+           </property>
           </widget>
          </item>
          <item>
@@ -1614,6 +1756,9 @@
               </colorrole>
              </disabled>
             </palette>
+           </property>
+           <property name="digitCount">
+            <number>10</number>
            </property>
           </widget>
          </item>
@@ -2061,6 +2206,9 @@
              </disabled>
             </palette>
            </property>
+           <property name="digitCount">
+            <number>10</number>
+           </property>
           </widget>
          </item>
          <item>
@@ -2506,6 +2654,9 @@
               </colorrole>
              </disabled>
             </palette>
+           </property>
+           <property name="digitCount">
+            <number>10</number>
            </property>
            <property name="segmentStyle">
             <enum>QLCDNumber::Filled</enum>
@@ -2956,6 +3107,9 @@
              </disabled>
             </palette>
            </property>
+           <property name="digitCount">
+            <number>10</number>
+           </property>
           </widget>
          </item>
          <item>
@@ -3401,6 +3555,9 @@
               </colorrole>
              </disabled>
             </palette>
+           </property>
+           <property name="digitCount">
+            <number>10</number>
            </property>
           </widget>
          </item>
@@ -3848,6 +4005,9 @@
              </disabled>
             </palette>
            </property>
+           <property name="digitCount">
+            <number>10</number>
+           </property>
           </widget>
          </item>
          <item>
@@ -4293,6 +4453,9 @@
               </colorrole>
              </disabled>
             </palette>
+           </property>
+           <property name="digitCount">
+            <number>10</number>
            </property>
           </widget>
          </item>
@@ -4740,6 +4903,9 @@
              </disabled>
             </palette>
            </property>
+           <property name="digitCount">
+            <number>10</number>
+           </property>
           </widget>
          </item>
          <item>
@@ -5185,6 +5351,9 @@
               </colorrole>
              </disabled>
             </palette>
+           </property>
+           <property name="digitCount">
+            <number>10</number>
            </property>
           </widget>
          </item>
@@ -5632,6 +5801,9 @@
              </disabled>
             </palette>
            </property>
+           <property name="digitCount">
+            <number>10</number>
+           </property>
           </widget>
          </item>
          <item>
@@ -6077,6 +6249,9 @@
               </colorrole>
              </disabled>
             </palette>
+           </property>
+           <property name="digitCount">
+            <number>10</number>
            </property>
           </widget>
          </item>
@@ -6524,6 +6699,9 @@
              </disabled>
             </palette>
            </property>
+           <property name="digitCount">
+            <number>10</number>
+           </property>
           </widget>
          </item>
          <item>
@@ -6970,6 +7148,9 @@
              </disabled>
             </palette>
            </property>
+           <property name="digitCount">
+            <number>10</number>
+           </property>
           </widget>
          </item>
         </layout>
@@ -7265,7 +7446,7 @@
       </layout>
      </widget>
     </item>
-    <item row="2" column="1">
+    <item row="4" column="1">
      <widget class="QGroupBox" name="groupBox_Module2">
       <property name="styleSheet">
        <string notr="true">font:bold</string>
@@ -8011,6 +8192,9 @@
              </disabled>
             </palette>
            </property>
+           <property name="digitCount">
+            <number>10</number>
+           </property>
           </widget>
          </item>
          <item>
@@ -8456,6 +8640,9 @@
               </colorrole>
              </disabled>
             </palette>
+           </property>
+           <property name="digitCount">
+            <number>10</number>
            </property>
           </widget>
          </item>
@@ -8903,6 +9090,9 @@
              </disabled>
             </palette>
            </property>
+           <property name="digitCount">
+            <number>10</number>
+           </property>
           </widget>
          </item>
          <item>
@@ -9348,6 +9538,9 @@
               </colorrole>
              </disabled>
             </palette>
+           </property>
+           <property name="digitCount">
+            <number>10</number>
            </property>
           </widget>
          </item>
@@ -9795,6 +9988,9 @@
              </disabled>
             </palette>
            </property>
+           <property name="digitCount">
+            <number>10</number>
+           </property>
           </widget>
          </item>
          <item>
@@ -10240,6 +10436,9 @@
               </colorrole>
              </disabled>
             </palette>
+           </property>
+           <property name="digitCount">
+            <number>10</number>
            </property>
           </widget>
          </item>
@@ -10687,6 +10886,9 @@
              </disabled>
             </palette>
            </property>
+           <property name="digitCount">
+            <number>10</number>
+           </property>
           </widget>
          </item>
          <item>
@@ -11132,6 +11334,9 @@
               </colorrole>
              </disabled>
             </palette>
+           </property>
+           <property name="digitCount">
+            <number>10</number>
            </property>
           </widget>
          </item>
@@ -11579,6 +11784,9 @@
              </disabled>
             </palette>
            </property>
+           <property name="digitCount">
+            <number>10</number>
+           </property>
           </widget>
          </item>
          <item>
@@ -12024,6 +12232,9 @@
               </colorrole>
              </disabled>
             </palette>
+           </property>
+           <property name="digitCount">
+            <number>10</number>
            </property>
           </widget>
          </item>
@@ -12471,6 +12682,9 @@
              </disabled>
             </palette>
            </property>
+           <property name="digitCount">
+            <number>10</number>
+           </property>
           </widget>
          </item>
          <item>
@@ -12916,6 +13130,9 @@
               </colorrole>
              </disabled>
             </palette>
+           </property>
+           <property name="digitCount">
+            <number>10</number>
            </property>
           </widget>
          </item>
@@ -13363,6 +13580,9 @@
              </disabled>
             </palette>
            </property>
+           <property name="digitCount">
+            <number>10</number>
+           </property>
           </widget>
          </item>
          <item>
@@ -13809,11 +14029,27 @@
              </disabled>
             </palette>
            </property>
+           <property name="digitCount">
+            <number>10</number>
+           </property>
           </widget>
          </item>
         </layout>
        </item>
       </layout>
+     </widget>
+    </item>
+    <item row="4" column="2" colspan="2">
+     <widget class="QGroupBox" name="groupBox">
+      <property name="styleSheet">
+       <string notr="true">font:bold</string>
+      </property>
+      <property name="title">
+       <string>Module 3 Placeholder</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
      </widget>
     </item>
    </layout>
