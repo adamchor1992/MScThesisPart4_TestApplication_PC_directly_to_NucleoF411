@@ -55,7 +55,7 @@ void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
 
     convertFrameTableToUartStruct(reinterpret_cast<const uint8_t*>(receivedBytes.constData()), m_s_UARTFrame);
 
-    qDebug("Received Frame is: %s", receivedBytes.constData());
+    qDebug("Received Frame is: %.16s", receivedBytes.constData());
 
     uint8_t uartReceivedFrame[FRAME_SIZE] = {0};
 
@@ -889,8 +889,6 @@ void MainWindow::updateGUI()
 /*Slot*/
 void MainWindow::serialDataReceived()
 {
-    qDebug("Something received");
-
     static QByteArray receivedBytes;
 
     receivedBytes += m_pSerial->readAll();
@@ -928,6 +926,11 @@ void MainWindow::on_pushButton_InitConnectionModule2_clicked()
     initConnectionModule(2);
 }
 
+void MainWindow::on_pushButton_InitConnectionModule3_clicked()
+{
+    initConnectionModule(3);
+}
+
 void MainWindow::on_pushButton_DeinitConnectionModule1_clicked()
 {
     deinitConnectionModule(1);
@@ -936,6 +939,11 @@ void MainWindow::on_pushButton_DeinitConnectionModule1_clicked()
 void MainWindow::on_pushButton_DeinitConnectionModule2_clicked()
 {
     deinitConnectionModule(2);
+}
+
+void MainWindow::on_pushButton_DeinitConnectionModule3_clicked()
+{
+    deinitConnectionModule(3);
 }
 
 void MainWindow::on_pushButton_StartLinear_1signal_clicked()

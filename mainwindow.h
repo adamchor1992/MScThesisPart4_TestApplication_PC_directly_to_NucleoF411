@@ -42,6 +42,10 @@ private slots:
     void on_pushButton_Send_pressed();
     void on_pushButton_InitConnectionModule1_clicked();
     void on_pushButton_InitConnectionModule2_clicked();
+    void on_pushButton_InitConnectionModule3_clicked();
+    void on_pushButton_DeinitConnectionModule1_clicked();
+    void on_pushButton_DeinitConnectionModule2_clicked();
+    void on_pushButton_DeinitConnectionModule3_clicked();
     void on_pushButton_StartLinear_1signal_clicked();
     void on_pushButton_StartLinear_2signals_clicked();
     void on_pushButton_StartLinear_3signals_clicked();
@@ -55,9 +59,7 @@ private slots:
 
     void on_pushButton_Close_clicked();
 
-    void on_pushButton_DeinitConnectionModule1_clicked();
 
-    void on_pushButton_DeinitConnectionModule2_clicked();
 
 private:
     Ui::MainWindow *ui;
