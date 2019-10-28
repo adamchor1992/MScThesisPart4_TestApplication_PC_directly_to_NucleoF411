@@ -29,7 +29,8 @@ SOURCES += \
         mainwindow.cpp \
         module.cpp \
         utilities.cpp \
-    tableview.cpp
+    tableview.cpp \
+    serial.cpp
 
 HEADERS += \
         crc32.h \
@@ -38,7 +39,8 @@ HEADERS += \
         module.h \
         uart_frame_struct.h \
         utilities.h \
-    tableview.h
+    tableview.h \
+    serial.h
 
 FORMS += \
         mainwindow.ui

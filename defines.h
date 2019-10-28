@@ -1,5 +1,4 @@
-#ifndef DEFINES_H
-#define DEFINES_H
+#pragma once
 
 /*Source/target field*/
 #define SOURCE_TARGET1 '1'
@@ -39,5 +38,3 @@
 
 #define FRAME_SIZE 20
 #define MODULE_INIT_INFO_VALUE_COUNT 24
-
-#endif // DEFINES_H

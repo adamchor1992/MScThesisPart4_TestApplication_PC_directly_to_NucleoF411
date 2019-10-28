@@ -1,5 +1,4 @@
-#ifndef CRC32_H
-#define CRC32_H
+#pragma once
 
 #include <stdint.h>
 
@@ -71,5 +70,3 @@ static const uint32_t crc_table[256] =
   0xAFB010B1U,0xAB710D06U,0xA6322BDFU,0xA2F33668U,
   0xBCB4666DU,0xB8757BDAU,0xB5365D03U,0xB1F740B4U
 };
-
-#endif // CRC32_H

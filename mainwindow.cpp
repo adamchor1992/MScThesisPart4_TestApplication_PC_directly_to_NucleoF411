@@ -7,13 +7,11 @@
 #include <string>
 #include <QMessageBox>
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
-    m_pSerial = new QSerialPort(this);
+    m_pSerial = new Serial(ui);
     m_pModule1 = new Module;
     m_pModule2 = new Module;
     m_pModule3 = new Module;
@@ -21,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_stopPressed = false;
 
-    initPortList();
+    m_pSerial->initPortList();
 
     connect(m_pSerial,SIGNAL(readyRead()), this, SLOT(serialDataReceived()));
 
@@ -280,117 +278,6 @@ void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
     default:
         qDebug() << "Wrong function type";
         assert(false);
-    }
-}
-
-void MainWindow::initPortList()
-{
-    QString myPortDescription = "Prolific USB-to-Serial Comm Port";
-    quint16 myPortIdentifier = 8963;
-
-    qDebug() << "Number of serial ports available:" << QSerialPortInfo::availablePorts().count();
-
-    QList<QSerialPortInfo> availablePortList = QSerialPortInfo::availablePorts();
-
-    bool myPortFound = false;
-
-    /*Check if my port is present in system*/
-    for(auto port : availablePortList)
-    {
-        if(port.description() == myPortDescription && port.productIdentifier() == myPortIdentifier)
-        {
-            myPortFound = true;
-        }
-    }
-
-    if(myPortFound)
-    {
-        /*Add only my port name to list*/
-        for(auto port : availablePortList)
-        {
-            if(port.description() == myPortDescription)
-            {
-                ui->comboBox_Port->addItem(port.portName());
-            }
-        }
-    }
-    else
-    {
-        /*Add all present port names to list*/
-        for(auto port : availablePortList)
-        {
-            ui->comboBox_Port->addItem(port.portName());
-        }
-    }
-}
-
-void MainWindow::openPort(QString portName)
-{
-    m_pSerial->setPortName(portName);
-
-    /*Check if port is already open*/
-    if(m_pSerial->isOpen())
-    {
-        qDebug("Port is already open");
-        return;
-    }
-
-    m_pSerial->setBaudRate(QSerialPort::Baud115200);
-    m_pSerial->setDataBits(QSerialPort::Data8);
-    m_pSerial->setParity(QSerialPort::NoParity);
-    m_pSerial->setStopBits(QSerialPort::OneStop);
-    m_pSerial->setFlowControl(QSerialPort::NoFlowControl);
-
-    if(m_pSerial->open(QIODevice::ReadWrite))
-    {
-        qDebug("Port opened successfully");
-        ui->label_ShowStatus->setText("<font color='green'>Open</font>");
-
-        initModuleParametersList();
-
-        ui->groupBox_ModuleControls->setEnabled(true);
-        ui->groupBox_CustomFrameControls ->setEnabled(true);
-        ui->groupBox_GraphControls->setEnabled(true);
-        ui->groupBox_Module1->setEnabled(true);
-        ui->groupBox_Module2->setEnabled(true);
-        ui->groupBox_Module3->setEnabled(true);
-    }
-    else
-    {
-        qDebug("Could not open port");
-        ui->label_ShowStatus->setText("Closed");
-    }
-}
-
-void MainWindow::closePort(QString portName)
-{
-    m_pSerial->setPortName(portName);
-
-    if(m_pSerial->isOpen() == true)
-    {
-        m_pSerial->close();
-
-        /*Ensure port was closed*/
-        if(m_pSerial->isOpen() == false)
-        {
-            qDebug("Port closed successfully");
-            ui->label_ShowStatus->setText("<font color='red'>Close</font>");
-
-            ui->groupBox_ModuleControls->setEnabled(false);
-            ui->groupBox_CustomFrameControls ->setEnabled(false);
-            ui->groupBox_GraphControls->setEnabled(false);
-            ui->groupBox_Module1->setEnabled(false);
-            ui->groupBox_Module2->setEnabled(false);
-        }
-        else
-        {
-            /*Could not close port*/
-            assert(false);
-        }
-    }
-    else
-    {
-        qDebug("Port is not open, cannot close");
     }
 }
 
@@ -903,12 +790,15 @@ void MainWindow::serialDataReceived()
 /*Button slots*/
 void MainWindow::on_pushButton_Open_clicked()
 {
-    openPort(ui->comboBox_Port->currentText());
+    if(m_pSerial->openPort(ui->comboBox_Port->currentText()))
+    {
+        initModuleParametersList();
+    }
 }
 
 void MainWindow::on_pushButton_Close_clicked()
 {
-    closePort(ui->comboBox_Port->currentText());
+    m_pSerial->closePort(ui->comboBox_Port->currentText());
 }
 
 void MainWindow::on_pushButton_Send_pressed()

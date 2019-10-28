@@ -1,5 +1,4 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
 #include <QMainWindow>
 #include <QDebug>
@@ -7,6 +6,7 @@
 #include "uart_frame_struct.h"
 #include "module.h"
 #include "tableview.h"
+#include "serial.h"
 
 namespace Ui {
 class MainWindow;
@@ -63,7 +63,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QSerialPort* m_pSerial;
+    Serial* m_pSerial;
     Module* m_pModule1;
     Module* m_pModule2;
     Module* m_pModule3;
@@ -73,5 +73,3 @@ private:
 
     bool m_stopPressed;
 };
-
-#endif // MAINWINDOW_H

@@ -1,5 +1,4 @@
-#ifndef UART_FRAME_STRUCT_H
-#define UART_FRAME_STRUCT_H
+#pragma once
 
 //#define FRAME_SIZE 20
 
@@ -17,5 +16,3 @@ struct UARTFrameStruct_t
   uint8_t payload[10];  //payload
   uint8_t crc[4];       //32 bit CRC
 };
-
-#endif // UART_FRAME_STRUCT_H

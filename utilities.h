@@ -1,5 +1,4 @@
-#ifndef UTILITIES_H
-#define UTILITIES_H
+#pragma once
 
 #include "uart_frame_struct.h"
 #include "crc32.h"
@@ -12,5 +11,3 @@ void convertFrameTableToUartStruct(const uint8_t frameTable[], UARTFrameStruct_t
 void convertUartStructToFrameTable(const UARTFrameStruct_t & frameStructure, uint8_t frameTable[]);
 uint32_t calculateCrc32 (char *data, int len);
 void appendCrcToFrame(uint8_t frame[]);
-
-#endif // UTILITIES_H

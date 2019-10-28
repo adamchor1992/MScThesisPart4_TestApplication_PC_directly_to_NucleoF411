@@ -1,6 +1,4 @@
-#ifndef MODULE1_H
-#define MODULE1_H
-
+#pragma once
 
 class Module
 {
@@ -18,5 +16,3 @@ private:
     bool parameterStates[10] {false};
     double parameterValues[10] {0.0};
 };
-
-#endif // MODULE1_H
