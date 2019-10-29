@@ -121,4 +121,3 @@ void Serial::closePort(QString portName)
         qDebug("Port is not open, cannot close");
     }
 }
-

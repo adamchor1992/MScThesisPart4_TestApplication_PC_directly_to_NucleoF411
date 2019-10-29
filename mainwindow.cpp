@@ -295,77 +295,226 @@ void MainWindow::initModuleParametersList()
 
         /*Initialize module info from file*/
         getline(inputFile,inputBuffer);
-        ui->label_InitParameter1Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module1InitParameter1Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
-        ui->label_InitParameter2Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module1InitParameter2Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
-        ui->label_InitParameter3Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module1InitParameter3Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
-        ui->label_InitParameter4Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module1InitParameter4Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
-        ui->label_InitParameter5Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module1InitParameter5Name->setText(QString::fromStdString(inputBuffer));
 
         getline(inputFile,inputBuffer);
-        ui->lineEdit_InitParameter1Value->setText(QString::fromStdString(inputBuffer));
+        ui->lineEdit_Module1InitParameter1Value->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
-        ui->lineEdit_InitParameter2Value->setText(QString::fromStdString(inputBuffer));
+        ui->lineEdit_Module1InitParameter2Value->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
-        ui->lineEdit_InitParameter3Value->setText(QString::fromStdString(inputBuffer));
+        ui->lineEdit_Module1InitParameter3Value->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
-        ui->lineEdit_InitParameter4Value->setText(QString::fromStdString(inputBuffer));
+        ui->lineEdit_Module1InitParameter4Value->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
-        ui->lineEdit_InitParameter5Value->setText(QString::fromStdString(inputBuffer));
+        ui->lineEdit_Module1InitParameter5Value->setText(QString::fromStdString(inputBuffer));
 
         /*Initialize parameter names from file*/
         getline(inputFile,inputBuffer);
-        ui->lineEdit_Parameter1Name->setText(QString::fromStdString(inputBuffer));
+        ui->lineEdit_Module1Parameter1Name->setText(QString::fromStdString(inputBuffer));
         ui->label_Module1_CustomParameter1Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_CustomParameter1Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module1_CustomParameter1Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
-        ui->lineEdit_Parameter2Name->setText(QString::fromStdString(inputBuffer));
+        ui->lineEdit_Module1Parameter2Name->setText(QString::fromStdString(inputBuffer));
         ui->label_Module1_CustomParameter2Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_CustomParameter2Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module1_CustomParameter2Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
-        ui->lineEdit_Parameter3Name->setText(QString::fromStdString(inputBuffer));
+        ui->lineEdit_Module1Parameter3Name->setText(QString::fromStdString(inputBuffer));
         ui->label_Module1_CustomParameter3Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_CustomParameter3Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module1_CustomParameter3Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
-        ui->lineEdit_Parameter4Name->setText(QString::fromStdString(inputBuffer));
+        ui->lineEdit_Module1Parameter4Name->setText(QString::fromStdString(inputBuffer));
         ui->label_Module1_CustomParameter4Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_CustomParameter4Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module1_CustomParameter4Name->setText(QString::fromStdString(inputBuffer));
 
         /*Initialize settable parameter names from file*/
         getline(inputFile,inputBuffer);
         ui->label_Module1_SettableParameter1Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_SettableParameter1Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module1_SettableParameter1Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
         ui->label_Module1_SettableParameter2Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_SettableParameter2Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module1_SettableParameter2Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
         ui->label_Module1_SettableParameter3Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_SettableParameter3Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module1_SettableParameter3Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
         ui->label_Module1_SettableParameter4Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_SettableParameter4Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module1_SettableParameter4Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
         ui->label_Module1_SettableParameter5Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_SettableParameter5Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module1_SettableParameter5Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
         ui->label_Module1_SettableParameter6Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_SettableParameter6Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module1_SettableParameter6Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
         ui->label_Module1_SettableParameter7Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_SettableParameter7Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module1_SettableParameter7Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
         ui->label_Module1_SettableParameter8Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_SettableParameter8Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module1_SettableParameter8Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
         ui->label_Module1_SettableParameter9Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_SettableParameter9Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module1_SettableParameter9Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
         ui->label_Module1_SettableParameter10Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module1_SettableParameter10Name->setText(QString::fromStdString(inputBuffer));
+
+        //////////////////////////////////////////////////////////////////////////////////////////
+
+        /*Initialize module info from file*/
+        getline(inputFile,inputBuffer);
+        ui->label_Module2InitParameter1Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module2InitParameter2Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module2InitParameter3Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module2InitParameter4Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module2InitParameter5Name->setText(QString::fromStdString(inputBuffer));
+
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_Module2InitParameter1Value->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_Module2InitParameter2Value->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_Module2InitParameter3Value->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_Module2InitParameter4Value->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_Module2InitParameter5Value->setText(QString::fromStdString(inputBuffer));
+
+        /*Initialize parameter names from file*/
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_Module2Parameter1Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_CustomParameter1Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_CustomParameter1Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_Module2Parameter2Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_CustomParameter2Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_CustomParameter2Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_Module2Parameter3Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_CustomParameter3Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_CustomParameter3Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_Module2Parameter4Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_CustomParameter4Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_CustomParameter4Name->setText(QString::fromStdString(inputBuffer));
+
+        /*Initialize settable parameter names from file*/
+        getline(inputFile,inputBuffer);
+        ui->label_Module2_SettableParameter1Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_SettableParameter1Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module2_SettableParameter2Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_SettableParameter2Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module2_SettableParameter3Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_SettableParameter3Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module2_SettableParameter4Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_SettableParameter4Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module2_SettableParameter5Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_SettableParameter5Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module2_SettableParameter6Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_SettableParameter6Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module2_SettableParameter7Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_SettableParameter7Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module2_SettableParameter8Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_SettableParameter8Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module2_SettableParameter9Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module2_SettableParameter9Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module2_SettableParameter10Name->setText(QString::fromStdString(inputBuffer));
         ui->label_Module2_SettableParameter10Name->setText(QString::fromStdString(inputBuffer));
 
+        //////////////////////////////////////////////////////////////////////////////////////////
+
+        /*Initialize module info from file*/
+        getline(inputFile,inputBuffer);
+        ui->label_Module3InitParameter1Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module3InitParameter2Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module3InitParameter3Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module3InitParameter4Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module3InitParameter5Name->setText(QString::fromStdString(inputBuffer));
+
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_Module3InitParameter1Value->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_Module3InitParameter2Value->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_Module3InitParameter3Value->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_Module3InitParameter4Value->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_Module3InitParameter5Value->setText(QString::fromStdString(inputBuffer));
+
+        /*Initialize parameter names from file*/
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_Module3Parameter1Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module3_CustomParameter1Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module3_CustomParameter1Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_Module3Parameter2Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module3_CustomParameter2Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module3_CustomParameter2Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_Module3Parameter3Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module3_CustomParameter3Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module3_CustomParameter3Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->lineEdit_Module3Parameter4Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module3_CustomParameter4Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module3_CustomParameter4Name->setText(QString::fromStdString(inputBuffer));
+
+        /*Initialize settable parameter names from file*/
+        getline(inputFile,inputBuffer);
+        ui->label_Module3_SettableParameter1Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module3_SettableParameter1Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module3_SettableParameter2Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module3_SettableParameter2Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module3_SettableParameter3Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module3_SettableParameter3Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module3_SettableParameter4Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module3_SettableParameter4Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module3_SettableParameter5Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module3_SettableParameter5Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module3_SettableParameter6Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module3_SettableParameter6Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module3_SettableParameter7Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module3_SettableParameter7Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module3_SettableParameter8Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module3_SettableParameter8Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module3_SettableParameter9Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module3_SettableParameter9Name->setText(QString::fromStdString(inputBuffer));
+        getline(inputFile,inputBuffer);
+        ui->label_Module3_SettableParameter10Name->setText(QString::fromStdString(inputBuffer));
+        ui->label_Module3_SettableParameter10Name->setText(QString::fromStdString(inputBuffer));
     }
     else
     {
@@ -385,20 +534,20 @@ void MainWindow::initConnectionModule(int module)
 
     ui->lineEdit_Length->setText("N/A - Init frame");
 
-    QString initInfoValues[MODULE_INIT_INFO_VALUE_COUNT] = {ui->label_InitParameter1Name->text(),
-                                                            ui->label_InitParameter2Name->text(),
-                                                            ui->label_InitParameter3Name->text(),
-                                                            ui->label_InitParameter4Name->text(),
-                                                            ui->label_InitParameter5Name->text(),
-                                                            ui->lineEdit_InitParameter1Value->text(),
-                                                            ui->lineEdit_InitParameter2Value->text(),
-                                                            ui->lineEdit_InitParameter3Value->text(),
-                                                            ui->lineEdit_InitParameter4Value->text(),
-                                                            ui->lineEdit_InitParameter5Value->text(),
-                                                            ui->lineEdit_Parameter1Name->text(),
-                                                            ui->lineEdit_Parameter2Name->text(),
-                                                            ui->lineEdit_Parameter3Name->text(),
-                                                            ui->lineEdit_Parameter4Name->text(),
+    QString initInfoValues[MODULE_INIT_INFO_VALUE_COUNT] = {ui->label_Module1InitParameter1Name->text(),
+                                                            ui->label_Module1InitParameter2Name->text(),
+                                                            ui->label_Module1InitParameter3Name->text(),
+                                                            ui->label_Module1InitParameter4Name->text(),
+                                                            ui->label_Module1InitParameter5Name->text(),
+                                                            ui->lineEdit_Module1InitParameter1Value->text(),
+                                                            ui->lineEdit_Module1InitParameter2Value->text(),
+                                                            ui->lineEdit_Module1InitParameter3Value->text(),
+                                                            ui->lineEdit_Module1InitParameter4Value->text(),
+                                                            ui->lineEdit_Module1InitParameter5Value->text(),
+                                                            ui->lineEdit_Module1Parameter1Name->text(),
+                                                            ui->lineEdit_Module1Parameter2Name->text(),
+                                                            ui->lineEdit_Module1Parameter3Name->text(),
+                                                            ui->lineEdit_Module1Parameter4Name->text(),
                                                             ui->label_Module1_SettableParameter1Name->text(),
                                                             ui->label_Module1_SettableParameter2Name->text(),
                                                             ui->label_Module1_SettableParameter3Name->text(),
@@ -493,7 +642,7 @@ void MainWindow::sendCustomDataFrame()
     uint8_t UART_MessageToTransmit[FRAME_SIZE] = {0};
 
     m_s_UARTFrame.source = SOURCE_TARGET1;
-    m_s_UARTFrame.module = ui->comboBox_Module->currentText().at(0).toLatin1();
+    m_s_UARTFrame.module = ui->comboBox_CustomFrameModule->currentText().at(0).toLatin1();
     m_s_UARTFrame.function = DATA_FRAME;
     m_s_UARTFrame.parameter = ui->comboBox_Parameter->currentText().at(0).toLatin1();
 
@@ -551,7 +700,7 @@ void MainWindow::startLinearGraph(int signalCount)
     }
 
     m_s_UARTFrame.source = SOURCE_TARGET1;
-    m_s_UARTFrame.module = ui->comboBox_Module->currentText().at(0).toLatin1();
+    m_s_UARTFrame.module = ui->comboBox_GraphModule->currentText().at(0).toLatin1();
     m_s_UARTFrame.function = DATA_FRAME;
     m_s_UARTFrame.sign = ui->lineEdit_Sign->text().at(0).toLatin1();
 
@@ -573,7 +722,7 @@ void MainWindow::startSineGraph(int signalCount)
     }
 
     m_s_UARTFrame.source = SOURCE_TARGET1;
-    m_s_UARTFrame.module = ui->comboBox_Module->currentText().at(0).toLatin1();
+    m_s_UARTFrame.module = ui->comboBox_GraphModule->currentText().at(0).toLatin1();
     m_s_UARTFrame.function = DATA_FRAME;
     m_s_UARTFrame.sign = ui->lineEdit_Sign->text().at(0).toLatin1();
 
