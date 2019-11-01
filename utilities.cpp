@@ -48,7 +48,7 @@ uint32_t calculateCrc32 (char *data, int len)
     return crc;
 }
 
-bool checkCRC(const uint8_t uartPacketTable[])
+bool checkCrc32(const uint8_t uartPacketTable[])
 {
   uint8_t crcValueReceivedRaw8Bit[4];
   uint32_t crcValueCalculated;

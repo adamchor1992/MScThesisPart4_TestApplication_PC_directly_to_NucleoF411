@@ -60,6 +60,12 @@ void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
         uartReceivedPacket[i] = receivedBytes.at(i);
     }
 
+    if(checkCrc32(uartReceivedPacket) == false)
+    {
+        QMessageBox::warning(this, "Bad CRC", "Received packet discarded. It has wrong CRC checksum.");
+        return;
+    }
+
     m_pTableView->updatePacket(uartReceivedPacket, true);
 
     QCoreApplication::processEvents();
