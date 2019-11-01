@@ -689,6 +689,59 @@ void MainWindow::sendCustomDataPacket()
     m_pSerial->flush();
 }
 
+void MainWindow::sendWrongCrcDataPacket()
+{
+    uint8_t UART_MessageToTransmit[PACKET_SIZE] = {0};
+
+    m_uartPacket.source = SOURCE_TARGET1;
+    m_uartPacket.module = ui->comboBox_CustomPacketModule->currentText().at(0).toLatin1();
+    m_uartPacket.function = DATA_PACKET;
+    m_uartPacket.parameter = ui->comboBox_Parameter->currentText().at(0).toLatin1();
+
+    QString enteredPayload = ui->lineEdit_Payload->text();
+
+    if(enteredPayload.at(0).toLatin1() == '-')
+    {
+        ui->lineEdit_Sign->setText("2");
+        m_uartPacket.sign = NEGATIVE_SIGN;
+
+        /*Remove minus sign*/
+        enteredPayload.remove(0,1);
+    }
+    else
+    {
+        ui->lineEdit_Sign->setText("1");
+        m_uartPacket.sign = POSITIVE_SIGN;
+    }
+
+    uint8_t length_int = enteredPayload.length();
+
+    m_uartPacket.length = length_int + '0'; //convert int to ascii representation of the int
+
+    for(int i=0; i<length_int;i++)
+    {
+        m_uartPacket.payload[i] = enteredPayload.at(i).toLatin1();
+    }
+
+    ui->lineEdit_Length->setText(QString::number(length_int));
+
+    convertUartStructureToUartPacketTable(m_uartPacket,UART_MessageToTransmit);
+
+    /*Set wrong all zeros CRC*/
+    UART_MessageToTransmit[19] = 0;
+    UART_MessageToTransmit[18] = 0;
+    UART_MessageToTransmit[17] = 0;
+    UART_MessageToTransmit[16] = 0;
+
+    qDebug("Wrong Crc Data Packet is: %s", UART_MessageToTransmit);
+
+    m_pTableView->updatePacket(UART_MessageToTransmit, false);
+
+    m_pSerial->write((const char*)UART_MessageToTransmit, PACKET_SIZE);
+    m_pSerial->waitForBytesWritten(3000);
+    m_pSerial->flush();
+}
+
 void MainWindow::startLinearGraph(int signalCount)
 {
     QString strStartValue = ui->lineEdit_StartValue->text();
@@ -1037,4 +1090,9 @@ void MainWindow::on_pushButton_Stop_clicked()
 void MainWindow::on_pushButton_SimulateParametersSequence_clicked()
 {
     startSineGraph(4);
+}
+
+void MainWindow::on_pushButton_SendWrongCrcPacket_clicked()
+{
+    sendWrongCrcDataPacket();
 }

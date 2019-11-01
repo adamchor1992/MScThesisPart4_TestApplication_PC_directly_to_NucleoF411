@@ -10,6 +10,7 @@ public:
     void initPortList();
     bool openPort(QString portName);
     void closePort(QString portName);
+
 private:
     Ui::MainWindow* ui;
 };

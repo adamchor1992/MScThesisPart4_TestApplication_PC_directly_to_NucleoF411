@@ -30,6 +30,7 @@ public:
     void closePort(QString portName);
     void initModuleParametersList();
     void sendCustomDataPacket();
+    void sendWrongCrcDataPacket();
     void startLinearGraph(int signalCount);
     void startSineGraph(int signalCount);
     void sendLinear(int startValue, int stopValue, int signalCount);
@@ -56,10 +57,8 @@ private slots:
     void on_pushButton_StartSine_4signals_clicked();
     void on_pushButton_Stop_clicked();
     void on_pushButton_SimulateParametersSequence_clicked();
-
     void on_pushButton_Close_clicked();
-
-
+    void on_pushButton_SendWrongCrcPacket_clicked();
 
 private:
     Ui::MainWindow *ui;
