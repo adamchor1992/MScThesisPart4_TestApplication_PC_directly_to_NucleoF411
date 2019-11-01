@@ -3,7 +3,7 @@
 #include <QMainWindow>
 #include <QDebug>
 #include "QtSerialPort/QSerialPort"
-#include "uart_frame_struct.h"
+#include "uartpacket.h"
 #include "module.h"
 #include "tableview.h"
 #include "serial.h"
@@ -20,16 +20,16 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void initFrameDisplay();
+    void initPacketDisplay();
     void initPortList();
-    void fullFrameReceived(QByteArray & receivedBytes);
+    void fullPacketReceived(QByteArray & receivedBytes);
     void updateGUI();
     void initConnectionModule(int module);
     void deinitConnectionModule(int module);
     void openPort(QString portName);
     void closePort(QString portName);
     void initModuleParametersList();
-    void sendCustomDataFrame();
+    void sendCustomDataPacket();
     void startLinearGraph(int signalCount);
     void startSineGraph(int signalCount);
     void sendLinear(int startValue, int stopValue, int signalCount);
@@ -69,7 +69,7 @@ private:
     Module* m_pModule3;
     TableView* m_pTableView;
 
-    UARTFrameStruct_t m_s_UARTFrame;
+    UartPacket m_uartPacket;
 
-    bool m_stopPressed;
+    bool m_stopPressed = false;
 };

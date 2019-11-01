@@ -17,8 +17,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     m_pModule3 = new Module;
     m_pTableView = new TableView(ui);
 
-    m_stopPressed = false;
-
     m_pSerial->initPortList();
 
     connect(m_pSerial,SIGNAL(readyRead()), this, SLOT(serialDataReceived()));
@@ -26,13 +24,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     updateGUI();
 
     ui->groupBox_ModuleControls->setEnabled(false);
-    ui->groupBox_CustomFrameControls ->setEnabled(false);
+    ui->groupBox_CustomPacketControls ->setEnabled(false);
     ui->groupBox_GraphControls->setEnabled(false);
     ui->groupBox_Module1->setEnabled(false);
     ui->groupBox_Module2->setEnabled(false);
     ui->groupBox_Module3->setEnabled(false);
 
-    m_pTableView->initFrameDisplay();
+    m_pTableView->initPacketDisplay();
 
     this->setWindowState(Qt::WindowMaximized);
 }
@@ -47,40 +45,40 @@ MainWindow::~MainWindow()
     delete m_pTableView;
 }
 
-void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
+void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
 {
-    qDebug("FULL FRAME RECEIVED");
+    qDebug("FULL PACKET RECEIVED");
 
-    convertFrameTableToUartStruct(reinterpret_cast<const uint8_t*>(receivedBytes.constData()), m_s_UARTFrame);
+    convertUartPacketTableToUartStructure(reinterpret_cast<const uint8_t*>(receivedBytes.constData()), m_uartPacket);
 
-    qDebug("Received Frame is: %.16s", receivedBytes.constData());
+    qDebug("Received Packet is: %.16s", receivedBytes.constData());
 
-    uint8_t uartReceivedFrame[FRAME_SIZE] = {0};
+    uint8_t uartReceivedPacket[PACKET_SIZE] = {0};
 
-    for(int i=0; i<FRAME_SIZE; i++)
+    for(int i=0; i<PACKET_SIZE; i++)
     {
-        uartReceivedFrame[i] = receivedBytes.at(i);
+        uartReceivedPacket[i] = receivedBytes.at(i);
     }
 
-    m_pTableView->updateFrame(uartReceivedFrame, true);
+    m_pTableView->updatePacket(uartReceivedPacket, true);
 
     QCoreApplication::processEvents();
 
-    double value_double;
+    double valueDouble;
 
     Module* currentModule = nullptr;
 
-    if(m_s_UARTFrame.module == MODULE1)
+    if(m_uartPacket.module == MODULE1)
     {
         qDebug() << "Module 1";
         currentModule = m_pModule1;
     }
-    else if(m_s_UARTFrame.module == MODULE2)
+    else if(m_uartPacket.module == MODULE2)
     {
         qDebug() << "Module 2";
         currentModule = m_pModule2;
     }
-    else if(m_s_UARTFrame.module == MODULE3)
+    else if(m_uartPacket.module == MODULE3)
     {
         qDebug() << "Module 3";
         currentModule = m_pModule3;
@@ -91,16 +89,16 @@ void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
         assert(false);
     }
 
-    switch(m_s_UARTFrame.function)
+    switch(m_uartPacket.function)
     {
-    case DATA_FRAME:
-        qDebug() << "Data transfer frame";
+    case DATA_PACKET:
+        qDebug() << "Data transfer packet";
         break;
 
-    case ENABLE_PARAMETER_FRAME:
+    case ENABLE_PARAMETER_PACKET:
         qDebug() << "Enable parameter";
 
-        switch(m_s_UARTFrame.parameter)
+        switch(m_uartPacket.parameter)
         {
         case PARAMETER1:
             qDebug() << "Parameter 1";
@@ -150,10 +148,10 @@ void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
         updateGUI();
         break;
 
-    case DISABLE_PARAMETER_FRAME:
+    case DISABLE_PARAMETER_PACKET:
         qDebug() << "Disable parameter";
 
-        switch(m_s_UARTFrame.parameter)
+        switch(m_uartPacket.parameter)
         {
         case PARAMETER1:
             qDebug() << "Parameter 1";
@@ -203,68 +201,68 @@ void MainWindow::fullFrameReceived(QByteArray & receivedBytes)
         updateGUI();
         break;
 
-    case SET_PARAMETER_FRAME:
+    case SET_PARAMETER_PACKET:
         qDebug() << "Set parameter";
 
-        value_double = std::stof((char*)(m_s_UARTFrame.payload));
+        valueDouble = std::stof((char*)(m_uartPacket.payload));
 
-        if(m_s_UARTFrame.sign == NEGATIVE_SIGN)
+        if(m_uartPacket.sign == NEGATIVE_SIGN)
         {
-            /*Make value negative if it was marked as negative in UART Frame*/
-            value_double = value_double * (-1);
+            /*Make value negative if it was marked as negative in UART Packet*/
+            valueDouble = valueDouble * (-1);
         }
 
-        switch(m_s_UARTFrame.parameter)
+        switch(m_uartPacket.parameter)
         {
         case PARAMETER1:
             qDebug() << "Parameter 1";
-            qDebug() << "Value: " << m_s_UARTFrame.payload;
-            currentModule->setParameter(0,value_double);
+            qDebug() << "Value: " << m_uartPacket.payload;
+            currentModule->setParameter(0,valueDouble);
             break;
         case PARAMETER2:
             qDebug() << "Parameter 2";
-            qDebug() << "Value: " << m_s_UARTFrame.payload;
-            currentModule->setParameter(1,value_double);
+            qDebug() << "Value: " << m_uartPacket.payload;
+            currentModule->setParameter(1,valueDouble);
             break;
         case PARAMETER3:
             qDebug() << "Parameter 3";
-            qDebug() << "Value: " << m_s_UARTFrame.payload;
-            currentModule->setParameter(2,value_double);
+            qDebug() << "Value: " << m_uartPacket.payload;
+            currentModule->setParameter(2,valueDouble);
             break;
         case PARAMETER4:
             qDebug() << "Parameter 4";
-            qDebug() << "Value: " << m_s_UARTFrame.payload;
-            currentModule->setParameter(3,value_double);
+            qDebug() << "Value: " << m_uartPacket.payload;
+            currentModule->setParameter(3,valueDouble);
             break;
         case PARAMETER5:
             qDebug() << "Parameter 5";
-            qDebug() << "Value: " << m_s_UARTFrame.payload;
-            currentModule->setParameter(4,value_double);
+            qDebug() << "Value: " << m_uartPacket.payload;
+            currentModule->setParameter(4,valueDouble);
             break;
         case PARAMETER6:
             qDebug() << "Parameter 6";
-            qDebug() << "Value: " << m_s_UARTFrame.payload;
-            currentModule->setParameter(5,value_double);
+            qDebug() << "Value: " << m_uartPacket.payload;
+            currentModule->setParameter(5,valueDouble);
             break;
         case PARAMETER7:
             qDebug() << "Parameter 7";
-            qDebug() << "Value: " << m_s_UARTFrame.payload;
-            currentModule->setParameter(6,value_double);
+            qDebug() << "Value: " << m_uartPacket.payload;
+            currentModule->setParameter(6,valueDouble);
             break;
         case PARAMETER8:
             qDebug() << "Parameter 8";
-            qDebug() << "Value: " << m_s_UARTFrame.payload;
-            currentModule->setParameter(7,value_double);
+            qDebug() << "Value: " << m_uartPacket.payload;
+            currentModule->setParameter(7,valueDouble);
             break;
         case PARAMETER9:
             qDebug() << "Parameter 9";
-            qDebug() << "Value: " << m_s_UARTFrame.payload;
-            currentModule->setParameter(8,value_double);
+            qDebug() << "Value: " << m_uartPacket.payload;
+            currentModule->setParameter(8,valueDouble);
             break;
         case PARAMETER10:
             qDebug() << "Parameter 10";
-            qDebug() << "Value: " << m_s_UARTFrame.payload;
-            currentModule->setParameter(9,value_double);
+            qDebug() << "Value: " << m_uartPacket.payload;
+            currentModule->setParameter(9,valueDouble);
             break;
 
         default:
@@ -525,14 +523,14 @@ void MainWindow::initModuleParametersList()
 
 void MainWindow::initConnectionModule(int module)
 {
-    uint8_t UART_MessageToTransmit[FRAME_SIZE] = {0};
+    uint8_t UART_MessageToTransmit[PACKET_SIZE] = {0};
 
-    m_s_UARTFrame.source = SOURCE_TARGET1;
-    m_s_UARTFrame.module = module + '0'; //convert int to ascii representation
-    m_s_UARTFrame.function = INIT_FRAME;
-    m_s_UARTFrame.sign = POSITIVE_SIGN;
+    m_uartPacket.source = SOURCE_TARGET1;
+    m_uartPacket.module = module + '0'; //convert int to ascii representation
+    m_uartPacket.function = INIT_PACKET;
+    m_uartPacket.sign = POSITIVE_SIGN;
 
-    ui->lineEdit_Length->setText("N/A - Init frame");
+    ui->lineEdit_Length->setText("N/A - Init packet");
 
     QString initInfoValues[MODULE_INIT_INFO_VALUE_COUNT] = {ui->label_Module1InitParameter1Name->text(),
                                                             ui->label_Module1InitParameter2Name->text(),
@@ -574,34 +572,34 @@ void MainWindow::initConnectionModule(int module)
 
     for(int i = 0; i < MODULE_INIT_INFO_VALUE_COUNT; i++)
     {
-        m_s_UARTFrame.parameter = 'a' + i;
+        m_uartPacket.parameter = 'a' + i;
 
         /*Clear payload*/
         for(int i=0;i<10;i++)
         {
-            m_s_UARTFrame.payload[i] = '\0';
+            m_uartPacket.payload[i] = '\0';
         }
 
-        /*Clear frame*/
+        /*Clear packet*/
         for(int i=0;i<10;i++)
         {
             UART_MessageToTransmit[6+i] = '\0';
         }
 
-        sprintf((char*)m_s_UARTFrame.payload, "%s", initInfoValues[i].toStdString().c_str());
+        sprintf((char*)m_uartPacket.payload, "%s", initInfoValues[i].toStdString().c_str());
 
-        length_int = strlen((char*)m_s_UARTFrame.payload);
+        length_int = strlen((char*)m_uartPacket.payload);
 
-        m_s_UARTFrame.length = length_int + '0'; // convert from int to ASCII
+        m_uartPacket.length = length_int + '0'; // convert from int to ASCII
 
-        convertUartStructToFrameTable(m_s_UARTFrame, UART_MessageToTransmit);
-        appendCrcToFrame(UART_MessageToTransmit);
+        convertUartStructureToUartPacketTable(m_uartPacket, UART_MessageToTransmit);
+        appendCrcToPacket(UART_MessageToTransmit);
 
-        qDebug("Init Frame is: %s", UART_MessageToTransmit);
+        qDebug("Init Packet is: %s", UART_MessageToTransmit);
 
-        m_pTableView->updateFrame(UART_MessageToTransmit, false);
+        m_pTableView->updatePacket(UART_MessageToTransmit, false);
 
-        m_pSerial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
+        m_pSerial->write((const char*)UART_MessageToTransmit, PACKET_SIZE);
         m_pSerial->waitForBytesWritten(3000);
         m_pSerial->flush();
 
@@ -613,45 +611,45 @@ void MainWindow::initConnectionModule(int module)
 
 void MainWindow::deinitConnectionModule(int module)
 {
-    uint8_t UART_MessageToTransmit[FRAME_SIZE] = {0};
+    uint8_t UART_MessageToTransmit[PACKET_SIZE] = {0};
 
-    m_s_UARTFrame.source = SOURCE_TARGET1;
-    m_s_UARTFrame.module = module + '0'; //convert int to ascii representation
-    m_s_UARTFrame.function = DEINIT_FRAME;
-    m_s_UARTFrame.sign = POSITIVE_SIGN;
-    m_s_UARTFrame.parameter = '0';
-    m_s_UARTFrame.payload[0] = '\0';
-    m_s_UARTFrame.length = '1';
+    m_uartPacket.source = SOURCE_TARGET1;
+    m_uartPacket.module = module + '0'; //convert int to ascii representation
+    m_uartPacket.function = DEINIT_PACKET;
+    m_uartPacket.sign = POSITIVE_SIGN;
+    m_uartPacket.parameter = '0';
+    m_uartPacket.payload[0] = '\0';
+    m_uartPacket.length = '1';
 
-    ui->lineEdit_Length->setText("N/A - Deinit frame");
+    ui->lineEdit_Length->setText("N/A - Deinit packet");
 
-    convertUartStructToFrameTable(m_s_UARTFrame, UART_MessageToTransmit);
-    appendCrcToFrame(UART_MessageToTransmit);
+    convertUartStructureToUartPacketTable(m_uartPacket, UART_MessageToTransmit);
+    appendCrcToPacket(UART_MessageToTransmit);
 
-    qDebug("Deinit Frame is: %s", UART_MessageToTransmit);
+    qDebug("Deinit Packet is: %s", UART_MessageToTransmit);
 
-    m_pTableView->updateFrame(UART_MessageToTransmit, false);
+    m_pTableView->updatePacket(UART_MessageToTransmit, false);
 
-    m_pSerial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
+    m_pSerial->write((const char*)UART_MessageToTransmit, PACKET_SIZE);
     m_pSerial->waitForBytesWritten(3000);
     m_pSerial->flush();
 }
 
-void MainWindow::sendCustomDataFrame()
+void MainWindow::sendCustomDataPacket()
 {
-    uint8_t UART_MessageToTransmit[FRAME_SIZE] = {0};
+    uint8_t UART_MessageToTransmit[PACKET_SIZE] = {0};
 
-    m_s_UARTFrame.source = SOURCE_TARGET1;
-    m_s_UARTFrame.module = ui->comboBox_CustomFrameModule->currentText().at(0).toLatin1();
-    m_s_UARTFrame.function = DATA_FRAME;
-    m_s_UARTFrame.parameter = ui->comboBox_Parameter->currentText().at(0).toLatin1();
+    m_uartPacket.source = SOURCE_TARGET1;
+    m_uartPacket.module = ui->comboBox_CustomPacketModule->currentText().at(0).toLatin1();
+    m_uartPacket.function = DATA_PACKET;
+    m_uartPacket.parameter = ui->comboBox_Parameter->currentText().at(0).toLatin1();
 
     QString enteredPayload = ui->lineEdit_Payload->text();
 
     if(enteredPayload.at(0).toLatin1() == '-')
     {
         ui->lineEdit_Sign->setText("2");
-        m_s_UARTFrame.sign = NEGATIVE_SIGN;
+        m_uartPacket.sign = NEGATIVE_SIGN;
 
         /*Remove minus sign*/
         enteredPayload.remove(0,1);
@@ -659,28 +657,28 @@ void MainWindow::sendCustomDataFrame()
     else
     {
         ui->lineEdit_Sign->setText("1");
-        m_s_UARTFrame.sign = POSITIVE_SIGN;
+        m_uartPacket.sign = POSITIVE_SIGN;
     }
 
     uint8_t length_int = enteredPayload.length();
 
-    m_s_UARTFrame.length = length_int + '0'; //convert int to ascii representation of the int
+    m_uartPacket.length = length_int + '0'; //convert int to ascii representation of the int
 
     for(int i=0; i<length_int;i++)
     {
-        m_s_UARTFrame.payload[i] = enteredPayload.at(i).toLatin1();
+        m_uartPacket.payload[i] = enteredPayload.at(i).toLatin1();
     }
 
     ui->lineEdit_Length->setText(QString::number(length_int));
 
-    convertUartStructToFrameTable(m_s_UARTFrame,UART_MessageToTransmit);
-    appendCrcToFrame(UART_MessageToTransmit);
+    convertUartStructureToUartPacketTable(m_uartPacket,UART_MessageToTransmit);
+    appendCrcToPacket(UART_MessageToTransmit);
 
-    qDebug("Data Frame is: %s", UART_MessageToTransmit);
+    qDebug("Data Packet is: %s", UART_MessageToTransmit);
 
-    m_pTableView->updateFrame(UART_MessageToTransmit, false);
+    m_pTableView->updatePacket(UART_MessageToTransmit, false);
 
-    m_pSerial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
+    m_pSerial->write((const char*)UART_MessageToTransmit, PACKET_SIZE);
     m_pSerial->waitForBytesWritten(3000);
     m_pSerial->flush();
 }
@@ -699,10 +697,10 @@ void MainWindow::startLinearGraph(int signalCount)
         return;
     }
 
-    m_s_UARTFrame.source = SOURCE_TARGET1;
-    m_s_UARTFrame.module = ui->comboBox_GraphModule->currentText().at(0).toLatin1();
-    m_s_UARTFrame.function = DATA_FRAME;
-    m_s_UARTFrame.sign = ui->lineEdit_Sign->text().at(0).toLatin1();
+    m_uartPacket.source = SOURCE_TARGET1;
+    m_uartPacket.module = ui->comboBox_GraphModule->currentText().at(0).toLatin1();
+    m_uartPacket.function = DATA_PACKET;
+    m_uartPacket.sign = ui->lineEdit_Sign->text().at(0).toLatin1();
 
     sendLinear(startValue, stopValue, signalCount);
 }
@@ -721,17 +719,17 @@ void MainWindow::startSineGraph(int signalCount)
         return;
     }
 
-    m_s_UARTFrame.source = SOURCE_TARGET1;
-    m_s_UARTFrame.module = ui->comboBox_GraphModule->currentText().at(0).toLatin1();
-    m_s_UARTFrame.function = DATA_FRAME;
-    m_s_UARTFrame.sign = ui->lineEdit_Sign->text().at(0).toLatin1();
+    m_uartPacket.source = SOURCE_TARGET1;
+    m_uartPacket.module = ui->comboBox_GraphModule->currentText().at(0).toLatin1();
+    m_uartPacket.function = DATA_PACKET;
+    m_uartPacket.sign = ui->lineEdit_Sign->text().at(0).toLatin1();
 
     sendSine(startValue, stopValue, signalCount);
 }
 
 void MainWindow::sendLinear(int startValue, int stopValue, int signalCount)
 {
-    uint8_t UART_MessageToTransmit[FRAME_SIZE] = {0};
+    uint8_t UART_MessageToTransmit[PACKET_SIZE] = {0};
     uint8_t length_int;
     double value;
     uint8_t parameters[4] = {VOLTAGE_PARAMETER, CURRENT_PARAMETER, FREQUENCY_PARAMETER, POWER_PARAMETER};
@@ -742,19 +740,19 @@ void MainWindow::sendLinear(int startValue, int stopValue, int signalCount)
     {
         for(int signalNumber = 0; signalNumber < signalCount; signalNumber++)
         {
-            m_s_UARTFrame.parameter = parameters[signalNumber]; // send with one of 4 parameters
+            m_uartPacket.parameter = parameters[signalNumber]; // send with one of 4 parameters
 
             value = multiplier * x * 0.001;
 
             if(value < 0)
             {
-                /*Change value sign back to positive and mark it as negative in UART frame*/
+                /*Change value sign back to positive and mark it as negative in UART packet*/
                 value = value * (-1);
-                m_s_UARTFrame.sign = NEGATIVE_SIGN;
+                m_uartPacket.sign = NEGATIVE_SIGN;
             }
             else
             {
-                m_s_UARTFrame.sign = POSITIVE_SIGN;
+                m_uartPacket.sign = POSITIVE_SIGN;
             }
 
             /*Change parameter values so that graph lines do not overlap each other*/
@@ -771,20 +769,20 @@ void MainWindow::sendLinear(int startValue, int stopValue, int signalCount)
                 break;
             }
 
-            sprintf((char*)m_s_UARTFrame.payload, "%.3lf", value);
+            sprintf((char*)m_uartPacket.payload, "%.3lf", value);
 
-            length_int = strlen((char*)m_s_UARTFrame.payload);
+            length_int = strlen((char*)m_uartPacket.payload);
 
-            m_s_UARTFrame.length = length_int + '0'; // convert from int to ASCII
+            m_uartPacket.length = length_int + '0'; // convert from int to ASCII
 
-            convertUartStructToFrameTable(m_s_UARTFrame, UART_MessageToTransmit);
-            appendCrcToFrame(UART_MessageToTransmit);
+            convertUartStructureToUartPacketTable(m_uartPacket, UART_MessageToTransmit);
+            appendCrcToPacket(UART_MessageToTransmit);
 
-            qDebug("Data Frame is: %s", UART_MessageToTransmit);
+            qDebug("Data Packet is: %s", UART_MessageToTransmit);
 
-            m_pTableView->updateFrame(UART_MessageToTransmit, false);
+            m_pTableView->updatePacket(UART_MessageToTransmit, false);
 
-            m_pSerial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
+            m_pSerial->write((const char*)UART_MessageToTransmit, PACKET_SIZE);
             m_pSerial->waitForBytesWritten(3000);
             m_pSerial->flush();
 
@@ -804,7 +802,7 @@ void MainWindow::sendLinear(int startValue, int stopValue, int signalCount)
 
 void MainWindow::sendSine(int startValue, int stopValue, int signalCount)
 {
-    uint8_t UART_MessageToTransmit[FRAME_SIZE] = {0};
+    uint8_t UART_MessageToTransmit[PACKET_SIZE] = {0};
     uint8_t length_int;
     double value;
     uint8_t parameters[4] = {VOLTAGE_PARAMETER, CURRENT_PARAMETER, FREQUENCY_PARAMETER, POWER_PARAMETER};
@@ -818,36 +816,36 @@ void MainWindow::sendSine(int startValue, int stopValue, int signalCount)
     {
         for(int signalNumber = 0; signalNumber < signalCount; signalNumber++)
         {
-            m_s_UARTFrame.parameter = parameters[signalNumber]; // send with one of 4 parameters
+            m_uartPacket.parameter = parameters[signalNumber]; // send with one of 4 parameters
 
             /*Multiply by radian inverse to get rid of radian unit and calculate sine of x measured in degrees*/
             value = multiplier * (sin(x * radianInverse + phaseShift[signalNumber]));
 
             if(value < 0)
             {
-                /*Change value sign back to positive and mark it as negative in UART frame*/
+                /*Change value sign back to positive and mark it as negative in UART packet*/
                 value = value * (-1);
-                m_s_UARTFrame.sign = NEGATIVE_SIGN;
+                m_uartPacket.sign = NEGATIVE_SIGN;
             }
             else
             {
-                m_s_UARTFrame.sign = POSITIVE_SIGN;
+                m_uartPacket.sign = POSITIVE_SIGN;
             }
 
-            sprintf((char*)m_s_UARTFrame.payload, "%.3lf", value);
+            sprintf((char*)m_uartPacket.payload, "%.3lf", value);
 
-            length_int = strlen((char*)m_s_UARTFrame.payload);
+            length_int = strlen((char*)m_uartPacket.payload);
 
-            m_s_UARTFrame.length = length_int + '0'; // convert from int to ASCII
+            m_uartPacket.length = length_int + '0'; // convert from int to ASCII
 
-            convertUartStructToFrameTable(m_s_UARTFrame, UART_MessageToTransmit);
-            appendCrcToFrame(UART_MessageToTransmit);
+            convertUartStructureToUartPacketTable(m_uartPacket, UART_MessageToTransmit);
+            appendCrcToPacket(UART_MessageToTransmit);
 
-            qDebug("Data Frame is: %s", UART_MessageToTransmit);
+            qDebug("Data Packet is: %s", UART_MessageToTransmit);
 
-            m_pTableView->updateFrame(UART_MessageToTransmit, false);
+            m_pTableView->updatePacket(UART_MessageToTransmit, false);
 
-            m_pSerial->write((const char*)UART_MessageToTransmit, FRAME_SIZE);
+            m_pSerial->write((const char*)UART_MessageToTransmit, PACKET_SIZE);
             m_pSerial->waitForBytesWritten(3000);
             m_pSerial->flush();
 
@@ -929,9 +927,9 @@ void MainWindow::serialDataReceived()
 
     receivedBytes += m_pSerial->readAll();
 
-    if(receivedBytes.size() >= FRAME_SIZE)
+    if(receivedBytes.size() >= PACKET_SIZE)
     {
-        fullFrameReceived(receivedBytes);
+        fullPacketReceived(receivedBytes);
         receivedBytes.clear();
     }
 }
@@ -952,7 +950,7 @@ void MainWindow::on_pushButton_Close_clicked()
 
 void MainWindow::on_pushButton_Send_pressed()
 {
-    sendCustomDataFrame();
+    sendCustomDataPacket();
 }
 
 void MainWindow::on_pushButton_InitConnectionModule1_clicked()

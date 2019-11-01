@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.13.0
+** Created by: Qt User Interface Compiler version 5.13.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -110,12 +110,12 @@ public:
     QLineEdit *lineEdit_Module3Parameter4Name;
     QPushButton *pushButton_InitConnectionModule3;
     QPushButton *pushButton_DeinitConnectionModule3;
-    QGroupBox *groupBox_CustomFrameControls;
+    QGroupBox *groupBox_CustomPacketControls;
     QGridLayout *gridLayout_2;
     QLineEdit *lineEdit_Type;
     QLabel *label_Type;
     QLabel *label_Parameter;
-    QLabel *label_CustomFrameModule;
+    QLabel *label_CustomPacketModule;
     QLineEdit *lineEdit_Payload;
     QPushButton *pushButton_Send;
     QLabel *label_Source;
@@ -123,7 +123,7 @@ public:
     QLineEdit *lineEdit_Sign;
     QLabel *label_Length;
     QLineEdit *lineEdit_Source;
-    QComboBox *comboBox_CustomFrameModule;
+    QComboBox *comboBox_CustomPacketModule;
     QComboBox *comboBox_Parameter;
     QLineEdit *lineEdit_Length;
     QLabel *label_Payload;
@@ -147,9 +147,9 @@ public:
     QPushButton *pushButton_StartSine_2signals;
     QPushButton *pushButton_StartLinear_3signals;
     QPushButton *pushButton_Stop;
-    QGroupBox *groupBox_FrameDisplay;
+    QGroupBox *groupBox_PacketDisplay;
     QHBoxLayout *horizontalLayout_3;
-    QTableWidget *tableWidget_FrameDisplay;
+    QTableWidget *tableWidget_PacketDisplay;
     QHBoxLayout *horizontalLayout_2;
     QGroupBox *groupBox_Module1;
     QGridLayout *gridLayout_5;
@@ -843,17 +843,17 @@ public:
 
         horizontalLayout->addLayout(verticalLayout_4);
 
-        groupBox_CustomFrameControls = new QGroupBox(centralWidget);
-        groupBox_CustomFrameControls->setObjectName(QString::fromUtf8("groupBox_CustomFrameControls"));
-        groupBox_CustomFrameControls->setStyleSheet(QString::fromUtf8("font:bold"));
-        groupBox_CustomFrameControls->setAlignment(Qt::AlignCenter);
-        gridLayout_2 = new QGridLayout(groupBox_CustomFrameControls);
+        groupBox_CustomPacketControls = new QGroupBox(centralWidget);
+        groupBox_CustomPacketControls->setObjectName(QString::fromUtf8("groupBox_CustomPacketControls"));
+        groupBox_CustomPacketControls->setStyleSheet(QString::fromUtf8("font:bold"));
+        groupBox_CustomPacketControls->setAlignment(Qt::AlignCenter);
+        gridLayout_2 = new QGridLayout(groupBox_CustomPacketControls);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
         gridLayout_2->setVerticalSpacing(0);
         gridLayout_2->setContentsMargins(-1, 0, -1, 0);
-        lineEdit_Type = new QLineEdit(groupBox_CustomFrameControls);
+        lineEdit_Type = new QLineEdit(groupBox_CustomPacketControls);
         lineEdit_Type->setObjectName(QString::fromUtf8("lineEdit_Type"));
         sizePolicy.setHeightForWidth(lineEdit_Type->sizePolicy().hasHeightForWidth());
         lineEdit_Type->setSizePolicy(sizePolicy);
@@ -861,25 +861,25 @@ public:
 
         gridLayout_2->addWidget(lineEdit_Type, 2, 1, 1, 1);
 
-        label_Type = new QLabel(groupBox_CustomFrameControls);
+        label_Type = new QLabel(groupBox_CustomPacketControls);
         label_Type->setObjectName(QString::fromUtf8("label_Type"));
         label_Type->setAlignment(Qt::AlignCenter);
 
         gridLayout_2->addWidget(label_Type, 2, 0, 1, 1);
 
-        label_Parameter = new QLabel(groupBox_CustomFrameControls);
+        label_Parameter = new QLabel(groupBox_CustomPacketControls);
         label_Parameter->setObjectName(QString::fromUtf8("label_Parameter"));
         label_Parameter->setAlignment(Qt::AlignCenter);
 
         gridLayout_2->addWidget(label_Parameter, 3, 0, 1, 1);
 
-        label_CustomFrameModule = new QLabel(groupBox_CustomFrameControls);
-        label_CustomFrameModule->setObjectName(QString::fromUtf8("label_CustomFrameModule"));
-        label_CustomFrameModule->setAlignment(Qt::AlignCenter);
+        label_CustomPacketModule = new QLabel(groupBox_CustomPacketControls);
+        label_CustomPacketModule->setObjectName(QString::fromUtf8("label_CustomPacketModule"));
+        label_CustomPacketModule->setAlignment(Qt::AlignCenter);
 
-        gridLayout_2->addWidget(label_CustomFrameModule, 1, 0, 1, 1);
+        gridLayout_2->addWidget(label_CustomPacketModule, 1, 0, 1, 1);
 
-        lineEdit_Payload = new QLineEdit(groupBox_CustomFrameControls);
+        lineEdit_Payload = new QLineEdit(groupBox_CustomPacketControls);
         lineEdit_Payload->setObjectName(QString::fromUtf8("lineEdit_Payload"));
         sizePolicy.setHeightForWidth(lineEdit_Payload->sizePolicy().hasHeightForWidth());
         lineEdit_Payload->setSizePolicy(sizePolicy);
@@ -887,25 +887,25 @@ public:
 
         gridLayout_2->addWidget(lineEdit_Payload, 6, 1, 1, 1);
 
-        pushButton_Send = new QPushButton(groupBox_CustomFrameControls);
+        pushButton_Send = new QPushButton(groupBox_CustomPacketControls);
         pushButton_Send->setObjectName(QString::fromUtf8("pushButton_Send"));
         pushButton_Send->setStyleSheet(QString::fromUtf8("color: blue"));
 
         gridLayout_2->addWidget(pushButton_Send, 7, 0, 1, 2);
 
-        label_Source = new QLabel(groupBox_CustomFrameControls);
+        label_Source = new QLabel(groupBox_CustomPacketControls);
         label_Source->setObjectName(QString::fromUtf8("label_Source"));
         label_Source->setAlignment(Qt::AlignCenter);
 
         gridLayout_2->addWidget(label_Source, 0, 0, 1, 1);
 
-        pushButton_SimulateParametersSequence = new QPushButton(groupBox_CustomFrameControls);
+        pushButton_SimulateParametersSequence = new QPushButton(groupBox_CustomPacketControls);
         pushButton_SimulateParametersSequence->setObjectName(QString::fromUtf8("pushButton_SimulateParametersSequence"));
         pushButton_SimulateParametersSequence->setStyleSheet(QString::fromUtf8("color: blue"));
 
         gridLayout_2->addWidget(pushButton_SimulateParametersSequence, 8, 0, 1, 2);
 
-        lineEdit_Sign = new QLineEdit(groupBox_CustomFrameControls);
+        lineEdit_Sign = new QLineEdit(groupBox_CustomPacketControls);
         lineEdit_Sign->setObjectName(QString::fromUtf8("lineEdit_Sign"));
         sizePolicy.setHeightForWidth(lineEdit_Sign->sizePolicy().hasHeightForWidth());
         lineEdit_Sign->setSizePolicy(sizePolicy);
@@ -913,13 +913,13 @@ public:
 
         gridLayout_2->addWidget(lineEdit_Sign, 4, 1, 1, 1);
 
-        label_Length = new QLabel(groupBox_CustomFrameControls);
+        label_Length = new QLabel(groupBox_CustomPacketControls);
         label_Length->setObjectName(QString::fromUtf8("label_Length"));
         label_Length->setAlignment(Qt::AlignCenter);
 
         gridLayout_2->addWidget(label_Length, 5, 0, 1, 1);
 
-        lineEdit_Source = new QLineEdit(groupBox_CustomFrameControls);
+        lineEdit_Source = new QLineEdit(groupBox_CustomPacketControls);
         lineEdit_Source->setObjectName(QString::fromUtf8("lineEdit_Source"));
         sizePolicy.setHeightForWidth(lineEdit_Source->sizePolicy().hasHeightForWidth());
         lineEdit_Source->setSizePolicy(sizePolicy);
@@ -927,17 +927,17 @@ public:
 
         gridLayout_2->addWidget(lineEdit_Source, 0, 1, 1, 1);
 
-        comboBox_CustomFrameModule = new QComboBox(groupBox_CustomFrameControls);
-        comboBox_CustomFrameModule->addItem(QString());
-        comboBox_CustomFrameModule->addItem(QString());
-        comboBox_CustomFrameModule->addItem(QString());
-        comboBox_CustomFrameModule->setObjectName(QString::fromUtf8("comboBox_CustomFrameModule"));
-        sizePolicy.setHeightForWidth(comboBox_CustomFrameModule->sizePolicy().hasHeightForWidth());
-        comboBox_CustomFrameModule->setSizePolicy(sizePolicy);
+        comboBox_CustomPacketModule = new QComboBox(groupBox_CustomPacketControls);
+        comboBox_CustomPacketModule->addItem(QString());
+        comboBox_CustomPacketModule->addItem(QString());
+        comboBox_CustomPacketModule->addItem(QString());
+        comboBox_CustomPacketModule->setObjectName(QString::fromUtf8("comboBox_CustomPacketModule"));
+        sizePolicy.setHeightForWidth(comboBox_CustomPacketModule->sizePolicy().hasHeightForWidth());
+        comboBox_CustomPacketModule->setSizePolicy(sizePolicy);
 
-        gridLayout_2->addWidget(comboBox_CustomFrameModule, 1, 1, 1, 1);
+        gridLayout_2->addWidget(comboBox_CustomPacketModule, 1, 1, 1, 1);
 
-        comboBox_Parameter = new QComboBox(groupBox_CustomFrameControls);
+        comboBox_Parameter = new QComboBox(groupBox_CustomPacketControls);
         comboBox_Parameter->addItem(QString());
         comboBox_Parameter->addItem(QString());
         comboBox_Parameter->addItem(QString());
@@ -954,7 +954,7 @@ public:
 
         gridLayout_2->addWidget(comboBox_Parameter, 3, 1, 1, 1);
 
-        lineEdit_Length = new QLineEdit(groupBox_CustomFrameControls);
+        lineEdit_Length = new QLineEdit(groupBox_CustomPacketControls);
         lineEdit_Length->setObjectName(QString::fromUtf8("lineEdit_Length"));
         sizePolicy.setHeightForWidth(lineEdit_Length->sizePolicy().hasHeightForWidth());
         lineEdit_Length->setSizePolicy(sizePolicy);
@@ -962,20 +962,20 @@ public:
 
         gridLayout_2->addWidget(lineEdit_Length, 5, 1, 1, 1);
 
-        label_Payload = new QLabel(groupBox_CustomFrameControls);
+        label_Payload = new QLabel(groupBox_CustomPacketControls);
         label_Payload->setObjectName(QString::fromUtf8("label_Payload"));
         label_Payload->setAlignment(Qt::AlignCenter);
 
         gridLayout_2->addWidget(label_Payload, 6, 0, 1, 1);
 
-        label_Sign = new QLabel(groupBox_CustomFrameControls);
+        label_Sign = new QLabel(groupBox_CustomPacketControls);
         label_Sign->setObjectName(QString::fromUtf8("label_Sign"));
         label_Sign->setAlignment(Qt::AlignCenter);
 
         gridLayout_2->addWidget(label_Sign, 4, 0, 1, 1);
 
 
-        horizontalLayout->addWidget(groupBox_CustomFrameControls);
+        horizontalLayout->addWidget(groupBox_CustomPacketControls);
 
         groupBox_GraphControls = new QGroupBox(centralWidget);
         groupBox_GraphControls->setObjectName(QString::fromUtf8("groupBox_GraphControls"));
@@ -1123,27 +1123,27 @@ public:
 
         gridLayout_8->addLayout(horizontalLayout, 0, 0, 1, 1);
 
-        groupBox_FrameDisplay = new QGroupBox(centralWidget);
-        groupBox_FrameDisplay->setObjectName(QString::fromUtf8("groupBox_FrameDisplay"));
-        groupBox_FrameDisplay->setStyleSheet(QString::fromUtf8("font:bold"));
-        groupBox_FrameDisplay->setAlignment(Qt::AlignCenter);
-        horizontalLayout_3 = new QHBoxLayout(groupBox_FrameDisplay);
+        groupBox_PacketDisplay = new QGroupBox(centralWidget);
+        groupBox_PacketDisplay->setObjectName(QString::fromUtf8("groupBox_PacketDisplay"));
+        groupBox_PacketDisplay->setStyleSheet(QString::fromUtf8("font:bold"));
+        groupBox_PacketDisplay->setAlignment(Qt::AlignCenter);
+        horizontalLayout_3 = new QHBoxLayout(groupBox_PacketDisplay);
         horizontalLayout_3->setSpacing(6);
         horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         horizontalLayout_3->setContentsMargins(-1, 0, -1, 0);
-        tableWidget_FrameDisplay = new QTableWidget(groupBox_FrameDisplay);
-        tableWidget_FrameDisplay->setObjectName(QString::fromUtf8("tableWidget_FrameDisplay"));
-        tableWidget_FrameDisplay->setRowCount(0);
-        tableWidget_FrameDisplay->setColumnCount(0);
-        tableWidget_FrameDisplay->horizontalHeader()->setMinimumSectionSize(37);
-        tableWidget_FrameDisplay->horizontalHeader()->setDefaultSectionSize(49);
-        tableWidget_FrameDisplay->verticalHeader()->setMinimumSectionSize(23);
+        tableWidget_PacketDisplay = new QTableWidget(groupBox_PacketDisplay);
+        tableWidget_PacketDisplay->setObjectName(QString::fromUtf8("tableWidget_PacketDisplay"));
+        tableWidget_PacketDisplay->setRowCount(0);
+        tableWidget_PacketDisplay->setColumnCount(0);
+        tableWidget_PacketDisplay->horizontalHeader()->setMinimumSectionSize(37);
+        tableWidget_PacketDisplay->horizontalHeader()->setDefaultSectionSize(49);
+        tableWidget_PacketDisplay->verticalHeader()->setMinimumSectionSize(23);
 
-        horizontalLayout_3->addWidget(tableWidget_FrameDisplay);
+        horizontalLayout_3->addWidget(tableWidget_PacketDisplay);
 
 
-        gridLayout_8->addWidget(groupBox_FrameDisplay, 1, 0, 1, 1);
+        gridLayout_8->addWidget(groupBox_PacketDisplay, 1, 0, 1, 1);
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(6);
@@ -4414,11 +4414,11 @@ public:
         label_Module3Parameter4Name->setText(QCoreApplication::translate("MainWindow", "Parameter 4 name", nullptr));
         pushButton_InitConnectionModule3->setText(QCoreApplication::translate("MainWindow", "Init Connection Module 3", nullptr));
         pushButton_DeinitConnectionModule3->setText(QCoreApplication::translate("MainWindow", "Deinit Connection Module 3", nullptr));
-        groupBox_CustomFrameControls->setTitle(QCoreApplication::translate("MainWindow", "Custom Frame", nullptr));
+        groupBox_CustomPacketControls->setTitle(QCoreApplication::translate("MainWindow", "Custom Packet", nullptr));
         lineEdit_Type->setText(QCoreApplication::translate("MainWindow", "1", nullptr));
         label_Type->setText(QCoreApplication::translate("MainWindow", "Type", nullptr));
         label_Parameter->setText(QCoreApplication::translate("MainWindow", "Parameter", nullptr));
-        label_CustomFrameModule->setText(QCoreApplication::translate("MainWindow", "Module", nullptr));
+        label_CustomPacketModule->setText(QCoreApplication::translate("MainWindow", "Module", nullptr));
         lineEdit_Payload->setText(QCoreApplication::translate("MainWindow", "123.456", nullptr));
         pushButton_Send->setText(QCoreApplication::translate("MainWindow", "Send", nullptr));
         label_Source->setText(QCoreApplication::translate("MainWindow", "Source", nullptr));
@@ -4426,9 +4426,9 @@ public:
         lineEdit_Sign->setText(QCoreApplication::translate("MainWindow", "1", nullptr));
         label_Length->setText(QCoreApplication::translate("MainWindow", "Length", nullptr));
         lineEdit_Source->setText(QCoreApplication::translate("MainWindow", "1", nullptr));
-        comboBox_CustomFrameModule->setItemText(0, QCoreApplication::translate("MainWindow", "1", nullptr));
-        comboBox_CustomFrameModule->setItemText(1, QCoreApplication::translate("MainWindow", "2", nullptr));
-        comboBox_CustomFrameModule->setItemText(2, QCoreApplication::translate("MainWindow", "3", nullptr));
+        comboBox_CustomPacketModule->setItemText(0, QCoreApplication::translate("MainWindow", "1", nullptr));
+        comboBox_CustomPacketModule->setItemText(1, QCoreApplication::translate("MainWindow", "2", nullptr));
+        comboBox_CustomPacketModule->setItemText(2, QCoreApplication::translate("MainWindow", "3", nullptr));
 
         comboBox_Parameter->setItemText(0, QCoreApplication::translate("MainWindow", "1", nullptr));
         comboBox_Parameter->setItemText(1, QCoreApplication::translate("MainWindow", "2", nullptr));
@@ -4464,7 +4464,7 @@ public:
         pushButton_StartSine_2signals->setText(QCoreApplication::translate("MainWindow", "Start Sine 2 signals", nullptr));
         pushButton_StartLinear_3signals->setText(QCoreApplication::translate("MainWindow", "Start Linear 3 signals", nullptr));
         pushButton_Stop->setText(QCoreApplication::translate("MainWindow", "STOP", nullptr));
-        groupBox_FrameDisplay->setTitle(QCoreApplication::translate("MainWindow", "Frame display", nullptr));
+        groupBox_PacketDisplay->setTitle(QCoreApplication::translate("MainWindow", "Packet display", nullptr));
         groupBox_Module1->setTitle(QCoreApplication::translate("MainWindow", "Module 1", nullptr));
         label_Module1_CustomParameter1_State->setText(QCoreApplication::translate("MainWindow", "<font color='green'>Enabled</font>", nullptr));
         label_Module1_CustomParameter2_State->setText(QCoreApplication::translate("MainWindow", "<font color='green'>Enabled</font>", nullptr));

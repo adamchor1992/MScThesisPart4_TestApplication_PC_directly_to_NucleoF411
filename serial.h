@@ -1,5 +1,4 @@
-#ifndef SERIAL_H
-#define SERIAL_H
+#pragma once
 
 #include <QSerialPort>
 #include "ui_mainwindow.h"
@@ -14,5 +13,3 @@ public:
 private:
     Ui::MainWindow* ui;
 };
-
-#endif // SERIAL_H

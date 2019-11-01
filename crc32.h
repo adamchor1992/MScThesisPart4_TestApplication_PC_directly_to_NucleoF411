@@ -3,7 +3,7 @@
 #include <stdint.h>
 
 // CRC32 lookup table for polynomial 0x04c11db7 - CRC-32/MPEG-2, no reflections should be applied
-static const uint32_t crc_table[256] =
+static const uint32_t crcTable[256] =
 {
   0x00000000U,0x04C11DB7U,0x09823B6EU,0x0D4326D9U,
   0x130476DCU,0x17C56B6BU,0x1A864DB2U,0x1E475005U,

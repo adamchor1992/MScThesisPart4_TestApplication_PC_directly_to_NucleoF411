@@ -9,12 +9,12 @@
 #define MODULE3 '3'
 
 /*Function field*/
-#define DATA_FRAME '1'
-#define INIT_FRAME '2'
-#define DEINIT_FRAME '3'
-#define ENABLE_PARAMETER_FRAME '4'
-#define DISABLE_PARAMETER_FRAME '5'
-#define SET_PARAMETER_FRAME '6'
+#define DATA_PACKET '1'
+#define INIT_PACKET '2'
+#define DEINIT_PACKET '3'
+#define ENABLE_PARAMETER_PACKET '4'
+#define DISABLE_PARAMETER_PACKET '5'
+#define SET_PARAMETER_PACKET '6'
 
 /*Parameter field*/
 #define VOLTAGE_PARAMETER 'v'
@@ -36,5 +36,5 @@
 #define POSITIVE_SIGN '1'
 #define NEGATIVE_SIGN '2'
 
-#define FRAME_SIZE 20
+#define PACKET_SIZE 20
 #define MODULE_INIT_INFO_VALUE_COUNT 24

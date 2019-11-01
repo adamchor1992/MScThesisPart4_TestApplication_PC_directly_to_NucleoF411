@@ -4,129 +4,129 @@
 TableView::TableView(Ui::MainWindow* pUiHandle)
 {
     m_pUiHandle = pUiHandle;
-    m_pTableWidget = m_pUiHandle->tableWidget_FrameDisplay;
+    m_pTableWidget = m_pUiHandle->tableWidget_PacketDisplay;
 }
 
-void TableView::initFrameDisplay()
+void TableView::initPacketDisplay()
 {
-    QStringList frameFieldNames;
+    QStringList packetFieldNames;
 
-    frameFieldNames.insert(0, "Source");
-    frameFieldNames.insert(1, "Module");
-    frameFieldNames.insert(2, "Function");
-    frameFieldNames.insert(3, "Parameter");
-    frameFieldNames.insert(4, "Sign");
-    frameFieldNames.insert(5,"Length");
-    frameFieldNames.insert(6,"P1");
-    frameFieldNames.insert(7,"P2");
-    frameFieldNames.insert(8,"P3");
-    frameFieldNames.insert(9,"P4");
-    frameFieldNames.insert(10,"P5");
-    frameFieldNames.insert(11,"P6");
-    frameFieldNames.insert(12,"P7");
-    frameFieldNames.insert(13,"P8");
-    frameFieldNames.insert(14,"P9");
-    frameFieldNames.insert(15,"P10");
-    frameFieldNames.insert(16,"CRC1");
-    frameFieldNames.insert(17,"CRC2");
-    frameFieldNames.insert(18,"CRC3");
-    frameFieldNames.insert(19,"CRC4");
+    packetFieldNames.insert(0, "Source");
+    packetFieldNames.insert(1, "Module");
+    packetFieldNames.insert(2, "Function");
+    packetFieldNames.insert(3, "Parameter");
+    packetFieldNames.insert(4, "Sign");
+    packetFieldNames.insert(5,"Length");
+    packetFieldNames.insert(6,"P1");
+    packetFieldNames.insert(7,"P2");
+    packetFieldNames.insert(8,"P3");
+    packetFieldNames.insert(9,"P4");
+    packetFieldNames.insert(10,"P5");
+    packetFieldNames.insert(11,"P6");
+    packetFieldNames.insert(12,"P7");
+    packetFieldNames.insert(13,"P8");
+    packetFieldNames.insert(14,"P9");
+    packetFieldNames.insert(15,"P10");
+    packetFieldNames.insert(16,"CRC1");
+    packetFieldNames.insert(17,"CRC2");
+    packetFieldNames.insert(18,"CRC3");
+    packetFieldNames.insert(19,"CRC4");
 
-    m_pTableWidget->setColumnCount(FRAME_SIZE);
+    m_pTableWidget->setColumnCount(PACKET_SIZE);
 
     m_pTableWidget->horizontalHeader()->setStretchLastSection(true);
 
-    m_pTableWidget->setHorizontalHeaderLabels(frameFieldNames);
+    m_pTableWidget->setHorizontalHeaderLabels(packetFieldNames);
 
-    for(int column=0; column < FRAME_SIZE; column++)
+    for(int column=0; column < PACKET_SIZE; column++)
     {
         m_pTableWidget->setColumnWidth(column, 90);
     }
 }
 
-void TableView::updateFrame(uint8_t uartFrame[], bool isReceivedFrame)
+void TableView::updatePacket(uint8_t uartPacket[], bool isReceivedPacket)
 {
     int rowCount = m_pTableWidget->rowCount();
 
     m_pTableWidget->insertRow(rowCount);
 
-    QTableWidgetItem* source = new QTableWidgetItem(QChar(uartFrame[0]));
+    QTableWidgetItem* source = new QTableWidgetItem(QChar(uartPacket[0]));
     source->setTextAlignment(Qt::AlignCenter);
     source->setFlags(Qt::ItemFlag::NoItemFlags | Qt::ItemFlag::ItemIsEnabled);
 
-    QTableWidgetItem* module = new QTableWidgetItem(QChar(uartFrame[1]));
+    QTableWidgetItem* module = new QTableWidgetItem(QChar(uartPacket[1]));
     module->setTextAlignment(Qt::AlignCenter);
     module->setFlags(Qt::ItemFlag::NoItemFlags | Qt::ItemFlag::ItemIsEnabled);
 
-    QTableWidgetItem* function = new QTableWidgetItem(QChar(uartFrame[2]));
+    QTableWidgetItem* function = new QTableWidgetItem(QChar(uartPacket[2]));
     function->setTextAlignment(Qt::AlignCenter);
     function->setFlags(Qt::ItemFlag::NoItemFlags | Qt::ItemFlag::ItemIsEnabled);
 
-    QTableWidgetItem* parameter = new QTableWidgetItem(QChar(uartFrame[3]));
+    QTableWidgetItem* parameter = new QTableWidgetItem(QChar(uartPacket[3]));
     parameter->setTextAlignment(Qt::AlignCenter);
     parameter->setFlags(Qt::ItemFlag::NoItemFlags | Qt::ItemFlag::ItemIsEnabled);
 
-    QTableWidgetItem* sign = new QTableWidgetItem(QChar(uartFrame[4]));
+    QTableWidgetItem* sign = new QTableWidgetItem(QChar(uartPacket[4]));
     sign->setTextAlignment(Qt::AlignCenter);
     sign->setFlags(Qt::ItemFlag::NoItemFlags | Qt::ItemFlag::ItemIsEnabled);
 
-    QTableWidgetItem* length = new QTableWidgetItem(QChar(uartFrame[5]));
+    QTableWidgetItem* length = new QTableWidgetItem(QChar(uartPacket[5]));
     length->setTextAlignment(Qt::AlignCenter);
     length->setFlags(Qt::ItemFlag::NoItemFlags | Qt::ItemFlag::ItemIsEnabled);
 
-    QTableWidgetItem* payload1 = new QTableWidgetItem(QChar(uartFrame[6]));
+    QTableWidgetItem* payload1 = new QTableWidgetItem(QChar(uartPacket[6]));
     payload1->setTextAlignment(Qt::AlignCenter);
     payload1->setFlags(Qt::ItemFlag::NoItemFlags | Qt::ItemFlag::ItemIsEnabled);
 
-    QTableWidgetItem* payload2 = new QTableWidgetItem(QChar(uartFrame[7]));
+    QTableWidgetItem* payload2 = new QTableWidgetItem(QChar(uartPacket[7]));
     payload2->setTextAlignment(Qt::AlignCenter);
     payload2->setFlags(Qt::ItemFlag::NoItemFlags | Qt::ItemFlag::ItemIsEnabled);
 
-    QTableWidgetItem* payload3 = new QTableWidgetItem(QChar(uartFrame[8]));
+    QTableWidgetItem* payload3 = new QTableWidgetItem(QChar(uartPacket[8]));
     payload3->setTextAlignment(Qt::AlignCenter);
     payload3->setFlags(Qt::ItemFlag::NoItemFlags | Qt::ItemFlag::ItemIsEnabled);
 
-    QTableWidgetItem* payload4 = new QTableWidgetItem(QChar(uartFrame[9]));
+    QTableWidgetItem* payload4 = new QTableWidgetItem(QChar(uartPacket[9]));
     payload4->setTextAlignment(Qt::AlignCenter);
     payload4->setFlags(Qt::ItemFlag::NoItemFlags | Qt::ItemFlag::ItemIsEnabled);
 
-    QTableWidgetItem* payload5 = new QTableWidgetItem(QChar(uartFrame[10]));
+    QTableWidgetItem* payload5 = new QTableWidgetItem(QChar(uartPacket[10]));
     payload5->setTextAlignment(Qt::AlignCenter);
     payload5->setFlags(Qt::ItemFlag::NoItemFlags | Qt::ItemFlag::ItemIsEnabled);
 
-    QTableWidgetItem* payload6 = new QTableWidgetItem(QChar(uartFrame[11]));
+    QTableWidgetItem* payload6 = new QTableWidgetItem(QChar(uartPacket[11]));
     payload6->setTextAlignment(Qt::AlignCenter);
     payload6->setFlags(Qt::ItemFlag::NoItemFlags | Qt::ItemFlag::ItemIsEnabled);
 
-    QTableWidgetItem* payload7 = new QTableWidgetItem(QChar(uartFrame[12]));
+    QTableWidgetItem* payload7 = new QTableWidgetItem(QChar(uartPacket[12]));
     payload7->setTextAlignment(Qt::AlignCenter);
     payload7->setFlags(Qt::ItemFlag::NoItemFlags | Qt::ItemFlag::ItemIsEnabled);
 
-    QTableWidgetItem* payload8 = new QTableWidgetItem(QChar(uartFrame[13]));
+    QTableWidgetItem* payload8 = new QTableWidgetItem(QChar(uartPacket[13]));
     payload8->setTextAlignment(Qt::AlignCenter);
     payload8->setFlags(Qt::ItemFlag::NoItemFlags | Qt::ItemFlag::ItemIsEnabled);
 
-    QTableWidgetItem* payload9 = new QTableWidgetItem(QChar(uartFrame[14]));
+    QTableWidgetItem* payload9 = new QTableWidgetItem(QChar(uartPacket[14]));
     payload9->setTextAlignment(Qt::AlignCenter);
     payload9->setFlags(Qt::ItemFlag::NoItemFlags | Qt::ItemFlag::ItemIsEnabled);
 
-    QTableWidgetItem* payload10 = new QTableWidgetItem(QChar(uartFrame[15]));
+    QTableWidgetItem* payload10 = new QTableWidgetItem(QChar(uartPacket[15]));
     payload10->setTextAlignment(Qt::AlignCenter);
     payload10->setFlags(Qt::ItemFlag::NoItemFlags | Qt::ItemFlag::ItemIsEnabled);
 
-    QTableWidgetItem* crc1 = new QTableWidgetItem(QString::number(uartFrame[16]));
+    QTableWidgetItem* crc1 = new QTableWidgetItem(QString::number(uartPacket[16]));
     crc1->setTextAlignment(Qt::AlignCenter);
     crc1->setFlags(Qt::ItemFlag::NoItemFlags | Qt::ItemFlag::ItemIsEnabled);
 
-    QTableWidgetItem* crc2 = new QTableWidgetItem(QString::number(uartFrame[17]));
+    QTableWidgetItem* crc2 = new QTableWidgetItem(QString::number(uartPacket[17]));
     crc2->setTextAlignment(Qt::AlignCenter);
     crc2->setFlags(Qt::ItemFlag::NoItemFlags | Qt::ItemFlag::ItemIsEnabled);
 
-    QTableWidgetItem* crc3 = new QTableWidgetItem(QString::number(uartFrame[18]));
+    QTableWidgetItem* crc3 = new QTableWidgetItem(QString::number(uartPacket[18]));
     crc3->setTextAlignment(Qt::AlignCenter);
     crc3->setFlags(Qt::ItemFlag::NoItemFlags | Qt::ItemFlag::ItemIsEnabled);
 
-    QTableWidgetItem* crc4 = new QTableWidgetItem(QString::number(uartFrame[19]));
+    QTableWidgetItem* crc4 = new QTableWidgetItem(QString::number(uartPacket[19]));
     crc4->setTextAlignment(Qt::AlignCenter);
     crc4->setFlags(Qt::ItemFlag::NoItemFlags | Qt::ItemFlag::ItemIsEnabled);
 
@@ -151,9 +151,9 @@ void TableView::updateFrame(uint8_t uartFrame[], bool isReceivedFrame)
     m_pTableWidget->setItem(rowCount, 18, crc3);
     m_pTableWidget->setItem(rowCount, 19, crc4);
 
-    if(isReceivedFrame == true)
+    if(isReceivedPacket == true)
     {
-        for(int column = 0; column < FRAME_SIZE; column++)
+        for(int column = 0; column < PACKET_SIZE; column++)
         {
             m_pTableWidget->item(rowCount, column)->setBackground(QBrush(Qt::green));
         }

@@ -37,10 +37,10 @@ HEADERS += \
         defines.h \
         mainwindow.h \
         module.h \
-        uart_frame_struct.h \
         utilities.h \
     tableview.h \
-    serial.h
+    serial.h \
+    uartpacket.h
 
 FORMS += \
         mainwindow.ui
