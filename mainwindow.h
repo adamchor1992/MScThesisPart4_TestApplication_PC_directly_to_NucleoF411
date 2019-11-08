@@ -48,17 +48,13 @@ private slots:
     void on_pushButton_DeinitConnectionModule2_clicked();
     void on_pushButton_DeinitConnectionModule3_clicked();
     void on_pushButton_StartLinear_1signal_clicked();
-    void on_pushButton_StartLinear_2signals_clicked();
-    void on_pushButton_StartLinear_3signals_clicked();
-    void on_pushButton_StartLinear_4signals_clicked();
     void on_pushButton_StartSine_1signal_clicked();
-    void on_pushButton_StartSine_2signals_clicked();
-    void on_pushButton_StartSine_3signals_clicked();
-    void on_pushButton_StartSine_4signals_clicked();
     void on_pushButton_Stop_clicked();
     void on_pushButton_SimulateParametersSequence_clicked();
     void on_pushButton_Close_clicked();
     void on_pushButton_SendWrongCrcPacket_clicked();
+    void on_pushButton_SetRangeMinimum_clicked();
+    void on_pushButton_SetRangeMaximum_clicked();
 
 private:
     Ui::MainWindow *ui;

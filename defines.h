@@ -15,6 +15,8 @@
 #define ENABLE_PARAMETER_PACKET '4'
 #define DISABLE_PARAMETER_PACKET '5'
 #define SET_PARAMETER_PACKET '6'
+#define SET_GRAPH_RANGE_MIN '7'
+#define SET_GRAPH_RANGE_MAX '8'
 
 /*Parameter field*/
 #define VOLTAGE_PARAMETER 'v'

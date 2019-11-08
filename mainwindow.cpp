@@ -1047,39 +1047,9 @@ void MainWindow::on_pushButton_StartLinear_1signal_clicked()
     startLinearGraph(1);
 }
 
-void MainWindow::on_pushButton_StartLinear_2signals_clicked()
-{ 
-    startLinearGraph(2);
-}
-
-void MainWindow::on_pushButton_StartLinear_3signals_clicked()
-{
-    startLinearGraph(3);
-}
-
-void MainWindow::on_pushButton_StartLinear_4signals_clicked()
-{
-    startLinearGraph(4);
-}
-
 void MainWindow::on_pushButton_StartSine_1signal_clicked()
 {
     startSineGraph(1);
-}
-
-void MainWindow::on_pushButton_StartSine_2signals_clicked()
-{
-    startSineGraph(2);
-}
-
-void MainWindow::on_pushButton_StartSine_3signals_clicked()
-{
-    startSineGraph(3);
-}
-
-void MainWindow::on_pushButton_StartSine_4signals_clicked()
-{
-    startSineGraph(4);
 }
 
 void MainWindow::on_pushButton_Stop_clicked()
@@ -1095,4 +1065,92 @@ void MainWindow::on_pushButton_SimulateParametersSequence_clicked()
 void MainWindow::on_pushButton_SendWrongCrcPacket_clicked()
 {
     sendWrongCrcDataPacket();
+}
+
+void MainWindow::on_pushButton_SetRangeMinimum_clicked()
+{
+    uint8_t UART_MessageToTransmit[PACKET_SIZE] = {0};
+
+    m_uartPacket.source = SOURCE_TARGET1;
+    m_uartPacket.module = ui->comboBox_GraphModule->currentText().at(0).toLatin1();
+    m_uartPacket.function = SET_GRAPH_RANGE_MIN;
+    m_uartPacket.parameter = '0';
+
+    QString enteredPayload = ui->lineEdit_RangeMinimum->text();
+
+    if(enteredPayload.at(0).toLatin1() == '-')
+    {
+        m_uartPacket.sign = NEGATIVE_SIGN;
+
+        /*Remove minus sign*/
+        enteredPayload.remove(0,1);
+    }
+    else
+    {
+        m_uartPacket.sign = POSITIVE_SIGN;
+    }
+
+    uint8_t length_int = enteredPayload.length();
+
+    m_uartPacket.length = length_int + '0'; //convert int to ascii representation of the int
+
+    for(int i=0; i<length_int;i++)
+    {
+        m_uartPacket.payload[i] = enteredPayload.at(i).toLatin1();
+    }
+
+    convertUartStructureToUartPacketTable(m_uartPacket,UART_MessageToTransmit);
+    appendCrcToPacket(UART_MessageToTransmit);
+
+    qDebug("Data Packet is: %s", UART_MessageToTransmit);
+
+    m_pTableView->updatePacket(UART_MessageToTransmit, false);
+
+    m_pSerial->write((const char*)UART_MessageToTransmit, PACKET_SIZE);
+    m_pSerial->waitForBytesWritten(3000);
+    m_pSerial->flush();
+}
+
+void MainWindow::on_pushButton_SetRangeMaximum_clicked()
+{
+    uint8_t UART_MessageToTransmit[PACKET_SIZE] = {0};
+
+    m_uartPacket.source = SOURCE_TARGET1;
+    m_uartPacket.module = ui->comboBox_GraphModule->currentText().at(0).toLatin1();
+    m_uartPacket.function = SET_GRAPH_RANGE_MAX;
+    m_uartPacket.parameter = '0';
+
+    QString enteredPayload = ui->lineEdit_RangeMaximum->text();
+
+    if(enteredPayload.at(0).toLatin1() == '-')
+    {
+        m_uartPacket.sign = NEGATIVE_SIGN;
+
+        /*Remove minus sign*/
+        enteredPayload.remove(0,1);
+    }
+    else
+    {
+        m_uartPacket.sign = POSITIVE_SIGN;
+    }
+
+    uint8_t length_int = enteredPayload.length();
+
+    m_uartPacket.length = length_int + '0'; //convert int to ascii representation of the int
+
+    for(int i=0; i<length_int;i++)
+    {
+        m_uartPacket.payload[i] = enteredPayload.at(i).toLatin1();
+    }
+
+    convertUartStructureToUartPacketTable(m_uartPacket,UART_MessageToTransmit);
+    appendCrcToPacket(UART_MessageToTransmit);
+
+    qDebug("Data Packet is: %s", UART_MessageToTransmit);
+
+    m_pTableView->updatePacket(UART_MessageToTransmit, false);
+
+    m_pSerial->write((const char*)UART_MessageToTransmit, PACKET_SIZE);
+    m_pSerial->waitForBytesWritten(3000);
+    m_pSerial->flush();
 }

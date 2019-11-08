@@ -131,23 +131,25 @@ public:
     QPushButton *pushButton_SendWrongCrcPacket;
     QGroupBox *groupBox_GraphControls;
     QGridLayout *gridLayout_4;
-    QLabel *label_StartValue;
-    QPushButton *pushButton_StartSine_4signals;
-    QPushButton *pushButton_StartLinear_1signal;
-    QPushButton *pushButton_StartLinear_2signals;
-    QComboBox *comboBox_GraphModule;
-    QLabel *label_GraphModule;
-    QPushButton *pushButton_StartSine_1signal;
-    QPushButton *pushButton_StartSine_3signals;
-    QPushButton *pushButton_StartLinear_4signals;
-    QLineEdit *lineEdit_StartValue;
     QLabel *label_StopValue;
-    QLineEdit *lineEdit_StopValue;
+    QLabel *label_RangeMinimum;
     QLabel *label_Multiplier;
+    QLabel *label_StartValue;
+    QPushButton *pushButton_StartLinear_1signal;
     QLineEdit *lineEdit_Multiplier;
-    QPushButton *pushButton_StartSine_2signals;
-    QPushButton *pushButton_StartLinear_3signals;
+    QLabel *label_RangeMaximum;
+    QLineEdit *lineEdit_StartValue;
+    QLineEdit *lineEdit_RangeMinimum;
+    QComboBox *comboBox_SignalCount;
+    QLabel *label_GraphModule;
+    QLineEdit *lineEdit_RangeMaximum;
+    QLineEdit *lineEdit_StopValue;
+    QComboBox *comboBox_GraphModule;
     QPushButton *pushButton_Stop;
+    QPushButton *pushButton_StartSine_1signal;
+    QLabel *label_SignalCount;
+    QPushButton *pushButton_SetRangeMinimum;
+    QPushButton *pushButton_SetRangeMaximum;
     QGroupBox *groupBox_PacketDisplay;
     QHBoxLayout *horizontalLayout_3;
     QTableWidget *tableWidget_PacketDisplay;
@@ -941,6 +943,10 @@ public:
         comboBox_Parameter->addItem(QString());
         comboBox_Parameter->addItem(QString());
         comboBox_Parameter->addItem(QString());
+        comboBox_Parameter->addItem(QString());
+        comboBox_Parameter->addItem(QString());
+        comboBox_Parameter->addItem(QString());
+        comboBox_Parameter->addItem(QString());
         comboBox_Parameter->setObjectName(QString::fromUtf8("comboBox_Parameter"));
         sizePolicy.setHeightForWidth(comboBox_Parameter->sizePolicy().hasHeightForWidth());
         comboBox_Parameter->setSizePolicy(sizePolicy);
@@ -994,75 +1000,54 @@ public:
         gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
         gridLayout_4->setVerticalSpacing(0);
         gridLayout_4->setContentsMargins(-1, 0, -1, 0);
+        label_StopValue = new QLabel(groupBox_GraphControls);
+        label_StopValue->setObjectName(QString::fromUtf8("label_StopValue"));
+        label_StopValue->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(label_StopValue, 1, 0, 1, 1);
+
+        label_RangeMinimum = new QLabel(groupBox_GraphControls);
+        label_RangeMinimum->setObjectName(QString::fromUtf8("label_RangeMinimum"));
+        label_RangeMinimum->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(label_RangeMinimum, 3, 0, 1, 1);
+
+        label_Multiplier = new QLabel(groupBox_GraphControls);
+        label_Multiplier->setObjectName(QString::fromUtf8("label_Multiplier"));
+        label_Multiplier->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(label_Multiplier, 5, 0, 1, 1);
+
         label_StartValue = new QLabel(groupBox_GraphControls);
         label_StartValue->setObjectName(QString::fromUtf8("label_StartValue"));
         label_StartValue->setAlignment(Qt::AlignCenter);
 
         gridLayout_4->addWidget(label_StartValue, 0, 0, 1, 1);
 
-        pushButton_StartSine_4signals = new QPushButton(groupBox_GraphControls);
-        pushButton_StartSine_4signals->setObjectName(QString::fromUtf8("pushButton_StartSine_4signals"));
-        sizePolicy.setHeightForWidth(pushButton_StartSine_4signals->sizePolicy().hasHeightForWidth());
-        pushButton_StartSine_4signals->setSizePolicy(sizePolicy);
-        pushButton_StartSine_4signals->setStyleSheet(QString::fromUtf8("color: blue"));
-
-        gridLayout_4->addWidget(pushButton_StartSine_4signals, 7, 1, 1, 1);
-
         pushButton_StartLinear_1signal = new QPushButton(groupBox_GraphControls);
         pushButton_StartLinear_1signal->setObjectName(QString::fromUtf8("pushButton_StartLinear_1signal"));
-        sizePolicy.setHeightForWidth(pushButton_StartLinear_1signal->sizePolicy().hasHeightForWidth());
-        pushButton_StartLinear_1signal->setSizePolicy(sizePolicy);
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(pushButton_StartLinear_1signal->sizePolicy().hasHeightForWidth());
+        pushButton_StartLinear_1signal->setSizePolicy(sizePolicy1);
         pushButton_StartLinear_1signal->setStyleSheet(QString::fromUtf8("color: blue"));
 
-        gridLayout_4->addWidget(pushButton_StartLinear_1signal, 4, 0, 1, 1);
+        gridLayout_4->addWidget(pushButton_StartLinear_1signal, 9, 0, 1, 1);
 
-        pushButton_StartLinear_2signals = new QPushButton(groupBox_GraphControls);
-        pushButton_StartLinear_2signals->setObjectName(QString::fromUtf8("pushButton_StartLinear_2signals"));
-        sizePolicy.setHeightForWidth(pushButton_StartLinear_2signals->sizePolicy().hasHeightForWidth());
-        pushButton_StartLinear_2signals->setSizePolicy(sizePolicy);
-        pushButton_StartLinear_2signals->setStyleSheet(QString::fromUtf8("color: blue"));
+        lineEdit_Multiplier = new QLineEdit(groupBox_GraphControls);
+        lineEdit_Multiplier->setObjectName(QString::fromUtf8("lineEdit_Multiplier"));
+        sizePolicy.setHeightForWidth(lineEdit_Multiplier->sizePolicy().hasHeightForWidth());
+        lineEdit_Multiplier->setSizePolicy(sizePolicy);
+        lineEdit_Multiplier->setReadOnly(false);
 
-        gridLayout_4->addWidget(pushButton_StartLinear_2signals, 5, 0, 1, 1);
+        gridLayout_4->addWidget(lineEdit_Multiplier, 5, 1, 1, 1);
 
-        comboBox_GraphModule = new QComboBox(groupBox_GraphControls);
-        comboBox_GraphModule->addItem(QString());
-        comboBox_GraphModule->addItem(QString());
-        comboBox_GraphModule->addItem(QString());
-        comboBox_GraphModule->setObjectName(QString::fromUtf8("comboBox_GraphModule"));
-        sizePolicy.setHeightForWidth(comboBox_GraphModule->sizePolicy().hasHeightForWidth());
-        comboBox_GraphModule->setSizePolicy(sizePolicy);
+        label_RangeMaximum = new QLabel(groupBox_GraphControls);
+        label_RangeMaximum->setObjectName(QString::fromUtf8("label_RangeMaximum"));
+        label_RangeMaximum->setAlignment(Qt::AlignCenter);
 
-        gridLayout_4->addWidget(comboBox_GraphModule, 3, 1, 1, 1);
-
-        label_GraphModule = new QLabel(groupBox_GraphControls);
-        label_GraphModule->setObjectName(QString::fromUtf8("label_GraphModule"));
-        label_GraphModule->setAlignment(Qt::AlignCenter);
-
-        gridLayout_4->addWidget(label_GraphModule, 3, 0, 1, 1);
-
-        pushButton_StartSine_1signal = new QPushButton(groupBox_GraphControls);
-        pushButton_StartSine_1signal->setObjectName(QString::fromUtf8("pushButton_StartSine_1signal"));
-        sizePolicy.setHeightForWidth(pushButton_StartSine_1signal->sizePolicy().hasHeightForWidth());
-        pushButton_StartSine_1signal->setSizePolicy(sizePolicy);
-        pushButton_StartSine_1signal->setStyleSheet(QString::fromUtf8("color: blue"));
-
-        gridLayout_4->addWidget(pushButton_StartSine_1signal, 4, 1, 1, 1);
-
-        pushButton_StartSine_3signals = new QPushButton(groupBox_GraphControls);
-        pushButton_StartSine_3signals->setObjectName(QString::fromUtf8("pushButton_StartSine_3signals"));
-        sizePolicy.setHeightForWidth(pushButton_StartSine_3signals->sizePolicy().hasHeightForWidth());
-        pushButton_StartSine_3signals->setSizePolicy(sizePolicy);
-        pushButton_StartSine_3signals->setStyleSheet(QString::fromUtf8("color: blue"));
-
-        gridLayout_4->addWidget(pushButton_StartSine_3signals, 6, 1, 1, 1);
-
-        pushButton_StartLinear_4signals = new QPushButton(groupBox_GraphControls);
-        pushButton_StartLinear_4signals->setObjectName(QString::fromUtf8("pushButton_StartLinear_4signals"));
-        sizePolicy.setHeightForWidth(pushButton_StartLinear_4signals->sizePolicy().hasHeightForWidth());
-        pushButton_StartLinear_4signals->setSizePolicy(sizePolicy);
-        pushButton_StartLinear_4signals->setStyleSheet(QString::fromUtf8("color: blue"));
-
-        gridLayout_4->addWidget(pushButton_StartLinear_4signals, 7, 0, 1, 1);
+        gridLayout_4->addWidget(label_RangeMaximum, 4, 0, 1, 1);
 
         lineEdit_StartValue = new QLineEdit(groupBox_GraphControls);
         lineEdit_StartValue->setObjectName(QString::fromUtf8("lineEdit_StartValue"));
@@ -1072,11 +1057,34 @@ public:
 
         gridLayout_4->addWidget(lineEdit_StartValue, 0, 1, 1, 1);
 
-        label_StopValue = new QLabel(groupBox_GraphControls);
-        label_StopValue->setObjectName(QString::fromUtf8("label_StopValue"));
-        label_StopValue->setAlignment(Qt::AlignCenter);
+        lineEdit_RangeMinimum = new QLineEdit(groupBox_GraphControls);
+        lineEdit_RangeMinimum->setObjectName(QString::fromUtf8("lineEdit_RangeMinimum"));
+        sizePolicy.setHeightForWidth(lineEdit_RangeMinimum->sizePolicy().hasHeightForWidth());
+        lineEdit_RangeMinimum->setSizePolicy(sizePolicy);
 
-        gridLayout_4->addWidget(label_StopValue, 1, 0, 1, 1);
+        gridLayout_4->addWidget(lineEdit_RangeMinimum, 3, 1, 1, 1);
+
+        comboBox_SignalCount = new QComboBox(groupBox_GraphControls);
+        comboBox_SignalCount->addItem(QString());
+        comboBox_SignalCount->addItem(QString());
+        comboBox_SignalCount->addItem(QString());
+        comboBox_SignalCount->addItem(QString());
+        comboBox_SignalCount->setObjectName(QString::fromUtf8("comboBox_SignalCount"));
+
+        gridLayout_4->addWidget(comboBox_SignalCount, 7, 1, 1, 1);
+
+        label_GraphModule = new QLabel(groupBox_GraphControls);
+        label_GraphModule->setObjectName(QString::fromUtf8("label_GraphModule"));
+        label_GraphModule->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(label_GraphModule, 6, 0, 1, 1);
+
+        lineEdit_RangeMaximum = new QLineEdit(groupBox_GraphControls);
+        lineEdit_RangeMaximum->setObjectName(QString::fromUtf8("lineEdit_RangeMaximum"));
+        sizePolicy.setHeightForWidth(lineEdit_RangeMaximum->sizePolicy().hasHeightForWidth());
+        lineEdit_RangeMaximum->setSizePolicy(sizePolicy);
+
+        gridLayout_4->addWidget(lineEdit_RangeMaximum, 4, 1, 1, 1);
 
         lineEdit_StopValue = new QLineEdit(groupBox_GraphControls);
         lineEdit_StopValue->setObjectName(QString::fromUtf8("lineEdit_StopValue"));
@@ -1086,35 +1094,15 @@ public:
 
         gridLayout_4->addWidget(lineEdit_StopValue, 1, 1, 1, 1);
 
-        label_Multiplier = new QLabel(groupBox_GraphControls);
-        label_Multiplier->setObjectName(QString::fromUtf8("label_Multiplier"));
-        label_Multiplier->setAlignment(Qt::AlignCenter);
+        comboBox_GraphModule = new QComboBox(groupBox_GraphControls);
+        comboBox_GraphModule->addItem(QString());
+        comboBox_GraphModule->addItem(QString());
+        comboBox_GraphModule->addItem(QString());
+        comboBox_GraphModule->setObjectName(QString::fromUtf8("comboBox_GraphModule"));
+        sizePolicy.setHeightForWidth(comboBox_GraphModule->sizePolicy().hasHeightForWidth());
+        comboBox_GraphModule->setSizePolicy(sizePolicy);
 
-        gridLayout_4->addWidget(label_Multiplier, 2, 0, 1, 1);
-
-        lineEdit_Multiplier = new QLineEdit(groupBox_GraphControls);
-        lineEdit_Multiplier->setObjectName(QString::fromUtf8("lineEdit_Multiplier"));
-        sizePolicy.setHeightForWidth(lineEdit_Multiplier->sizePolicy().hasHeightForWidth());
-        lineEdit_Multiplier->setSizePolicy(sizePolicy);
-        lineEdit_Multiplier->setReadOnly(false);
-
-        gridLayout_4->addWidget(lineEdit_Multiplier, 2, 1, 1, 1);
-
-        pushButton_StartSine_2signals = new QPushButton(groupBox_GraphControls);
-        pushButton_StartSine_2signals->setObjectName(QString::fromUtf8("pushButton_StartSine_2signals"));
-        sizePolicy.setHeightForWidth(pushButton_StartSine_2signals->sizePolicy().hasHeightForWidth());
-        pushButton_StartSine_2signals->setSizePolicy(sizePolicy);
-        pushButton_StartSine_2signals->setStyleSheet(QString::fromUtf8("color: blue"));
-
-        gridLayout_4->addWidget(pushButton_StartSine_2signals, 5, 1, 1, 1);
-
-        pushButton_StartLinear_3signals = new QPushButton(groupBox_GraphControls);
-        pushButton_StartLinear_3signals->setObjectName(QString::fromUtf8("pushButton_StartLinear_3signals"));
-        sizePolicy.setHeightForWidth(pushButton_StartLinear_3signals->sizePolicy().hasHeightForWidth());
-        pushButton_StartLinear_3signals->setSizePolicy(sizePolicy);
-        pushButton_StartLinear_3signals->setStyleSheet(QString::fromUtf8("color: blue"));
-
-        gridLayout_4->addWidget(pushButton_StartLinear_3signals, 6, 0, 1, 1);
+        gridLayout_4->addWidget(comboBox_GraphModule, 6, 1, 1, 1);
 
         pushButton_Stop = new QPushButton(groupBox_GraphControls);
         pushButton_Stop->setObjectName(QString::fromUtf8("pushButton_Stop"));
@@ -1122,7 +1110,37 @@ public:
         pushButton_Stop->setSizePolicy(sizePolicy);
         pushButton_Stop->setStyleSheet(QString::fromUtf8("color:red"));
 
-        gridLayout_4->addWidget(pushButton_Stop, 8, 0, 1, 2);
+        gridLayout_4->addWidget(pushButton_Stop, 11, 0, 1, 2);
+
+        pushButton_StartSine_1signal = new QPushButton(groupBox_GraphControls);
+        pushButton_StartSine_1signal->setObjectName(QString::fromUtf8("pushButton_StartSine_1signal"));
+        sizePolicy.setHeightForWidth(pushButton_StartSine_1signal->sizePolicy().hasHeightForWidth());
+        pushButton_StartSine_1signal->setSizePolicy(sizePolicy);
+        pushButton_StartSine_1signal->setStyleSheet(QString::fromUtf8("color: blue"));
+
+        gridLayout_4->addWidget(pushButton_StartSine_1signal, 9, 1, 1, 1);
+
+        label_SignalCount = new QLabel(groupBox_GraphControls);
+        label_SignalCount->setObjectName(QString::fromUtf8("label_SignalCount"));
+        label_SignalCount->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(label_SignalCount, 7, 0, 1, 1);
+
+        pushButton_SetRangeMinimum = new QPushButton(groupBox_GraphControls);
+        pushButton_SetRangeMinimum->setObjectName(QString::fromUtf8("pushButton_SetRangeMinimum"));
+        sizePolicy1.setHeightForWidth(pushButton_SetRangeMinimum->sizePolicy().hasHeightForWidth());
+        pushButton_SetRangeMinimum->setSizePolicy(sizePolicy1);
+        pushButton_SetRangeMinimum->setStyleSheet(QString::fromUtf8("color:blue"));
+
+        gridLayout_4->addWidget(pushButton_SetRangeMinimum, 8, 0, 1, 1);
+
+        pushButton_SetRangeMaximum = new QPushButton(groupBox_GraphControls);
+        pushButton_SetRangeMaximum->setObjectName(QString::fromUtf8("pushButton_SetRangeMaximum"));
+        sizePolicy.setHeightForWidth(pushButton_SetRangeMaximum->sizePolicy().hasHeightForWidth());
+        pushButton_SetRangeMaximum->setSizePolicy(sizePolicy);
+        pushButton_SetRangeMaximum->setStyleSheet(QString::fromUtf8("color:blue"));
+
+        gridLayout_4->addWidget(pushButton_SetRangeMaximum, 8, 1, 1, 1);
 
 
         horizontalLayout->addWidget(groupBox_GraphControls);
@@ -4445,6 +4463,10 @@ public:
         comboBox_Parameter->setItemText(7, QCoreApplication::translate("MainWindow", "8", nullptr));
         comboBox_Parameter->setItemText(8, QCoreApplication::translate("MainWindow", "9", nullptr));
         comboBox_Parameter->setItemText(9, QCoreApplication::translate("MainWindow", "a", nullptr));
+        comboBox_Parameter->setItemText(10, QCoreApplication::translate("MainWindow", "v", nullptr));
+        comboBox_Parameter->setItemText(11, QCoreApplication::translate("MainWindow", "c", nullptr));
+        comboBox_Parameter->setItemText(12, QCoreApplication::translate("MainWindow", "f", nullptr));
+        comboBox_Parameter->setItemText(13, QCoreApplication::translate("MainWindow", "p", nullptr));
 
         lineEdit_Payload->setText(QCoreApplication::translate("MainWindow", "123.456", nullptr));
         label_Length->setText(QCoreApplication::translate("MainWindow", "Length", nullptr));
@@ -4452,26 +4474,32 @@ public:
         label_Parameter->setText(QCoreApplication::translate("MainWindow", "Parameter", nullptr));
         pushButton_SendWrongCrcPacket->setText(QCoreApplication::translate("MainWindow", "Send wrong CRC packet", nullptr));
         groupBox_GraphControls->setTitle(QCoreApplication::translate("MainWindow", "Graph", nullptr));
+        label_StopValue->setText(QCoreApplication::translate("MainWindow", "Stop x", nullptr));
+        label_RangeMinimum->setText(QCoreApplication::translate("MainWindow", "Range minimum", nullptr));
+        label_Multiplier->setText(QCoreApplication::translate("MainWindow", "Multiplier", nullptr));
         label_StartValue->setText(QCoreApplication::translate("MainWindow", "Start x", nullptr));
-        pushButton_StartSine_4signals->setText(QCoreApplication::translate("MainWindow", "Start Sine 4 signals", nullptr));
-        pushButton_StartLinear_1signal->setText(QCoreApplication::translate("MainWindow", "Start Linear 1 signal", nullptr));
-        pushButton_StartLinear_2signals->setText(QCoreApplication::translate("MainWindow", "Start Linear 2 signals", nullptr));
+        pushButton_StartLinear_1signal->setText(QCoreApplication::translate("MainWindow", "Start Linear Signals", nullptr));
+        lineEdit_Multiplier->setText(QCoreApplication::translate("MainWindow", "1", nullptr));
+        label_RangeMaximum->setText(QCoreApplication::translate("MainWindow", "Range maximum", nullptr));
+        lineEdit_StartValue->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
+        lineEdit_RangeMinimum->setText(QCoreApplication::translate("MainWindow", "-10000", nullptr));
+        comboBox_SignalCount->setItemText(0, QCoreApplication::translate("MainWindow", "1", nullptr));
+        comboBox_SignalCount->setItemText(1, QCoreApplication::translate("MainWindow", "2", nullptr));
+        comboBox_SignalCount->setItemText(2, QCoreApplication::translate("MainWindow", "3", nullptr));
+        comboBox_SignalCount->setItemText(3, QCoreApplication::translate("MainWindow", "4", nullptr));
+
+        label_GraphModule->setText(QCoreApplication::translate("MainWindow", "Module", nullptr));
+        lineEdit_RangeMaximum->setText(QCoreApplication::translate("MainWindow", "10000", nullptr));
+        lineEdit_StopValue->setText(QCoreApplication::translate("MainWindow", "720", nullptr));
         comboBox_GraphModule->setItemText(0, QCoreApplication::translate("MainWindow", "1", nullptr));
         comboBox_GraphModule->setItemText(1, QCoreApplication::translate("MainWindow", "2", nullptr));
         comboBox_GraphModule->setItemText(2, QCoreApplication::translate("MainWindow", "3", nullptr));
 
-        label_GraphModule->setText(QCoreApplication::translate("MainWindow", "Module", nullptr));
-        pushButton_StartSine_1signal->setText(QCoreApplication::translate("MainWindow", "Start Sine 1 signal", nullptr));
-        pushButton_StartSine_3signals->setText(QCoreApplication::translate("MainWindow", "Start Sine 3 signals", nullptr));
-        pushButton_StartLinear_4signals->setText(QCoreApplication::translate("MainWindow", "Start Linear 4 signals", nullptr));
-        lineEdit_StartValue->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
-        label_StopValue->setText(QCoreApplication::translate("MainWindow", "Stop x", nullptr));
-        lineEdit_StopValue->setText(QCoreApplication::translate("MainWindow", "720", nullptr));
-        label_Multiplier->setText(QCoreApplication::translate("MainWindow", "Multiplier", nullptr));
-        lineEdit_Multiplier->setText(QCoreApplication::translate("MainWindow", "1", nullptr));
-        pushButton_StartSine_2signals->setText(QCoreApplication::translate("MainWindow", "Start Sine 2 signals", nullptr));
-        pushButton_StartLinear_3signals->setText(QCoreApplication::translate("MainWindow", "Start Linear 3 signals", nullptr));
         pushButton_Stop->setText(QCoreApplication::translate("MainWindow", "STOP", nullptr));
+        pushButton_StartSine_1signal->setText(QCoreApplication::translate("MainWindow", "Start Sine Signals", nullptr));
+        label_SignalCount->setText(QCoreApplication::translate("MainWindow", "Signal count", nullptr));
+        pushButton_SetRangeMinimum->setText(QCoreApplication::translate("MainWindow", "Set Range Minimum", nullptr));
+        pushButton_SetRangeMaximum->setText(QCoreApplication::translate("MainWindow", "Set Range Maximum", nullptr));
         groupBox_PacketDisplay->setTitle(QCoreApplication::translate("MainWindow", "Packet display", nullptr));
         groupBox_Module1->setTitle(QCoreApplication::translate("MainWindow", "Module 1", nullptr));
         label_Module1_CustomParameter1_State->setText(QCoreApplication::translate("MainWindow", "<font color='green'>Enabled</font>", nullptr));
