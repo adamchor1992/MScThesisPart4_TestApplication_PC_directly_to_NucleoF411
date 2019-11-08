@@ -26,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->groupBox_ModuleControls->setEnabled(false);
     ui->groupBox_CustomPacketControls ->setEnabled(false);
     ui->groupBox_GraphControls->setEnabled(false);
+    ui->groupBox_PacketDisplay->setEnabled(false);
     ui->groupBox_Module1->setEnabled(false);
     ui->groupBox_Module2->setEnabled(false);
     ui->groupBox_Module3->setEnabled(false);
@@ -1153,4 +1154,9 @@ void MainWindow::on_pushButton_SetRangeMaximum_clicked()
     m_pSerial->write((const char*)UART_MessageToTransmit, PACKET_SIZE);
     m_pSerial->waitForBytesWritten(3000);
     m_pSerial->flush();
+}
+
+void MainWindow::on_pushButton_ClearTable_clicked()
+{
+    m_pTableView->clearPacketDisplay();
 }

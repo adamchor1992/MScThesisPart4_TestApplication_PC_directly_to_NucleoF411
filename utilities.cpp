@@ -36,7 +36,7 @@ void convertUartStructureToUartPacketTable(const UartPacket & uartPacket, uint8_
     }
 }
 
-uint32_t calculateCrc32 (char *data, int len)
+uint32_t calculateCrc32 (char* data, int len)
 {
     uint32_t crc = 0xffffffff;
 

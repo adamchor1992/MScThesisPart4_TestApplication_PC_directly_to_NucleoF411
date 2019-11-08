@@ -151,8 +151,9 @@ public:
     QPushButton *pushButton_SetRangeMinimum;
     QPushButton *pushButton_SetRangeMaximum;
     QGroupBox *groupBox_PacketDisplay;
-    QHBoxLayout *horizontalLayout_3;
+    QGridLayout *gridLayout_12;
     QTableWidget *tableWidget_PacketDisplay;
+    QPushButton *pushButton_ClearTable;
     QHBoxLayout *horizontalLayout_2;
     QGroupBox *groupBox_Module1;
     QGridLayout *gridLayout_5;
@@ -1152,11 +1153,10 @@ public:
         groupBox_PacketDisplay->setObjectName(QString::fromUtf8("groupBox_PacketDisplay"));
         groupBox_PacketDisplay->setStyleSheet(QString::fromUtf8("font:bold"));
         groupBox_PacketDisplay->setAlignment(Qt::AlignCenter);
-        horizontalLayout_3 = new QHBoxLayout(groupBox_PacketDisplay);
-        horizontalLayout_3->setSpacing(6);
-        horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
-        horizontalLayout_3->setContentsMargins(-1, 0, -1, 0);
+        gridLayout_12 = new QGridLayout(groupBox_PacketDisplay);
+        gridLayout_12->setSpacing(6);
+        gridLayout_12->setContentsMargins(11, 11, 11, 11);
+        gridLayout_12->setObjectName(QString::fromUtf8("gridLayout_12"));
         tableWidget_PacketDisplay = new QTableWidget(groupBox_PacketDisplay);
         tableWidget_PacketDisplay->setObjectName(QString::fromUtf8("tableWidget_PacketDisplay"));
         tableWidget_PacketDisplay->setRowCount(0);
@@ -1165,7 +1165,12 @@ public:
         tableWidget_PacketDisplay->horizontalHeader()->setDefaultSectionSize(49);
         tableWidget_PacketDisplay->verticalHeader()->setMinimumSectionSize(23);
 
-        horizontalLayout_3->addWidget(tableWidget_PacketDisplay);
+        gridLayout_12->addWidget(tableWidget_PacketDisplay, 0, 0, 1, 1);
+
+        pushButton_ClearTable = new QPushButton(groupBox_PacketDisplay);
+        pushButton_ClearTable->setObjectName(QString::fromUtf8("pushButton_ClearTable"));
+
+        gridLayout_12->addWidget(pushButton_ClearTable, 1, 0, 1, 1);
 
 
         gridLayout_8->addWidget(groupBox_PacketDisplay, 1, 0, 1, 1);
@@ -4501,6 +4506,7 @@ public:
         pushButton_SetRangeMinimum->setText(QCoreApplication::translate("MainWindow", "Set Range Minimum", nullptr));
         pushButton_SetRangeMaximum->setText(QCoreApplication::translate("MainWindow", "Set Range Maximum", nullptr));
         groupBox_PacketDisplay->setTitle(QCoreApplication::translate("MainWindow", "Packet display", nullptr));
+        pushButton_ClearTable->setText(QCoreApplication::translate("MainWindow", "CLEAR TABLE", nullptr));
         groupBox_Module1->setTitle(QCoreApplication::translate("MainWindow", "Module 1", nullptr));
         label_Module1_CustomParameter1_State->setText(QCoreApplication::translate("MainWindow", "<font color='green'>Enabled</font>", nullptr));
         label_Module1_CustomParameter2_State->setText(QCoreApplication::translate("MainWindow", "<font color='green'>Enabled</font>", nullptr));

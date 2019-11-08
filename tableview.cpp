@@ -161,3 +161,9 @@ void TableView::updatePacket(uint8_t uartPacket[], bool isReceivedPacket)
 
     m_pTableWidget->scrollToBottom();
 }
+
+void TableView::clearPacketDisplay()
+{
+    m_pTableWidget->clearContents();
+    m_pTableWidget->setRowCount(0);
+}

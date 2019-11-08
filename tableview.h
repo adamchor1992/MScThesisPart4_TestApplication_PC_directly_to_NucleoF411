@@ -16,6 +16,7 @@ public:
 
     void initPacketDisplay();
     void updatePacket(uint8_t UART_MessageToTransmit[], bool isReceivedPacket);
+    void clearPacketDisplay();
 
 private:
     TableView();

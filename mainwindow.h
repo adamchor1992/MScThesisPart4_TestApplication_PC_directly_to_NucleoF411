@@ -55,6 +55,7 @@ private slots:
     void on_pushButton_SendWrongCrcPacket_clicked();
     void on_pushButton_SetRangeMinimum_clicked();
     void on_pushButton_SetRangeMaximum_clicked();
+    void on_pushButton_ClearTable_clicked();
 
 private:
     Ui::MainWindow *ui;

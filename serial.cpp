@@ -74,6 +74,7 @@ bool Serial::openPort(QString portName)
         ui->groupBox_ModuleControls->setEnabled(true);
         ui->groupBox_CustomPacketControls ->setEnabled(true);
         ui->groupBox_GraphControls->setEnabled(true);
+        ui->groupBox_PacketDisplay->setEnabled(true);
         ui->groupBox_Module1->setEnabled(true);
         ui->groupBox_Module2->setEnabled(true);
         ui->groupBox_Module3->setEnabled(true);
@@ -107,6 +108,7 @@ void Serial::closePort(QString portName)
             ui->groupBox_ModuleControls->setEnabled(false);
             ui->groupBox_CustomPacketControls ->setEnabled(false);
             ui->groupBox_GraphControls->setEnabled(false);
+            ui->groupBox_PacketDisplay->setEnabled(false);
             ui->groupBox_Module1->setEnabled(false);
             ui->groupBox_Module2->setEnabled(false);
         }
