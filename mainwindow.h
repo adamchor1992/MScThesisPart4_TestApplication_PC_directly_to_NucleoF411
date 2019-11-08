@@ -33,8 +33,8 @@ public:
     void sendWrongCrcDataPacket();
     void startLinearGraph(int signalCount);
     void startSineGraph(int signalCount);
-    void sendLinear(int startValue, int stopValue, int signalCount);
-    void sendSine(int startValue, int stopValue, int signalCount);
+    void sendLinear(UartPacket uartPacket, int startValue, int stopValue, int signalCount);
+    void sendSine(UartPacket uartPacket, int startValue, int stopValue, int signalCount);
 
 private slots:
     void serialDataReceived();
@@ -64,8 +64,6 @@ private:
     Module* m_pModule2;
     Module* m_pModule3;
     TableView* m_pTableView;
-
-    UartPacket m_uartPacket;
 
     bool m_stopPressed = false;
 };

@@ -28,6 +28,7 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
         module.cpp \
+    uartpacket.cpp \
         utilities.cpp \
     tableview.cpp \
     serial.cpp

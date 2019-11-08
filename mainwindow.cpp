@@ -1,10 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QSerialPortInfo>
 #include "utilities.h"
 #include "defines.h"
 #include <fstream>
 #include <string>
+#include <QSerialPortInfo>
 #include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -50,7 +50,7 @@ void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
 {
     qDebug("FULL PACKET RECEIVED");
 
-    convertUartPacketTableToUartStructure(reinterpret_cast<const uint8_t*>(receivedBytes.constData()), m_uartPacket);
+    UartPacket uartPacket(reinterpret_cast<const uint8_t*>(receivedBytes.constData()));
 
     qDebug("Received Packet is: %.16s", receivedBytes.constData());
 
@@ -75,17 +75,17 @@ void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
 
     Module* currentModule = nullptr;
 
-    if(m_uartPacket.module == MODULE1)
+    if(uartPacket.getModule() == ModuleID::MODULE1)
     {
         qDebug() << "Module 1";
         currentModule = m_pModule1;
     }
-    else if(m_uartPacket.module == MODULE2)
+    else if(uartPacket.getModule() == ModuleID::MODULE2)
     {
         qDebug() << "Module 2";
         currentModule = m_pModule2;
     }
-    else if(m_uartPacket.module == MODULE3)
+    else if(uartPacket.getModule() == ModuleID::MODULE3)
     {
         qDebug() << "Module 3";
         currentModule = m_pModule3;
@@ -96,54 +96,54 @@ void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
         assert(false);
     }
 
-    switch(m_uartPacket.function)
+    switch(uartPacket.getFunction())
     {
-    case DATA_PACKET:
+    case Function::DATA_PACKET:
         qDebug() << "Data transfer packet";
         break;
 
-    case ENABLE_PARAMETER_PACKET:
+    case Function::ENABLE_PARAMETER_PACKET:
         qDebug() << "Enable parameter";
 
-        switch(m_uartPacket.parameter)
+        switch(uartPacket.getParameter())
         {
-        case PARAMETER1:
+        case Parameter::PARAMETER1:
             qDebug() << "Parameter 1";
             currentModule->enableParameter(0);
             break;
-        case PARAMETER2:
+        case Parameter::PARAMETER2:
             qDebug() << "Parameter 2";
             currentModule->enableParameter(1);
             break;
-        case PARAMETER3:
+        case Parameter::PARAMETER3:
             qDebug() << "Parameter 3";
             currentModule->enableParameter(2);
             break;
-        case PARAMETER4:
+        case Parameter::PARAMETER4:
             qDebug() << "Parameter 4";
             currentModule->enableParameter(3);
             break;
-        case PARAMETER5:
+        case Parameter::PARAMETER5:
             qDebug() << "Parameter 5";
             currentModule->enableParameter(4);
             break;
-        case PARAMETER6:
+        case Parameter::PARAMETER6:
             qDebug() << "Parameter 6";
             currentModule->enableParameter(5);
             break;
-        case PARAMETER7:
+        case Parameter::PARAMETER7:
             qDebug() << "Parameter 7";
             currentModule->enableParameter(6);
             break;
-        case PARAMETER8:
+        case Parameter::PARAMETER8:
             qDebug() << "Parameter 8";
             currentModule->enableParameter(7);
             break;
-        case PARAMETER9:
+        case Parameter::PARAMETER9:
             qDebug() << "Parameter 9";
             currentModule->enableParameter(8);
             break;
-        case PARAMETER10:
+        case Parameter::PARAMETER10:
             qDebug() << "Parameter 10";
             currentModule->enableParameter(9);
             break;
@@ -155,48 +155,48 @@ void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
         updateGUI();
         break;
 
-    case DISABLE_PARAMETER_PACKET:
+    case Function::DISABLE_PARAMETER_PACKET:
         qDebug() << "Disable parameter";
 
-        switch(m_uartPacket.parameter)
+        switch(uartPacket.getParameter())
         {
-        case PARAMETER1:
+        case Parameter::PARAMETER1:
             qDebug() << "Parameter 1";
             currentModule->disableParameter(0);
             break;
-        case PARAMETER2:
+        case Parameter::PARAMETER2:
             qDebug() << "Parameter 2";
             currentModule->disableParameter(1);
             break;
-        case PARAMETER3:
+        case Parameter::PARAMETER3:
             qDebug() << "Parameter 3";
             currentModule->disableParameter(2);
             break;
-        case PARAMETER4:
+        case Parameter::PARAMETER4:
             qDebug() << "Parameter 4";
             currentModule->disableParameter(3);
             break;
-        case PARAMETER5:
+        case Parameter::PARAMETER5:
             qDebug() << "Parameter 5";
             currentModule->disableParameter(4);
             break;
-        case PARAMETER6:
+        case Parameter::PARAMETER6:
             qDebug() << "Parameter 6";
             currentModule->disableParameter(5);
             break;
-        case PARAMETER7:
+        case Parameter::PARAMETER7:
             qDebug() << "Parameter 7";
             currentModule->disableParameter(6);
             break;
-        case PARAMETER8:
+        case Parameter::PARAMETER8:
             qDebug() << "Parameter 8";
             currentModule->disableParameter(7);
             break;
-        case PARAMETER9:
+        case Parameter::PARAMETER9:
             qDebug() << "Parameter 9";
             currentModule->disableParameter(8);
             break;
-        case PARAMETER10:
+        case Parameter::PARAMETER10:
             qDebug() << "Parameter 10";
             currentModule->disableParameter(9);
             break;
@@ -208,67 +208,67 @@ void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
         updateGUI();
         break;
 
-    case SET_PARAMETER_PACKET:
+    case Function::SET_PARAMETER_PACKET:
         qDebug() << "Set parameter";
 
-        valueDouble = std::stof((char*)(m_uartPacket.payload));
+        valueDouble = std::stof((char*)(uartPacket.getPayload()));
 
-        if(m_uartPacket.sign == NEGATIVE_SIGN)
+        if(uartPacket.getSign() == Sign::NEGATIVE_SIGN)
         {
             /*Make value negative if it was marked as negative in UART Packet*/
             valueDouble = valueDouble * (-1);
         }
 
-        switch(m_uartPacket.parameter)
+        switch(uartPacket.getParameter())
         {
-        case PARAMETER1:
+        case Parameter::PARAMETER1:
             qDebug() << "Parameter 1";
-            qDebug() << "Value: " << m_uartPacket.payload;
+            qDebug() << "Value: " << uartPacket.getPayload();
             currentModule->setParameter(0,valueDouble);
             break;
-        case PARAMETER2:
+        case Parameter::PARAMETER2:
             qDebug() << "Parameter 2";
-            qDebug() << "Value: " << m_uartPacket.payload;
+            qDebug() << "Value: " << uartPacket.getPayload();
             currentModule->setParameter(1,valueDouble);
             break;
-        case PARAMETER3:
+        case Parameter::PARAMETER3:
             qDebug() << "Parameter 3";
-            qDebug() << "Value: " << m_uartPacket.payload;
+            qDebug() << "Value: " << uartPacket.getPayload();
             currentModule->setParameter(2,valueDouble);
             break;
-        case PARAMETER4:
+        case Parameter::PARAMETER4:
             qDebug() << "Parameter 4";
-            qDebug() << "Value: " << m_uartPacket.payload;
+            qDebug() << "Value: " << uartPacket.getPayload();
             currentModule->setParameter(3,valueDouble);
             break;
-        case PARAMETER5:
+        case Parameter::PARAMETER5:
             qDebug() << "Parameter 5";
-            qDebug() << "Value: " << m_uartPacket.payload;
+            qDebug() << "Value: " << uartPacket.getPayload();
             currentModule->setParameter(4,valueDouble);
             break;
-        case PARAMETER6:
+        case Parameter::PARAMETER6:
             qDebug() << "Parameter 6";
-            qDebug() << "Value: " << m_uartPacket.payload;
+            qDebug() << "Value: " << uartPacket.getPayload();
             currentModule->setParameter(5,valueDouble);
             break;
-        case PARAMETER7:
+        case Parameter::PARAMETER7:
             qDebug() << "Parameter 7";
-            qDebug() << "Value: " << m_uartPacket.payload;
+            qDebug() << "Value: " << uartPacket.getPayload();
             currentModule->setParameter(6,valueDouble);
             break;
-        case PARAMETER8:
+        case Parameter::PARAMETER8:
             qDebug() << "Parameter 8";
-            qDebug() << "Value: " << m_uartPacket.payload;
+            qDebug() << "Value: " << uartPacket.getPayload();
             currentModule->setParameter(7,valueDouble);
             break;
-        case PARAMETER9:
+        case Parameter::PARAMETER9:
             qDebug() << "Parameter 9";
-            qDebug() << "Value: " << m_uartPacket.payload;
+            qDebug() << "Value: " << uartPacket.getPayload();
             currentModule->setParameter(8,valueDouble);
             break;
-        case PARAMETER10:
+        case Parameter::PARAMETER10:
             qDebug() << "Parameter 10";
-            qDebug() << "Value: " << m_uartPacket.payload;
+            qDebug() << "Value: " << uartPacket.getPayload();
             currentModule->setParameter(9,valueDouble);
             break;
 
@@ -530,40 +530,44 @@ void MainWindow::initModuleParametersList()
 
 void MainWindow::initConnectionModule(int module)
 {
-    uint8_t UART_MessageToTransmit[PACKET_SIZE] = {0};
+    UartPacket uartPacket[INIT_PACKETS_COUNT];
 
-    m_uartPacket.source = SOURCE_TARGET1;
-    m_uartPacket.module = module + '0'; //convert int to ascii representation
-    m_uartPacket.function = INIT_PACKET;
-    m_uartPacket.sign = POSITIVE_SIGN;
+    uint8_t uartMessageToTransmit[PACKET_SIZE] = {0};
 
-    ui->lineEdit_Length->setText("N/A - Init packet");
+    for(int i = 0; i < INIT_PACKETS_COUNT; i++)
+    {
+        uartPacket[i].setSource(Source::SOURCE_TARGET1);
+        uartPacket[i].setModule(module + '0'); //convert int to ascii representation
+        uartPacket[i].setFunction(Function::INIT_PACKET);
+        uartPacket[i].setParameter(Parameter::NULL_PARAMETER);
+        uartPacket[i].setSign(Sign::POSITIVE_SIGN);
+    }
 
-    QString initInfoValues[MODULE_INIT_INFO_VALUE_COUNT] = {ui->label_Module1InitParameter1Name->text(),
-                                                            ui->label_Module1InitParameter2Name->text(),
-                                                            ui->label_Module1InitParameter3Name->text(),
-                                                            ui->label_Module1InitParameter4Name->text(),
-                                                            ui->label_Module1InitParameter5Name->text(),
-                                                            ui->lineEdit_Module1InitParameter1Value->text(),
-                                                            ui->lineEdit_Module1InitParameter2Value->text(),
-                                                            ui->lineEdit_Module1InitParameter3Value->text(),
-                                                            ui->lineEdit_Module1InitParameter4Value->text(),
-                                                            ui->lineEdit_Module1InitParameter5Value->text(),
-                                                            ui->lineEdit_Module1Parameter1Name->text(),
-                                                            ui->lineEdit_Module1Parameter2Name->text(),
-                                                            ui->lineEdit_Module1Parameter3Name->text(),
-                                                            ui->lineEdit_Module1Parameter4Name->text(),
-                                                            ui->label_Module1_SettableParameter1Name->text(),
-                                                            ui->label_Module1_SettableParameter2Name->text(),
-                                                            ui->label_Module1_SettableParameter3Name->text(),
-                                                            ui->label_Module1_SettableParameter4Name->text(),
-                                                            ui->label_Module1_SettableParameter5Name->text(),
-                                                            ui->label_Module1_SettableParameter6Name->text(),
-                                                            ui->label_Module1_SettableParameter7Name->text(),
-                                                            ui->label_Module1_SettableParameter8Name->text(),
-                                                            ui->label_Module1_SettableParameter9Name->text(),
-                                                            ui->label_Module1_SettableParameter10Name->text()
-                                                           };
+    QString initInfoValues[INIT_PACKETS_COUNT] = {ui->label_Module1InitParameter1Name->text(),
+                                                  ui->label_Module1InitParameter2Name->text(),
+                                                  ui->label_Module1InitParameter3Name->text(),
+                                                  ui->label_Module1InitParameter4Name->text(),
+                                                  ui->label_Module1InitParameter5Name->text(),
+                                                  ui->lineEdit_Module1InitParameter1Value->text(),
+                                                  ui->lineEdit_Module1InitParameter2Value->text(),
+                                                  ui->lineEdit_Module1InitParameter3Value->text(),
+                                                  ui->lineEdit_Module1InitParameter4Value->text(),
+                                                  ui->lineEdit_Module1InitParameter5Value->text(),
+                                                  ui->lineEdit_Module1Parameter1Name->text(),
+                                                  ui->lineEdit_Module1Parameter2Name->text(),
+                                                  ui->lineEdit_Module1Parameter3Name->text(),
+                                                  ui->lineEdit_Module1Parameter4Name->text(),
+                                                  ui->label_Module1_SettableParameter1Name->text(),
+                                                  ui->label_Module1_SettableParameter2Name->text(),
+                                                  ui->label_Module1_SettableParameter3Name->text(),
+                                                  ui->label_Module1_SettableParameter4Name->text(),
+                                                  ui->label_Module1_SettableParameter5Name->text(),
+                                                  ui->label_Module1_SettableParameter6Name->text(),
+                                                  ui->label_Module1_SettableParameter7Name->text(),
+                                                  ui->label_Module1_SettableParameter8Name->text(),
+                                                  ui->label_Module1_SettableParameter9Name->text(),
+                                                  ui->label_Module1_SettableParameter10Name->text()
+                                                 };
 
     for(auto value : initInfoValues)
     {
@@ -575,38 +579,25 @@ void MainWindow::initConnectionModule(int module)
         }
     }
 
-    uint8_t length_int;
+    uint8_t lengthInt;
 
-    for(int i = 0; i < MODULE_INIT_INFO_VALUE_COUNT; i++)
+    for(int i = 0; i < INIT_PACKETS_COUNT; i++)
     {
-        m_uartPacket.parameter = 'a' + i;
+        sprintf((char*)uartPacket[i].getPayload(), "%s", initInfoValues[i].toStdString().c_str());
 
-        /*Clear payload*/
-        for(int i=0;i<10;i++)
-        {
-            m_uartPacket.payload[i] = '\0';
-        }
+        lengthInt = strlen((char*)uartPacket[i].getPayload());
 
-        /*Clear packet*/
-        for(int i=0;i<10;i++)
-        {
-            UART_MessageToTransmit[6+i] = '\0';
-        }
+        uartPacket[i].setLengthAscii(lengthInt); // convert from int to ASCII
 
-        sprintf((char*)m_uartPacket.payload, "%s", initInfoValues[i].toStdString().c_str());
+        uartPacket[i].convertToUartPacketTable(uartMessageToTransmit);
 
-        length_int = strlen((char*)m_uartPacket.payload);
+        appendCrcToPacketTable(uartMessageToTransmit);
 
-        m_uartPacket.length = length_int + '0'; // convert from int to ASCII
+        qDebug("Init Packet is: %s", uartMessageToTransmit);
 
-        convertUartStructureToUartPacketTable(m_uartPacket, UART_MessageToTransmit);
-        appendCrcToPacket(UART_MessageToTransmit);
+        m_pTableView->updatePacket(uartMessageToTransmit, false);
 
-        qDebug("Init Packet is: %s", UART_MessageToTransmit);
-
-        m_pTableView->updatePacket(UART_MessageToTransmit, false);
-
-        m_pSerial->write((const char*)UART_MessageToTransmit, PACKET_SIZE);
+        m_pSerial->write((const char*)uartMessageToTransmit, PACKET_SIZE);
         m_pSerial->waitForBytesWritten(3000);
         m_pSerial->flush();
 
@@ -618,45 +609,48 @@ void MainWindow::initConnectionModule(int module)
 
 void MainWindow::deinitConnectionModule(int module)
 {
-    uint8_t UART_MessageToTransmit[PACKET_SIZE] = {0};
+    UartPacket uartPacket;
 
-    m_uartPacket.source = SOURCE_TARGET1;
-    m_uartPacket.module = module + '0'; //convert int to ascii representation
-    m_uartPacket.function = DEINIT_PACKET;
-    m_uartPacket.sign = POSITIVE_SIGN;
-    m_uartPacket.parameter = '0';
-    m_uartPacket.payload[0] = '\0';
-    m_uartPacket.length = '1';
+    uint8_t uartMessageToTransmit[PACKET_SIZE] = {0};
 
-    ui->lineEdit_Length->setText("N/A - Deinit packet");
+    uartPacket.setSource(Source::SOURCE_TARGET1);
 
-    convertUartStructureToUartPacketTable(m_uartPacket, UART_MessageToTransmit);
-    appendCrcToPacket(UART_MessageToTransmit);
+    uartPacket.setModule(module + '0'); //convert int to ascii representation
+    uartPacket.setFunction(Function::DEINIT_PACKET);
+    uartPacket.setSign(Sign::POSITIVE_SIGN);
+    uartPacket.setParameter(Parameter::NULL_PARAMETER);
+    uartPacket.setLength(Length::NO_PAYLOAD);
 
-    qDebug("Deinit Packet is: %s", UART_MessageToTransmit);
+    uartPacket.convertToUartPacketTable(uartMessageToTransmit);
 
-    m_pTableView->updatePacket(UART_MessageToTransmit, false);
+    appendCrcToPacketTable(uartMessageToTransmit);
 
-    m_pSerial->write((const char*)UART_MessageToTransmit, PACKET_SIZE);
+    qDebug("Deinit Packet is: %s", uartMessageToTransmit);
+
+    m_pTableView->updatePacket(uartMessageToTransmit, false);
+
+    m_pSerial->write((const char*)uartMessageToTransmit, PACKET_SIZE);
     m_pSerial->waitForBytesWritten(3000);
     m_pSerial->flush();
 }
 
 void MainWindow::sendCustomDataPacket()
 {
-    uint8_t UART_MessageToTransmit[PACKET_SIZE] = {0};
+    UartPacket uartPacket;
 
-    m_uartPacket.source = SOURCE_TARGET1;
-    m_uartPacket.module = ui->comboBox_CustomPacketModule->currentText().at(0).toLatin1();
-    m_uartPacket.function = DATA_PACKET;
-    m_uartPacket.parameter = ui->comboBox_Parameter->currentText().at(0).toLatin1();
+    uint8_t uartMessageToTransmit[PACKET_SIZE] = {0};
+
+    uartPacket.setSource(Source::SOURCE_TARGET1);
+    uartPacket.setModule(ui->comboBox_CustomPacketModule->currentText().at(0).toLatin1());
+    uartPacket.setFunction(Function::DATA_PACKET);
+    uartPacket.setParameter(ui->comboBox_Parameter->currentText().at(0).toLatin1());
 
     QString enteredPayload = ui->lineEdit_Payload->text();
 
     if(enteredPayload.at(0).toLatin1() == '-')
     {
         ui->lineEdit_Sign->setText("2");
-        m_uartPacket.sign = NEGATIVE_SIGN;
+        uartPacket.setSign(Sign::NEGATIVE_SIGN);
 
         /*Remove minus sign*/
         enteredPayload.remove(0,1);
@@ -664,87 +658,65 @@ void MainWindow::sendCustomDataPacket()
     else
     {
         ui->lineEdit_Sign->setText("1");
-        m_uartPacket.sign = POSITIVE_SIGN;
+        uartPacket.setSign(Sign::POSITIVE_SIGN);
     }
 
-    uint8_t length_int = enteredPayload.length();
+    int lengthInt = enteredPayload.length();
 
-    m_uartPacket.length = length_int + '0'; //convert int to ascii representation of the int
+    uartPacket.setLengthAscii(lengthInt); //convert int to ascii representation of the int
 
-    for(int i=0; i<length_int;i++)
+    for(int i=0; i<lengthInt;i++)
     {
-        m_uartPacket.payload[i] = enteredPayload.at(i).toLatin1();
+        uartPacket.getPayload()[i] = enteredPayload.at(i).toLatin1();
     }
 
-    ui->lineEdit_Length->setText(QString::number(length_int));
+    ui->lineEdit_Length->setText(QString::number(lengthInt));
 
-    convertUartStructureToUartPacketTable(m_uartPacket,UART_MessageToTransmit);
-    appendCrcToPacket(UART_MessageToTransmit);
+    uartPacket.convertToUartPacketTable(uartMessageToTransmit);
+    appendCrcToPacketTable(uartMessageToTransmit);
 
-    qDebug("Data Packet is: %s", UART_MessageToTransmit);
+    qDebug("Data Packet is: %s", uartMessageToTransmit);
 
-    m_pTableView->updatePacket(UART_MessageToTransmit, false);
+    m_pTableView->updatePacket(uartMessageToTransmit, false);
 
-    m_pSerial->write((const char*)UART_MessageToTransmit, PACKET_SIZE);
+    m_pSerial->write((const char*)uartMessageToTransmit, PACKET_SIZE);
     m_pSerial->waitForBytesWritten(3000);
     m_pSerial->flush();
 }
 
 void MainWindow::sendWrongCrcDataPacket()
 {
-    uint8_t UART_MessageToTransmit[PACKET_SIZE] = {0};
+    UartPacket uartPacket;
 
-    m_uartPacket.source = SOURCE_TARGET1;
-    m_uartPacket.module = ui->comboBox_CustomPacketModule->currentText().at(0).toLatin1();
-    m_uartPacket.function = DATA_PACKET;
-    m_uartPacket.parameter = ui->comboBox_Parameter->currentText().at(0).toLatin1();
+    uint8_t uartMessageToTransmit[PACKET_SIZE] = {0};
 
-    QString enteredPayload = ui->lineEdit_Payload->text();
+    uartPacket.setSource(Source::SOURCE_TARGET1);
+    uartPacket.setModule(ui->comboBox_CustomPacketModule->currentText().at(0).toLatin1());
+    uartPacket.setFunction(Function::DATA_PACKET);
+    uartPacket.setParameter(ui->comboBox_Parameter->currentText().at(0).toLatin1());
+    uartPacket.setLength(Length::NO_PAYLOAD);
 
-    if(enteredPayload.at(0).toLatin1() == '-')
-    {
-        ui->lineEdit_Sign->setText("2");
-        m_uartPacket.sign = NEGATIVE_SIGN;
-
-        /*Remove minus sign*/
-        enteredPayload.remove(0,1);
-    }
-    else
-    {
-        ui->lineEdit_Sign->setText("1");
-        m_uartPacket.sign = POSITIVE_SIGN;
-    }
-
-    uint8_t length_int = enteredPayload.length();
-
-    m_uartPacket.length = length_int + '0'; //convert int to ascii representation of the int
-
-    for(int i=0; i<length_int;i++)
-    {
-        m_uartPacket.payload[i] = enteredPayload.at(i).toLatin1();
-    }
-
-    ui->lineEdit_Length->setText(QString::number(length_int));
-
-    convertUartStructureToUartPacketTable(m_uartPacket,UART_MessageToTransmit);
+    uartPacket.convertToUartPacketTable(uartMessageToTransmit);
 
     /*Set wrong all zeros CRC*/
-    UART_MessageToTransmit[19] = 0;
-    UART_MessageToTransmit[18] = 0;
-    UART_MessageToTransmit[17] = 0;
-    UART_MessageToTransmit[16] = 0;
+    uartMessageToTransmit[19] = 0;
+    uartMessageToTransmit[18] = 0;
+    uartMessageToTransmit[17] = 0;
+    uartMessageToTransmit[16] = 0;
 
-    qDebug("Wrong Crc Data Packet is: %s", UART_MessageToTransmit);
+    qDebug("Wrong Crc Data Packet is: %s", uartMessageToTransmit);
 
-    m_pTableView->updatePacket(UART_MessageToTransmit, false);
+    m_pTableView->updatePacket(uartMessageToTransmit, false);
 
-    m_pSerial->write((const char*)UART_MessageToTransmit, PACKET_SIZE);
+    m_pSerial->write((const char*)uartMessageToTransmit, PACKET_SIZE);
     m_pSerial->waitForBytesWritten(3000);
     m_pSerial->flush();
 }
 
 void MainWindow::startLinearGraph(int signalCount)
 {
+    UartPacket uartPacket;
+
     QString strStartValue = ui->lineEdit_StartValue->text();
     QString strStopValue = ui->lineEdit_StopValue->text();
 
@@ -757,16 +729,19 @@ void MainWindow::startLinearGraph(int signalCount)
         return;
     }
 
-    m_uartPacket.source = SOURCE_TARGET1;
-    m_uartPacket.module = ui->comboBox_GraphModule->currentText().at(0).toLatin1();
-    m_uartPacket.function = DATA_PACKET;
-    m_uartPacket.sign = ui->lineEdit_Sign->text().at(0).toLatin1();
+    uartPacket.setSource(Source::SOURCE_TARGET1);
 
-    sendLinear(startValue, stopValue, signalCount);
+    uartPacket.setModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
+    uartPacket.setFunction(Function::DATA_PACKET);
+    uartPacket.setSign(ui->lineEdit_Sign->text().at(0).toLatin1());
+
+    sendLinear(uartPacket, startValue, stopValue, signalCount);
 }
 
 void MainWindow::startSineGraph(int signalCount)
 {
+    UartPacket uartPacket;
+
     QString strStartValue = ui->lineEdit_StartValue->text();
     QString strStopValue = ui->lineEdit_StopValue->text();
 
@@ -779,20 +754,21 @@ void MainWindow::startSineGraph(int signalCount)
         return;
     }
 
-    m_uartPacket.source = SOURCE_TARGET1;
-    m_uartPacket.module = ui->comboBox_GraphModule->currentText().at(0).toLatin1();
-    m_uartPacket.function = DATA_PACKET;
-    m_uartPacket.sign = ui->lineEdit_Sign->text().at(0).toLatin1();
+    uartPacket.setSource(Source::SOURCE_TARGET1);
 
-    sendSine(startValue, stopValue, signalCount);
+    uartPacket.setModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
+    uartPacket.setFunction(Function::DATA_PACKET);
+    uartPacket.setSign(ui->lineEdit_Sign->text().at(0).toLatin1());
+
+    sendSine(uartPacket, startValue, stopValue, signalCount);
 }
 
-void MainWindow::sendLinear(int startValue, int stopValue, int signalCount)
+void MainWindow::sendLinear(UartPacket uartPacket, int startValue, int stopValue, int signalCount)
 {
-    uint8_t UART_MessageToTransmit[PACKET_SIZE] = {0};
-    uint8_t length_int;
+    uint8_t uartMessageToTransmit[PACKET_SIZE] = {0};
+    int lengthInt;
     double value;
-    uint8_t parameters[4] = {VOLTAGE_PARAMETER, CURRENT_PARAMETER, FREQUENCY_PARAMETER, POWER_PARAMETER};
+    uint8_t parameters[4] = {'v', 'c', 'f', 'p'};
 
     double multiplier = (ui->lineEdit_Multiplier->text()).toDouble();
 
@@ -800,7 +776,7 @@ void MainWindow::sendLinear(int startValue, int stopValue, int signalCount)
     {
         for(int signalNumber = 0; signalNumber < signalCount; signalNumber++)
         {
-            m_uartPacket.parameter = parameters[signalNumber]; // send with one of 4 parameters
+            uartPacket.setParameter(parameters[signalNumber]); // send with one of 4 parameters
 
             value = multiplier * x * 0.001;
 
@@ -808,11 +784,11 @@ void MainWindow::sendLinear(int startValue, int stopValue, int signalCount)
             {
                 /*Change value sign back to positive and mark it as negative in UART packet*/
                 value = value * (-1);
-                m_uartPacket.sign = NEGATIVE_SIGN;
+                uartPacket.setSign(Sign::NEGATIVE_SIGN);
             }
             else
             {
-                m_uartPacket.sign = POSITIVE_SIGN;
+                uartPacket.setSign(Sign::POSITIVE_SIGN);
             }
 
             /*Change parameter values so that graph lines do not overlap each other*/
@@ -829,20 +805,20 @@ void MainWindow::sendLinear(int startValue, int stopValue, int signalCount)
                 break;
             }
 
-            sprintf((char*)m_uartPacket.payload, "%.3lf", value);
+            sprintf((char*)uartPacket.getPayload(), "%.3lf", value);
 
-            length_int = strlen((char*)m_uartPacket.payload);
+            lengthInt = strlen((char*)uartPacket.getPayload());
 
-            m_uartPacket.length = length_int + '0'; // convert from int to ASCII
+            uartPacket.setLengthAscii(lengthInt);
 
-            convertUartStructureToUartPacketTable(m_uartPacket, UART_MessageToTransmit);
-            appendCrcToPacket(UART_MessageToTransmit);
+            uartPacket.convertToUartPacketTable(uartMessageToTransmit);
+            appendCrcToPacketTable(uartMessageToTransmit);
 
-            qDebug("Data Packet is: %s", UART_MessageToTransmit);
+            qDebug("Data Packet is: %s", uartMessageToTransmit);
 
-            m_pTableView->updatePacket(UART_MessageToTransmit, false);
+            m_pTableView->updatePacket(uartMessageToTransmit, false);
 
-            m_pSerial->write((const char*)UART_MessageToTransmit, PACKET_SIZE);
+            m_pSerial->write((const char*)uartMessageToTransmit, PACKET_SIZE);
             m_pSerial->waitForBytesWritten(3000);
             m_pSerial->flush();
 
@@ -860,12 +836,12 @@ void MainWindow::sendLinear(int startValue, int stopValue, int signalCount)
     }
 }
 
-void MainWindow::sendSine(int startValue, int stopValue, int signalCount)
+void MainWindow::sendSine(UartPacket uartPacket, int startValue, int stopValue, int signalCount)
 {
-    uint8_t UART_MessageToTransmit[PACKET_SIZE] = {0};
-    uint8_t length_int;
+    uint8_t uartMessageToTransmit[PACKET_SIZE] = {0};
+    int lengthInt;
     double value;
-    uint8_t parameters[4] = {VOLTAGE_PARAMETER, CURRENT_PARAMETER, FREQUENCY_PARAMETER, POWER_PARAMETER};
+    uint8_t parameters[4] = {'v', 'c', 'f', 'p'};
 
     double multiplier = (ui->lineEdit_Multiplier->text()).toDouble();
     double radianInverse = 3.14159/180;
@@ -876,7 +852,7 @@ void MainWindow::sendSine(int startValue, int stopValue, int signalCount)
     {
         for(int signalNumber = 0; signalNumber < signalCount; signalNumber++)
         {
-            m_uartPacket.parameter = parameters[signalNumber]; // send with one of 4 parameters
+            uartPacket.setParameter(parameters[signalNumber]); // send with one of 4 parameters
 
             /*Multiply by radian inverse to get rid of radian unit and calculate sine of x measured in degrees*/
             value = multiplier * (sin(x * radianInverse + phaseShift[signalNumber]));
@@ -885,27 +861,27 @@ void MainWindow::sendSine(int startValue, int stopValue, int signalCount)
             {
                 /*Change value sign back to positive and mark it as negative in UART packet*/
                 value = value * (-1);
-                m_uartPacket.sign = NEGATIVE_SIGN;
+                uartPacket.setSign(Sign::NEGATIVE_SIGN);
             }
             else
             {
-                m_uartPacket.sign = POSITIVE_SIGN;
+                uartPacket.setSign(Sign::POSITIVE_SIGN);
             }
 
-            sprintf((char*)m_uartPacket.payload, "%.3lf", value);
+            sprintf((char*)uartPacket.getPayload(), "%.3lf", value);
 
-            length_int = strlen((char*)m_uartPacket.payload);
+            lengthInt = strlen((char*)uartPacket.getPayload());
 
-            m_uartPacket.length = length_int + '0'; // convert from int to ASCII
+            uartPacket.setLengthAscii(lengthInt);
 
-            convertUartStructureToUartPacketTable(m_uartPacket, UART_MessageToTransmit);
-            appendCrcToPacket(UART_MessageToTransmit);
+            uartPacket.convertToUartPacketTable(uartMessageToTransmit);
+            appendCrcToPacketTable(uartMessageToTransmit);
 
-            qDebug("Data Packet is: %s", UART_MessageToTransmit);
+            qDebug("Data Packet is: %s", uartMessageToTransmit);
 
-            m_pTableView->updatePacket(UART_MessageToTransmit, false);
+            m_pTableView->updatePacket(uartMessageToTransmit, false);
 
-            m_pSerial->write((const char*)UART_MessageToTransmit, PACKET_SIZE);
+            m_pSerial->write((const char*)uartMessageToTransmit, PACKET_SIZE);
             m_pSerial->waitForBytesWritten(3000);
             m_pSerial->flush();
 
@@ -1070,88 +1046,92 @@ void MainWindow::on_pushButton_SendWrongCrcPacket_clicked()
 
 void MainWindow::on_pushButton_SetRangeMinimum_clicked()
 {
-    uint8_t UART_MessageToTransmit[PACKET_SIZE] = {0};
+    UartPacket uartPacket;
 
-    m_uartPacket.source = SOURCE_TARGET1;
-    m_uartPacket.module = ui->comboBox_GraphModule->currentText().at(0).toLatin1();
-    m_uartPacket.function = SET_GRAPH_RANGE_MIN;
-    m_uartPacket.parameter = '0';
+    uint8_t uartMessageToTransmit[PACKET_SIZE] = {0};
+
+    uartPacket.setSource(Source::SOURCE_TARGET1);
+    uartPacket.setModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
+    uartPacket.setFunction(Function::SET_GRAPH_RANGE_MIN);
+    uartPacket.setParameter(Parameter::NULL_PARAMETER);
 
     QString enteredPayload = ui->lineEdit_RangeMinimum->text();
 
     if(enteredPayload.at(0).toLatin1() == '-')
     {
-        m_uartPacket.sign = NEGATIVE_SIGN;
+        uartPacket.setSign(Sign::NEGATIVE_SIGN);
 
         /*Remove minus sign*/
         enteredPayload.remove(0,1);
     }
     else
     {
-        m_uartPacket.sign = POSITIVE_SIGN;
+        uartPacket.setSign(Sign::POSITIVE_SIGN);
     }
 
-    uint8_t length_int = enteredPayload.length();
+    int lengthInt = enteredPayload.length();
 
-    m_uartPacket.length = length_int + '0'; //convert int to ascii representation of the int
+    uartPacket.setLengthAscii(lengthInt);
 
-    for(int i=0; i<length_int;i++)
+    for(int i=0; i<lengthInt;i++)
     {
-        m_uartPacket.payload[i] = enteredPayload.at(i).toLatin1();
+        uartPacket.getPayload()[i] = enteredPayload.at(i).toLatin1();
     }
 
-    convertUartStructureToUartPacketTable(m_uartPacket,UART_MessageToTransmit);
-    appendCrcToPacket(UART_MessageToTransmit);
+    uartPacket.convertToUartPacketTable(uartMessageToTransmit);
+    appendCrcToPacketTable(uartMessageToTransmit);
 
-    qDebug("Data Packet is: %s", UART_MessageToTransmit);
+    qDebug("Data Packet is: %s", uartMessageToTransmit);
 
-    m_pTableView->updatePacket(UART_MessageToTransmit, false);
+    m_pTableView->updatePacket(uartMessageToTransmit, false);
 
-    m_pSerial->write((const char*)UART_MessageToTransmit, PACKET_SIZE);
+    m_pSerial->write((const char*)uartMessageToTransmit, PACKET_SIZE);
     m_pSerial->waitForBytesWritten(3000);
     m_pSerial->flush();
 }
 
 void MainWindow::on_pushButton_SetRangeMaximum_clicked()
 {
-    uint8_t UART_MessageToTransmit[PACKET_SIZE] = {0};
+    UartPacket uartPacket;
 
-    m_uartPacket.source = SOURCE_TARGET1;
-    m_uartPacket.module = ui->comboBox_GraphModule->currentText().at(0).toLatin1();
-    m_uartPacket.function = SET_GRAPH_RANGE_MAX;
-    m_uartPacket.parameter = '0';
+    uint8_t uartMessageToTransmit[PACKET_SIZE] = {0};
+
+    uartPacket.setSource(Source::SOURCE_TARGET1);
+    uartPacket.setModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
+    uartPacket.setFunction(Function::SET_GRAPH_RANGE_MAX);
+    uartPacket.setParameter(Parameter::NULL_PARAMETER);
 
     QString enteredPayload = ui->lineEdit_RangeMaximum->text();
 
     if(enteredPayload.at(0).toLatin1() == '-')
     {
-        m_uartPacket.sign = NEGATIVE_SIGN;
+        uartPacket.setSign(Sign::NEGATIVE_SIGN);
 
         /*Remove minus sign*/
         enteredPayload.remove(0,1);
     }
     else
     {
-        m_uartPacket.sign = POSITIVE_SIGN;
+        uartPacket.setSign(Sign::POSITIVE_SIGN);
     }
 
-    uint8_t length_int = enteredPayload.length();
+    int lengthInt = enteredPayload.length();
 
-    m_uartPacket.length = length_int + '0'; //convert int to ascii representation of the int
+    uartPacket.setLengthAscii(lengthInt);
 
-    for(int i=0; i<length_int;i++)
+    for(int i=0; i<lengthInt;i++)
     {
-        m_uartPacket.payload[i] = enteredPayload.at(i).toLatin1();
+        uartPacket.getPayload()[i] = enteredPayload.at(i).toLatin1();
     }
 
-    convertUartStructureToUartPacketTable(m_uartPacket,UART_MessageToTransmit);
-    appendCrcToPacket(UART_MessageToTransmit);
+    uartPacket.convertToUartPacketTable(uartMessageToTransmit);
+    appendCrcToPacketTable(uartMessageToTransmit);
 
-    qDebug("Data Packet is: %s", UART_MessageToTransmit);
+    qDebug("Data Packet is: %s", uartMessageToTransmit);
 
-    m_pTableView->updatePacket(UART_MessageToTransmit, false);
+    m_pTableView->updatePacket(uartMessageToTransmit, false);
 
-    m_pSerial->write((const char*)UART_MessageToTransmit, PACKET_SIZE);
+    m_pSerial->write((const char*)uartMessageToTransmit, PACKET_SIZE);
     m_pSerial->waitForBytesWritten(3000);
     m_pSerial->flush();
 }

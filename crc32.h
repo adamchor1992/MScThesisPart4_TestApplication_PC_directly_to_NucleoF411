@@ -1,6 +1,6 @@
 #pragma once
 
-#include <stdint.h>
+#include <cstdint>
 
 // CRC32 lookup table for polynomial 0x04c11db7 - CRC-32/MPEG-2, no reflections should be applied
 static const uint32_t crcTable[256] =

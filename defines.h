@@ -1,42 +1,39 @@
 #pragma once
 
+const int PACKET_SIZE = 20;
+const int INIT_PACKETS_COUNT = 24;
+
 /*Source/target field*/
-#define SOURCE_TARGET1 '1'
+enum class Source {SOURCE_TARGET1};
 
 /*Module field*/
-#define MODULE1 '1'
-#define MODULE2 '2'
-#define MODULE3 '3'
+enum class ModuleID {MODULE1, MODULE2, MODULE3};
 
 /*Function field*/
-#define DATA_PACKET '1'
-#define INIT_PACKET '2'
-#define DEINIT_PACKET '3'
-#define ENABLE_PARAMETER_PACKET '4'
-#define DISABLE_PARAMETER_PACKET '5'
-#define SET_PARAMETER_PACKET '6'
-#define SET_GRAPH_RANGE_MIN '7'
-#define SET_GRAPH_RANGE_MAX '8'
+enum class Function {DATA_PACKET,
+                     INIT_PACKET, DEINIT_PACKET,
+                     ENABLE_PARAMETER_PACKET, DISABLE_PARAMETER_PACKET, SET_PARAMETER_PACKET,
+                     SET_GRAPH_RANGE_MIN, SET_GRAPH_RANGE_MAX};
 
 /*Parameter field*/
-#define VOLTAGE_PARAMETER 'v'
-#define CURRENT_PARAMETER 'c'
-#define FREQUENCY_PARAMETER 'f'
-#define POWER_PARAMETER 'p'
-#define PARAMETER1 '1'
-#define PARAMETER2 '2'
-#define PARAMETER3 '3'
-#define PARAMETER4 '4'
-#define PARAMETER5 '5'
-#define PARAMETER6 '6'
-#define PARAMETER7 '7'
-#define PARAMETER8 '8'
-#define PARAMETER9 '9'
-#define PARAMETER10 'a'
+enum class Parameter { NULL_PARAMETER,
+                       VOLTAGE_PARAMETER,
+                       CURRENT_PARAMETER,
+                       FREQUENCY_PARAMETER,
+                       POWER_PARAMETER,
+                       PARAMETER1,
+                       PARAMETER2,
+                       PARAMETER3,
+                       PARAMETER4,
+                       PARAMETER5,
+                       PARAMETER6,
+                       PARAMETER7,
+                       PARAMETER8,
+                       PARAMETER9,
+                       PARAMETER10};
 
 /*Sign field*/
-#define POSITIVE_SIGN '1'
-#define NEGATIVE_SIGN '2'
+enum class Sign {POSITIVE_SIGN, NEGATIVE_SIGN};
 
-#define PACKET_SIZE 20
-#define MODULE_INIT_INFO_VALUE_COUNT 24
+/*Length field*/
+enum class Length {NO_PAYLOAD};

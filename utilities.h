@@ -7,8 +7,6 @@
 #include <windows.h> // for Sleep
 #include "crc32.h"
 
-void convertUartPacketTableToUartStructure(const uint8_t uartPacketTable[], UartPacket & uartPacket);
-void convertUartStructureToUartPacketTable(const UartPacket & uartPacket, uint8_t uartPacketTable[]);
 uint32_t calculateCrc32 (char *data, int len);
 bool checkCrc32(const uint8_t uartPacketTable[]);
-void appendCrcToPacket(uint8_t packet[]);
+void appendCrcToPacketTable(uint8_t packet[]);
