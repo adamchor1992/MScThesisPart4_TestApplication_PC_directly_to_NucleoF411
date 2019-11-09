@@ -26,15 +26,16 @@ public:
     void updateGUI();
     void initConnectionModule(int module);
     void deinitConnectionModule(int module);
+    void setRangeMinimum();
+    void setRangeMaximum();
     void openPort(QString portName);
     void closePort(QString portName);
     void initModuleParametersList();
     void sendCustomDataPacket();
     void sendWrongCrcDataPacket();
-    void startLinearGraph(int signalCount);
-    void startSineGraph(int signalCount);
-    void sendLinear(UartPacket uartPacket, int startValue, int stopValue, int signalCount);
-    void sendSine(UartPacket uartPacket, int startValue, int stopValue, int signalCount);
+    void generateLinearGraph(int signalCount);
+    void generateSineGraph(int signalCount);
+    void sendGraphPacket(UartPacket uartPacket);
 
 private slots:
     void serialDataReceived();
@@ -47,14 +48,12 @@ private slots:
     void on_pushButton_DeinitConnectionModule1_clicked();
     void on_pushButton_DeinitConnectionModule2_clicked();
     void on_pushButton_DeinitConnectionModule3_clicked();
-    void on_pushButton_StartLinear_1signal_clicked();
-    void on_pushButton_StartSine_1signal_clicked();
+    void on_pushButton_StartLinear_clicked();
+    void on_pushButton_StartSine_clicked();
     void on_pushButton_Stop_clicked();
-    void on_pushButton_SimulateParametersSequence_clicked();
     void on_pushButton_Close_clicked();
     void on_pushButton_SendWrongCrcPacket_clicked();
-    void on_pushButton_SetRangeMinimum_clicked();
-    void on_pushButton_SetRangeMaximum_clicked();
+    void on_pushButton_SetRanges_clicked();
     void on_pushButton_ClearTable_clicked();
 
 private:
