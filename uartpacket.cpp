@@ -8,8 +8,6 @@ UartPacket::UartPacket() : m_Payload {0}, m_Crc{0}
      m_Parameter = 0;        //parameter ID
      m_Sign = 0;             //sign of payload value, '1' - positive, '2' - negative
      m_Length = 0;           //length of payload
-     //m_Payload[10];      //payload
-     //m_Crc[4];           //32 bit CRC
 }
 
 UartPacket::UartPacket(const uint8_t uartPacketTable[])
@@ -91,6 +89,10 @@ void UartPacket::setFunction(Function function)
     else if(function == Function::SET_GRAPH_RANGE_MAX)
     {
         m_Function = '8';
+    }
+    else if(function == Function::SET_GRAPH_TIME_RANGE)
+    {
+        m_Function = '9';
     }
 }
 

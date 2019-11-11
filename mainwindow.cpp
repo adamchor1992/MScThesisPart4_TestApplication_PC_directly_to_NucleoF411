@@ -63,6 +63,11 @@ void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
 
     if(checkCrc32(uartReceivedPacket) == false)
     {
+        qDebug("CRC1: %d", uartReceivedPacket[16]);
+        qDebug("CRC2: %d", uartReceivedPacket[17]);
+        qDebug("CRC3: %d", uartReceivedPacket[18]);
+        qDebug("CRC4: %d", uartReceivedPacket[19]);
+
         QMessageBox::warning(this, "Bad CRC", "Received packet discarded. It has wrong CRC checksum.");
         return;
     }
@@ -726,6 +731,52 @@ void MainWindow::setRangeMaximum()
     m_pSerial->flush();
 }
 
+void MainWindow::setRangeTime()
+{
+    UartPacket uartPacket;
+
+    uint8_t uartMessageToTransmit[PACKET_SIZE] = {0};
+
+    uartPacket.setSource(Source::SOURCE_TARGET1);
+    uartPacket.setModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
+    uartPacket.setFunction(Function::SET_GRAPH_TIME_RANGE);
+    uartPacket.setParameter(Parameter::NULL_PARAMETER);
+
+    QString enteredPayload = ui->lineEdit_TimeRange->text();
+
+    if(enteredPayload.at(0).toLatin1() == '-')
+    {
+        uartPacket.setSign(Sign::NEGATIVE_SIGN);
+
+        /*Remove minus sign*/
+        enteredPayload.remove(0,1);
+    }
+    else
+    {
+        uartPacket.setSign(Sign::POSITIVE_SIGN);
+    }
+
+    int lengthInt = enteredPayload.length();
+
+    uartPacket.setLengthAscii(lengthInt);
+
+    for(int i=0; i<lengthInt;i++)
+    {
+        uartPacket.getPayload()[i] = enteredPayload.at(i).toLatin1();
+    }
+
+    uartPacket.convertToUartPacketTable(uartMessageToTransmit);
+    appendCrcToPacketTable(uartMessageToTransmit);
+
+    qDebug("Data Packet is: %s", uartMessageToTransmit);
+
+    m_pTableView->updatePacket(uartMessageToTransmit, false);
+
+    m_pSerial->write((const char*)uartMessageToTransmit, PACKET_SIZE);
+    m_pSerial->waitForBytesWritten(3000);
+    m_pSerial->flush();
+}
+
 void MainWindow::sendCustomDataPacket()
 {
     UartPacket uartPacket;
@@ -1153,6 +1204,8 @@ void MainWindow::on_pushButton_SetRanges_clicked()
     setRangeMinimum();
     Sleep(100);
     setRangeMaximum();
+    Sleep(100);
+    setRangeTime();
 }
 
 void MainWindow::on_pushButton_ClearTable_clicked()

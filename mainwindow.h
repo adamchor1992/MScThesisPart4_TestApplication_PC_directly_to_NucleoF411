@@ -28,6 +28,7 @@ public:
     void deinitConnectionModule(int module);
     void setRangeMinimum();
     void setRangeMaximum();
+    void setRangeTime();
     void openPort(QString portName);
     void closePort(QString portName);
     void initModuleParametersList();

@@ -21050,7 +21050,7 @@
         <property name="alignment">
          <set>Qt::AlignCenter</set>
         </property>
-        <layout class="QGridLayout" name="gridLayout_4" rowstretch="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" columnstretch="0,0">
+        <layout class="QGridLayout" name="gridLayout_4" rowstretch="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" columnstretch="0,0">
          <property name="topMargin">
           <number>0</number>
          </property>
@@ -21060,7 +21060,7 @@
          <property name="verticalSpacing">
           <number>3</number>
          </property>
-         <item row="8" column="0">
+         <item row="10" column="0">
           <widget class="QLabel" name="label_StartLinear">
            <property name="text">
             <string>Start</string>
@@ -21099,7 +21099,7 @@
            </property>
           </widget>
          </item>
-         <item row="11" column="0">
+         <item row="13" column="0">
           <widget class="QLabel" name="label_StepLinear">
            <property name="text">
             <string>Step</string>
@@ -21109,7 +21109,7 @@
            </property>
           </widget>
          </item>
-         <item row="4" column="1">
+         <item row="6" column="1">
           <widget class="QLineEdit" name="lineEdit_RangeMaximum">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -21128,7 +21128,17 @@
            </property>
           </widget>
          </item>
-         <item row="11" column="1">
+         <item row="20" column="0">
+          <widget class="QLabel" name="label_StartDegrees">
+           <property name="text">
+            <string>Start degrees</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="13" column="1">
           <widget class="QLineEdit" name="lineEdit_StepLinear">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -21147,7 +21157,7 @@
            </property>
           </widget>
          </item>
-         <item row="19" column="1">
+         <item row="21" column="1">
           <widget class="QLineEdit" name="lineEdit_StopDegrees">
            <property name="text">
             <string>720</string>
@@ -21160,7 +21170,7 @@
            </property>
           </widget>
          </item>
-         <item row="16" column="0" colspan="2">
+         <item row="18" column="0" colspan="2">
           <widget class="Line" name="line_3">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -21173,7 +21183,7 @@
            </property>
           </widget>
          </item>
-         <item row="7" column="0" colspan="2">
+         <item row="9" column="0" colspan="2">
           <widget class="QLabel" name="label_Linear">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -21189,7 +21199,7 @@
            </property>
           </widget>
          </item>
-         <item row="33" column="0" colspan="2">
+         <item row="35" column="0" colspan="2">
           <widget class="QPushButton" name="pushButton_Stop">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -21205,7 +21215,7 @@
            </property>
           </widget>
          </item>
-         <item row="3" column="1">
+         <item row="5" column="1">
           <widget class="QLabel" name="label_RangeMaximum">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -21221,7 +21231,7 @@
            </property>
           </widget>
          </item>
-         <item row="5" column="0" colspan="2">
+         <item row="7" column="0" colspan="2">
           <widget class="QPushButton" name="pushButton_SetRanges">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -21262,7 +21272,7 @@
            </item>
           </widget>
          </item>
-         <item row="15" column="0" colspan="2">
+         <item row="17" column="0" colspan="2">
           <widget class="QPushButton" name="pushButton_StartLinear">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -21302,7 +21312,7 @@
            </item>
           </widget>
          </item>
-         <item row="17" column="0" colspan="2">
+         <item row="19" column="0" colspan="2">
           <widget class="QLabel" name="label_Sine">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -21318,7 +21328,7 @@
            </property>
           </widget>
          </item>
-         <item row="4" column="0">
+         <item row="6" column="0">
           <widget class="QLineEdit" name="lineEdit_RangeMinimum">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -21337,7 +21347,7 @@
            </property>
           </widget>
          </item>
-         <item row="30" column="0" colspan="2">
+         <item row="32" column="0" colspan="2">
           <widget class="QPushButton" name="pushButton_StartSine">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -21353,7 +21363,7 @@
            </property>
           </widget>
          </item>
-         <item row="3" column="0">
+         <item row="5" column="0">
           <widget class="QLabel" name="label_RangeMinimum">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -21369,7 +21379,7 @@
            </property>
           </widget>
          </item>
-         <item row="6" column="0" colspan="2">
+         <item row="8" column="0" colspan="2">
           <widget class="Line" name="line_1">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -21382,7 +21392,7 @@
            </property>
           </widget>
          </item>
-         <item row="8" column="1">
+         <item row="10" column="1">
           <widget class="QLineEdit" name="lineEdit_StartLinear">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -21404,7 +21414,7 @@
            </property>
           </widget>
          </item>
-         <item row="10" column="1">
+         <item row="12" column="1">
           <widget class="QLineEdit" name="lineEdit_StopLinear">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -21426,7 +21436,7 @@
            </property>
           </widget>
          </item>
-         <item row="20" column="0">
+         <item row="22" column="0">
           <widget class="QLabel" name="label_MultiplierSine">
            <property name="text">
             <string>Multiplier</string>
@@ -21436,7 +21446,7 @@
            </property>
           </widget>
          </item>
-         <item row="20" column="1">
+         <item row="22" column="1">
           <widget class="QLineEdit" name="lineEdit_MultiplierSine">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -21458,10 +21468,30 @@
            </property>
           </widget>
          </item>
-         <item row="19" column="0">
+         <item row="21" column="0">
           <widget class="QLabel" name="label_StopDegrees">
            <property name="text">
             <string>Stop degrees</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0" colspan="2">
+          <widget class="QLineEdit" name="lineEdit_TimeRange">
+           <property name="text">
+            <string>720</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="20" column="1">
+          <widget class="QLineEdit" name="lineEdit_StartDegrees">
+           <property name="text">
+            <string>0</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -21484,7 +21514,7 @@
            </property>
           </widget>
          </item>
-         <item row="31" column="0" colspan="2">
+         <item row="33" column="0" colspan="2">
           <widget class="Line" name="line_4">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -21497,7 +21527,7 @@
            </property>
           </widget>
          </item>
-         <item row="10" column="0">
+         <item row="12" column="0">
           <widget class="QLabel" name="label_StopLinear">
            <property name="text">
             <string>Stop</string>
@@ -21507,20 +21537,10 @@
            </property>
           </widget>
          </item>
-         <item row="18" column="0">
-          <widget class="QLabel" name="label_StartDegrees">
+         <item row="3" column="0" colspan="2">
+          <widget class="QLabel" name="label_TimeRange">
            <property name="text">
-            <string>Start degrees</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="18" column="1">
-          <widget class="QLineEdit" name="lineEdit_StartDegrees">
-           <property name="text">
-            <string>0</string>
+            <string>Time range</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>

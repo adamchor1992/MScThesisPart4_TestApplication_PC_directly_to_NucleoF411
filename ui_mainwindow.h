@@ -282,6 +282,7 @@ public:
     QLabel *label_SignalCount;
     QLabel *label_StepLinear;
     QLineEdit *lineEdit_RangeMaximum;
+    QLabel *label_StartDegrees;
     QLineEdit *lineEdit_StepLinear;
     QLineEdit *lineEdit_StopDegrees;
     QFrame *line_3;
@@ -302,11 +303,12 @@ public:
     QLabel *label_MultiplierSine;
     QLineEdit *lineEdit_MultiplierSine;
     QLabel *label_StopDegrees;
+    QLineEdit *lineEdit_TimeRange;
+    QLineEdit *lineEdit_StartDegrees;
     QLabel *label_GraphModule;
     QFrame *line_4;
     QLabel *label_StopLinear;
-    QLabel *label_StartDegrees;
-    QLineEdit *lineEdit_StartDegrees;
+    QLabel *label_TimeRange;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -4253,7 +4255,7 @@ public:
         label_StartLinear->setObjectName(QString::fromUtf8("label_StartLinear"));
         label_StartLinear->setAlignment(Qt::AlignCenter);
 
-        gridLayout_4->addWidget(label_StartLinear, 8, 0, 1, 1);
+        gridLayout_4->addWidget(label_StartLinear, 10, 0, 1, 1);
 
         line_2 = new QFrame(groupBox_GraphControls);
         line_2->setObjectName(QString::fromUtf8("line_2"));
@@ -4279,7 +4281,7 @@ public:
         label_StepLinear->setObjectName(QString::fromUtf8("label_StepLinear"));
         label_StepLinear->setAlignment(Qt::AlignCenter);
 
-        gridLayout_4->addWidget(label_StepLinear, 11, 0, 1, 1);
+        gridLayout_4->addWidget(label_StepLinear, 13, 0, 1, 1);
 
         lineEdit_RangeMaximum = new QLineEdit(groupBox_GraphControls);
         lineEdit_RangeMaximum->setObjectName(QString::fromUtf8("lineEdit_RangeMaximum"));
@@ -4288,7 +4290,13 @@ public:
         lineEdit_RangeMaximum->setMaxLength(11);
         lineEdit_RangeMaximum->setAlignment(Qt::AlignCenter);
 
-        gridLayout_4->addWidget(lineEdit_RangeMaximum, 4, 1, 1, 1);
+        gridLayout_4->addWidget(lineEdit_RangeMaximum, 6, 1, 1, 1);
+
+        label_StartDegrees = new QLabel(groupBox_GraphControls);
+        label_StartDegrees->setObjectName(QString::fromUtf8("label_StartDegrees"));
+        label_StartDegrees->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(label_StartDegrees, 20, 0, 1, 1);
 
         lineEdit_StepLinear = new QLineEdit(groupBox_GraphControls);
         lineEdit_StepLinear->setObjectName(QString::fromUtf8("lineEdit_StepLinear"));
@@ -4297,14 +4305,14 @@ public:
         lineEdit_StepLinear->setMaxLength(11);
         lineEdit_StepLinear->setAlignment(Qt::AlignCenter);
 
-        gridLayout_4->addWidget(lineEdit_StepLinear, 11, 1, 1, 1);
+        gridLayout_4->addWidget(lineEdit_StepLinear, 13, 1, 1, 1);
 
         lineEdit_StopDegrees = new QLineEdit(groupBox_GraphControls);
         lineEdit_StopDegrees->setObjectName(QString::fromUtf8("lineEdit_StopDegrees"));
         lineEdit_StopDegrees->setMaxLength(11);
         lineEdit_StopDegrees->setAlignment(Qt::AlignCenter);
 
-        gridLayout_4->addWidget(lineEdit_StopDegrees, 19, 1, 1, 1);
+        gridLayout_4->addWidget(lineEdit_StopDegrees, 21, 1, 1, 1);
 
         line_3 = new QFrame(groupBox_GraphControls);
         line_3->setObjectName(QString::fromUtf8("line_3"));
@@ -4313,7 +4321,7 @@ public:
         line_3->setFrameShape(QFrame::HLine);
         line_3->setFrameShadow(QFrame::Sunken);
 
-        gridLayout_4->addWidget(line_3, 16, 0, 1, 2);
+        gridLayout_4->addWidget(line_3, 18, 0, 1, 2);
 
         label_Linear = new QLabel(groupBox_GraphControls);
         label_Linear->setObjectName(QString::fromUtf8("label_Linear"));
@@ -4321,7 +4329,7 @@ public:
         label_Linear->setSizePolicy(sizePolicy);
         label_Linear->setAlignment(Qt::AlignCenter);
 
-        gridLayout_4->addWidget(label_Linear, 7, 0, 1, 2);
+        gridLayout_4->addWidget(label_Linear, 9, 0, 1, 2);
 
         pushButton_Stop = new QPushButton(groupBox_GraphControls);
         pushButton_Stop->setObjectName(QString::fromUtf8("pushButton_Stop"));
@@ -4329,7 +4337,7 @@ public:
         pushButton_Stop->setSizePolicy(sizePolicy);
         pushButton_Stop->setStyleSheet(QString::fromUtf8("color:red"));
 
-        gridLayout_4->addWidget(pushButton_Stop, 33, 0, 1, 2);
+        gridLayout_4->addWidget(pushButton_Stop, 35, 0, 1, 2);
 
         label_RangeMaximum = new QLabel(groupBox_GraphControls);
         label_RangeMaximum->setObjectName(QString::fromUtf8("label_RangeMaximum"));
@@ -4337,7 +4345,7 @@ public:
         label_RangeMaximum->setSizePolicy(sizePolicy);
         label_RangeMaximum->setAlignment(Qt::AlignCenter);
 
-        gridLayout_4->addWidget(label_RangeMaximum, 3, 1, 1, 1);
+        gridLayout_4->addWidget(label_RangeMaximum, 5, 1, 1, 1);
 
         pushButton_SetRanges = new QPushButton(groupBox_GraphControls);
         pushButton_SetRanges->setObjectName(QString::fromUtf8("pushButton_SetRanges"));
@@ -4345,7 +4353,7 @@ public:
         pushButton_SetRanges->setSizePolicy(sizePolicy);
         pushButton_SetRanges->setStyleSheet(QString::fromUtf8("color:blue"));
 
-        gridLayout_4->addWidget(pushButton_SetRanges, 5, 0, 1, 2);
+        gridLayout_4->addWidget(pushButton_SetRanges, 7, 0, 1, 2);
 
         comboBox_GraphModule = new QComboBox(groupBox_GraphControls);
         comboBox_GraphModule->addItem(QString());
@@ -4363,7 +4371,7 @@ public:
         pushButton_StartLinear->setSizePolicy(sizePolicy);
         pushButton_StartLinear->setStyleSheet(QString::fromUtf8("color: blue"));
 
-        gridLayout_4->addWidget(pushButton_StartLinear, 15, 0, 1, 2);
+        gridLayout_4->addWidget(pushButton_StartLinear, 17, 0, 1, 2);
 
         comboBox_GraphSignalCount = new QComboBox(groupBox_GraphControls);
         comboBox_GraphSignalCount->addItem(QString());
@@ -4380,7 +4388,7 @@ public:
         label_Sine->setSizePolicy(sizePolicy);
         label_Sine->setAlignment(Qt::AlignCenter);
 
-        gridLayout_4->addWidget(label_Sine, 17, 0, 1, 2);
+        gridLayout_4->addWidget(label_Sine, 19, 0, 1, 2);
 
         lineEdit_RangeMinimum = new QLineEdit(groupBox_GraphControls);
         lineEdit_RangeMinimum->setObjectName(QString::fromUtf8("lineEdit_RangeMinimum"));
@@ -4389,7 +4397,7 @@ public:
         lineEdit_RangeMinimum->setMaxLength(11);
         lineEdit_RangeMinimum->setAlignment(Qt::AlignCenter);
 
-        gridLayout_4->addWidget(lineEdit_RangeMinimum, 4, 0, 1, 1);
+        gridLayout_4->addWidget(lineEdit_RangeMinimum, 6, 0, 1, 1);
 
         pushButton_StartSine = new QPushButton(groupBox_GraphControls);
         pushButton_StartSine->setObjectName(QString::fromUtf8("pushButton_StartSine"));
@@ -4397,7 +4405,7 @@ public:
         pushButton_StartSine->setSizePolicy(sizePolicy);
         pushButton_StartSine->setStyleSheet(QString::fromUtf8("color: blue"));
 
-        gridLayout_4->addWidget(pushButton_StartSine, 30, 0, 1, 2);
+        gridLayout_4->addWidget(pushButton_StartSine, 32, 0, 1, 2);
 
         label_RangeMinimum = new QLabel(groupBox_GraphControls);
         label_RangeMinimum->setObjectName(QString::fromUtf8("label_RangeMinimum"));
@@ -4405,7 +4413,7 @@ public:
         label_RangeMinimum->setSizePolicy(sizePolicy);
         label_RangeMinimum->setAlignment(Qt::AlignCenter);
 
-        gridLayout_4->addWidget(label_RangeMinimum, 3, 0, 1, 1);
+        gridLayout_4->addWidget(label_RangeMinimum, 5, 0, 1, 1);
 
         line_1 = new QFrame(groupBox_GraphControls);
         line_1->setObjectName(QString::fromUtf8("line_1"));
@@ -4414,7 +4422,7 @@ public:
         line_1->setFrameShape(QFrame::HLine);
         line_1->setFrameShadow(QFrame::Sunken);
 
-        gridLayout_4->addWidget(line_1, 6, 0, 1, 2);
+        gridLayout_4->addWidget(line_1, 8, 0, 1, 2);
 
         lineEdit_StartLinear = new QLineEdit(groupBox_GraphControls);
         lineEdit_StartLinear->setObjectName(QString::fromUtf8("lineEdit_StartLinear"));
@@ -4424,7 +4432,7 @@ public:
         lineEdit_StartLinear->setAlignment(Qt::AlignCenter);
         lineEdit_StartLinear->setReadOnly(false);
 
-        gridLayout_4->addWidget(lineEdit_StartLinear, 8, 1, 1, 1);
+        gridLayout_4->addWidget(lineEdit_StartLinear, 10, 1, 1, 1);
 
         lineEdit_StopLinear = new QLineEdit(groupBox_GraphControls);
         lineEdit_StopLinear->setObjectName(QString::fromUtf8("lineEdit_StopLinear"));
@@ -4434,13 +4442,13 @@ public:
         lineEdit_StopLinear->setAlignment(Qt::AlignCenter);
         lineEdit_StopLinear->setReadOnly(false);
 
-        gridLayout_4->addWidget(lineEdit_StopLinear, 10, 1, 1, 1);
+        gridLayout_4->addWidget(lineEdit_StopLinear, 12, 1, 1, 1);
 
         label_MultiplierSine = new QLabel(groupBox_GraphControls);
         label_MultiplierSine->setObjectName(QString::fromUtf8("label_MultiplierSine"));
         label_MultiplierSine->setAlignment(Qt::AlignCenter);
 
-        gridLayout_4->addWidget(label_MultiplierSine, 20, 0, 1, 1);
+        gridLayout_4->addWidget(label_MultiplierSine, 22, 0, 1, 1);
 
         lineEdit_MultiplierSine = new QLineEdit(groupBox_GraphControls);
         lineEdit_MultiplierSine->setObjectName(QString::fromUtf8("lineEdit_MultiplierSine"));
@@ -4450,13 +4458,25 @@ public:
         lineEdit_MultiplierSine->setAlignment(Qt::AlignCenter);
         lineEdit_MultiplierSine->setReadOnly(false);
 
-        gridLayout_4->addWidget(lineEdit_MultiplierSine, 20, 1, 1, 1);
+        gridLayout_4->addWidget(lineEdit_MultiplierSine, 22, 1, 1, 1);
 
         label_StopDegrees = new QLabel(groupBox_GraphControls);
         label_StopDegrees->setObjectName(QString::fromUtf8("label_StopDegrees"));
         label_StopDegrees->setAlignment(Qt::AlignCenter);
 
-        gridLayout_4->addWidget(label_StopDegrees, 19, 0, 1, 1);
+        gridLayout_4->addWidget(label_StopDegrees, 21, 0, 1, 1);
+
+        lineEdit_TimeRange = new QLineEdit(groupBox_GraphControls);
+        lineEdit_TimeRange->setObjectName(QString::fromUtf8("lineEdit_TimeRange"));
+        lineEdit_TimeRange->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(lineEdit_TimeRange, 4, 0, 1, 2);
+
+        lineEdit_StartDegrees = new QLineEdit(groupBox_GraphControls);
+        lineEdit_StartDegrees->setObjectName(QString::fromUtf8("lineEdit_StartDegrees"));
+        lineEdit_StartDegrees->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(lineEdit_StartDegrees, 20, 1, 1, 1);
 
         label_GraphModule = new QLabel(groupBox_GraphControls);
         label_GraphModule->setObjectName(QString::fromUtf8("label_GraphModule"));
@@ -4473,25 +4493,19 @@ public:
         line_4->setFrameShape(QFrame::HLine);
         line_4->setFrameShadow(QFrame::Sunken);
 
-        gridLayout_4->addWidget(line_4, 31, 0, 1, 2);
+        gridLayout_4->addWidget(line_4, 33, 0, 1, 2);
 
         label_StopLinear = new QLabel(groupBox_GraphControls);
         label_StopLinear->setObjectName(QString::fromUtf8("label_StopLinear"));
         label_StopLinear->setAlignment(Qt::AlignCenter);
 
-        gridLayout_4->addWidget(label_StopLinear, 10, 0, 1, 1);
+        gridLayout_4->addWidget(label_StopLinear, 12, 0, 1, 1);
 
-        label_StartDegrees = new QLabel(groupBox_GraphControls);
-        label_StartDegrees->setObjectName(QString::fromUtf8("label_StartDegrees"));
-        label_StartDegrees->setAlignment(Qt::AlignCenter);
+        label_TimeRange = new QLabel(groupBox_GraphControls);
+        label_TimeRange->setObjectName(QString::fromUtf8("label_TimeRange"));
+        label_TimeRange->setAlignment(Qt::AlignCenter);
 
-        gridLayout_4->addWidget(label_StartDegrees, 18, 0, 1, 1);
-
-        lineEdit_StartDegrees = new QLineEdit(groupBox_GraphControls);
-        lineEdit_StartDegrees->setObjectName(QString::fromUtf8("lineEdit_StartDegrees"));
-        lineEdit_StartDegrees->setAlignment(Qt::AlignCenter);
-
-        gridLayout_4->addWidget(lineEdit_StartDegrees, 18, 1, 1, 1);
+        gridLayout_4->addWidget(label_TimeRange, 3, 0, 1, 2);
 
 
         horizontalLayout->addWidget(groupBox_GraphControls);
@@ -4679,6 +4693,7 @@ public:
         label_SignalCount->setText(QCoreApplication::translate("MainWindow", "Signal count", nullptr));
         label_StepLinear->setText(QCoreApplication::translate("MainWindow", "Step", nullptr));
         lineEdit_RangeMaximum->setText(QCoreApplication::translate("MainWindow", "10000", nullptr));
+        label_StartDegrees->setText(QCoreApplication::translate("MainWindow", "Start degrees", nullptr));
         lineEdit_StepLinear->setText(QCoreApplication::translate("MainWindow", "1", nullptr));
         lineEdit_StopDegrees->setText(QCoreApplication::translate("MainWindow", "720", nullptr));
         label_Linear->setText(QCoreApplication::translate("MainWindow", "Linear", nullptr));
@@ -4704,10 +4719,11 @@ public:
         label_MultiplierSine->setText(QCoreApplication::translate("MainWindow", "Multiplier", nullptr));
         lineEdit_MultiplierSine->setText(QCoreApplication::translate("MainWindow", "1", nullptr));
         label_StopDegrees->setText(QCoreApplication::translate("MainWindow", "Stop degrees", nullptr));
+        lineEdit_TimeRange->setText(QCoreApplication::translate("MainWindow", "720", nullptr));
+        lineEdit_StartDegrees->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
         label_GraphModule->setText(QCoreApplication::translate("MainWindow", "Module", nullptr));
         label_StopLinear->setText(QCoreApplication::translate("MainWindow", "Stop", nullptr));
-        label_StartDegrees->setText(QCoreApplication::translate("MainWindow", "Start degrees", nullptr));
-        lineEdit_StartDegrees->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
+        label_TimeRange->setText(QCoreApplication::translate("MainWindow", "Time range", nullptr));
     } // retranslateUi
 
 };

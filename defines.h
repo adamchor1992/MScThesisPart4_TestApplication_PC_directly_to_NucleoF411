@@ -13,7 +13,7 @@ enum class ModuleID {MODULE1, MODULE2, MODULE3};
 enum class Function {DATA_PACKET,
                      INIT_PACKET, DEINIT_PACKET,
                      ENABLE_PARAMETER_PACKET, DISABLE_PARAMETER_PACKET, SET_PARAMETER_PACKET,
-                     SET_GRAPH_RANGE_MIN, SET_GRAPH_RANGE_MAX};
+                     SET_GRAPH_RANGE_MIN, SET_GRAPH_RANGE_MAX, SET_GRAPH_TIME_RANGE};
 
 /*Parameter field*/
 enum class Parameter { NULL_PARAMETER,

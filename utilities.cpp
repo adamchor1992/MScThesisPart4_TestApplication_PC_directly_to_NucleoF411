@@ -1,4 +1,5 @@
 #include "utilities.h"
+#include "QDebug"
 
 uint32_t calculateCrc32 (char* data, int len)
 {
@@ -26,6 +27,9 @@ bool checkCrc32(const uint8_t uartPacketTable[])
   crcValueReceivedRaw8Bit[3] = uartPacketTable[19];
 
   crcValueReceived = crcValueReceivedRaw8Bit[3] | crcValueReceivedRaw8Bit[2] << 8 | crcValueReceivedRaw8Bit[1] << 16 | crcValueReceivedRaw8Bit[0] << 24;
+
+  qDebug("CRC Calculated: %d", crcValueCalculated);
+  qDebug("CRC Received: %d", crcValueReceived);
 
   if(crcValueCalculated == crcValueReceived)
     return true;
