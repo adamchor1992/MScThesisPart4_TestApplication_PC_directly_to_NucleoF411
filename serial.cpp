@@ -123,3 +123,10 @@ void Serial::closePort(QString portName)
         qDebug("Port is not open, cannot close");
     }
 }
+
+void Serial::sendPacket(uint8_t *uartPacketTable)
+{
+    write((const char*)uartPacketTable, PACKET_SIZE);
+    waitForBytesWritten(3000);
+    flush();
+}

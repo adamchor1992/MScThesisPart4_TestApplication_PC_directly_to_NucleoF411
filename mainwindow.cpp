@@ -537,7 +537,7 @@ void MainWindow::initConnectionModule(int module)
 {
     UartPacket uartPacket[INIT_PACKETS_COUNT];
 
-    uint8_t uartMessageToTransmit[PACKET_SIZE] = {0};
+    uint8_t uartPacketTable[PACKET_SIZE] = {0};
 
     for(int i = 0; i < INIT_PACKETS_COUNT; i++)
     {
@@ -594,17 +594,15 @@ void MainWindow::initConnectionModule(int module)
 
         uartPacket[i].setLengthAscii(lengthInt); // convert from int to ASCII
 
-        uartPacket[i].convertToUartPacketTable(uartMessageToTransmit);
+        uartPacket[i].convertToUartPacketTable(uartPacketTable);
 
-        appendCrcToPacketTable(uartMessageToTransmit);
+        appendCrcToPacketTable(uartPacketTable);
 
-        qDebug("Init Packet is: %s", uartMessageToTransmit);
+        qDebug("Init Packet is: %s", uartPacketTable);
 
-        m_pTableView->updatePacket(uartMessageToTransmit, false);
+        m_pTableView->updatePacket(uartPacketTable, false);
 
-        m_pSerial->write((const char*)uartMessageToTransmit, PACKET_SIZE);
-        m_pSerial->waitForBytesWritten(3000);
-        m_pSerial->flush();
+        m_pSerial->sendPacket(uartPacketTable);
 
         Sleep(uint(20));
 
@@ -616,7 +614,7 @@ void MainWindow::deinitConnectionModule(int module)
 {
     UartPacket uartPacket;
 
-    uint8_t uartMessageToTransmit[PACKET_SIZE] = {0};
+    uint8_t uartPacketTable[PACKET_SIZE] = {0};
 
     uartPacket.setSource(Source::SOURCE_TARGET1);
 
@@ -626,24 +624,22 @@ void MainWindow::deinitConnectionModule(int module)
     uartPacket.setParameter(Parameter::NULL_PARAMETER);
     uartPacket.setLength(Length::NO_PAYLOAD);
 
-    uartPacket.convertToUartPacketTable(uartMessageToTransmit);
+    uartPacket.convertToUartPacketTable(uartPacketTable);
 
-    appendCrcToPacketTable(uartMessageToTransmit);
+    appendCrcToPacketTable(uartPacketTable);
 
-    qDebug("Deinit Packet is: %s", uartMessageToTransmit);
+    qDebug("Deinit Packet is: %s", uartPacketTable);
 
-    m_pTableView->updatePacket(uartMessageToTransmit, false);
+    m_pTableView->updatePacket(uartPacketTable, false);
 
-    m_pSerial->write((const char*)uartMessageToTransmit, PACKET_SIZE);
-    m_pSerial->waitForBytesWritten(3000);
-    m_pSerial->flush();
+    m_pSerial->sendPacket(uartPacketTable);
 }
 
 void MainWindow::setRangeMinimum()
 {
     UartPacket uartPacket;
 
-    uint8_t uartMessageToTransmit[PACKET_SIZE] = {0};
+    uint8_t uartPacketTable[PACKET_SIZE] = {0};
 
     uartPacket.setSource(Source::SOURCE_TARGET1);
     uartPacket.setModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
@@ -673,23 +669,21 @@ void MainWindow::setRangeMinimum()
         uartPacket.getPayload()[i] = enteredPayload.at(i).toLatin1();
     }
 
-    uartPacket.convertToUartPacketTable(uartMessageToTransmit);
-    appendCrcToPacketTable(uartMessageToTransmit);
+    uartPacket.convertToUartPacketTable(uartPacketTable);
+    appendCrcToPacketTable(uartPacketTable);
 
-    qDebug("Data Packet is: %s", uartMessageToTransmit);
+    qDebug("Data Packet is: %s", uartPacketTable);
 
-    m_pTableView->updatePacket(uartMessageToTransmit, false);
+    m_pTableView->updatePacket(uartPacketTable, false);
 
-    m_pSerial->write((const char*)uartMessageToTransmit, PACKET_SIZE);
-    m_pSerial->waitForBytesWritten(3000);
-    m_pSerial->flush();
+    m_pSerial->sendPacket(uartPacketTable);
 }
 
 void MainWindow::setRangeMaximum()
 {
     UartPacket uartPacket;
 
-    uint8_t uartMessageToTransmit[PACKET_SIZE] = {0};
+    uint8_t uartPacketTable[PACKET_SIZE] = {0};
 
     uartPacket.setSource(Source::SOURCE_TARGET1);
     uartPacket.setModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
@@ -719,23 +713,21 @@ void MainWindow::setRangeMaximum()
         uartPacket.getPayload()[i] = enteredPayload.at(i).toLatin1();
     }
 
-    uartPacket.convertToUartPacketTable(uartMessageToTransmit);
-    appendCrcToPacketTable(uartMessageToTransmit);
+    uartPacket.convertToUartPacketTable(uartPacketTable);
+    appendCrcToPacketTable(uartPacketTable);
 
-    qDebug("Data Packet is: %s", uartMessageToTransmit);
+    qDebug("Data Packet is: %s", uartPacketTable);
 
-    m_pTableView->updatePacket(uartMessageToTransmit, false);
+    m_pTableView->updatePacket(uartPacketTable, false);
 
-    m_pSerial->write((const char*)uartMessageToTransmit, PACKET_SIZE);
-    m_pSerial->waitForBytesWritten(3000);
-    m_pSerial->flush();
+    m_pSerial->sendPacket(uartPacketTable);
 }
 
 void MainWindow::setRangeTime()
 {
     UartPacket uartPacket;
 
-    uint8_t uartMessageToTransmit[PACKET_SIZE] = {0};
+    uint8_t uartPacketTable[PACKET_SIZE] = {0};
 
     uartPacket.setSource(Source::SOURCE_TARGET1);
     uartPacket.setModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
@@ -765,23 +757,21 @@ void MainWindow::setRangeTime()
         uartPacket.getPayload()[i] = enteredPayload.at(i).toLatin1();
     }
 
-    uartPacket.convertToUartPacketTable(uartMessageToTransmit);
-    appendCrcToPacketTable(uartMessageToTransmit);
+    uartPacket.convertToUartPacketTable(uartPacketTable);
+    appendCrcToPacketTable(uartPacketTable);
 
-    qDebug("Data Packet is: %s", uartMessageToTransmit);
+    qDebug("Data Packet is: %s", uartPacketTable);
 
-    m_pTableView->updatePacket(uartMessageToTransmit, false);
+    m_pTableView->updatePacket(uartPacketTable, false);
 
-    m_pSerial->write((const char*)uartMessageToTransmit, PACKET_SIZE);
-    m_pSerial->waitForBytesWritten(3000);
-    m_pSerial->flush();
+    m_pSerial->sendPacket(uartPacketTable);
 }
 
 void MainWindow::sendCustomDataPacket()
 {
     UartPacket uartPacket;
 
-    uint8_t uartMessageToTransmit[PACKET_SIZE] = {0};
+    uint8_t uartPacketTable[PACKET_SIZE] = {0};
 
     uartPacket.setSource(Source::SOURCE_TARGET1);
     uartPacket.setModule(ui->comboBox_CustomPacketModule->currentText().at(0).toLatin1());
@@ -815,23 +805,21 @@ void MainWindow::sendCustomDataPacket()
 
     ui->lineEdit_Length->setText(QString::number(lengthInt));
 
-    uartPacket.convertToUartPacketTable(uartMessageToTransmit);
-    appendCrcToPacketTable(uartMessageToTransmit);
+    uartPacket.convertToUartPacketTable(uartPacketTable);
+    appendCrcToPacketTable(uartPacketTable);
 
-    qDebug("Data Packet is: %s", uartMessageToTransmit);
+    qDebug("Data Packet is: %s", uartPacketTable);
 
-    m_pTableView->updatePacket(uartMessageToTransmit, false);
+    m_pTableView->updatePacket(uartPacketTable, false);
 
-    m_pSerial->write((const char*)uartMessageToTransmit, PACKET_SIZE);
-    m_pSerial->waitForBytesWritten(3000);
-    m_pSerial->flush();
+    m_pSerial->sendPacket(uartPacketTable);
 }
 
 void MainWindow::sendWrongCrcDataPacket()
 {
     UartPacket uartPacket;
 
-    uint8_t uartMessageToTransmit[PACKET_SIZE] = {0};
+    uint8_t uartPacketTable[PACKET_SIZE] = {0};
 
     uartPacket.setSource(Source::SOURCE_TARGET1);
     uartPacket.setModule(ui->comboBox_CustomPacketModule->currentText().at(0).toLatin1());
@@ -839,21 +827,19 @@ void MainWindow::sendWrongCrcDataPacket()
     uartPacket.setParameter(ui->comboBox_Parameter->currentText().at(0).toLatin1());
     uartPacket.setLength(Length::NO_PAYLOAD);
 
-    uartPacket.convertToUartPacketTable(uartMessageToTransmit);
+    uartPacket.convertToUartPacketTable(uartPacketTable);
 
     /*Set wrong all zeros CRC*/
-    uartMessageToTransmit[19] = 0;
-    uartMessageToTransmit[18] = 0;
-    uartMessageToTransmit[17] = 0;
-    uartMessageToTransmit[16] = 0;
+    uartPacketTable[19] = 0;
+    uartPacketTable[18] = 0;
+    uartPacketTable[17] = 0;
+    uartPacketTable[16] = 0;
 
-    qDebug("Wrong Crc Data Packet is: %s", uartMessageToTransmit);
+    qDebug("Wrong Crc Data Packet is: %s", uartPacketTable);
 
-    m_pTableView->updatePacket(uartMessageToTransmit, false);
+    m_pTableView->updatePacket(uartPacketTable, false);
 
-    m_pSerial->write((const char*)uartMessageToTransmit, PACKET_SIZE);
-    m_pSerial->waitForBytesWritten(3000);
-    m_pSerial->flush();
+    m_pSerial->sendPacket(uartPacketTable);
 }
 
 void MainWindow::generateLinearGraph(int signalCount)
@@ -1007,18 +993,16 @@ void MainWindow::generateSineGraph(int signalCount)
 
 void MainWindow::sendGraphPacket(UartPacket uartPacket)
 {
-    uint8_t uartMessageToTransmit[PACKET_SIZE] = {0};
+    uint8_t uartPacketTable[PACKET_SIZE] = {0};
 
-    uartPacket.convertToUartPacketTable(uartMessageToTransmit);
-    appendCrcToPacketTable(uartMessageToTransmit);
+    uartPacket.convertToUartPacketTable(uartPacketTable);
+    appendCrcToPacketTable(uartPacketTable);
 
-    qDebug("Data Packet is: %s", uartMessageToTransmit);
+    qDebug("Data Packet is: %s", uartPacketTable);
 
-    m_pTableView->updatePacket(uartMessageToTransmit, false);
+    m_pTableView->updatePacket(uartPacketTable, false);
 
-    m_pSerial->write((const char*)uartMessageToTransmit, PACKET_SIZE);
-    m_pSerial->waitForBytesWritten(3000);
-    m_pSerial->flush();
+    m_pSerial->sendPacket(uartPacketTable);
 
     Sleep(uint(20));
 }
