@@ -7,7 +7,7 @@ const int INIT_PACKETS_COUNT = 24;
 enum class Source {SOURCE_TARGET1};
 
 /*Module field*/
-enum class ModuleID {MODULE1, MODULE2, MODULE3};
+enum class ModuleID {MODULE1 = '1', MODULE2 = '2', MODULE3 = '3'};
 
 /*Function field*/
 enum class Function {DATA_PACKET,

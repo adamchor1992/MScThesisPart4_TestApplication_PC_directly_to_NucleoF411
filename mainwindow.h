@@ -24,8 +24,8 @@ public:
     void initPortList();
     void fullPacketReceived(QByteArray & receivedBytes);
     void updateGUI();
-    void initConnectionModule(int module);
-    void deinitConnectionModule(int module);
+    void initConnectionModule(ModuleID module);
+    void deinitConnectionModule(ModuleID module);
     void setRangeMinimum();
     void setRangeMaximum();
     void setRangeTime();

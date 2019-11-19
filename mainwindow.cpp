@@ -533,7 +533,7 @@ void MainWindow::initModuleParametersList()
     }
 }
 
-void MainWindow::initConnectionModule(int module)
+void MainWindow::initConnectionModule(ModuleID module)
 {
     UartPacket uartPacket[INIT_PACKETS_COUNT];
 
@@ -542,43 +542,115 @@ void MainWindow::initConnectionModule(int module)
     for(int i = 0; i < INIT_PACKETS_COUNT; i++)
     {
         uartPacket[i].setSource(Source::SOURCE_TARGET1);
-        uartPacket[i].setModule(module + '0'); //convert int to ascii representation
+        uartPacket[i].setModule(module);
         uartPacket[i].setFunction(Function::INIT_PACKET);
         uartPacket[i].setParameter(Parameter::NULL_PARAMETER);
         uartPacket[i].setSign(Sign::POSITIVE_SIGN);
     }
 
-    QString initInfoValues[INIT_PACKETS_COUNT] = {ui->label_Module1InitParameter1Name->text(),
-                                                  ui->label_Module1InitParameter2Name->text(),
-                                                  ui->label_Module1InitParameter3Name->text(),
-                                                  ui->label_Module1InitParameter4Name->text(),
-                                                  ui->label_Module1InitParameter5Name->text(),
-                                                  ui->lineEdit_Module1InitParameter1Value->text(),
-                                                  ui->lineEdit_Module1InitParameter2Value->text(),
-                                                  ui->lineEdit_Module1InitParameter3Value->text(),
-                                                  ui->lineEdit_Module1InitParameter4Value->text(),
-                                                  ui->lineEdit_Module1InitParameter5Value->text(),
-                                                  ui->lineEdit_Module1Parameter1Name->text(),
-                                                  ui->lineEdit_Module1Parameter2Name->text(),
-                                                  ui->lineEdit_Module1Parameter3Name->text(),
-                                                  ui->lineEdit_Module1Parameter4Name->text(),
-                                                  ui->label_Module1_SettableParameter1Name->text(),
-                                                  ui->label_Module1_SettableParameter2Name->text(),
-                                                  ui->label_Module1_SettableParameter3Name->text(),
-                                                  ui->label_Module1_SettableParameter4Name->text(),
-                                                  ui->label_Module1_SettableParameter5Name->text(),
-                                                  ui->label_Module1_SettableParameter6Name->text(),
-                                                  ui->label_Module1_SettableParameter7Name->text(),
-                                                  ui->label_Module1_SettableParameter8Name->text(),
-                                                  ui->label_Module1_SettableParameter9Name->text(),
-                                                  ui->label_Module1_SettableParameter10Name->text()
-                                                 };
+    QString initInfoValuesModule1[INIT_PACKETS_COUNT] = {ui->label_Module1InitParameter1Name->text(),
+                                                         ui->label_Module1InitParameter2Name->text(),
+                                                         ui->label_Module1InitParameter3Name->text(),
+                                                         ui->label_Module1InitParameter4Name->text(),
+                                                         ui->label_Module1InitParameter5Name->text(),
+                                                         ui->lineEdit_Module1InitParameter1Value->text(),
+                                                         ui->lineEdit_Module1InitParameter2Value->text(),
+                                                         ui->lineEdit_Module1InitParameter3Value->text(),
+                                                         ui->lineEdit_Module1InitParameter4Value->text(),
+                                                         ui->lineEdit_Module1InitParameter5Value->text(),
+                                                         ui->lineEdit_Module1Parameter1Name->text(),
+                                                         ui->lineEdit_Module1Parameter2Name->text(),
+                                                         ui->lineEdit_Module1Parameter3Name->text(),
+                                                         ui->lineEdit_Module1Parameter4Name->text(),
+                                                         ui->label_Module1_SettableParameter1Name->text(),
+                                                         ui->label_Module1_SettableParameter2Name->text(),
+                                                         ui->label_Module1_SettableParameter3Name->text(),
+                                                         ui->label_Module1_SettableParameter4Name->text(),
+                                                         ui->label_Module1_SettableParameter5Name->text(),
+                                                         ui->label_Module1_SettableParameter6Name->text(),
+                                                         ui->label_Module1_SettableParameter7Name->text(),
+                                                         ui->label_Module1_SettableParameter8Name->text(),
+                                                         ui->label_Module1_SettableParameter9Name->text(),
+                                                         ui->label_Module1_SettableParameter10Name->text()
+                                                        };
 
-    for(auto value : initInfoValues)
+    for(auto value : initInfoValuesModule1)
     {
         if(value.size() > 10)
         {
-            QMessageBox::warning(this, "Warning", "Module initialization parameter value is too long,"
+            QMessageBox::warning(this, "Warning", "Module 1 initialization parameter value is too long,"
+                                                  " maximum allowed length is 10. Aborting module initialization");
+            return;
+        }
+    }
+
+    QString initInfoValuesModule2[INIT_PACKETS_COUNT] = {ui->label_Module2InitParameter1Name->text(),
+                                                         ui->label_Module2InitParameter2Name->text(),
+                                                         ui->label_Module2InitParameter3Name->text(),
+                                                         ui->label_Module2InitParameter4Name->text(),
+                                                         ui->label_Module2InitParameter5Name->text(),
+                                                         ui->lineEdit_Module2InitParameter1Value->text(),
+                                                         ui->lineEdit_Module2InitParameter2Value->text(),
+                                                         ui->lineEdit_Module2InitParameter3Value->text(),
+                                                         ui->lineEdit_Module2InitParameter4Value->text(),
+                                                         ui->lineEdit_Module2InitParameter5Value->text(),
+                                                         ui->lineEdit_Module2Parameter1Name->text(),
+                                                         ui->lineEdit_Module2Parameter2Name->text(),
+                                                         ui->lineEdit_Module2Parameter3Name->text(),
+                                                         ui->lineEdit_Module2Parameter4Name->text(),
+                                                         ui->label_Module2_SettableParameter1Name->text(),
+                                                         ui->label_Module2_SettableParameter2Name->text(),
+                                                         ui->label_Module2_SettableParameter3Name->text(),
+                                                         ui->label_Module2_SettableParameter4Name->text(),
+                                                         ui->label_Module2_SettableParameter5Name->text(),
+                                                         ui->label_Module2_SettableParameter6Name->text(),
+                                                         ui->label_Module2_SettableParameter7Name->text(),
+                                                         ui->label_Module2_SettableParameter8Name->text(),
+                                                         ui->label_Module2_SettableParameter9Name->text(),
+                                                         ui->label_Module2_SettableParameter10Name->text()
+                                                        };
+
+    for(auto value : initInfoValuesModule2)
+    {
+        if(value.size() > 10)
+        {
+            QMessageBox::warning(this, "Warning", "Module 2 initialization parameter value is too long,"
+                                                  " maximum allowed length is 10. Aborting module initialization");
+            return;
+        }
+    }
+
+    QString initInfoValuesModule3[INIT_PACKETS_COUNT] = {ui->label_Module3InitParameter1Name->text(),
+                                                         ui->label_Module3InitParameter2Name->text(),
+                                                         ui->label_Module3InitParameter3Name->text(),
+                                                         ui->label_Module3InitParameter4Name->text(),
+                                                         ui->label_Module3InitParameter5Name->text(),
+                                                         ui->lineEdit_Module3InitParameter1Value->text(),
+                                                         ui->lineEdit_Module3InitParameter2Value->text(),
+                                                         ui->lineEdit_Module3InitParameter3Value->text(),
+                                                         ui->lineEdit_Module3InitParameter4Value->text(),
+                                                         ui->lineEdit_Module3InitParameter5Value->text(),
+                                                         ui->lineEdit_Module3Parameter1Name->text(),
+                                                         ui->lineEdit_Module3Parameter2Name->text(),
+                                                         ui->lineEdit_Module3Parameter3Name->text(),
+                                                         ui->lineEdit_Module3Parameter4Name->text(),
+                                                         ui->label_Module3_SettableParameter1Name->text(),
+                                                         ui->label_Module3_SettableParameter2Name->text(),
+                                                         ui->label_Module3_SettableParameter3Name->text(),
+                                                         ui->label_Module3_SettableParameter4Name->text(),
+                                                         ui->label_Module3_SettableParameter5Name->text(),
+                                                         ui->label_Module3_SettableParameter6Name->text(),
+                                                         ui->label_Module3_SettableParameter7Name->text(),
+                                                         ui->label_Module3_SettableParameter8Name->text(),
+                                                         ui->label_Module3_SettableParameter9Name->text(),
+                                                         ui->label_Module3_SettableParameter10Name->text()
+                                                        };
+
+    for(auto value : initInfoValuesModule3)
+    {
+        if(value.size() > 10)
+        {
+            QMessageBox::warning(this, "Warning", "Module 3 initialization parameter value is too long,"
                                                   " maximum allowed length is 10. Aborting module initialization");
             return;
         }
@@ -588,7 +660,18 @@ void MainWindow::initConnectionModule(int module)
 
     for(int i = 0; i < INIT_PACKETS_COUNT; i++)
     {
-        sprintf((char*)uartPacket[i].getPayload(), "%s", initInfoValues[i].toStdString().c_str());
+        if(module == ModuleID::MODULE1)
+        {
+            sprintf((char*)uartPacket[i].getPayload(), "%s", initInfoValuesModule1[i].toStdString().c_str());
+        }
+        else if(module == ModuleID::MODULE2)
+        {
+            sprintf((char*)uartPacket[i].getPayload(), "%s", initInfoValuesModule2[i].toStdString().c_str());
+        }
+        else if(module == ModuleID::MODULE3)
+        {
+            sprintf((char*)uartPacket[i].getPayload(), "%s", initInfoValuesModule3[i].toStdString().c_str());
+        }
 
         lengthInt = strlen((char*)uartPacket[i].getPayload());
 
@@ -610,7 +693,7 @@ void MainWindow::initConnectionModule(int module)
     }
 }
 
-void MainWindow::deinitConnectionModule(int module)
+void MainWindow::deinitConnectionModule(ModuleID module)
 {
     UartPacket uartPacket;
 
@@ -618,7 +701,7 @@ void MainWindow::deinitConnectionModule(int module)
 
     uartPacket.setSource(Source::SOURCE_TARGET1);
 
-    uartPacket.setModule(module + '0'); //convert int to ascii representation
+    uartPacket.setModule(module);
     uartPacket.setFunction(Function::DEINIT_PACKET);
     uartPacket.setSign(Sign::POSITIVE_SIGN);
     uartPacket.setParameter(Parameter::NULL_PARAMETER);
@@ -866,7 +949,7 @@ void MainWindow::generateLinearGraph(int signalCount)
     int lengthInt;
     double value;
 
-    uint8_t parameters[4] = {'v', 'c', 'f', 'p'};
+    uint8_t parameters[4] = {'b', 'c', 'd', 'e'};
 
     for(int x = startValue; x < stopValue; x++)
     {
@@ -944,7 +1027,7 @@ void MainWindow::generateSineGraph(int signalCount)
 
     int lengthInt;
     double value;
-    uint8_t parameters[4] = {'v', 'c', 'f', 'p'};
+    uint8_t parameters[4] = {'b', 'c', 'd', 'e'};
 
     double multiplier = (ui->lineEdit_MultiplierSine->text()).toDouble();
     double radianInverse = 3.14159/180;
@@ -1099,32 +1182,32 @@ void MainWindow::on_pushButton_Send_pressed()
 
 void MainWindow::on_pushButton_InitConnectionModule1_clicked()
 {
-    initConnectionModule(1);
+    initConnectionModule(ModuleID::MODULE1);
 }
 
 void MainWindow::on_pushButton_InitConnectionModule2_clicked()
 {
-    initConnectionModule(2);
+    initConnectionModule(ModuleID::MODULE2);
 }
 
 void MainWindow::on_pushButton_InitConnectionModule3_clicked()
 {
-    initConnectionModule(3);
+    initConnectionModule(ModuleID::MODULE3);
 }
 
 void MainWindow::on_pushButton_DeinitConnectionModule1_clicked()
 {
-    deinitConnectionModule(1);
+    deinitConnectionModule(ModuleID::MODULE1);
 }
 
 void MainWindow::on_pushButton_DeinitConnectionModule2_clicked()
 {
-    deinitConnectionModule(2);
+    deinitConnectionModule(ModuleID::MODULE2);
 }
 
 void MainWindow::on_pushButton_DeinitConnectionModule3_clicked()
 {
-    deinitConnectionModule(3);
+    deinitConnectionModule(ModuleID::MODULE3);
 }
 
 void MainWindow::on_pushButton_StartLinear_clicked()
