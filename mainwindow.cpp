@@ -329,20 +329,12 @@ void MainWindow::initModuleParametersList()
         /*Initialize parameter names from file*/
         getline(inputFile,inputBuffer);
         ui->lineEdit_Module1Parameter1Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module1_CustomParameter1Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module1_CustomParameter1Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
         ui->lineEdit_Module1Parameter2Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module1_CustomParameter2Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module1_CustomParameter2Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
         ui->lineEdit_Module1Parameter3Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module1_CustomParameter3Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module1_CustomParameter3Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
         ui->lineEdit_Module1Parameter4Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module1_CustomParameter4Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module1_CustomParameter4Name->setText(QString::fromStdString(inputBuffer));
 
         /*Initialize settable parameter names from file*/
         getline(inputFile,inputBuffer);
@@ -404,20 +396,12 @@ void MainWindow::initModuleParametersList()
         /*Initialize parameter names from file*/
         getline(inputFile,inputBuffer);
         ui->lineEdit_Module2Parameter1Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_CustomParameter1Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_CustomParameter1Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
         ui->lineEdit_Module2Parameter2Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_CustomParameter2Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_CustomParameter2Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
         ui->lineEdit_Module2Parameter3Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_CustomParameter3Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_CustomParameter3Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
         ui->lineEdit_Module2Parameter4Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_CustomParameter4Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_CustomParameter4Name->setText(QString::fromStdString(inputBuffer));
 
         /*Initialize settable parameter names from file*/
         getline(inputFile,inputBuffer);
@@ -479,20 +463,12 @@ void MainWindow::initModuleParametersList()
         /*Initialize parameter names from file*/
         getline(inputFile,inputBuffer);
         ui->lineEdit_Module3Parameter1Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module3_CustomParameter1Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module3_CustomParameter1Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
         ui->lineEdit_Module3Parameter2Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module3_CustomParameter2Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module3_CustomParameter2Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
         ui->lineEdit_Module3Parameter3Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module3_CustomParameter3Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module3_CustomParameter3Name->setText(QString::fromStdString(inputBuffer));
         getline(inputFile,inputBuffer);
         ui->lineEdit_Module3Parameter4Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module3_CustomParameter4Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module3_CustomParameter4Name->setText(QString::fromStdString(inputBuffer));
 
         /*Initialize settable parameter names from file*/
         getline(inputFile,inputBuffer);
@@ -1092,9 +1068,6 @@ void MainWindow::sendGraphPacket(UartPacket uartPacket)
 
 void MainWindow::updateGUI()
 {
-    /*Offset introduced to omit power, voltage etc. parameters*/
-    int OFFSET = 4;
-
     QWidget* module1ParameterStateLabelsTable[10];
     QWidget* module2ParameterStateLabelsTable[10];
     QWidget* module3ParameterStateLabelsTable[10];
@@ -1104,12 +1077,12 @@ void MainWindow::updateGUI()
 
     for(int i = 0; i<10; i++)
     {
-        module1ParameterStateLabelsTable[i] = ui->Module1ParameterStates->itemAt(i + OFFSET)->widget();
-        module2ParameterStateLabelsTable[i] = ui->Module2ParameterStates->itemAt(i + OFFSET)->widget();
-        module3ParameterStateLabelsTable[i] = ui->Module3ParameterStates->itemAt(i + OFFSET)->widget();
-        module1ParameterValueLabelsTable[i] = ui->ValuesModule1Parameters->itemAt(i + OFFSET)->widget();
-        module2ParameterValueLabelsTable[i] = ui->ValuesModule2Parameters->itemAt(i + OFFSET)->widget();
-        module3ParameterValueLabelsTable[i] = ui->ValuesModule3Parameters->itemAt(i + OFFSET)->widget();
+        module1ParameterStateLabelsTable[i] = ui->Module1ParameterStates->itemAt(i)->widget();
+        module2ParameterStateLabelsTable[i] = ui->Module2ParameterStates->itemAt(i)->widget();
+        module3ParameterStateLabelsTable[i] = ui->Module3ParameterStates->itemAt(i)->widget();
+        module1ParameterValueLabelsTable[i] = ui->ValuesModule1Parameters->itemAt(i)->widget();
+        module2ParameterValueLabelsTable[i] = ui->ValuesModule2Parameters->itemAt(i)->widget();
+        module3ParameterValueLabelsTable[i] = ui->ValuesModule3Parameters->itemAt(i)->widget();
     }
 
     for(int i = 0; i<10; i++)
