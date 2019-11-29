@@ -33,6 +33,140 @@ class Ui_MainWindow
 public:
     QWidget *centralWidget;
     QGridLayout *gridLayout_8;
+    QHBoxLayout *horizontalLayout;
+    QVBoxLayout *verticalLayout_4;
+    QGroupBox *groupBox_ComPortControls;
+    QGridLayout *gridLayout_3;
+    QLabel *label_Status;
+    QPushButton *pushButton_Open;
+    QPushButton *pushButton_Close;
+    QLabel *label_SerialPort;
+    QLabel *label_ShowStatus;
+    QComboBox *comboBox_Port;
+    QGroupBox *groupBox_ModuleControls;
+    QGridLayout *gridLayout_9;
+    QVBoxLayout *verticalLayout;
+    QGridLayout *gridLayout;
+    QLabel *label_Module1InitParameter1Name;
+    QLineEdit *lineEdit_Module1InitParameter1Value;
+    QLabel *label_Module1InitParameter2Name;
+    QLineEdit *lineEdit_Module1InitParameter2Value;
+    QLabel *label_Module1InitParameter3Name;
+    QLineEdit *lineEdit_Module1InitParameter3Value;
+    QLabel *label_Module1InitParameter4Name;
+    QLineEdit *lineEdit_Module1InitParameter4Value;
+    QLabel *label_Module1InitParameter5Name;
+    QLineEdit *lineEdit_Module1InitParameter5Value;
+    QLabel *label_Module1Parameter1Name;
+    QLineEdit *lineEdit_Module1Parameter1Name;
+    QLabel *label_Module1Parameter2Name;
+    QLineEdit *lineEdit_Module1Parameter2Name;
+    QLabel *label_Module1Parameter3Name;
+    QLineEdit *lineEdit_Module1Parameter3Name;
+    QLabel *label_Module1Parameter4Name;
+    QLineEdit *lineEdit_Module1Parameter4Name;
+    QPushButton *pushButton_InitConnectionModule1;
+    QPushButton *pushButton_DeinitConnectionModule1;
+    QVBoxLayout *verticalLayout_2;
+    QGridLayout *gridLayout_10;
+    QLabel *label_Module2InitParameter1Name;
+    QLineEdit *lineEdit_Module2InitParameter1Value;
+    QLabel *label_Module2InitParameter2Name;
+    QLineEdit *lineEdit_Module2InitParameter2Value;
+    QLabel *label_Module2InitParameter3Name;
+    QLineEdit *lineEdit_Module2InitParameter3Value;
+    QLabel *label_Module2InitParameter4Name;
+    QLineEdit *lineEdit_Module2InitParameter4Value;
+    QLabel *label_Module2InitParameter5Name;
+    QLineEdit *lineEdit_Module2InitParameter5Value;
+    QLabel *label_Module2Parameter1Name;
+    QLineEdit *lineEdit_Module2Parameter1Name;
+    QLabel *label_Module2Parameter2Name;
+    QLineEdit *lineEdit_Module2Parameter2Name;
+    QLabel *label_Module2Parameter3Name;
+    QLineEdit *lineEdit_Module2Parameter3Name;
+    QLabel *label_Module2Parameter4Name;
+    QLineEdit *lineEdit_Module2Parameter4Name;
+    QPushButton *pushButton_InitConnectionModule2;
+    QPushButton *pushButton_DeinitConnectionModule2;
+    QVBoxLayout *verticalLayout_3;
+    QGridLayout *gridLayout_11;
+    QLabel *label_Module3InitParameter1Name;
+    QLineEdit *lineEdit_Module3InitParameter1Value;
+    QLabel *label_Module3InitParameter2Name;
+    QLineEdit *lineEdit_Module3InitParameter2Value;
+    QLabel *label_Module3InitParameter3Name;
+    QLineEdit *lineEdit_Module3InitParameter3Value;
+    QLabel *label_Module3InitParameter4Name;
+    QLineEdit *lineEdit_Module3InitParameter4Value;
+    QLabel *label_Module3InitParameter5Name;
+    QLineEdit *lineEdit_Module3InitParameter5Value;
+    QLabel *label_Module3Parameter1Name;
+    QLineEdit *lineEdit_Module3Parameter1Name;
+    QLabel *label_Module3Parameter2Name;
+    QLineEdit *lineEdit_Module3Parameter2Name;
+    QLabel *label_Module3Parameter3Name;
+    QLineEdit *lineEdit_Module3Parameter3Name;
+    QLabel *label_Module3Parameter4Name;
+    QLineEdit *lineEdit_Module3Parameter4Name;
+    QPushButton *pushButton_InitConnectionModule3;
+    QPushButton *pushButton_DeinitConnectionModule3;
+    QGroupBox *groupBox_CustomPacketControls;
+    QGridLayout *gridLayout_2;
+    QComboBox *comboBox_CustomPacketModule;
+    QLabel *label_Type;
+    QLabel *label_Sign;
+    QLineEdit *lineEdit_Type;
+    QPushButton *pushButton_SendWrongCrcPacket;
+    QPushButton *pushButton_Send;
+    QLabel *label_Source;
+    QLineEdit *lineEdit_Sign;
+    QLineEdit *lineEdit_Length;
+    QLabel *label_CustomPacketModule;
+    QLabel *label_Payload;
+    QComboBox *comboBox_Parameter;
+    QLineEdit *lineEdit_Payload;
+    QLabel *label_Length;
+    QLineEdit *lineEdit_Source;
+    QLabel *label_Parameter;
+    QGroupBox *groupBox_GraphControls;
+    QGridLayout *gridLayout_4;
+    QLineEdit *lineEdit_StartLinear;
+    QLineEdit *lineEdit_RangeMaximum;
+    QLabel *label_SignalCount;
+    QPushButton *pushButton_Stop;
+    QLabel *label_Linear;
+    QPushButton *pushButton_SetRanges;
+    QPushButton *pushButton_StartSine;
+    QFrame *line_1;
+    QFrame *line_3;
+    QLabel *label_StepLinear;
+    QComboBox *comboBox_GraphSignalCount;
+    QLabel *label_RangeMaximum;
+    QLabel *label_StopDegrees;
+    QLineEdit *lineEdit_MultiplierSine;
+    QLabel *label_MultiplierSine;
+    QLineEdit *lineEdit_StepLinear;
+    QFrame *line_2;
+    QLabel *label_RangeMinimum;
+    QFrame *line_4;
+    QLabel *label_TimeRange;
+    QLabel *label_GraphModule;
+    QLabel *label_Sine;
+    QLineEdit *lineEdit_StopDegrees;
+    QComboBox *comboBox_GraphModule;
+    QPushButton *pushButton_StartLinear;
+    QLineEdit *lineEdit_StartDegrees;
+    QLabel *label_StopLinear;
+    QLineEdit *lineEdit_RangeMinimum;
+    QLabel *label_StartLinear;
+    QLineEdit *lineEdit_StopLinear;
+    QLabel *label_StartDegrees;
+    QComboBox *comboBox_TimeRange;
+    QGroupBox *groupBox_PacketDisplay;
+    QGridLayout *gridLayout_12;
+    QTableWidget *tableWidget_PacketDisplay;
+    QPushButton *pushButton_ClearTable;
     QHBoxLayout *horizontalLayout_2;
     QGroupBox *groupBox_Module1;
     QGridLayout *gridLayout_5;
@@ -139,140 +273,6 @@ public:
     QLCDNumber *lcdNumber_Value_Module3_SettableParameter8;
     QLCDNumber *lcdNumber_Value_Module3_SettableParameter9;
     QLCDNumber *lcdNumber_Value_Module3_SettableParameter10;
-    QGroupBox *groupBox_PacketDisplay;
-    QGridLayout *gridLayout_12;
-    QTableWidget *tableWidget_PacketDisplay;
-    QPushButton *pushButton_ClearTable;
-    QHBoxLayout *horizontalLayout;
-    QVBoxLayout *verticalLayout_4;
-    QGroupBox *groupBox_ComPortControls;
-    QGridLayout *gridLayout_3;
-    QLabel *label_Status;
-    QPushButton *pushButton_Open;
-    QPushButton *pushButton_Close;
-    QLabel *label_SerialPort;
-    QLabel *label_ShowStatus;
-    QComboBox *comboBox_Port;
-    QGroupBox *groupBox_ModuleControls;
-    QGridLayout *gridLayout_9;
-    QVBoxLayout *verticalLayout;
-    QGridLayout *gridLayout;
-    QLabel *label_Module1InitParameter1Name;
-    QLineEdit *lineEdit_Module1InitParameter1Value;
-    QLabel *label_Module1InitParameter2Name;
-    QLineEdit *lineEdit_Module1InitParameter2Value;
-    QLabel *label_Module1InitParameter3Name;
-    QLineEdit *lineEdit_Module1InitParameter3Value;
-    QLabel *label_Module1InitParameter4Name;
-    QLineEdit *lineEdit_Module1InitParameter4Value;
-    QLabel *label_Module1InitParameter5Name;
-    QLineEdit *lineEdit_Module1InitParameter5Value;
-    QLabel *label_Module1Parameter1Name;
-    QLineEdit *lineEdit_Module1Parameter1Name;
-    QLabel *label_Module1Parameter2Name;
-    QLineEdit *lineEdit_Module1Parameter2Name;
-    QLabel *label_Module1Parameter3Name;
-    QLineEdit *lineEdit_Module1Parameter3Name;
-    QLabel *label_Module1Parameter4Name;
-    QLineEdit *lineEdit_Module1Parameter4Name;
-    QPushButton *pushButton_InitConnectionModule1;
-    QPushButton *pushButton_DeinitConnectionModule1;
-    QVBoxLayout *verticalLayout_2;
-    QGridLayout *gridLayout_10;
-    QLabel *label_Module2InitParameter1Name;
-    QLineEdit *lineEdit_Module2InitParameter1Value;
-    QLabel *label_Module2InitParameter2Name;
-    QLineEdit *lineEdit_Module2InitParameter2Value;
-    QLabel *label_Module2InitParameter3Name;
-    QLineEdit *lineEdit_Module2InitParameter3Value;
-    QLabel *label_Module2InitParameter4Name;
-    QLineEdit *lineEdit_Module2InitParameter4Value;
-    QLabel *label_Module2InitParameter5Name;
-    QLineEdit *lineEdit_Module2InitParameter5Value;
-    QLabel *label_Module2Parameter1Name;
-    QLineEdit *lineEdit_Module2Parameter1Name;
-    QLabel *label_Module2Parameter2Name;
-    QLineEdit *lineEdit_Module2Parameter2Name;
-    QLabel *label_Module2Parameter3Name;
-    QLineEdit *lineEdit_Module2Parameter3Name;
-    QLabel *label_Module2Parameter4Name;
-    QLineEdit *lineEdit_Module2Parameter4Name;
-    QPushButton *pushButton_InitConnectionModule2;
-    QPushButton *pushButton_DeinitConnectionModule2;
-    QVBoxLayout *verticalLayout_3;
-    QGridLayout *gridLayout_11;
-    QLabel *label_Module3InitParameter1Name;
-    QLineEdit *lineEdit_Module3InitParameter1Value;
-    QLabel *label_Module3InitParameter2Name;
-    QLineEdit *lineEdit_Module3InitParameter2Value;
-    QLabel *label_Module3InitParameter3Name;
-    QLineEdit *lineEdit_Module3InitParameter3Value;
-    QLabel *label_Module3InitParameter4Name;
-    QLineEdit *lineEdit_Module3InitParameter4Value;
-    QLabel *label_Module3InitParameter5Name;
-    QLineEdit *lineEdit_Module3InitParameter5Value;
-    QLabel *label_Module3Parameter1Name;
-    QLineEdit *lineEdit_Module3Parameter1Name;
-    QLabel *label_Module3Parameter2Name;
-    QLineEdit *lineEdit_Module3Parameter2Name;
-    QLabel *label_Module3Parameter3Name;
-    QLineEdit *lineEdit_Module3Parameter3Name;
-    QLabel *label_Module3Parameter4Name;
-    QLineEdit *lineEdit_Module3Parameter4Name;
-    QPushButton *pushButton_InitConnectionModule3;
-    QPushButton *pushButton_DeinitConnectionModule3;
-    QGroupBox *groupBox_CustomPacketControls;
-    QGridLayout *gridLayout_2;
-    QComboBox *comboBox_CustomPacketModule;
-    QLabel *label_Type;
-    QLabel *label_Sign;
-    QLineEdit *lineEdit_Type;
-    QPushButton *pushButton_SendWrongCrcPacket;
-    QPushButton *pushButton_Send;
-    QLabel *label_Source;
-    QLineEdit *lineEdit_Sign;
-    QLineEdit *lineEdit_Length;
-    QLabel *label_CustomPacketModule;
-    QLabel *label_Payload;
-    QComboBox *comboBox_Parameter;
-    QLineEdit *lineEdit_Payload;
-    QLabel *label_Length;
-    QLineEdit *lineEdit_Source;
-    QLabel *label_Parameter;
-    QGroupBox *groupBox_GraphControls;
-    QGridLayout *gridLayout_4;
-    QLabel *label_StartLinear;
-    QFrame *line_2;
-    QLabel *label_SignalCount;
-    QLabel *label_StepLinear;
-    QLineEdit *lineEdit_RangeMaximum;
-    QLabel *label_StartDegrees;
-    QLineEdit *lineEdit_StepLinear;
-    QLineEdit *lineEdit_StopDegrees;
-    QFrame *line_3;
-    QLabel *label_Linear;
-    QPushButton *pushButton_Stop;
-    QLabel *label_RangeMaximum;
-    QPushButton *pushButton_SetRanges;
-    QComboBox *comboBox_GraphModule;
-    QPushButton *pushButton_StartLinear;
-    QComboBox *comboBox_GraphSignalCount;
-    QLabel *label_Sine;
-    QLineEdit *lineEdit_RangeMinimum;
-    QPushButton *pushButton_StartSine;
-    QLabel *label_RangeMinimum;
-    QFrame *line_1;
-    QLineEdit *lineEdit_StartLinear;
-    QLineEdit *lineEdit_StopLinear;
-    QLabel *label_MultiplierSine;
-    QLineEdit *lineEdit_MultiplierSine;
-    QLabel *label_StopDegrees;
-    QLineEdit *lineEdit_TimeRange;
-    QLineEdit *lineEdit_StartDegrees;
-    QLabel *label_GraphModule;
-    QFrame *line_4;
-    QLabel *label_StopLinear;
-    QLabel *label_TimeRange;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -287,8 +287,989 @@ public:
         gridLayout_8->setSpacing(6);
         gridLayout_8->setContentsMargins(11, 11, 11, 11);
         gridLayout_8->setObjectName(QString::fromUtf8("gridLayout_8"));
-        gridLayout_8->setVerticalSpacing(0);
-        gridLayout_8->setContentsMargins(-1, 0, -1, 0);
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        verticalLayout_4 = new QVBoxLayout();
+        verticalLayout_4->setSpacing(6);
+        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
+        groupBox_ComPortControls = new QGroupBox(centralWidget);
+        groupBox_ComPortControls->setObjectName(QString::fromUtf8("groupBox_ComPortControls"));
+        QFont font;
+        font.setBold(true);
+        font.setItalic(false);
+        font.setWeight(75);
+        groupBox_ComPortControls->setFont(font);
+        groupBox_ComPortControls->setStyleSheet(QString::fromUtf8("font:bold"));
+        groupBox_ComPortControls->setAlignment(Qt::AlignCenter);
+        groupBox_ComPortControls->setFlat(false);
+        groupBox_ComPortControls->setCheckable(false);
+        gridLayout_3 = new QGridLayout(groupBox_ComPortControls);
+        gridLayout_3->setSpacing(6);
+        gridLayout_3->setContentsMargins(11, 11, 11, 11);
+        gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
+        gridLayout_3->setVerticalSpacing(0);
+        gridLayout_3->setContentsMargins(-1, 0, -1, 0);
+        label_Status = new QLabel(groupBox_ComPortControls);
+        label_Status->setObjectName(QString::fromUtf8("label_Status"));
+        label_Status->setAlignment(Qt::AlignCenter);
+
+        gridLayout_3->addWidget(label_Status, 0, 0, 1, 1);
+
+        pushButton_Open = new QPushButton(groupBox_ComPortControls);
+        pushButton_Open->setObjectName(QString::fromUtf8("pushButton_Open"));
+
+        gridLayout_3->addWidget(pushButton_Open, 2, 0, 1, 1);
+
+        pushButton_Close = new QPushButton(groupBox_ComPortControls);
+        pushButton_Close->setObjectName(QString::fromUtf8("pushButton_Close"));
+
+        gridLayout_3->addWidget(pushButton_Close, 2, 1, 1, 1);
+
+        label_SerialPort = new QLabel(groupBox_ComPortControls);
+        label_SerialPort->setObjectName(QString::fromUtf8("label_SerialPort"));
+        label_SerialPort->setAlignment(Qt::AlignCenter);
+
+        gridLayout_3->addWidget(label_SerialPort, 1, 0, 1, 1);
+
+        label_ShowStatus = new QLabel(groupBox_ComPortControls);
+        label_ShowStatus->setObjectName(QString::fromUtf8("label_ShowStatus"));
+        label_ShowStatus->setStyleSheet(QString::fromUtf8("color: rgb(255, 0, 0);"));
+        label_ShowStatus->setTextFormat(Qt::RichText);
+        label_ShowStatus->setAlignment(Qt::AlignCenter);
+
+        gridLayout_3->addWidget(label_ShowStatus, 0, 1, 1, 1);
+
+        comboBox_Port = new QComboBox(groupBox_ComPortControls);
+        comboBox_Port->setObjectName(QString::fromUtf8("comboBox_Port"));
+        comboBox_Port->setInsertPolicy(QComboBox::InsertAtBottom);
+        comboBox_Port->setSizeAdjustPolicy(QComboBox::AdjustToContentsOnFirstShow);
+
+        gridLayout_3->addWidget(comboBox_Port, 1, 1, 1, 1);
+
+
+        verticalLayout_4->addWidget(groupBox_ComPortControls);
+
+        groupBox_ModuleControls = new QGroupBox(centralWidget);
+        groupBox_ModuleControls->setObjectName(QString::fromUtf8("groupBox_ModuleControls"));
+        groupBox_ModuleControls->setStyleSheet(QString::fromUtf8("font:bold"));
+        groupBox_ModuleControls->setAlignment(Qt::AlignCenter);
+        gridLayout_9 = new QGridLayout(groupBox_ModuleControls);
+        gridLayout_9->setSpacing(6);
+        gridLayout_9->setContentsMargins(11, 11, 11, 11);
+        gridLayout_9->setObjectName(QString::fromUtf8("gridLayout_9"));
+        gridLayout_9->setVerticalSpacing(0);
+        gridLayout_9->setContentsMargins(-1, 0, -1, 0);
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setSpacing(6);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        gridLayout = new QGridLayout();
+        gridLayout->setSpacing(6);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setVerticalSpacing(0);
+        label_Module1InitParameter1Name = new QLabel(groupBox_ModuleControls);
+        label_Module1InitParameter1Name->setObjectName(QString::fromUtf8("label_Module1InitParameter1Name"));
+        label_Module1InitParameter1Name->setAlignment(Qt::AlignCenter);
+
+        gridLayout->addWidget(label_Module1InitParameter1Name, 0, 0, 1, 1);
+
+        lineEdit_Module1InitParameter1Value = new QLineEdit(groupBox_ModuleControls);
+        lineEdit_Module1InitParameter1Value->setObjectName(QString::fromUtf8("lineEdit_Module1InitParameter1Value"));
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(lineEdit_Module1InitParameter1Value->sizePolicy().hasHeightForWidth());
+        lineEdit_Module1InitParameter1Value->setSizePolicy(sizePolicy);
+        lineEdit_Module1InitParameter1Value->setReadOnly(true);
+
+        gridLayout->addWidget(lineEdit_Module1InitParameter1Value, 0, 1, 1, 1);
+
+        label_Module1InitParameter2Name = new QLabel(groupBox_ModuleControls);
+        label_Module1InitParameter2Name->setObjectName(QString::fromUtf8("label_Module1InitParameter2Name"));
+        label_Module1InitParameter2Name->setAlignment(Qt::AlignCenter);
+
+        gridLayout->addWidget(label_Module1InitParameter2Name, 1, 0, 1, 1);
+
+        lineEdit_Module1InitParameter2Value = new QLineEdit(groupBox_ModuleControls);
+        lineEdit_Module1InitParameter2Value->setObjectName(QString::fromUtf8("lineEdit_Module1InitParameter2Value"));
+        sizePolicy.setHeightForWidth(lineEdit_Module1InitParameter2Value->sizePolicy().hasHeightForWidth());
+        lineEdit_Module1InitParameter2Value->setSizePolicy(sizePolicy);
+        lineEdit_Module1InitParameter2Value->setReadOnly(true);
+
+        gridLayout->addWidget(lineEdit_Module1InitParameter2Value, 1, 1, 1, 1);
+
+        label_Module1InitParameter3Name = new QLabel(groupBox_ModuleControls);
+        label_Module1InitParameter3Name->setObjectName(QString::fromUtf8("label_Module1InitParameter3Name"));
+        label_Module1InitParameter3Name->setAlignment(Qt::AlignCenter);
+
+        gridLayout->addWidget(label_Module1InitParameter3Name, 2, 0, 1, 1);
+
+        lineEdit_Module1InitParameter3Value = new QLineEdit(groupBox_ModuleControls);
+        lineEdit_Module1InitParameter3Value->setObjectName(QString::fromUtf8("lineEdit_Module1InitParameter3Value"));
+        sizePolicy.setHeightForWidth(lineEdit_Module1InitParameter3Value->sizePolicy().hasHeightForWidth());
+        lineEdit_Module1InitParameter3Value->setSizePolicy(sizePolicy);
+        lineEdit_Module1InitParameter3Value->setReadOnly(true);
+
+        gridLayout->addWidget(lineEdit_Module1InitParameter3Value, 2, 1, 1, 1);
+
+        label_Module1InitParameter4Name = new QLabel(groupBox_ModuleControls);
+        label_Module1InitParameter4Name->setObjectName(QString::fromUtf8("label_Module1InitParameter4Name"));
+        label_Module1InitParameter4Name->setAlignment(Qt::AlignCenter);
+
+        gridLayout->addWidget(label_Module1InitParameter4Name, 3, 0, 1, 1);
+
+        lineEdit_Module1InitParameter4Value = new QLineEdit(groupBox_ModuleControls);
+        lineEdit_Module1InitParameter4Value->setObjectName(QString::fromUtf8("lineEdit_Module1InitParameter4Value"));
+        sizePolicy.setHeightForWidth(lineEdit_Module1InitParameter4Value->sizePolicy().hasHeightForWidth());
+        lineEdit_Module1InitParameter4Value->setSizePolicy(sizePolicy);
+        lineEdit_Module1InitParameter4Value->setReadOnly(true);
+
+        gridLayout->addWidget(lineEdit_Module1InitParameter4Value, 3, 1, 1, 1);
+
+        label_Module1InitParameter5Name = new QLabel(groupBox_ModuleControls);
+        label_Module1InitParameter5Name->setObjectName(QString::fromUtf8("label_Module1InitParameter5Name"));
+        label_Module1InitParameter5Name->setAlignment(Qt::AlignCenter);
+
+        gridLayout->addWidget(label_Module1InitParameter5Name, 4, 0, 1, 1);
+
+        lineEdit_Module1InitParameter5Value = new QLineEdit(groupBox_ModuleControls);
+        lineEdit_Module1InitParameter5Value->setObjectName(QString::fromUtf8("lineEdit_Module1InitParameter5Value"));
+        sizePolicy.setHeightForWidth(lineEdit_Module1InitParameter5Value->sizePolicy().hasHeightForWidth());
+        lineEdit_Module1InitParameter5Value->setSizePolicy(sizePolicy);
+        lineEdit_Module1InitParameter5Value->setReadOnly(true);
+
+        gridLayout->addWidget(lineEdit_Module1InitParameter5Value, 4, 1, 1, 1);
+
+        label_Module1Parameter1Name = new QLabel(groupBox_ModuleControls);
+        label_Module1Parameter1Name->setObjectName(QString::fromUtf8("label_Module1Parameter1Name"));
+        label_Module1Parameter1Name->setAlignment(Qt::AlignCenter);
+
+        gridLayout->addWidget(label_Module1Parameter1Name, 5, 0, 1, 1);
+
+        lineEdit_Module1Parameter1Name = new QLineEdit(groupBox_ModuleControls);
+        lineEdit_Module1Parameter1Name->setObjectName(QString::fromUtf8("lineEdit_Module1Parameter1Name"));
+        sizePolicy.setHeightForWidth(lineEdit_Module1Parameter1Name->sizePolicy().hasHeightForWidth());
+        lineEdit_Module1Parameter1Name->setSizePolicy(sizePolicy);
+        lineEdit_Module1Parameter1Name->setReadOnly(true);
+
+        gridLayout->addWidget(lineEdit_Module1Parameter1Name, 5, 1, 1, 1);
+
+        label_Module1Parameter2Name = new QLabel(groupBox_ModuleControls);
+        label_Module1Parameter2Name->setObjectName(QString::fromUtf8("label_Module1Parameter2Name"));
+        label_Module1Parameter2Name->setAlignment(Qt::AlignCenter);
+
+        gridLayout->addWidget(label_Module1Parameter2Name, 6, 0, 1, 1);
+
+        lineEdit_Module1Parameter2Name = new QLineEdit(groupBox_ModuleControls);
+        lineEdit_Module1Parameter2Name->setObjectName(QString::fromUtf8("lineEdit_Module1Parameter2Name"));
+        sizePolicy.setHeightForWidth(lineEdit_Module1Parameter2Name->sizePolicy().hasHeightForWidth());
+        lineEdit_Module1Parameter2Name->setSizePolicy(sizePolicy);
+        lineEdit_Module1Parameter2Name->setReadOnly(true);
+
+        gridLayout->addWidget(lineEdit_Module1Parameter2Name, 6, 1, 1, 1);
+
+        label_Module1Parameter3Name = new QLabel(groupBox_ModuleControls);
+        label_Module1Parameter3Name->setObjectName(QString::fromUtf8("label_Module1Parameter3Name"));
+        label_Module1Parameter3Name->setAlignment(Qt::AlignCenter);
+
+        gridLayout->addWidget(label_Module1Parameter3Name, 7, 0, 1, 1);
+
+        lineEdit_Module1Parameter3Name = new QLineEdit(groupBox_ModuleControls);
+        lineEdit_Module1Parameter3Name->setObjectName(QString::fromUtf8("lineEdit_Module1Parameter3Name"));
+        sizePolicy.setHeightForWidth(lineEdit_Module1Parameter3Name->sizePolicy().hasHeightForWidth());
+        lineEdit_Module1Parameter3Name->setSizePolicy(sizePolicy);
+        lineEdit_Module1Parameter3Name->setReadOnly(true);
+
+        gridLayout->addWidget(lineEdit_Module1Parameter3Name, 7, 1, 1, 1);
+
+        label_Module1Parameter4Name = new QLabel(groupBox_ModuleControls);
+        label_Module1Parameter4Name->setObjectName(QString::fromUtf8("label_Module1Parameter4Name"));
+        label_Module1Parameter4Name->setAlignment(Qt::AlignCenter);
+
+        gridLayout->addWidget(label_Module1Parameter4Name, 8, 0, 1, 1);
+
+        lineEdit_Module1Parameter4Name = new QLineEdit(groupBox_ModuleControls);
+        lineEdit_Module1Parameter4Name->setObjectName(QString::fromUtf8("lineEdit_Module1Parameter4Name"));
+        sizePolicy.setHeightForWidth(lineEdit_Module1Parameter4Name->sizePolicy().hasHeightForWidth());
+        lineEdit_Module1Parameter4Name->setSizePolicy(sizePolicy);
+        lineEdit_Module1Parameter4Name->setReadOnly(true);
+
+        gridLayout->addWidget(lineEdit_Module1Parameter4Name, 8, 1, 1, 1);
+
+
+        verticalLayout->addLayout(gridLayout);
+
+        pushButton_InitConnectionModule1 = new QPushButton(groupBox_ModuleControls);
+        pushButton_InitConnectionModule1->setObjectName(QString::fromUtf8("pushButton_InitConnectionModule1"));
+        pushButton_InitConnectionModule1->setStyleSheet(QString::fromUtf8("color: blue"));
+
+        verticalLayout->addWidget(pushButton_InitConnectionModule1);
+
+        pushButton_DeinitConnectionModule1 = new QPushButton(groupBox_ModuleControls);
+        pushButton_DeinitConnectionModule1->setObjectName(QString::fromUtf8("pushButton_DeinitConnectionModule1"));
+        pushButton_DeinitConnectionModule1->setStyleSheet(QString::fromUtf8("color: blue"));
+
+        verticalLayout->addWidget(pushButton_DeinitConnectionModule1);
+
+
+        gridLayout_9->addLayout(verticalLayout, 0, 0, 1, 1);
+
+        verticalLayout_2 = new QVBoxLayout();
+        verticalLayout_2->setSpacing(6);
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        gridLayout_10 = new QGridLayout();
+        gridLayout_10->setSpacing(6);
+        gridLayout_10->setObjectName(QString::fromUtf8("gridLayout_10"));
+        gridLayout_10->setVerticalSpacing(0);
+        label_Module2InitParameter1Name = new QLabel(groupBox_ModuleControls);
+        label_Module2InitParameter1Name->setObjectName(QString::fromUtf8("label_Module2InitParameter1Name"));
+        label_Module2InitParameter1Name->setAlignment(Qt::AlignCenter);
+
+        gridLayout_10->addWidget(label_Module2InitParameter1Name, 0, 0, 1, 1);
+
+        lineEdit_Module2InitParameter1Value = new QLineEdit(groupBox_ModuleControls);
+        lineEdit_Module2InitParameter1Value->setObjectName(QString::fromUtf8("lineEdit_Module2InitParameter1Value"));
+        sizePolicy.setHeightForWidth(lineEdit_Module2InitParameter1Value->sizePolicy().hasHeightForWidth());
+        lineEdit_Module2InitParameter1Value->setSizePolicy(sizePolicy);
+        lineEdit_Module2InitParameter1Value->setReadOnly(true);
+
+        gridLayout_10->addWidget(lineEdit_Module2InitParameter1Value, 0, 1, 1, 1);
+
+        label_Module2InitParameter2Name = new QLabel(groupBox_ModuleControls);
+        label_Module2InitParameter2Name->setObjectName(QString::fromUtf8("label_Module2InitParameter2Name"));
+        label_Module2InitParameter2Name->setAlignment(Qt::AlignCenter);
+
+        gridLayout_10->addWidget(label_Module2InitParameter2Name, 1, 0, 1, 1);
+
+        lineEdit_Module2InitParameter2Value = new QLineEdit(groupBox_ModuleControls);
+        lineEdit_Module2InitParameter2Value->setObjectName(QString::fromUtf8("lineEdit_Module2InitParameter2Value"));
+        sizePolicy.setHeightForWidth(lineEdit_Module2InitParameter2Value->sizePolicy().hasHeightForWidth());
+        lineEdit_Module2InitParameter2Value->setSizePolicy(sizePolicy);
+        lineEdit_Module2InitParameter2Value->setReadOnly(true);
+
+        gridLayout_10->addWidget(lineEdit_Module2InitParameter2Value, 1, 1, 1, 1);
+
+        label_Module2InitParameter3Name = new QLabel(groupBox_ModuleControls);
+        label_Module2InitParameter3Name->setObjectName(QString::fromUtf8("label_Module2InitParameter3Name"));
+        label_Module2InitParameter3Name->setAlignment(Qt::AlignCenter);
+
+        gridLayout_10->addWidget(label_Module2InitParameter3Name, 2, 0, 1, 1);
+
+        lineEdit_Module2InitParameter3Value = new QLineEdit(groupBox_ModuleControls);
+        lineEdit_Module2InitParameter3Value->setObjectName(QString::fromUtf8("lineEdit_Module2InitParameter3Value"));
+        sizePolicy.setHeightForWidth(lineEdit_Module2InitParameter3Value->sizePolicy().hasHeightForWidth());
+        lineEdit_Module2InitParameter3Value->setSizePolicy(sizePolicy);
+        lineEdit_Module2InitParameter3Value->setReadOnly(true);
+
+        gridLayout_10->addWidget(lineEdit_Module2InitParameter3Value, 2, 1, 1, 1);
+
+        label_Module2InitParameter4Name = new QLabel(groupBox_ModuleControls);
+        label_Module2InitParameter4Name->setObjectName(QString::fromUtf8("label_Module2InitParameter4Name"));
+        label_Module2InitParameter4Name->setAlignment(Qt::AlignCenter);
+
+        gridLayout_10->addWidget(label_Module2InitParameter4Name, 3, 0, 1, 1);
+
+        lineEdit_Module2InitParameter4Value = new QLineEdit(groupBox_ModuleControls);
+        lineEdit_Module2InitParameter4Value->setObjectName(QString::fromUtf8("lineEdit_Module2InitParameter4Value"));
+        sizePolicy.setHeightForWidth(lineEdit_Module2InitParameter4Value->sizePolicy().hasHeightForWidth());
+        lineEdit_Module2InitParameter4Value->setSizePolicy(sizePolicy);
+        lineEdit_Module2InitParameter4Value->setReadOnly(true);
+
+        gridLayout_10->addWidget(lineEdit_Module2InitParameter4Value, 3, 1, 1, 1);
+
+        label_Module2InitParameter5Name = new QLabel(groupBox_ModuleControls);
+        label_Module2InitParameter5Name->setObjectName(QString::fromUtf8("label_Module2InitParameter5Name"));
+        label_Module2InitParameter5Name->setAlignment(Qt::AlignCenter);
+
+        gridLayout_10->addWidget(label_Module2InitParameter5Name, 4, 0, 1, 1);
+
+        lineEdit_Module2InitParameter5Value = new QLineEdit(groupBox_ModuleControls);
+        lineEdit_Module2InitParameter5Value->setObjectName(QString::fromUtf8("lineEdit_Module2InitParameter5Value"));
+        sizePolicy.setHeightForWidth(lineEdit_Module2InitParameter5Value->sizePolicy().hasHeightForWidth());
+        lineEdit_Module2InitParameter5Value->setSizePolicy(sizePolicy);
+        lineEdit_Module2InitParameter5Value->setReadOnly(true);
+
+        gridLayout_10->addWidget(lineEdit_Module2InitParameter5Value, 4, 1, 1, 1);
+
+        label_Module2Parameter1Name = new QLabel(groupBox_ModuleControls);
+        label_Module2Parameter1Name->setObjectName(QString::fromUtf8("label_Module2Parameter1Name"));
+        label_Module2Parameter1Name->setAlignment(Qt::AlignCenter);
+
+        gridLayout_10->addWidget(label_Module2Parameter1Name, 5, 0, 1, 1);
+
+        lineEdit_Module2Parameter1Name = new QLineEdit(groupBox_ModuleControls);
+        lineEdit_Module2Parameter1Name->setObjectName(QString::fromUtf8("lineEdit_Module2Parameter1Name"));
+        sizePolicy.setHeightForWidth(lineEdit_Module2Parameter1Name->sizePolicy().hasHeightForWidth());
+        lineEdit_Module2Parameter1Name->setSizePolicy(sizePolicy);
+        lineEdit_Module2Parameter1Name->setReadOnly(true);
+
+        gridLayout_10->addWidget(lineEdit_Module2Parameter1Name, 5, 1, 1, 1);
+
+        label_Module2Parameter2Name = new QLabel(groupBox_ModuleControls);
+        label_Module2Parameter2Name->setObjectName(QString::fromUtf8("label_Module2Parameter2Name"));
+        label_Module2Parameter2Name->setAlignment(Qt::AlignCenter);
+
+        gridLayout_10->addWidget(label_Module2Parameter2Name, 6, 0, 1, 1);
+
+        lineEdit_Module2Parameter2Name = new QLineEdit(groupBox_ModuleControls);
+        lineEdit_Module2Parameter2Name->setObjectName(QString::fromUtf8("lineEdit_Module2Parameter2Name"));
+        sizePolicy.setHeightForWidth(lineEdit_Module2Parameter2Name->sizePolicy().hasHeightForWidth());
+        lineEdit_Module2Parameter2Name->setSizePolicy(sizePolicy);
+        lineEdit_Module2Parameter2Name->setReadOnly(true);
+
+        gridLayout_10->addWidget(lineEdit_Module2Parameter2Name, 6, 1, 1, 1);
+
+        label_Module2Parameter3Name = new QLabel(groupBox_ModuleControls);
+        label_Module2Parameter3Name->setObjectName(QString::fromUtf8("label_Module2Parameter3Name"));
+        label_Module2Parameter3Name->setAlignment(Qt::AlignCenter);
+
+        gridLayout_10->addWidget(label_Module2Parameter3Name, 7, 0, 1, 1);
+
+        lineEdit_Module2Parameter3Name = new QLineEdit(groupBox_ModuleControls);
+        lineEdit_Module2Parameter3Name->setObjectName(QString::fromUtf8("lineEdit_Module2Parameter3Name"));
+        sizePolicy.setHeightForWidth(lineEdit_Module2Parameter3Name->sizePolicy().hasHeightForWidth());
+        lineEdit_Module2Parameter3Name->setSizePolicy(sizePolicy);
+        lineEdit_Module2Parameter3Name->setReadOnly(true);
+
+        gridLayout_10->addWidget(lineEdit_Module2Parameter3Name, 7, 1, 1, 1);
+
+        label_Module2Parameter4Name = new QLabel(groupBox_ModuleControls);
+        label_Module2Parameter4Name->setObjectName(QString::fromUtf8("label_Module2Parameter4Name"));
+        label_Module2Parameter4Name->setAlignment(Qt::AlignCenter);
+
+        gridLayout_10->addWidget(label_Module2Parameter4Name, 8, 0, 1, 1);
+
+        lineEdit_Module2Parameter4Name = new QLineEdit(groupBox_ModuleControls);
+        lineEdit_Module2Parameter4Name->setObjectName(QString::fromUtf8("lineEdit_Module2Parameter4Name"));
+        sizePolicy.setHeightForWidth(lineEdit_Module2Parameter4Name->sizePolicy().hasHeightForWidth());
+        lineEdit_Module2Parameter4Name->setSizePolicy(sizePolicy);
+        lineEdit_Module2Parameter4Name->setReadOnly(true);
+
+        gridLayout_10->addWidget(lineEdit_Module2Parameter4Name, 8, 1, 1, 1);
+
+
+        verticalLayout_2->addLayout(gridLayout_10);
+
+        pushButton_InitConnectionModule2 = new QPushButton(groupBox_ModuleControls);
+        pushButton_InitConnectionModule2->setObjectName(QString::fromUtf8("pushButton_InitConnectionModule2"));
+        pushButton_InitConnectionModule2->setStyleSheet(QString::fromUtf8("color: blue"));
+
+        verticalLayout_2->addWidget(pushButton_InitConnectionModule2);
+
+        pushButton_DeinitConnectionModule2 = new QPushButton(groupBox_ModuleControls);
+        pushButton_DeinitConnectionModule2->setObjectName(QString::fromUtf8("pushButton_DeinitConnectionModule2"));
+        pushButton_DeinitConnectionModule2->setStyleSheet(QString::fromUtf8("color: blue"));
+
+        verticalLayout_2->addWidget(pushButton_DeinitConnectionModule2);
+
+
+        gridLayout_9->addLayout(verticalLayout_2, 0, 1, 1, 1);
+
+        verticalLayout_3 = new QVBoxLayout();
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
+        gridLayout_11 = new QGridLayout();
+        gridLayout_11->setSpacing(6);
+        gridLayout_11->setObjectName(QString::fromUtf8("gridLayout_11"));
+        gridLayout_11->setVerticalSpacing(0);
+        label_Module3InitParameter1Name = new QLabel(groupBox_ModuleControls);
+        label_Module3InitParameter1Name->setObjectName(QString::fromUtf8("label_Module3InitParameter1Name"));
+        label_Module3InitParameter1Name->setAlignment(Qt::AlignCenter);
+
+        gridLayout_11->addWidget(label_Module3InitParameter1Name, 0, 0, 1, 1);
+
+        lineEdit_Module3InitParameter1Value = new QLineEdit(groupBox_ModuleControls);
+        lineEdit_Module3InitParameter1Value->setObjectName(QString::fromUtf8("lineEdit_Module3InitParameter1Value"));
+        sizePolicy.setHeightForWidth(lineEdit_Module3InitParameter1Value->sizePolicy().hasHeightForWidth());
+        lineEdit_Module3InitParameter1Value->setSizePolicy(sizePolicy);
+        lineEdit_Module3InitParameter1Value->setReadOnly(true);
+
+        gridLayout_11->addWidget(lineEdit_Module3InitParameter1Value, 0, 1, 1, 1);
+
+        label_Module3InitParameter2Name = new QLabel(groupBox_ModuleControls);
+        label_Module3InitParameter2Name->setObjectName(QString::fromUtf8("label_Module3InitParameter2Name"));
+        label_Module3InitParameter2Name->setAlignment(Qt::AlignCenter);
+
+        gridLayout_11->addWidget(label_Module3InitParameter2Name, 1, 0, 1, 1);
+
+        lineEdit_Module3InitParameter2Value = new QLineEdit(groupBox_ModuleControls);
+        lineEdit_Module3InitParameter2Value->setObjectName(QString::fromUtf8("lineEdit_Module3InitParameter2Value"));
+        sizePolicy.setHeightForWidth(lineEdit_Module3InitParameter2Value->sizePolicy().hasHeightForWidth());
+        lineEdit_Module3InitParameter2Value->setSizePolicy(sizePolicy);
+        lineEdit_Module3InitParameter2Value->setReadOnly(true);
+
+        gridLayout_11->addWidget(lineEdit_Module3InitParameter2Value, 1, 1, 1, 1);
+
+        label_Module3InitParameter3Name = new QLabel(groupBox_ModuleControls);
+        label_Module3InitParameter3Name->setObjectName(QString::fromUtf8("label_Module3InitParameter3Name"));
+        label_Module3InitParameter3Name->setAlignment(Qt::AlignCenter);
+
+        gridLayout_11->addWidget(label_Module3InitParameter3Name, 2, 0, 1, 1);
+
+        lineEdit_Module3InitParameter3Value = new QLineEdit(groupBox_ModuleControls);
+        lineEdit_Module3InitParameter3Value->setObjectName(QString::fromUtf8("lineEdit_Module3InitParameter3Value"));
+        sizePolicy.setHeightForWidth(lineEdit_Module3InitParameter3Value->sizePolicy().hasHeightForWidth());
+        lineEdit_Module3InitParameter3Value->setSizePolicy(sizePolicy);
+        lineEdit_Module3InitParameter3Value->setReadOnly(true);
+
+        gridLayout_11->addWidget(lineEdit_Module3InitParameter3Value, 2, 1, 1, 1);
+
+        label_Module3InitParameter4Name = new QLabel(groupBox_ModuleControls);
+        label_Module3InitParameter4Name->setObjectName(QString::fromUtf8("label_Module3InitParameter4Name"));
+        label_Module3InitParameter4Name->setAlignment(Qt::AlignCenter);
+
+        gridLayout_11->addWidget(label_Module3InitParameter4Name, 3, 0, 1, 1);
+
+        lineEdit_Module3InitParameter4Value = new QLineEdit(groupBox_ModuleControls);
+        lineEdit_Module3InitParameter4Value->setObjectName(QString::fromUtf8("lineEdit_Module3InitParameter4Value"));
+        sizePolicy.setHeightForWidth(lineEdit_Module3InitParameter4Value->sizePolicy().hasHeightForWidth());
+        lineEdit_Module3InitParameter4Value->setSizePolicy(sizePolicy);
+        lineEdit_Module3InitParameter4Value->setReadOnly(true);
+
+        gridLayout_11->addWidget(lineEdit_Module3InitParameter4Value, 3, 1, 1, 1);
+
+        label_Module3InitParameter5Name = new QLabel(groupBox_ModuleControls);
+        label_Module3InitParameter5Name->setObjectName(QString::fromUtf8("label_Module3InitParameter5Name"));
+        label_Module3InitParameter5Name->setAlignment(Qt::AlignCenter);
+
+        gridLayout_11->addWidget(label_Module3InitParameter5Name, 4, 0, 1, 1);
+
+        lineEdit_Module3InitParameter5Value = new QLineEdit(groupBox_ModuleControls);
+        lineEdit_Module3InitParameter5Value->setObjectName(QString::fromUtf8("lineEdit_Module3InitParameter5Value"));
+        sizePolicy.setHeightForWidth(lineEdit_Module3InitParameter5Value->sizePolicy().hasHeightForWidth());
+        lineEdit_Module3InitParameter5Value->setSizePolicy(sizePolicy);
+        lineEdit_Module3InitParameter5Value->setReadOnly(true);
+
+        gridLayout_11->addWidget(lineEdit_Module3InitParameter5Value, 4, 1, 1, 1);
+
+        label_Module3Parameter1Name = new QLabel(groupBox_ModuleControls);
+        label_Module3Parameter1Name->setObjectName(QString::fromUtf8("label_Module3Parameter1Name"));
+        label_Module3Parameter1Name->setAlignment(Qt::AlignCenter);
+
+        gridLayout_11->addWidget(label_Module3Parameter1Name, 5, 0, 1, 1);
+
+        lineEdit_Module3Parameter1Name = new QLineEdit(groupBox_ModuleControls);
+        lineEdit_Module3Parameter1Name->setObjectName(QString::fromUtf8("lineEdit_Module3Parameter1Name"));
+        sizePolicy.setHeightForWidth(lineEdit_Module3Parameter1Name->sizePolicy().hasHeightForWidth());
+        lineEdit_Module3Parameter1Name->setSizePolicy(sizePolicy);
+        lineEdit_Module3Parameter1Name->setReadOnly(true);
+
+        gridLayout_11->addWidget(lineEdit_Module3Parameter1Name, 5, 1, 1, 1);
+
+        label_Module3Parameter2Name = new QLabel(groupBox_ModuleControls);
+        label_Module3Parameter2Name->setObjectName(QString::fromUtf8("label_Module3Parameter2Name"));
+        label_Module3Parameter2Name->setAlignment(Qt::AlignCenter);
+
+        gridLayout_11->addWidget(label_Module3Parameter2Name, 6, 0, 1, 1);
+
+        lineEdit_Module3Parameter2Name = new QLineEdit(groupBox_ModuleControls);
+        lineEdit_Module3Parameter2Name->setObjectName(QString::fromUtf8("lineEdit_Module3Parameter2Name"));
+        sizePolicy.setHeightForWidth(lineEdit_Module3Parameter2Name->sizePolicy().hasHeightForWidth());
+        lineEdit_Module3Parameter2Name->setSizePolicy(sizePolicy);
+        lineEdit_Module3Parameter2Name->setReadOnly(true);
+
+        gridLayout_11->addWidget(lineEdit_Module3Parameter2Name, 6, 1, 1, 1);
+
+        label_Module3Parameter3Name = new QLabel(groupBox_ModuleControls);
+        label_Module3Parameter3Name->setObjectName(QString::fromUtf8("label_Module3Parameter3Name"));
+        label_Module3Parameter3Name->setAlignment(Qt::AlignCenter);
+
+        gridLayout_11->addWidget(label_Module3Parameter3Name, 7, 0, 1, 1);
+
+        lineEdit_Module3Parameter3Name = new QLineEdit(groupBox_ModuleControls);
+        lineEdit_Module3Parameter3Name->setObjectName(QString::fromUtf8("lineEdit_Module3Parameter3Name"));
+        sizePolicy.setHeightForWidth(lineEdit_Module3Parameter3Name->sizePolicy().hasHeightForWidth());
+        lineEdit_Module3Parameter3Name->setSizePolicy(sizePolicy);
+        lineEdit_Module3Parameter3Name->setReadOnly(true);
+
+        gridLayout_11->addWidget(lineEdit_Module3Parameter3Name, 7, 1, 1, 1);
+
+        label_Module3Parameter4Name = new QLabel(groupBox_ModuleControls);
+        label_Module3Parameter4Name->setObjectName(QString::fromUtf8("label_Module3Parameter4Name"));
+        label_Module3Parameter4Name->setAlignment(Qt::AlignCenter);
+
+        gridLayout_11->addWidget(label_Module3Parameter4Name, 8, 0, 1, 1);
+
+        lineEdit_Module3Parameter4Name = new QLineEdit(groupBox_ModuleControls);
+        lineEdit_Module3Parameter4Name->setObjectName(QString::fromUtf8("lineEdit_Module3Parameter4Name"));
+        sizePolicy.setHeightForWidth(lineEdit_Module3Parameter4Name->sizePolicy().hasHeightForWidth());
+        lineEdit_Module3Parameter4Name->setSizePolicy(sizePolicy);
+        lineEdit_Module3Parameter4Name->setReadOnly(true);
+
+        gridLayout_11->addWidget(lineEdit_Module3Parameter4Name, 8, 1, 1, 1);
+
+
+        verticalLayout_3->addLayout(gridLayout_11);
+
+        pushButton_InitConnectionModule3 = new QPushButton(groupBox_ModuleControls);
+        pushButton_InitConnectionModule3->setObjectName(QString::fromUtf8("pushButton_InitConnectionModule3"));
+        pushButton_InitConnectionModule3->setStyleSheet(QString::fromUtf8("color: blue"));
+
+        verticalLayout_3->addWidget(pushButton_InitConnectionModule3);
+
+        pushButton_DeinitConnectionModule3 = new QPushButton(groupBox_ModuleControls);
+        pushButton_DeinitConnectionModule3->setObjectName(QString::fromUtf8("pushButton_DeinitConnectionModule3"));
+        pushButton_DeinitConnectionModule3->setStyleSheet(QString::fromUtf8("color: blue"));
+
+        verticalLayout_3->addWidget(pushButton_DeinitConnectionModule3);
+
+
+        gridLayout_9->addLayout(verticalLayout_3, 0, 2, 1, 1);
+
+
+        verticalLayout_4->addWidget(groupBox_ModuleControls);
+
+
+        horizontalLayout->addLayout(verticalLayout_4);
+
+        groupBox_CustomPacketControls = new QGroupBox(centralWidget);
+        groupBox_CustomPacketControls->setObjectName(QString::fromUtf8("groupBox_CustomPacketControls"));
+        groupBox_CustomPacketControls->setStyleSheet(QString::fromUtf8("font:bold"));
+        groupBox_CustomPacketControls->setAlignment(Qt::AlignCenter);
+        gridLayout_2 = new QGridLayout(groupBox_CustomPacketControls);
+        gridLayout_2->setSpacing(6);
+        gridLayout_2->setContentsMargins(11, 11, 11, 11);
+        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
+        gridLayout_2->setVerticalSpacing(0);
+        gridLayout_2->setContentsMargins(-1, 0, -1, 0);
+        comboBox_CustomPacketModule = new QComboBox(groupBox_CustomPacketControls);
+        comboBox_CustomPacketModule->addItem(QString());
+        comboBox_CustomPacketModule->addItem(QString());
+        comboBox_CustomPacketModule->addItem(QString());
+        comboBox_CustomPacketModule->setObjectName(QString::fromUtf8("comboBox_CustomPacketModule"));
+        sizePolicy.setHeightForWidth(comboBox_CustomPacketModule->sizePolicy().hasHeightForWidth());
+        comboBox_CustomPacketModule->setSizePolicy(sizePolicy);
+
+        gridLayout_2->addWidget(comboBox_CustomPacketModule, 1, 1, 1, 1);
+
+        label_Type = new QLabel(groupBox_CustomPacketControls);
+        label_Type->setObjectName(QString::fromUtf8("label_Type"));
+        label_Type->setAlignment(Qt::AlignCenter);
+
+        gridLayout_2->addWidget(label_Type, 2, 0, 1, 1);
+
+        label_Sign = new QLabel(groupBox_CustomPacketControls);
+        label_Sign->setObjectName(QString::fromUtf8("label_Sign"));
+        label_Sign->setAlignment(Qt::AlignCenter);
+
+        gridLayout_2->addWidget(label_Sign, 4, 0, 1, 1);
+
+        lineEdit_Type = new QLineEdit(groupBox_CustomPacketControls);
+        lineEdit_Type->setObjectName(QString::fromUtf8("lineEdit_Type"));
+        sizePolicy.setHeightForWidth(lineEdit_Type->sizePolicy().hasHeightForWidth());
+        lineEdit_Type->setSizePolicy(sizePolicy);
+        lineEdit_Type->setReadOnly(true);
+
+        gridLayout_2->addWidget(lineEdit_Type, 2, 1, 1, 1);
+
+        pushButton_SendWrongCrcPacket = new QPushButton(groupBox_CustomPacketControls);
+        pushButton_SendWrongCrcPacket->setObjectName(QString::fromUtf8("pushButton_SendWrongCrcPacket"));
+        pushButton_SendWrongCrcPacket->setStyleSheet(QString::fromUtf8("color: blue"));
+
+        gridLayout_2->addWidget(pushButton_SendWrongCrcPacket, 8, 0, 1, 2);
+
+        pushButton_Send = new QPushButton(groupBox_CustomPacketControls);
+        pushButton_Send->setObjectName(QString::fromUtf8("pushButton_Send"));
+        pushButton_Send->setStyleSheet(QString::fromUtf8("color: blue"));
+
+        gridLayout_2->addWidget(pushButton_Send, 7, 0, 1, 2);
+
+        label_Source = new QLabel(groupBox_CustomPacketControls);
+        label_Source->setObjectName(QString::fromUtf8("label_Source"));
+        label_Source->setAlignment(Qt::AlignCenter);
+
+        gridLayout_2->addWidget(label_Source, 0, 0, 1, 1);
+
+        lineEdit_Sign = new QLineEdit(groupBox_CustomPacketControls);
+        lineEdit_Sign->setObjectName(QString::fromUtf8("lineEdit_Sign"));
+        sizePolicy.setHeightForWidth(lineEdit_Sign->sizePolicy().hasHeightForWidth());
+        lineEdit_Sign->setSizePolicy(sizePolicy);
+        lineEdit_Sign->setReadOnly(true);
+
+        gridLayout_2->addWidget(lineEdit_Sign, 4, 1, 1, 1);
+
+        lineEdit_Length = new QLineEdit(groupBox_CustomPacketControls);
+        lineEdit_Length->setObjectName(QString::fromUtf8("lineEdit_Length"));
+        sizePolicy.setHeightForWidth(lineEdit_Length->sizePolicy().hasHeightForWidth());
+        lineEdit_Length->setSizePolicy(sizePolicy);
+        lineEdit_Length->setReadOnly(true);
+
+        gridLayout_2->addWidget(lineEdit_Length, 5, 1, 1, 1);
+
+        label_CustomPacketModule = new QLabel(groupBox_CustomPacketControls);
+        label_CustomPacketModule->setObjectName(QString::fromUtf8("label_CustomPacketModule"));
+        label_CustomPacketModule->setAlignment(Qt::AlignCenter);
+
+        gridLayout_2->addWidget(label_CustomPacketModule, 1, 0, 1, 1);
+
+        label_Payload = new QLabel(groupBox_CustomPacketControls);
+        label_Payload->setObjectName(QString::fromUtf8("label_Payload"));
+        label_Payload->setAlignment(Qt::AlignCenter);
+
+        gridLayout_2->addWidget(label_Payload, 6, 0, 1, 1);
+
+        comboBox_Parameter = new QComboBox(groupBox_CustomPacketControls);
+        comboBox_Parameter->addItem(QString());
+        comboBox_Parameter->addItem(QString());
+        comboBox_Parameter->addItem(QString());
+        comboBox_Parameter->addItem(QString());
+        comboBox_Parameter->addItem(QString());
+        comboBox_Parameter->addItem(QString());
+        comboBox_Parameter->addItem(QString());
+        comboBox_Parameter->addItem(QString());
+        comboBox_Parameter->addItem(QString());
+        comboBox_Parameter->addItem(QString());
+        comboBox_Parameter->addItem(QString());
+        comboBox_Parameter->addItem(QString());
+        comboBox_Parameter->addItem(QString());
+        comboBox_Parameter->addItem(QString());
+        comboBox_Parameter->setObjectName(QString::fromUtf8("comboBox_Parameter"));
+        sizePolicy.setHeightForWidth(comboBox_Parameter->sizePolicy().hasHeightForWidth());
+        comboBox_Parameter->setSizePolicy(sizePolicy);
+
+        gridLayout_2->addWidget(comboBox_Parameter, 3, 1, 1, 1);
+
+        lineEdit_Payload = new QLineEdit(groupBox_CustomPacketControls);
+        lineEdit_Payload->setObjectName(QString::fromUtf8("lineEdit_Payload"));
+        sizePolicy.setHeightForWidth(lineEdit_Payload->sizePolicy().hasHeightForWidth());
+        lineEdit_Payload->setSizePolicy(sizePolicy);
+        lineEdit_Payload->setMaxLength(10);
+
+        gridLayout_2->addWidget(lineEdit_Payload, 6, 1, 1, 1);
+
+        label_Length = new QLabel(groupBox_CustomPacketControls);
+        label_Length->setObjectName(QString::fromUtf8("label_Length"));
+        label_Length->setAlignment(Qt::AlignCenter);
+
+        gridLayout_2->addWidget(label_Length, 5, 0, 1, 1);
+
+        lineEdit_Source = new QLineEdit(groupBox_CustomPacketControls);
+        lineEdit_Source->setObjectName(QString::fromUtf8("lineEdit_Source"));
+        sizePolicy.setHeightForWidth(lineEdit_Source->sizePolicy().hasHeightForWidth());
+        lineEdit_Source->setSizePolicy(sizePolicy);
+        lineEdit_Source->setReadOnly(true);
+
+        gridLayout_2->addWidget(lineEdit_Source, 0, 1, 1, 1);
+
+        label_Parameter = new QLabel(groupBox_CustomPacketControls);
+        label_Parameter->setObjectName(QString::fromUtf8("label_Parameter"));
+        label_Parameter->setAlignment(Qt::AlignCenter);
+
+        gridLayout_2->addWidget(label_Parameter, 3, 0, 1, 1);
+
+
+        horizontalLayout->addWidget(groupBox_CustomPacketControls);
+
+        groupBox_GraphControls = new QGroupBox(centralWidget);
+        groupBox_GraphControls->setObjectName(QString::fromUtf8("groupBox_GraphControls"));
+        groupBox_GraphControls->setStyleSheet(QString::fromUtf8("font:bold"));
+        groupBox_GraphControls->setAlignment(Qt::AlignCenter);
+        gridLayout_4 = new QGridLayout(groupBox_GraphControls);
+        gridLayout_4->setSpacing(6);
+        gridLayout_4->setContentsMargins(11, 11, 11, 11);
+        gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
+        gridLayout_4->setVerticalSpacing(3);
+        gridLayout_4->setContentsMargins(-1, 0, -1, 0);
+        lineEdit_StartLinear = new QLineEdit(groupBox_GraphControls);
+        lineEdit_StartLinear->setObjectName(QString::fromUtf8("lineEdit_StartLinear"));
+        sizePolicy.setHeightForWidth(lineEdit_StartLinear->sizePolicy().hasHeightForWidth());
+        lineEdit_StartLinear->setSizePolicy(sizePolicy);
+        lineEdit_StartLinear->setMaxLength(11);
+        lineEdit_StartLinear->setAlignment(Qt::AlignCenter);
+        lineEdit_StartLinear->setReadOnly(false);
+
+        gridLayout_4->addWidget(lineEdit_StartLinear, 10, 1, 1, 1);
+
+        lineEdit_RangeMaximum = new QLineEdit(groupBox_GraphControls);
+        lineEdit_RangeMaximum->setObjectName(QString::fromUtf8("lineEdit_RangeMaximum"));
+        sizePolicy.setHeightForWidth(lineEdit_RangeMaximum->sizePolicy().hasHeightForWidth());
+        lineEdit_RangeMaximum->setSizePolicy(sizePolicy);
+        lineEdit_RangeMaximum->setMaxLength(11);
+        lineEdit_RangeMaximum->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(lineEdit_RangeMaximum, 6, 1, 1, 1);
+
+        label_SignalCount = new QLabel(groupBox_GraphControls);
+        label_SignalCount->setObjectName(QString::fromUtf8("label_SignalCount"));
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(label_SignalCount->sizePolicy().hasHeightForWidth());
+        label_SignalCount->setSizePolicy(sizePolicy1);
+        label_SignalCount->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(label_SignalCount, 1, 0, 1, 1);
+
+        pushButton_Stop = new QPushButton(groupBox_GraphControls);
+        pushButton_Stop->setObjectName(QString::fromUtf8("pushButton_Stop"));
+        sizePolicy.setHeightForWidth(pushButton_Stop->sizePolicy().hasHeightForWidth());
+        pushButton_Stop->setSizePolicy(sizePolicy);
+        pushButton_Stop->setStyleSheet(QString::fromUtf8("color:red"));
+
+        gridLayout_4->addWidget(pushButton_Stop, 35, 0, 1, 2);
+
+        label_Linear = new QLabel(groupBox_GraphControls);
+        label_Linear->setObjectName(QString::fromUtf8("label_Linear"));
+        sizePolicy.setHeightForWidth(label_Linear->sizePolicy().hasHeightForWidth());
+        label_Linear->setSizePolicy(sizePolicy);
+        label_Linear->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(label_Linear, 9, 0, 1, 2);
+
+        pushButton_SetRanges = new QPushButton(groupBox_GraphControls);
+        pushButton_SetRanges->setObjectName(QString::fromUtf8("pushButton_SetRanges"));
+        sizePolicy.setHeightForWidth(pushButton_SetRanges->sizePolicy().hasHeightForWidth());
+        pushButton_SetRanges->setSizePolicy(sizePolicy);
+        pushButton_SetRanges->setStyleSheet(QString::fromUtf8("color:blue"));
+
+        gridLayout_4->addWidget(pushButton_SetRanges, 7, 0, 1, 2);
+
+        pushButton_StartSine = new QPushButton(groupBox_GraphControls);
+        pushButton_StartSine->setObjectName(QString::fromUtf8("pushButton_StartSine"));
+        sizePolicy.setHeightForWidth(pushButton_StartSine->sizePolicy().hasHeightForWidth());
+        pushButton_StartSine->setSizePolicy(sizePolicy);
+        pushButton_StartSine->setStyleSheet(QString::fromUtf8("color: blue"));
+
+        gridLayout_4->addWidget(pushButton_StartSine, 32, 0, 1, 2);
+
+        line_1 = new QFrame(groupBox_GraphControls);
+        line_1->setObjectName(QString::fromUtf8("line_1"));
+        sizePolicy.setHeightForWidth(line_1->sizePolicy().hasHeightForWidth());
+        line_1->setSizePolicy(sizePolicy);
+        line_1->setFrameShape(QFrame::HLine);
+        line_1->setFrameShadow(QFrame::Sunken);
+
+        gridLayout_4->addWidget(line_1, 8, 0, 1, 2);
+
+        line_3 = new QFrame(groupBox_GraphControls);
+        line_3->setObjectName(QString::fromUtf8("line_3"));
+        sizePolicy.setHeightForWidth(line_3->sizePolicy().hasHeightForWidth());
+        line_3->setSizePolicy(sizePolicy);
+        line_3->setFrameShape(QFrame::HLine);
+        line_3->setFrameShadow(QFrame::Sunken);
+
+        gridLayout_4->addWidget(line_3, 18, 0, 1, 2);
+
+        label_StepLinear = new QLabel(groupBox_GraphControls);
+        label_StepLinear->setObjectName(QString::fromUtf8("label_StepLinear"));
+        label_StepLinear->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(label_StepLinear, 13, 0, 1, 1);
+
+        comboBox_GraphSignalCount = new QComboBox(groupBox_GraphControls);
+        comboBox_GraphSignalCount->addItem(QString());
+        comboBox_GraphSignalCount->addItem(QString());
+        comboBox_GraphSignalCount->addItem(QString());
+        comboBox_GraphSignalCount->addItem(QString());
+        comboBox_GraphSignalCount->setObjectName(QString::fromUtf8("comboBox_GraphSignalCount"));
+
+        gridLayout_4->addWidget(comboBox_GraphSignalCount, 1, 1, 1, 1);
+
+        label_RangeMaximum = new QLabel(groupBox_GraphControls);
+        label_RangeMaximum->setObjectName(QString::fromUtf8("label_RangeMaximum"));
+        sizePolicy.setHeightForWidth(label_RangeMaximum->sizePolicy().hasHeightForWidth());
+        label_RangeMaximum->setSizePolicy(sizePolicy);
+        label_RangeMaximum->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(label_RangeMaximum, 5, 1, 1, 1);
+
+        label_StopDegrees = new QLabel(groupBox_GraphControls);
+        label_StopDegrees->setObjectName(QString::fromUtf8("label_StopDegrees"));
+        label_StopDegrees->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(label_StopDegrees, 21, 0, 1, 1);
+
+        lineEdit_MultiplierSine = new QLineEdit(groupBox_GraphControls);
+        lineEdit_MultiplierSine->setObjectName(QString::fromUtf8("lineEdit_MultiplierSine"));
+        sizePolicy.setHeightForWidth(lineEdit_MultiplierSine->sizePolicy().hasHeightForWidth());
+        lineEdit_MultiplierSine->setSizePolicy(sizePolicy);
+        lineEdit_MultiplierSine->setMaxLength(11);
+        lineEdit_MultiplierSine->setAlignment(Qt::AlignCenter);
+        lineEdit_MultiplierSine->setReadOnly(false);
+
+        gridLayout_4->addWidget(lineEdit_MultiplierSine, 22, 1, 1, 1);
+
+        label_MultiplierSine = new QLabel(groupBox_GraphControls);
+        label_MultiplierSine->setObjectName(QString::fromUtf8("label_MultiplierSine"));
+        label_MultiplierSine->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(label_MultiplierSine, 22, 0, 1, 1);
+
+        lineEdit_StepLinear = new QLineEdit(groupBox_GraphControls);
+        lineEdit_StepLinear->setObjectName(QString::fromUtf8("lineEdit_StepLinear"));
+        sizePolicy.setHeightForWidth(lineEdit_StepLinear->sizePolicy().hasHeightForWidth());
+        lineEdit_StepLinear->setSizePolicy(sizePolicy);
+        lineEdit_StepLinear->setMaxLength(11);
+        lineEdit_StepLinear->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(lineEdit_StepLinear, 13, 1, 1, 1);
+
+        line_2 = new QFrame(groupBox_GraphControls);
+        line_2->setObjectName(QString::fromUtf8("line_2"));
+        sizePolicy.setHeightForWidth(line_2->sizePolicy().hasHeightForWidth());
+        line_2->setSizePolicy(sizePolicy);
+        line_2->setFrameShape(QFrame::HLine);
+        line_2->setFrameShadow(QFrame::Sunken);
+
+        gridLayout_4->addWidget(line_2, 2, 0, 1, 2);
+
+        label_RangeMinimum = new QLabel(groupBox_GraphControls);
+        label_RangeMinimum->setObjectName(QString::fromUtf8("label_RangeMinimum"));
+        sizePolicy.setHeightForWidth(label_RangeMinimum->sizePolicy().hasHeightForWidth());
+        label_RangeMinimum->setSizePolicy(sizePolicy);
+        label_RangeMinimum->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(label_RangeMinimum, 5, 0, 1, 1);
+
+        line_4 = new QFrame(groupBox_GraphControls);
+        line_4->setObjectName(QString::fromUtf8("line_4"));
+        sizePolicy.setHeightForWidth(line_4->sizePolicy().hasHeightForWidth());
+        line_4->setSizePolicy(sizePolicy);
+        line_4->setFrameShape(QFrame::HLine);
+        line_4->setFrameShadow(QFrame::Sunken);
+
+        gridLayout_4->addWidget(line_4, 33, 0, 1, 2);
+
+        label_TimeRange = new QLabel(groupBox_GraphControls);
+        label_TimeRange->setObjectName(QString::fromUtf8("label_TimeRange"));
+        label_TimeRange->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(label_TimeRange, 3, 0, 1, 2);
+
+        label_GraphModule = new QLabel(groupBox_GraphControls);
+        label_GraphModule->setObjectName(QString::fromUtf8("label_GraphModule"));
+        sizePolicy1.setHeightForWidth(label_GraphModule->sizePolicy().hasHeightForWidth());
+        label_GraphModule->setSizePolicy(sizePolicy1);
+        label_GraphModule->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(label_GraphModule, 0, 0, 1, 1);
+
+        label_Sine = new QLabel(groupBox_GraphControls);
+        label_Sine->setObjectName(QString::fromUtf8("label_Sine"));
+        sizePolicy.setHeightForWidth(label_Sine->sizePolicy().hasHeightForWidth());
+        label_Sine->setSizePolicy(sizePolicy);
+        label_Sine->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(label_Sine, 19, 0, 1, 2);
+
+        lineEdit_StopDegrees = new QLineEdit(groupBox_GraphControls);
+        lineEdit_StopDegrees->setObjectName(QString::fromUtf8("lineEdit_StopDegrees"));
+        lineEdit_StopDegrees->setMaxLength(11);
+        lineEdit_StopDegrees->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(lineEdit_StopDegrees, 21, 1, 1, 1);
+
+        comboBox_GraphModule = new QComboBox(groupBox_GraphControls);
+        comboBox_GraphModule->addItem(QString());
+        comboBox_GraphModule->addItem(QString());
+        comboBox_GraphModule->addItem(QString());
+        comboBox_GraphModule->setObjectName(QString::fromUtf8("comboBox_GraphModule"));
+        sizePolicy.setHeightForWidth(comboBox_GraphModule->sizePolicy().hasHeightForWidth());
+        comboBox_GraphModule->setSizePolicy(sizePolicy);
+
+        gridLayout_4->addWidget(comboBox_GraphModule, 0, 1, 1, 1);
+
+        pushButton_StartLinear = new QPushButton(groupBox_GraphControls);
+        pushButton_StartLinear->setObjectName(QString::fromUtf8("pushButton_StartLinear"));
+        sizePolicy.setHeightForWidth(pushButton_StartLinear->sizePolicy().hasHeightForWidth());
+        pushButton_StartLinear->setSizePolicy(sizePolicy);
+        pushButton_StartLinear->setStyleSheet(QString::fromUtf8("color: blue"));
+
+        gridLayout_4->addWidget(pushButton_StartLinear, 17, 0, 1, 2);
+
+        lineEdit_StartDegrees = new QLineEdit(groupBox_GraphControls);
+        lineEdit_StartDegrees->setObjectName(QString::fromUtf8("lineEdit_StartDegrees"));
+        lineEdit_StartDegrees->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(lineEdit_StartDegrees, 20, 1, 1, 1);
+
+        label_StopLinear = new QLabel(groupBox_GraphControls);
+        label_StopLinear->setObjectName(QString::fromUtf8("label_StopLinear"));
+        label_StopLinear->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(label_StopLinear, 12, 0, 1, 1);
+
+        lineEdit_RangeMinimum = new QLineEdit(groupBox_GraphControls);
+        lineEdit_RangeMinimum->setObjectName(QString::fromUtf8("lineEdit_RangeMinimum"));
+        sizePolicy.setHeightForWidth(lineEdit_RangeMinimum->sizePolicy().hasHeightForWidth());
+        lineEdit_RangeMinimum->setSizePolicy(sizePolicy);
+        lineEdit_RangeMinimum->setMaxLength(11);
+        lineEdit_RangeMinimum->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(lineEdit_RangeMinimum, 6, 0, 1, 1);
+
+        label_StartLinear = new QLabel(groupBox_GraphControls);
+        label_StartLinear->setObjectName(QString::fromUtf8("label_StartLinear"));
+        label_StartLinear->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(label_StartLinear, 10, 0, 1, 1);
+
+        lineEdit_StopLinear = new QLineEdit(groupBox_GraphControls);
+        lineEdit_StopLinear->setObjectName(QString::fromUtf8("lineEdit_StopLinear"));
+        sizePolicy.setHeightForWidth(lineEdit_StopLinear->sizePolicy().hasHeightForWidth());
+        lineEdit_StopLinear->setSizePolicy(sizePolicy);
+        lineEdit_StopLinear->setMaxLength(11);
+        lineEdit_StopLinear->setAlignment(Qt::AlignCenter);
+        lineEdit_StopLinear->setReadOnly(false);
+
+        gridLayout_4->addWidget(lineEdit_StopLinear, 12, 1, 1, 1);
+
+        label_StartDegrees = new QLabel(groupBox_GraphControls);
+        label_StartDegrees->setObjectName(QString::fromUtf8("label_StartDegrees"));
+        label_StartDegrees->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(label_StartDegrees, 20, 0, 1, 1);
+
+        comboBox_TimeRange = new QComboBox(groupBox_GraphControls);
+        comboBox_TimeRange->addItem(QString());
+        comboBox_TimeRange->addItem(QString());
+        comboBox_TimeRange->addItem(QString());
+        comboBox_TimeRange->addItem(QString());
+        comboBox_TimeRange->addItem(QString());
+        comboBox_TimeRange->addItem(QString());
+        comboBox_TimeRange->addItem(QString());
+        comboBox_TimeRange->addItem(QString());
+        comboBox_TimeRange->addItem(QString());
+        comboBox_TimeRange->addItem(QString());
+        comboBox_TimeRange->setObjectName(QString::fromUtf8("comboBox_TimeRange"));
+        comboBox_TimeRange->setLayoutDirection(Qt::LeftToRight);
+        comboBox_TimeRange->setAutoFillBackground(false);
+
+        gridLayout_4->addWidget(comboBox_TimeRange, 4, 0, 1, 2);
+
+
+        horizontalLayout->addWidget(groupBox_GraphControls);
+
+
+        gridLayout_8->addLayout(horizontalLayout, 0, 0, 1, 1);
+
+        groupBox_PacketDisplay = new QGroupBox(centralWidget);
+        groupBox_PacketDisplay->setObjectName(QString::fromUtf8("groupBox_PacketDisplay"));
+        groupBox_PacketDisplay->setStyleSheet(QString::fromUtf8("font:bold"));
+        groupBox_PacketDisplay->setAlignment(Qt::AlignCenter);
+        gridLayout_12 = new QGridLayout(groupBox_PacketDisplay);
+        gridLayout_12->setSpacing(0);
+        gridLayout_12->setContentsMargins(11, 11, 11, 11);
+        gridLayout_12->setObjectName(QString::fromUtf8("gridLayout_12"));
+        gridLayout_12->setContentsMargins(0, 0, 0, 0);
+        tableWidget_PacketDisplay = new QTableWidget(groupBox_PacketDisplay);
+        tableWidget_PacketDisplay->setObjectName(QString::fromUtf8("tableWidget_PacketDisplay"));
+        tableWidget_PacketDisplay->setRowCount(0);
+        tableWidget_PacketDisplay->setColumnCount(0);
+        tableWidget_PacketDisplay->horizontalHeader()->setMinimumSectionSize(37);
+        tableWidget_PacketDisplay->horizontalHeader()->setDefaultSectionSize(49);
+        tableWidget_PacketDisplay->verticalHeader()->setMinimumSectionSize(23);
+
+        gridLayout_12->addWidget(tableWidget_PacketDisplay, 0, 0, 1, 1);
+
+        pushButton_ClearTable = new QPushButton(groupBox_PacketDisplay);
+        pushButton_ClearTable->setObjectName(QString::fromUtf8("pushButton_ClearTable"));
+
+        gridLayout_12->addWidget(pushButton_ClearTable, 1, 0, 1, 1);
+
+
+        gridLayout_8->addWidget(groupBox_PacketDisplay, 1, 0, 1, 1);
+
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(6);
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
@@ -2616,983 +3597,12 @@ public:
 
         gridLayout_8->addLayout(horizontalLayout_2, 2, 0, 1, 1);
 
-        groupBox_PacketDisplay = new QGroupBox(centralWidget);
-        groupBox_PacketDisplay->setObjectName(QString::fromUtf8("groupBox_PacketDisplay"));
-        groupBox_PacketDisplay->setStyleSheet(QString::fromUtf8("font:bold"));
-        groupBox_PacketDisplay->setAlignment(Qt::AlignCenter);
-        gridLayout_12 = new QGridLayout(groupBox_PacketDisplay);
-        gridLayout_12->setSpacing(0);
-        gridLayout_12->setContentsMargins(11, 11, 11, 11);
-        gridLayout_12->setObjectName(QString::fromUtf8("gridLayout_12"));
-        gridLayout_12->setContentsMargins(0, 0, 0, 0);
-        tableWidget_PacketDisplay = new QTableWidget(groupBox_PacketDisplay);
-        tableWidget_PacketDisplay->setObjectName(QString::fromUtf8("tableWidget_PacketDisplay"));
-        tableWidget_PacketDisplay->setRowCount(0);
-        tableWidget_PacketDisplay->setColumnCount(0);
-        tableWidget_PacketDisplay->horizontalHeader()->setMinimumSectionSize(37);
-        tableWidget_PacketDisplay->horizontalHeader()->setDefaultSectionSize(49);
-        tableWidget_PacketDisplay->verticalHeader()->setMinimumSectionSize(23);
-
-        gridLayout_12->addWidget(tableWidget_PacketDisplay, 0, 0, 1, 1);
-
-        pushButton_ClearTable = new QPushButton(groupBox_PacketDisplay);
-        pushButton_ClearTable->setObjectName(QString::fromUtf8("pushButton_ClearTable"));
-
-        gridLayout_12->addWidget(pushButton_ClearTable, 1, 0, 1, 1);
-
-
-        gridLayout_8->addWidget(groupBox_PacketDisplay, 1, 0, 1, 1);
-
-        horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setSpacing(6);
-        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        verticalLayout_4 = new QVBoxLayout();
-        verticalLayout_4->setSpacing(6);
-        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
-        groupBox_ComPortControls = new QGroupBox(centralWidget);
-        groupBox_ComPortControls->setObjectName(QString::fromUtf8("groupBox_ComPortControls"));
-        QFont font;
-        font.setBold(true);
-        font.setItalic(false);
-        font.setWeight(75);
-        groupBox_ComPortControls->setFont(font);
-        groupBox_ComPortControls->setStyleSheet(QString::fromUtf8("font:bold"));
-        groupBox_ComPortControls->setAlignment(Qt::AlignCenter);
-        groupBox_ComPortControls->setFlat(false);
-        groupBox_ComPortControls->setCheckable(false);
-        gridLayout_3 = new QGridLayout(groupBox_ComPortControls);
-        gridLayout_3->setSpacing(6);
-        gridLayout_3->setContentsMargins(11, 11, 11, 11);
-        gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
-        gridLayout_3->setVerticalSpacing(0);
-        gridLayout_3->setContentsMargins(-1, 0, -1, 0);
-        label_Status = new QLabel(groupBox_ComPortControls);
-        label_Status->setObjectName(QString::fromUtf8("label_Status"));
-        label_Status->setAlignment(Qt::AlignCenter);
-
-        gridLayout_3->addWidget(label_Status, 0, 0, 1, 1);
-
-        pushButton_Open = new QPushButton(groupBox_ComPortControls);
-        pushButton_Open->setObjectName(QString::fromUtf8("pushButton_Open"));
-
-        gridLayout_3->addWidget(pushButton_Open, 2, 0, 1, 1);
-
-        pushButton_Close = new QPushButton(groupBox_ComPortControls);
-        pushButton_Close->setObjectName(QString::fromUtf8("pushButton_Close"));
-
-        gridLayout_3->addWidget(pushButton_Close, 2, 1, 1, 1);
-
-        label_SerialPort = new QLabel(groupBox_ComPortControls);
-        label_SerialPort->setObjectName(QString::fromUtf8("label_SerialPort"));
-        label_SerialPort->setAlignment(Qt::AlignCenter);
-
-        gridLayout_3->addWidget(label_SerialPort, 1, 0, 1, 1);
-
-        label_ShowStatus = new QLabel(groupBox_ComPortControls);
-        label_ShowStatus->setObjectName(QString::fromUtf8("label_ShowStatus"));
-        label_ShowStatus->setStyleSheet(QString::fromUtf8("color: rgb(255, 0, 0);"));
-        label_ShowStatus->setTextFormat(Qt::RichText);
-        label_ShowStatus->setAlignment(Qt::AlignCenter);
-
-        gridLayout_3->addWidget(label_ShowStatus, 0, 1, 1, 1);
-
-        comboBox_Port = new QComboBox(groupBox_ComPortControls);
-        comboBox_Port->setObjectName(QString::fromUtf8("comboBox_Port"));
-        comboBox_Port->setInsertPolicy(QComboBox::InsertAtBottom);
-        comboBox_Port->setSizeAdjustPolicy(QComboBox::AdjustToContentsOnFirstShow);
-
-        gridLayout_3->addWidget(comboBox_Port, 1, 1, 1, 1);
-
-
-        verticalLayout_4->addWidget(groupBox_ComPortControls);
-
-        groupBox_ModuleControls = new QGroupBox(centralWidget);
-        groupBox_ModuleControls->setObjectName(QString::fromUtf8("groupBox_ModuleControls"));
-        groupBox_ModuleControls->setStyleSheet(QString::fromUtf8("font:bold"));
-        groupBox_ModuleControls->setAlignment(Qt::AlignCenter);
-        gridLayout_9 = new QGridLayout(groupBox_ModuleControls);
-        gridLayout_9->setSpacing(6);
-        gridLayout_9->setContentsMargins(11, 11, 11, 11);
-        gridLayout_9->setObjectName(QString::fromUtf8("gridLayout_9"));
-        gridLayout_9->setVerticalSpacing(0);
-        gridLayout_9->setContentsMargins(-1, 0, -1, 0);
-        verticalLayout = new QVBoxLayout();
-        verticalLayout->setSpacing(6);
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        gridLayout = new QGridLayout();
-        gridLayout->setSpacing(6);
-        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        gridLayout->setVerticalSpacing(0);
-        label_Module1InitParameter1Name = new QLabel(groupBox_ModuleControls);
-        label_Module1InitParameter1Name->setObjectName(QString::fromUtf8("label_Module1InitParameter1Name"));
-        label_Module1InitParameter1Name->setAlignment(Qt::AlignCenter);
-
-        gridLayout->addWidget(label_Module1InitParameter1Name, 0, 0, 1, 1);
-
-        lineEdit_Module1InitParameter1Value = new QLineEdit(groupBox_ModuleControls);
-        lineEdit_Module1InitParameter1Value->setObjectName(QString::fromUtf8("lineEdit_Module1InitParameter1Value"));
-        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(lineEdit_Module1InitParameter1Value->sizePolicy().hasHeightForWidth());
-        lineEdit_Module1InitParameter1Value->setSizePolicy(sizePolicy);
-        lineEdit_Module1InitParameter1Value->setReadOnly(true);
-
-        gridLayout->addWidget(lineEdit_Module1InitParameter1Value, 0, 1, 1, 1);
-
-        label_Module1InitParameter2Name = new QLabel(groupBox_ModuleControls);
-        label_Module1InitParameter2Name->setObjectName(QString::fromUtf8("label_Module1InitParameter2Name"));
-        label_Module1InitParameter2Name->setAlignment(Qt::AlignCenter);
-
-        gridLayout->addWidget(label_Module1InitParameter2Name, 1, 0, 1, 1);
-
-        lineEdit_Module1InitParameter2Value = new QLineEdit(groupBox_ModuleControls);
-        lineEdit_Module1InitParameter2Value->setObjectName(QString::fromUtf8("lineEdit_Module1InitParameter2Value"));
-        sizePolicy.setHeightForWidth(lineEdit_Module1InitParameter2Value->sizePolicy().hasHeightForWidth());
-        lineEdit_Module1InitParameter2Value->setSizePolicy(sizePolicy);
-        lineEdit_Module1InitParameter2Value->setReadOnly(true);
-
-        gridLayout->addWidget(lineEdit_Module1InitParameter2Value, 1, 1, 1, 1);
-
-        label_Module1InitParameter3Name = new QLabel(groupBox_ModuleControls);
-        label_Module1InitParameter3Name->setObjectName(QString::fromUtf8("label_Module1InitParameter3Name"));
-        label_Module1InitParameter3Name->setAlignment(Qt::AlignCenter);
-
-        gridLayout->addWidget(label_Module1InitParameter3Name, 2, 0, 1, 1);
-
-        lineEdit_Module1InitParameter3Value = new QLineEdit(groupBox_ModuleControls);
-        lineEdit_Module1InitParameter3Value->setObjectName(QString::fromUtf8("lineEdit_Module1InitParameter3Value"));
-        sizePolicy.setHeightForWidth(lineEdit_Module1InitParameter3Value->sizePolicy().hasHeightForWidth());
-        lineEdit_Module1InitParameter3Value->setSizePolicy(sizePolicy);
-        lineEdit_Module1InitParameter3Value->setReadOnly(true);
-
-        gridLayout->addWidget(lineEdit_Module1InitParameter3Value, 2, 1, 1, 1);
-
-        label_Module1InitParameter4Name = new QLabel(groupBox_ModuleControls);
-        label_Module1InitParameter4Name->setObjectName(QString::fromUtf8("label_Module1InitParameter4Name"));
-        label_Module1InitParameter4Name->setAlignment(Qt::AlignCenter);
-
-        gridLayout->addWidget(label_Module1InitParameter4Name, 3, 0, 1, 1);
-
-        lineEdit_Module1InitParameter4Value = new QLineEdit(groupBox_ModuleControls);
-        lineEdit_Module1InitParameter4Value->setObjectName(QString::fromUtf8("lineEdit_Module1InitParameter4Value"));
-        sizePolicy.setHeightForWidth(lineEdit_Module1InitParameter4Value->sizePolicy().hasHeightForWidth());
-        lineEdit_Module1InitParameter4Value->setSizePolicy(sizePolicy);
-        lineEdit_Module1InitParameter4Value->setReadOnly(true);
-
-        gridLayout->addWidget(lineEdit_Module1InitParameter4Value, 3, 1, 1, 1);
-
-        label_Module1InitParameter5Name = new QLabel(groupBox_ModuleControls);
-        label_Module1InitParameter5Name->setObjectName(QString::fromUtf8("label_Module1InitParameter5Name"));
-        label_Module1InitParameter5Name->setAlignment(Qt::AlignCenter);
-
-        gridLayout->addWidget(label_Module1InitParameter5Name, 4, 0, 1, 1);
-
-        lineEdit_Module1InitParameter5Value = new QLineEdit(groupBox_ModuleControls);
-        lineEdit_Module1InitParameter5Value->setObjectName(QString::fromUtf8("lineEdit_Module1InitParameter5Value"));
-        sizePolicy.setHeightForWidth(lineEdit_Module1InitParameter5Value->sizePolicy().hasHeightForWidth());
-        lineEdit_Module1InitParameter5Value->setSizePolicy(sizePolicy);
-        lineEdit_Module1InitParameter5Value->setReadOnly(true);
-
-        gridLayout->addWidget(lineEdit_Module1InitParameter5Value, 4, 1, 1, 1);
-
-        label_Module1Parameter1Name = new QLabel(groupBox_ModuleControls);
-        label_Module1Parameter1Name->setObjectName(QString::fromUtf8("label_Module1Parameter1Name"));
-        label_Module1Parameter1Name->setAlignment(Qt::AlignCenter);
-
-        gridLayout->addWidget(label_Module1Parameter1Name, 5, 0, 1, 1);
-
-        lineEdit_Module1Parameter1Name = new QLineEdit(groupBox_ModuleControls);
-        lineEdit_Module1Parameter1Name->setObjectName(QString::fromUtf8("lineEdit_Module1Parameter1Name"));
-        sizePolicy.setHeightForWidth(lineEdit_Module1Parameter1Name->sizePolicy().hasHeightForWidth());
-        lineEdit_Module1Parameter1Name->setSizePolicy(sizePolicy);
-        lineEdit_Module1Parameter1Name->setReadOnly(true);
-
-        gridLayout->addWidget(lineEdit_Module1Parameter1Name, 5, 1, 1, 1);
-
-        label_Module1Parameter2Name = new QLabel(groupBox_ModuleControls);
-        label_Module1Parameter2Name->setObjectName(QString::fromUtf8("label_Module1Parameter2Name"));
-        label_Module1Parameter2Name->setAlignment(Qt::AlignCenter);
-
-        gridLayout->addWidget(label_Module1Parameter2Name, 6, 0, 1, 1);
-
-        lineEdit_Module1Parameter2Name = new QLineEdit(groupBox_ModuleControls);
-        lineEdit_Module1Parameter2Name->setObjectName(QString::fromUtf8("lineEdit_Module1Parameter2Name"));
-        sizePolicy.setHeightForWidth(lineEdit_Module1Parameter2Name->sizePolicy().hasHeightForWidth());
-        lineEdit_Module1Parameter2Name->setSizePolicy(sizePolicy);
-        lineEdit_Module1Parameter2Name->setReadOnly(true);
-
-        gridLayout->addWidget(lineEdit_Module1Parameter2Name, 6, 1, 1, 1);
-
-        label_Module1Parameter3Name = new QLabel(groupBox_ModuleControls);
-        label_Module1Parameter3Name->setObjectName(QString::fromUtf8("label_Module1Parameter3Name"));
-        label_Module1Parameter3Name->setAlignment(Qt::AlignCenter);
-
-        gridLayout->addWidget(label_Module1Parameter3Name, 7, 0, 1, 1);
-
-        lineEdit_Module1Parameter3Name = new QLineEdit(groupBox_ModuleControls);
-        lineEdit_Module1Parameter3Name->setObjectName(QString::fromUtf8("lineEdit_Module1Parameter3Name"));
-        sizePolicy.setHeightForWidth(lineEdit_Module1Parameter3Name->sizePolicy().hasHeightForWidth());
-        lineEdit_Module1Parameter3Name->setSizePolicy(sizePolicy);
-        lineEdit_Module1Parameter3Name->setReadOnly(true);
-
-        gridLayout->addWidget(lineEdit_Module1Parameter3Name, 7, 1, 1, 1);
-
-        label_Module1Parameter4Name = new QLabel(groupBox_ModuleControls);
-        label_Module1Parameter4Name->setObjectName(QString::fromUtf8("label_Module1Parameter4Name"));
-        label_Module1Parameter4Name->setAlignment(Qt::AlignCenter);
-
-        gridLayout->addWidget(label_Module1Parameter4Name, 8, 0, 1, 1);
-
-        lineEdit_Module1Parameter4Name = new QLineEdit(groupBox_ModuleControls);
-        lineEdit_Module1Parameter4Name->setObjectName(QString::fromUtf8("lineEdit_Module1Parameter4Name"));
-        sizePolicy.setHeightForWidth(lineEdit_Module1Parameter4Name->sizePolicy().hasHeightForWidth());
-        lineEdit_Module1Parameter4Name->setSizePolicy(sizePolicy);
-        lineEdit_Module1Parameter4Name->setReadOnly(true);
-
-        gridLayout->addWidget(lineEdit_Module1Parameter4Name, 8, 1, 1, 1);
-
-
-        verticalLayout->addLayout(gridLayout);
-
-        pushButton_InitConnectionModule1 = new QPushButton(groupBox_ModuleControls);
-        pushButton_InitConnectionModule1->setObjectName(QString::fromUtf8("pushButton_InitConnectionModule1"));
-        pushButton_InitConnectionModule1->setStyleSheet(QString::fromUtf8("color: blue"));
-
-        verticalLayout->addWidget(pushButton_InitConnectionModule1);
-
-        pushButton_DeinitConnectionModule1 = new QPushButton(groupBox_ModuleControls);
-        pushButton_DeinitConnectionModule1->setObjectName(QString::fromUtf8("pushButton_DeinitConnectionModule1"));
-        pushButton_DeinitConnectionModule1->setStyleSheet(QString::fromUtf8("color: blue"));
-
-        verticalLayout->addWidget(pushButton_DeinitConnectionModule1);
-
-
-        gridLayout_9->addLayout(verticalLayout, 0, 0, 1, 1);
-
-        verticalLayout_2 = new QVBoxLayout();
-        verticalLayout_2->setSpacing(6);
-        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
-        gridLayout_10 = new QGridLayout();
-        gridLayout_10->setSpacing(6);
-        gridLayout_10->setObjectName(QString::fromUtf8("gridLayout_10"));
-        gridLayout_10->setVerticalSpacing(0);
-        label_Module2InitParameter1Name = new QLabel(groupBox_ModuleControls);
-        label_Module2InitParameter1Name->setObjectName(QString::fromUtf8("label_Module2InitParameter1Name"));
-        label_Module2InitParameter1Name->setAlignment(Qt::AlignCenter);
-
-        gridLayout_10->addWidget(label_Module2InitParameter1Name, 0, 0, 1, 1);
-
-        lineEdit_Module2InitParameter1Value = new QLineEdit(groupBox_ModuleControls);
-        lineEdit_Module2InitParameter1Value->setObjectName(QString::fromUtf8("lineEdit_Module2InitParameter1Value"));
-        sizePolicy.setHeightForWidth(lineEdit_Module2InitParameter1Value->sizePolicy().hasHeightForWidth());
-        lineEdit_Module2InitParameter1Value->setSizePolicy(sizePolicy);
-        lineEdit_Module2InitParameter1Value->setReadOnly(true);
-
-        gridLayout_10->addWidget(lineEdit_Module2InitParameter1Value, 0, 1, 1, 1);
-
-        label_Module2InitParameter2Name = new QLabel(groupBox_ModuleControls);
-        label_Module2InitParameter2Name->setObjectName(QString::fromUtf8("label_Module2InitParameter2Name"));
-        label_Module2InitParameter2Name->setAlignment(Qt::AlignCenter);
-
-        gridLayout_10->addWidget(label_Module2InitParameter2Name, 1, 0, 1, 1);
-
-        lineEdit_Module2InitParameter2Value = new QLineEdit(groupBox_ModuleControls);
-        lineEdit_Module2InitParameter2Value->setObjectName(QString::fromUtf8("lineEdit_Module2InitParameter2Value"));
-        sizePolicy.setHeightForWidth(lineEdit_Module2InitParameter2Value->sizePolicy().hasHeightForWidth());
-        lineEdit_Module2InitParameter2Value->setSizePolicy(sizePolicy);
-        lineEdit_Module2InitParameter2Value->setReadOnly(true);
-
-        gridLayout_10->addWidget(lineEdit_Module2InitParameter2Value, 1, 1, 1, 1);
-
-        label_Module2InitParameter3Name = new QLabel(groupBox_ModuleControls);
-        label_Module2InitParameter3Name->setObjectName(QString::fromUtf8("label_Module2InitParameter3Name"));
-        label_Module2InitParameter3Name->setAlignment(Qt::AlignCenter);
-
-        gridLayout_10->addWidget(label_Module2InitParameter3Name, 2, 0, 1, 1);
-
-        lineEdit_Module2InitParameter3Value = new QLineEdit(groupBox_ModuleControls);
-        lineEdit_Module2InitParameter3Value->setObjectName(QString::fromUtf8("lineEdit_Module2InitParameter3Value"));
-        sizePolicy.setHeightForWidth(lineEdit_Module2InitParameter3Value->sizePolicy().hasHeightForWidth());
-        lineEdit_Module2InitParameter3Value->setSizePolicy(sizePolicy);
-        lineEdit_Module2InitParameter3Value->setReadOnly(true);
-
-        gridLayout_10->addWidget(lineEdit_Module2InitParameter3Value, 2, 1, 1, 1);
-
-        label_Module2InitParameter4Name = new QLabel(groupBox_ModuleControls);
-        label_Module2InitParameter4Name->setObjectName(QString::fromUtf8("label_Module2InitParameter4Name"));
-        label_Module2InitParameter4Name->setAlignment(Qt::AlignCenter);
-
-        gridLayout_10->addWidget(label_Module2InitParameter4Name, 3, 0, 1, 1);
-
-        lineEdit_Module2InitParameter4Value = new QLineEdit(groupBox_ModuleControls);
-        lineEdit_Module2InitParameter4Value->setObjectName(QString::fromUtf8("lineEdit_Module2InitParameter4Value"));
-        sizePolicy.setHeightForWidth(lineEdit_Module2InitParameter4Value->sizePolicy().hasHeightForWidth());
-        lineEdit_Module2InitParameter4Value->setSizePolicy(sizePolicy);
-        lineEdit_Module2InitParameter4Value->setReadOnly(true);
-
-        gridLayout_10->addWidget(lineEdit_Module2InitParameter4Value, 3, 1, 1, 1);
-
-        label_Module2InitParameter5Name = new QLabel(groupBox_ModuleControls);
-        label_Module2InitParameter5Name->setObjectName(QString::fromUtf8("label_Module2InitParameter5Name"));
-        label_Module2InitParameter5Name->setAlignment(Qt::AlignCenter);
-
-        gridLayout_10->addWidget(label_Module2InitParameter5Name, 4, 0, 1, 1);
-
-        lineEdit_Module2InitParameter5Value = new QLineEdit(groupBox_ModuleControls);
-        lineEdit_Module2InitParameter5Value->setObjectName(QString::fromUtf8("lineEdit_Module2InitParameter5Value"));
-        sizePolicy.setHeightForWidth(lineEdit_Module2InitParameter5Value->sizePolicy().hasHeightForWidth());
-        lineEdit_Module2InitParameter5Value->setSizePolicy(sizePolicy);
-        lineEdit_Module2InitParameter5Value->setReadOnly(true);
-
-        gridLayout_10->addWidget(lineEdit_Module2InitParameter5Value, 4, 1, 1, 1);
-
-        label_Module2Parameter1Name = new QLabel(groupBox_ModuleControls);
-        label_Module2Parameter1Name->setObjectName(QString::fromUtf8("label_Module2Parameter1Name"));
-        label_Module2Parameter1Name->setAlignment(Qt::AlignCenter);
-
-        gridLayout_10->addWidget(label_Module2Parameter1Name, 5, 0, 1, 1);
-
-        lineEdit_Module2Parameter1Name = new QLineEdit(groupBox_ModuleControls);
-        lineEdit_Module2Parameter1Name->setObjectName(QString::fromUtf8("lineEdit_Module2Parameter1Name"));
-        sizePolicy.setHeightForWidth(lineEdit_Module2Parameter1Name->sizePolicy().hasHeightForWidth());
-        lineEdit_Module2Parameter1Name->setSizePolicy(sizePolicy);
-        lineEdit_Module2Parameter1Name->setReadOnly(true);
-
-        gridLayout_10->addWidget(lineEdit_Module2Parameter1Name, 5, 1, 1, 1);
-
-        label_Module2Parameter2Name = new QLabel(groupBox_ModuleControls);
-        label_Module2Parameter2Name->setObjectName(QString::fromUtf8("label_Module2Parameter2Name"));
-        label_Module2Parameter2Name->setAlignment(Qt::AlignCenter);
-
-        gridLayout_10->addWidget(label_Module2Parameter2Name, 6, 0, 1, 1);
-
-        lineEdit_Module2Parameter2Name = new QLineEdit(groupBox_ModuleControls);
-        lineEdit_Module2Parameter2Name->setObjectName(QString::fromUtf8("lineEdit_Module2Parameter2Name"));
-        sizePolicy.setHeightForWidth(lineEdit_Module2Parameter2Name->sizePolicy().hasHeightForWidth());
-        lineEdit_Module2Parameter2Name->setSizePolicy(sizePolicy);
-        lineEdit_Module2Parameter2Name->setReadOnly(true);
-
-        gridLayout_10->addWidget(lineEdit_Module2Parameter2Name, 6, 1, 1, 1);
-
-        label_Module2Parameter3Name = new QLabel(groupBox_ModuleControls);
-        label_Module2Parameter3Name->setObjectName(QString::fromUtf8("label_Module2Parameter3Name"));
-        label_Module2Parameter3Name->setAlignment(Qt::AlignCenter);
-
-        gridLayout_10->addWidget(label_Module2Parameter3Name, 7, 0, 1, 1);
-
-        lineEdit_Module2Parameter3Name = new QLineEdit(groupBox_ModuleControls);
-        lineEdit_Module2Parameter3Name->setObjectName(QString::fromUtf8("lineEdit_Module2Parameter3Name"));
-        sizePolicy.setHeightForWidth(lineEdit_Module2Parameter3Name->sizePolicy().hasHeightForWidth());
-        lineEdit_Module2Parameter3Name->setSizePolicy(sizePolicy);
-        lineEdit_Module2Parameter3Name->setReadOnly(true);
-
-        gridLayout_10->addWidget(lineEdit_Module2Parameter3Name, 7, 1, 1, 1);
-
-        label_Module2Parameter4Name = new QLabel(groupBox_ModuleControls);
-        label_Module2Parameter4Name->setObjectName(QString::fromUtf8("label_Module2Parameter4Name"));
-        label_Module2Parameter4Name->setAlignment(Qt::AlignCenter);
-
-        gridLayout_10->addWidget(label_Module2Parameter4Name, 8, 0, 1, 1);
-
-        lineEdit_Module2Parameter4Name = new QLineEdit(groupBox_ModuleControls);
-        lineEdit_Module2Parameter4Name->setObjectName(QString::fromUtf8("lineEdit_Module2Parameter4Name"));
-        sizePolicy.setHeightForWidth(lineEdit_Module2Parameter4Name->sizePolicy().hasHeightForWidth());
-        lineEdit_Module2Parameter4Name->setSizePolicy(sizePolicy);
-        lineEdit_Module2Parameter4Name->setReadOnly(true);
-
-        gridLayout_10->addWidget(lineEdit_Module2Parameter4Name, 8, 1, 1, 1);
-
-
-        verticalLayout_2->addLayout(gridLayout_10);
-
-        pushButton_InitConnectionModule2 = new QPushButton(groupBox_ModuleControls);
-        pushButton_InitConnectionModule2->setObjectName(QString::fromUtf8("pushButton_InitConnectionModule2"));
-        pushButton_InitConnectionModule2->setStyleSheet(QString::fromUtf8("color: blue"));
-
-        verticalLayout_2->addWidget(pushButton_InitConnectionModule2);
-
-        pushButton_DeinitConnectionModule2 = new QPushButton(groupBox_ModuleControls);
-        pushButton_DeinitConnectionModule2->setObjectName(QString::fromUtf8("pushButton_DeinitConnectionModule2"));
-        pushButton_DeinitConnectionModule2->setStyleSheet(QString::fromUtf8("color: blue"));
-
-        verticalLayout_2->addWidget(pushButton_DeinitConnectionModule2);
-
-
-        gridLayout_9->addLayout(verticalLayout_2, 0, 1, 1, 1);
-
-        verticalLayout_3 = new QVBoxLayout();
-        verticalLayout_3->setSpacing(6);
-        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
-        gridLayout_11 = new QGridLayout();
-        gridLayout_11->setSpacing(6);
-        gridLayout_11->setObjectName(QString::fromUtf8("gridLayout_11"));
-        gridLayout_11->setVerticalSpacing(0);
-        label_Module3InitParameter1Name = new QLabel(groupBox_ModuleControls);
-        label_Module3InitParameter1Name->setObjectName(QString::fromUtf8("label_Module3InitParameter1Name"));
-        label_Module3InitParameter1Name->setAlignment(Qt::AlignCenter);
-
-        gridLayout_11->addWidget(label_Module3InitParameter1Name, 0, 0, 1, 1);
-
-        lineEdit_Module3InitParameter1Value = new QLineEdit(groupBox_ModuleControls);
-        lineEdit_Module3InitParameter1Value->setObjectName(QString::fromUtf8("lineEdit_Module3InitParameter1Value"));
-        sizePolicy.setHeightForWidth(lineEdit_Module3InitParameter1Value->sizePolicy().hasHeightForWidth());
-        lineEdit_Module3InitParameter1Value->setSizePolicy(sizePolicy);
-        lineEdit_Module3InitParameter1Value->setReadOnly(true);
-
-        gridLayout_11->addWidget(lineEdit_Module3InitParameter1Value, 0, 1, 1, 1);
-
-        label_Module3InitParameter2Name = new QLabel(groupBox_ModuleControls);
-        label_Module3InitParameter2Name->setObjectName(QString::fromUtf8("label_Module3InitParameter2Name"));
-        label_Module3InitParameter2Name->setAlignment(Qt::AlignCenter);
-
-        gridLayout_11->addWidget(label_Module3InitParameter2Name, 1, 0, 1, 1);
-
-        lineEdit_Module3InitParameter2Value = new QLineEdit(groupBox_ModuleControls);
-        lineEdit_Module3InitParameter2Value->setObjectName(QString::fromUtf8("lineEdit_Module3InitParameter2Value"));
-        sizePolicy.setHeightForWidth(lineEdit_Module3InitParameter2Value->sizePolicy().hasHeightForWidth());
-        lineEdit_Module3InitParameter2Value->setSizePolicy(sizePolicy);
-        lineEdit_Module3InitParameter2Value->setReadOnly(true);
-
-        gridLayout_11->addWidget(lineEdit_Module3InitParameter2Value, 1, 1, 1, 1);
-
-        label_Module3InitParameter3Name = new QLabel(groupBox_ModuleControls);
-        label_Module3InitParameter3Name->setObjectName(QString::fromUtf8("label_Module3InitParameter3Name"));
-        label_Module3InitParameter3Name->setAlignment(Qt::AlignCenter);
-
-        gridLayout_11->addWidget(label_Module3InitParameter3Name, 2, 0, 1, 1);
-
-        lineEdit_Module3InitParameter3Value = new QLineEdit(groupBox_ModuleControls);
-        lineEdit_Module3InitParameter3Value->setObjectName(QString::fromUtf8("lineEdit_Module3InitParameter3Value"));
-        sizePolicy.setHeightForWidth(lineEdit_Module3InitParameter3Value->sizePolicy().hasHeightForWidth());
-        lineEdit_Module3InitParameter3Value->setSizePolicy(sizePolicy);
-        lineEdit_Module3InitParameter3Value->setReadOnly(true);
-
-        gridLayout_11->addWidget(lineEdit_Module3InitParameter3Value, 2, 1, 1, 1);
-
-        label_Module3InitParameter4Name = new QLabel(groupBox_ModuleControls);
-        label_Module3InitParameter4Name->setObjectName(QString::fromUtf8("label_Module3InitParameter4Name"));
-        label_Module3InitParameter4Name->setAlignment(Qt::AlignCenter);
-
-        gridLayout_11->addWidget(label_Module3InitParameter4Name, 3, 0, 1, 1);
-
-        lineEdit_Module3InitParameter4Value = new QLineEdit(groupBox_ModuleControls);
-        lineEdit_Module3InitParameter4Value->setObjectName(QString::fromUtf8("lineEdit_Module3InitParameter4Value"));
-        sizePolicy.setHeightForWidth(lineEdit_Module3InitParameter4Value->sizePolicy().hasHeightForWidth());
-        lineEdit_Module3InitParameter4Value->setSizePolicy(sizePolicy);
-        lineEdit_Module3InitParameter4Value->setReadOnly(true);
-
-        gridLayout_11->addWidget(lineEdit_Module3InitParameter4Value, 3, 1, 1, 1);
-
-        label_Module3InitParameter5Name = new QLabel(groupBox_ModuleControls);
-        label_Module3InitParameter5Name->setObjectName(QString::fromUtf8("label_Module3InitParameter5Name"));
-        label_Module3InitParameter5Name->setAlignment(Qt::AlignCenter);
-
-        gridLayout_11->addWidget(label_Module3InitParameter5Name, 4, 0, 1, 1);
-
-        lineEdit_Module3InitParameter5Value = new QLineEdit(groupBox_ModuleControls);
-        lineEdit_Module3InitParameter5Value->setObjectName(QString::fromUtf8("lineEdit_Module3InitParameter5Value"));
-        sizePolicy.setHeightForWidth(lineEdit_Module3InitParameter5Value->sizePolicy().hasHeightForWidth());
-        lineEdit_Module3InitParameter5Value->setSizePolicy(sizePolicy);
-        lineEdit_Module3InitParameter5Value->setReadOnly(true);
-
-        gridLayout_11->addWidget(lineEdit_Module3InitParameter5Value, 4, 1, 1, 1);
-
-        label_Module3Parameter1Name = new QLabel(groupBox_ModuleControls);
-        label_Module3Parameter1Name->setObjectName(QString::fromUtf8("label_Module3Parameter1Name"));
-        label_Module3Parameter1Name->setAlignment(Qt::AlignCenter);
-
-        gridLayout_11->addWidget(label_Module3Parameter1Name, 5, 0, 1, 1);
-
-        lineEdit_Module3Parameter1Name = new QLineEdit(groupBox_ModuleControls);
-        lineEdit_Module3Parameter1Name->setObjectName(QString::fromUtf8("lineEdit_Module3Parameter1Name"));
-        sizePolicy.setHeightForWidth(lineEdit_Module3Parameter1Name->sizePolicy().hasHeightForWidth());
-        lineEdit_Module3Parameter1Name->setSizePolicy(sizePolicy);
-        lineEdit_Module3Parameter1Name->setReadOnly(true);
-
-        gridLayout_11->addWidget(lineEdit_Module3Parameter1Name, 5, 1, 1, 1);
-
-        label_Module3Parameter2Name = new QLabel(groupBox_ModuleControls);
-        label_Module3Parameter2Name->setObjectName(QString::fromUtf8("label_Module3Parameter2Name"));
-        label_Module3Parameter2Name->setAlignment(Qt::AlignCenter);
-
-        gridLayout_11->addWidget(label_Module3Parameter2Name, 6, 0, 1, 1);
-
-        lineEdit_Module3Parameter2Name = new QLineEdit(groupBox_ModuleControls);
-        lineEdit_Module3Parameter2Name->setObjectName(QString::fromUtf8("lineEdit_Module3Parameter2Name"));
-        sizePolicy.setHeightForWidth(lineEdit_Module3Parameter2Name->sizePolicy().hasHeightForWidth());
-        lineEdit_Module3Parameter2Name->setSizePolicy(sizePolicy);
-        lineEdit_Module3Parameter2Name->setReadOnly(true);
-
-        gridLayout_11->addWidget(lineEdit_Module3Parameter2Name, 6, 1, 1, 1);
-
-        label_Module3Parameter3Name = new QLabel(groupBox_ModuleControls);
-        label_Module3Parameter3Name->setObjectName(QString::fromUtf8("label_Module3Parameter3Name"));
-        label_Module3Parameter3Name->setAlignment(Qt::AlignCenter);
-
-        gridLayout_11->addWidget(label_Module3Parameter3Name, 7, 0, 1, 1);
-
-        lineEdit_Module3Parameter3Name = new QLineEdit(groupBox_ModuleControls);
-        lineEdit_Module3Parameter3Name->setObjectName(QString::fromUtf8("lineEdit_Module3Parameter3Name"));
-        sizePolicy.setHeightForWidth(lineEdit_Module3Parameter3Name->sizePolicy().hasHeightForWidth());
-        lineEdit_Module3Parameter3Name->setSizePolicy(sizePolicy);
-        lineEdit_Module3Parameter3Name->setReadOnly(true);
-
-        gridLayout_11->addWidget(lineEdit_Module3Parameter3Name, 7, 1, 1, 1);
-
-        label_Module3Parameter4Name = new QLabel(groupBox_ModuleControls);
-        label_Module3Parameter4Name->setObjectName(QString::fromUtf8("label_Module3Parameter4Name"));
-        label_Module3Parameter4Name->setAlignment(Qt::AlignCenter);
-
-        gridLayout_11->addWidget(label_Module3Parameter4Name, 8, 0, 1, 1);
-
-        lineEdit_Module3Parameter4Name = new QLineEdit(groupBox_ModuleControls);
-        lineEdit_Module3Parameter4Name->setObjectName(QString::fromUtf8("lineEdit_Module3Parameter4Name"));
-        sizePolicy.setHeightForWidth(lineEdit_Module3Parameter4Name->sizePolicy().hasHeightForWidth());
-        lineEdit_Module3Parameter4Name->setSizePolicy(sizePolicy);
-        lineEdit_Module3Parameter4Name->setReadOnly(true);
-
-        gridLayout_11->addWidget(lineEdit_Module3Parameter4Name, 8, 1, 1, 1);
-
-
-        verticalLayout_3->addLayout(gridLayout_11);
-
-        pushButton_InitConnectionModule3 = new QPushButton(groupBox_ModuleControls);
-        pushButton_InitConnectionModule3->setObjectName(QString::fromUtf8("pushButton_InitConnectionModule3"));
-        pushButton_InitConnectionModule3->setStyleSheet(QString::fromUtf8("color: blue"));
-
-        verticalLayout_3->addWidget(pushButton_InitConnectionModule3);
-
-        pushButton_DeinitConnectionModule3 = new QPushButton(groupBox_ModuleControls);
-        pushButton_DeinitConnectionModule3->setObjectName(QString::fromUtf8("pushButton_DeinitConnectionModule3"));
-        pushButton_DeinitConnectionModule3->setStyleSheet(QString::fromUtf8("color: blue"));
-
-        verticalLayout_3->addWidget(pushButton_DeinitConnectionModule3);
-
-
-        gridLayout_9->addLayout(verticalLayout_3, 0, 2, 1, 1);
-
-
-        verticalLayout_4->addWidget(groupBox_ModuleControls);
-
-
-        horizontalLayout->addLayout(verticalLayout_4);
-
-        groupBox_CustomPacketControls = new QGroupBox(centralWidget);
-        groupBox_CustomPacketControls->setObjectName(QString::fromUtf8("groupBox_CustomPacketControls"));
-        groupBox_CustomPacketControls->setStyleSheet(QString::fromUtf8("font:bold"));
-        groupBox_CustomPacketControls->setAlignment(Qt::AlignCenter);
-        gridLayout_2 = new QGridLayout(groupBox_CustomPacketControls);
-        gridLayout_2->setSpacing(6);
-        gridLayout_2->setContentsMargins(11, 11, 11, 11);
-        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
-        gridLayout_2->setVerticalSpacing(0);
-        gridLayout_2->setContentsMargins(-1, 0, -1, 0);
-        comboBox_CustomPacketModule = new QComboBox(groupBox_CustomPacketControls);
-        comboBox_CustomPacketModule->addItem(QString());
-        comboBox_CustomPacketModule->addItem(QString());
-        comboBox_CustomPacketModule->addItem(QString());
-        comboBox_CustomPacketModule->setObjectName(QString::fromUtf8("comboBox_CustomPacketModule"));
-        sizePolicy.setHeightForWidth(comboBox_CustomPacketModule->sizePolicy().hasHeightForWidth());
-        comboBox_CustomPacketModule->setSizePolicy(sizePolicy);
-
-        gridLayout_2->addWidget(comboBox_CustomPacketModule, 1, 1, 1, 1);
-
-        label_Type = new QLabel(groupBox_CustomPacketControls);
-        label_Type->setObjectName(QString::fromUtf8("label_Type"));
-        label_Type->setAlignment(Qt::AlignCenter);
-
-        gridLayout_2->addWidget(label_Type, 2, 0, 1, 1);
-
-        label_Sign = new QLabel(groupBox_CustomPacketControls);
-        label_Sign->setObjectName(QString::fromUtf8("label_Sign"));
-        label_Sign->setAlignment(Qt::AlignCenter);
-
-        gridLayout_2->addWidget(label_Sign, 4, 0, 1, 1);
-
-        lineEdit_Type = new QLineEdit(groupBox_CustomPacketControls);
-        lineEdit_Type->setObjectName(QString::fromUtf8("lineEdit_Type"));
-        sizePolicy.setHeightForWidth(lineEdit_Type->sizePolicy().hasHeightForWidth());
-        lineEdit_Type->setSizePolicy(sizePolicy);
-        lineEdit_Type->setReadOnly(true);
-
-        gridLayout_2->addWidget(lineEdit_Type, 2, 1, 1, 1);
-
-        pushButton_SendWrongCrcPacket = new QPushButton(groupBox_CustomPacketControls);
-        pushButton_SendWrongCrcPacket->setObjectName(QString::fromUtf8("pushButton_SendWrongCrcPacket"));
-        pushButton_SendWrongCrcPacket->setStyleSheet(QString::fromUtf8("color: blue"));
-
-        gridLayout_2->addWidget(pushButton_SendWrongCrcPacket, 8, 0, 1, 2);
-
-        pushButton_Send = new QPushButton(groupBox_CustomPacketControls);
-        pushButton_Send->setObjectName(QString::fromUtf8("pushButton_Send"));
-        pushButton_Send->setStyleSheet(QString::fromUtf8("color: blue"));
-
-        gridLayout_2->addWidget(pushButton_Send, 7, 0, 1, 2);
-
-        label_Source = new QLabel(groupBox_CustomPacketControls);
-        label_Source->setObjectName(QString::fromUtf8("label_Source"));
-        label_Source->setAlignment(Qt::AlignCenter);
-
-        gridLayout_2->addWidget(label_Source, 0, 0, 1, 1);
-
-        lineEdit_Sign = new QLineEdit(groupBox_CustomPacketControls);
-        lineEdit_Sign->setObjectName(QString::fromUtf8("lineEdit_Sign"));
-        sizePolicy.setHeightForWidth(lineEdit_Sign->sizePolicy().hasHeightForWidth());
-        lineEdit_Sign->setSizePolicy(sizePolicy);
-        lineEdit_Sign->setReadOnly(true);
-
-        gridLayout_2->addWidget(lineEdit_Sign, 4, 1, 1, 1);
-
-        lineEdit_Length = new QLineEdit(groupBox_CustomPacketControls);
-        lineEdit_Length->setObjectName(QString::fromUtf8("lineEdit_Length"));
-        sizePolicy.setHeightForWidth(lineEdit_Length->sizePolicy().hasHeightForWidth());
-        lineEdit_Length->setSizePolicy(sizePolicy);
-        lineEdit_Length->setReadOnly(true);
-
-        gridLayout_2->addWidget(lineEdit_Length, 5, 1, 1, 1);
-
-        label_CustomPacketModule = new QLabel(groupBox_CustomPacketControls);
-        label_CustomPacketModule->setObjectName(QString::fromUtf8("label_CustomPacketModule"));
-        label_CustomPacketModule->setAlignment(Qt::AlignCenter);
-
-        gridLayout_2->addWidget(label_CustomPacketModule, 1, 0, 1, 1);
-
-        label_Payload = new QLabel(groupBox_CustomPacketControls);
-        label_Payload->setObjectName(QString::fromUtf8("label_Payload"));
-        label_Payload->setAlignment(Qt::AlignCenter);
-
-        gridLayout_2->addWidget(label_Payload, 6, 0, 1, 1);
-
-        comboBox_Parameter = new QComboBox(groupBox_CustomPacketControls);
-        comboBox_Parameter->addItem(QString());
-        comboBox_Parameter->addItem(QString());
-        comboBox_Parameter->addItem(QString());
-        comboBox_Parameter->addItem(QString());
-        comboBox_Parameter->addItem(QString());
-        comboBox_Parameter->addItem(QString());
-        comboBox_Parameter->addItem(QString());
-        comboBox_Parameter->addItem(QString());
-        comboBox_Parameter->addItem(QString());
-        comboBox_Parameter->addItem(QString());
-        comboBox_Parameter->addItem(QString());
-        comboBox_Parameter->addItem(QString());
-        comboBox_Parameter->addItem(QString());
-        comboBox_Parameter->addItem(QString());
-        comboBox_Parameter->setObjectName(QString::fromUtf8("comboBox_Parameter"));
-        sizePolicy.setHeightForWidth(comboBox_Parameter->sizePolicy().hasHeightForWidth());
-        comboBox_Parameter->setSizePolicy(sizePolicy);
-
-        gridLayout_2->addWidget(comboBox_Parameter, 3, 1, 1, 1);
-
-        lineEdit_Payload = new QLineEdit(groupBox_CustomPacketControls);
-        lineEdit_Payload->setObjectName(QString::fromUtf8("lineEdit_Payload"));
-        sizePolicy.setHeightForWidth(lineEdit_Payload->sizePolicy().hasHeightForWidth());
-        lineEdit_Payload->setSizePolicy(sizePolicy);
-        lineEdit_Payload->setMaxLength(10);
-
-        gridLayout_2->addWidget(lineEdit_Payload, 6, 1, 1, 1);
-
-        label_Length = new QLabel(groupBox_CustomPacketControls);
-        label_Length->setObjectName(QString::fromUtf8("label_Length"));
-        label_Length->setAlignment(Qt::AlignCenter);
-
-        gridLayout_2->addWidget(label_Length, 5, 0, 1, 1);
-
-        lineEdit_Source = new QLineEdit(groupBox_CustomPacketControls);
-        lineEdit_Source->setObjectName(QString::fromUtf8("lineEdit_Source"));
-        sizePolicy.setHeightForWidth(lineEdit_Source->sizePolicy().hasHeightForWidth());
-        lineEdit_Source->setSizePolicy(sizePolicy);
-        lineEdit_Source->setReadOnly(true);
-
-        gridLayout_2->addWidget(lineEdit_Source, 0, 1, 1, 1);
-
-        label_Parameter = new QLabel(groupBox_CustomPacketControls);
-        label_Parameter->setObjectName(QString::fromUtf8("label_Parameter"));
-        label_Parameter->setAlignment(Qt::AlignCenter);
-
-        gridLayout_2->addWidget(label_Parameter, 3, 0, 1, 1);
-
-
-        horizontalLayout->addWidget(groupBox_CustomPacketControls);
-
-        groupBox_GraphControls = new QGroupBox(centralWidget);
-        groupBox_GraphControls->setObjectName(QString::fromUtf8("groupBox_GraphControls"));
-        groupBox_GraphControls->setStyleSheet(QString::fromUtf8("font:bold"));
-        groupBox_GraphControls->setAlignment(Qt::AlignCenter);
-        gridLayout_4 = new QGridLayout(groupBox_GraphControls);
-        gridLayout_4->setSpacing(6);
-        gridLayout_4->setContentsMargins(11, 11, 11, 11);
-        gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
-        gridLayout_4->setVerticalSpacing(3);
-        gridLayout_4->setContentsMargins(-1, 0, -1, 0);
-        label_StartLinear = new QLabel(groupBox_GraphControls);
-        label_StartLinear->setObjectName(QString::fromUtf8("label_StartLinear"));
-        label_StartLinear->setAlignment(Qt::AlignCenter);
-
-        gridLayout_4->addWidget(label_StartLinear, 10, 0, 1, 1);
-
-        line_2 = new QFrame(groupBox_GraphControls);
-        line_2->setObjectName(QString::fromUtf8("line_2"));
-        sizePolicy.setHeightForWidth(line_2->sizePolicy().hasHeightForWidth());
-        line_2->setSizePolicy(sizePolicy);
-        line_2->setFrameShape(QFrame::HLine);
-        line_2->setFrameShadow(QFrame::Sunken);
-
-        gridLayout_4->addWidget(line_2, 2, 0, 1, 2);
-
-        label_SignalCount = new QLabel(groupBox_GraphControls);
-        label_SignalCount->setObjectName(QString::fromUtf8("label_SignalCount"));
-        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Preferred);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(label_SignalCount->sizePolicy().hasHeightForWidth());
-        label_SignalCount->setSizePolicy(sizePolicy1);
-        label_SignalCount->setAlignment(Qt::AlignCenter);
-
-        gridLayout_4->addWidget(label_SignalCount, 1, 0, 1, 1);
-
-        label_StepLinear = new QLabel(groupBox_GraphControls);
-        label_StepLinear->setObjectName(QString::fromUtf8("label_StepLinear"));
-        label_StepLinear->setAlignment(Qt::AlignCenter);
-
-        gridLayout_4->addWidget(label_StepLinear, 13, 0, 1, 1);
-
-        lineEdit_RangeMaximum = new QLineEdit(groupBox_GraphControls);
-        lineEdit_RangeMaximum->setObjectName(QString::fromUtf8("lineEdit_RangeMaximum"));
-        sizePolicy.setHeightForWidth(lineEdit_RangeMaximum->sizePolicy().hasHeightForWidth());
-        lineEdit_RangeMaximum->setSizePolicy(sizePolicy);
-        lineEdit_RangeMaximum->setMaxLength(11);
-        lineEdit_RangeMaximum->setAlignment(Qt::AlignCenter);
-
-        gridLayout_4->addWidget(lineEdit_RangeMaximum, 6, 1, 1, 1);
-
-        label_StartDegrees = new QLabel(groupBox_GraphControls);
-        label_StartDegrees->setObjectName(QString::fromUtf8("label_StartDegrees"));
-        label_StartDegrees->setAlignment(Qt::AlignCenter);
-
-        gridLayout_4->addWidget(label_StartDegrees, 20, 0, 1, 1);
-
-        lineEdit_StepLinear = new QLineEdit(groupBox_GraphControls);
-        lineEdit_StepLinear->setObjectName(QString::fromUtf8("lineEdit_StepLinear"));
-        sizePolicy.setHeightForWidth(lineEdit_StepLinear->sizePolicy().hasHeightForWidth());
-        lineEdit_StepLinear->setSizePolicy(sizePolicy);
-        lineEdit_StepLinear->setMaxLength(11);
-        lineEdit_StepLinear->setAlignment(Qt::AlignCenter);
-
-        gridLayout_4->addWidget(lineEdit_StepLinear, 13, 1, 1, 1);
-
-        lineEdit_StopDegrees = new QLineEdit(groupBox_GraphControls);
-        lineEdit_StopDegrees->setObjectName(QString::fromUtf8("lineEdit_StopDegrees"));
-        lineEdit_StopDegrees->setMaxLength(11);
-        lineEdit_StopDegrees->setAlignment(Qt::AlignCenter);
-
-        gridLayout_4->addWidget(lineEdit_StopDegrees, 21, 1, 1, 1);
-
-        line_3 = new QFrame(groupBox_GraphControls);
-        line_3->setObjectName(QString::fromUtf8("line_3"));
-        sizePolicy.setHeightForWidth(line_3->sizePolicy().hasHeightForWidth());
-        line_3->setSizePolicy(sizePolicy);
-        line_3->setFrameShape(QFrame::HLine);
-        line_3->setFrameShadow(QFrame::Sunken);
-
-        gridLayout_4->addWidget(line_3, 18, 0, 1, 2);
-
-        label_Linear = new QLabel(groupBox_GraphControls);
-        label_Linear->setObjectName(QString::fromUtf8("label_Linear"));
-        sizePolicy.setHeightForWidth(label_Linear->sizePolicy().hasHeightForWidth());
-        label_Linear->setSizePolicy(sizePolicy);
-        label_Linear->setAlignment(Qt::AlignCenter);
-
-        gridLayout_4->addWidget(label_Linear, 9, 0, 1, 2);
-
-        pushButton_Stop = new QPushButton(groupBox_GraphControls);
-        pushButton_Stop->setObjectName(QString::fromUtf8("pushButton_Stop"));
-        sizePolicy.setHeightForWidth(pushButton_Stop->sizePolicy().hasHeightForWidth());
-        pushButton_Stop->setSizePolicy(sizePolicy);
-        pushButton_Stop->setStyleSheet(QString::fromUtf8("color:red"));
-
-        gridLayout_4->addWidget(pushButton_Stop, 35, 0, 1, 2);
-
-        label_RangeMaximum = new QLabel(groupBox_GraphControls);
-        label_RangeMaximum->setObjectName(QString::fromUtf8("label_RangeMaximum"));
-        sizePolicy.setHeightForWidth(label_RangeMaximum->sizePolicy().hasHeightForWidth());
-        label_RangeMaximum->setSizePolicy(sizePolicy);
-        label_RangeMaximum->setAlignment(Qt::AlignCenter);
-
-        gridLayout_4->addWidget(label_RangeMaximum, 5, 1, 1, 1);
-
-        pushButton_SetRanges = new QPushButton(groupBox_GraphControls);
-        pushButton_SetRanges->setObjectName(QString::fromUtf8("pushButton_SetRanges"));
-        sizePolicy.setHeightForWidth(pushButton_SetRanges->sizePolicy().hasHeightForWidth());
-        pushButton_SetRanges->setSizePolicy(sizePolicy);
-        pushButton_SetRanges->setStyleSheet(QString::fromUtf8("color:blue"));
-
-        gridLayout_4->addWidget(pushButton_SetRanges, 7, 0, 1, 2);
-
-        comboBox_GraphModule = new QComboBox(groupBox_GraphControls);
-        comboBox_GraphModule->addItem(QString());
-        comboBox_GraphModule->addItem(QString());
-        comboBox_GraphModule->addItem(QString());
-        comboBox_GraphModule->setObjectName(QString::fromUtf8("comboBox_GraphModule"));
-        sizePolicy.setHeightForWidth(comboBox_GraphModule->sizePolicy().hasHeightForWidth());
-        comboBox_GraphModule->setSizePolicy(sizePolicy);
-
-        gridLayout_4->addWidget(comboBox_GraphModule, 0, 1, 1, 1);
-
-        pushButton_StartLinear = new QPushButton(groupBox_GraphControls);
-        pushButton_StartLinear->setObjectName(QString::fromUtf8("pushButton_StartLinear"));
-        sizePolicy.setHeightForWidth(pushButton_StartLinear->sizePolicy().hasHeightForWidth());
-        pushButton_StartLinear->setSizePolicy(sizePolicy);
-        pushButton_StartLinear->setStyleSheet(QString::fromUtf8("color: blue"));
-
-        gridLayout_4->addWidget(pushButton_StartLinear, 17, 0, 1, 2);
-
-        comboBox_GraphSignalCount = new QComboBox(groupBox_GraphControls);
-        comboBox_GraphSignalCount->addItem(QString());
-        comboBox_GraphSignalCount->addItem(QString());
-        comboBox_GraphSignalCount->addItem(QString());
-        comboBox_GraphSignalCount->addItem(QString());
-        comboBox_GraphSignalCount->setObjectName(QString::fromUtf8("comboBox_GraphSignalCount"));
-
-        gridLayout_4->addWidget(comboBox_GraphSignalCount, 1, 1, 1, 1);
-
-        label_Sine = new QLabel(groupBox_GraphControls);
-        label_Sine->setObjectName(QString::fromUtf8("label_Sine"));
-        sizePolicy.setHeightForWidth(label_Sine->sizePolicy().hasHeightForWidth());
-        label_Sine->setSizePolicy(sizePolicy);
-        label_Sine->setAlignment(Qt::AlignCenter);
-
-        gridLayout_4->addWidget(label_Sine, 19, 0, 1, 2);
-
-        lineEdit_RangeMinimum = new QLineEdit(groupBox_GraphControls);
-        lineEdit_RangeMinimum->setObjectName(QString::fromUtf8("lineEdit_RangeMinimum"));
-        sizePolicy.setHeightForWidth(lineEdit_RangeMinimum->sizePolicy().hasHeightForWidth());
-        lineEdit_RangeMinimum->setSizePolicy(sizePolicy);
-        lineEdit_RangeMinimum->setMaxLength(11);
-        lineEdit_RangeMinimum->setAlignment(Qt::AlignCenter);
-
-        gridLayout_4->addWidget(lineEdit_RangeMinimum, 6, 0, 1, 1);
-
-        pushButton_StartSine = new QPushButton(groupBox_GraphControls);
-        pushButton_StartSine->setObjectName(QString::fromUtf8("pushButton_StartSine"));
-        sizePolicy.setHeightForWidth(pushButton_StartSine->sizePolicy().hasHeightForWidth());
-        pushButton_StartSine->setSizePolicy(sizePolicy);
-        pushButton_StartSine->setStyleSheet(QString::fromUtf8("color: blue"));
-
-        gridLayout_4->addWidget(pushButton_StartSine, 32, 0, 1, 2);
-
-        label_RangeMinimum = new QLabel(groupBox_GraphControls);
-        label_RangeMinimum->setObjectName(QString::fromUtf8("label_RangeMinimum"));
-        sizePolicy.setHeightForWidth(label_RangeMinimum->sizePolicy().hasHeightForWidth());
-        label_RangeMinimum->setSizePolicy(sizePolicy);
-        label_RangeMinimum->setAlignment(Qt::AlignCenter);
-
-        gridLayout_4->addWidget(label_RangeMinimum, 5, 0, 1, 1);
-
-        line_1 = new QFrame(groupBox_GraphControls);
-        line_1->setObjectName(QString::fromUtf8("line_1"));
-        sizePolicy.setHeightForWidth(line_1->sizePolicy().hasHeightForWidth());
-        line_1->setSizePolicy(sizePolicy);
-        line_1->setFrameShape(QFrame::HLine);
-        line_1->setFrameShadow(QFrame::Sunken);
-
-        gridLayout_4->addWidget(line_1, 8, 0, 1, 2);
-
-        lineEdit_StartLinear = new QLineEdit(groupBox_GraphControls);
-        lineEdit_StartLinear->setObjectName(QString::fromUtf8("lineEdit_StartLinear"));
-        sizePolicy.setHeightForWidth(lineEdit_StartLinear->sizePolicy().hasHeightForWidth());
-        lineEdit_StartLinear->setSizePolicy(sizePolicy);
-        lineEdit_StartLinear->setMaxLength(11);
-        lineEdit_StartLinear->setAlignment(Qt::AlignCenter);
-        lineEdit_StartLinear->setReadOnly(false);
-
-        gridLayout_4->addWidget(lineEdit_StartLinear, 10, 1, 1, 1);
-
-        lineEdit_StopLinear = new QLineEdit(groupBox_GraphControls);
-        lineEdit_StopLinear->setObjectName(QString::fromUtf8("lineEdit_StopLinear"));
-        sizePolicy.setHeightForWidth(lineEdit_StopLinear->sizePolicy().hasHeightForWidth());
-        lineEdit_StopLinear->setSizePolicy(sizePolicy);
-        lineEdit_StopLinear->setMaxLength(11);
-        lineEdit_StopLinear->setAlignment(Qt::AlignCenter);
-        lineEdit_StopLinear->setReadOnly(false);
-
-        gridLayout_4->addWidget(lineEdit_StopLinear, 12, 1, 1, 1);
-
-        label_MultiplierSine = new QLabel(groupBox_GraphControls);
-        label_MultiplierSine->setObjectName(QString::fromUtf8("label_MultiplierSine"));
-        label_MultiplierSine->setAlignment(Qt::AlignCenter);
-
-        gridLayout_4->addWidget(label_MultiplierSine, 22, 0, 1, 1);
-
-        lineEdit_MultiplierSine = new QLineEdit(groupBox_GraphControls);
-        lineEdit_MultiplierSine->setObjectName(QString::fromUtf8("lineEdit_MultiplierSine"));
-        sizePolicy.setHeightForWidth(lineEdit_MultiplierSine->sizePolicy().hasHeightForWidth());
-        lineEdit_MultiplierSine->setSizePolicy(sizePolicy);
-        lineEdit_MultiplierSine->setMaxLength(11);
-        lineEdit_MultiplierSine->setAlignment(Qt::AlignCenter);
-        lineEdit_MultiplierSine->setReadOnly(false);
-
-        gridLayout_4->addWidget(lineEdit_MultiplierSine, 22, 1, 1, 1);
-
-        label_StopDegrees = new QLabel(groupBox_GraphControls);
-        label_StopDegrees->setObjectName(QString::fromUtf8("label_StopDegrees"));
-        label_StopDegrees->setAlignment(Qt::AlignCenter);
-
-        gridLayout_4->addWidget(label_StopDegrees, 21, 0, 1, 1);
-
-        lineEdit_TimeRange = new QLineEdit(groupBox_GraphControls);
-        lineEdit_TimeRange->setObjectName(QString::fromUtf8("lineEdit_TimeRange"));
-        lineEdit_TimeRange->setAlignment(Qt::AlignCenter);
-
-        gridLayout_4->addWidget(lineEdit_TimeRange, 4, 0, 1, 2);
-
-        lineEdit_StartDegrees = new QLineEdit(groupBox_GraphControls);
-        lineEdit_StartDegrees->setObjectName(QString::fromUtf8("lineEdit_StartDegrees"));
-        lineEdit_StartDegrees->setAlignment(Qt::AlignCenter);
-
-        gridLayout_4->addWidget(lineEdit_StartDegrees, 20, 1, 1, 1);
-
-        label_GraphModule = new QLabel(groupBox_GraphControls);
-        label_GraphModule->setObjectName(QString::fromUtf8("label_GraphModule"));
-        sizePolicy1.setHeightForWidth(label_GraphModule->sizePolicy().hasHeightForWidth());
-        label_GraphModule->setSizePolicy(sizePolicy1);
-        label_GraphModule->setAlignment(Qt::AlignCenter);
-
-        gridLayout_4->addWidget(label_GraphModule, 0, 0, 1, 1);
-
-        line_4 = new QFrame(groupBox_GraphControls);
-        line_4->setObjectName(QString::fromUtf8("line_4"));
-        sizePolicy.setHeightForWidth(line_4->sizePolicy().hasHeightForWidth());
-        line_4->setSizePolicy(sizePolicy);
-        line_4->setFrameShape(QFrame::HLine);
-        line_4->setFrameShadow(QFrame::Sunken);
-
-        gridLayout_4->addWidget(line_4, 33, 0, 1, 2);
-
-        label_StopLinear = new QLabel(groupBox_GraphControls);
-        label_StopLinear->setObjectName(QString::fromUtf8("label_StopLinear"));
-        label_StopLinear->setAlignment(Qt::AlignCenter);
-
-        gridLayout_4->addWidget(label_StopLinear, 12, 0, 1, 1);
-
-        label_TimeRange = new QLabel(groupBox_GraphControls);
-        label_TimeRange->setObjectName(QString::fromUtf8("label_TimeRange"));
-        label_TimeRange->setAlignment(Qt::AlignCenter);
-
-        gridLayout_4->addWidget(label_TimeRange, 3, 0, 1, 2);
-
-
-        horizontalLayout->addWidget(groupBox_GraphControls);
-
-
-        gridLayout_8->addLayout(horizontalLayout, 0, 0, 1, 1);
-
         MainWindow->setCentralWidget(centralWidget);
 
         retranslateUi(MainWindow);
 
         comboBox_Port->setCurrentIndex(-1);
+        comboBox_TimeRange->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -3601,71 +3611,6 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        groupBox_Module1->setTitle(QCoreApplication::translate("MainWindow", "Module 1", nullptr));
-        label_Module1_SettableParameter1_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module1_SettableParameter2_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module1_SettableParameter3_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module1_SettableParameter4_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module1_SettableParameter5_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module1_SettableParameter6_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module1_SettableParameter7_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module1_SettableParameter8_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module1_SettableParameter9_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module1_SettableParameter10_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module1_SettableParameter1Name->setText(QCoreApplication::translate("MainWindow", "Parameter 1", nullptr));
-        label_Module1_SettableParameter2Name->setText(QCoreApplication::translate("MainWindow", "Parameter 2", nullptr));
-        label_Module1_SettableParameter3Name->setText(QCoreApplication::translate("MainWindow", "Parameter 3", nullptr));
-        label_Module1_SettableParameter4Name->setText(QCoreApplication::translate("MainWindow", "Parameter 4", nullptr));
-        label_Module1_SettableParameter5Name->setText(QCoreApplication::translate("MainWindow", "Parameter 5", nullptr));
-        label_Module1_SettableParameter6Name->setText(QCoreApplication::translate("MainWindow", "Parameter 6", nullptr));
-        label_Module1_SettableParameter7Name->setText(QCoreApplication::translate("MainWindow", "Parameter 7", nullptr));
-        label_Module1_SettableParameter8Name->setText(QCoreApplication::translate("MainWindow", "Parameter 8", nullptr));
-        label_Module1_SettableParameter9Name->setText(QCoreApplication::translate("MainWindow", "Parameter 9", nullptr));
-        label_Module1_SettableParameter10Name->setText(QCoreApplication::translate("MainWindow", "Parameter 10", nullptr));
-        groupBox_Module2->setTitle(QCoreApplication::translate("MainWindow", "Module 2", nullptr));
-        label_Module2_SettableParameter1_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module2_SettableParameter2_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module2_SettableParameter3_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module2_SettableParameter4_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module2_SettableParameter5_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module2_SettableParameter6_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module2_SettableParameter7_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module2_SettableParameter8_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module2_SettableParameter9_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module2_SettableParameter10_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module2_SettableParameter1Name->setText(QCoreApplication::translate("MainWindow", "Parameter 1", nullptr));
-        label_Module2_SettableParameter2Name->setText(QCoreApplication::translate("MainWindow", "Parameter 2", nullptr));
-        label_Module2_SettableParameter3Name->setText(QCoreApplication::translate("MainWindow", "Parameter 3", nullptr));
-        label_Module2_SettableParameter4Name->setText(QCoreApplication::translate("MainWindow", "Parameter 4", nullptr));
-        label_Module2_SettableParameter5Name->setText(QCoreApplication::translate("MainWindow", "Parameter 5", nullptr));
-        label_Module2_SettableParameter6Name->setText(QCoreApplication::translate("MainWindow", "Parameter 6", nullptr));
-        label_Module2_SettableParameter7Name->setText(QCoreApplication::translate("MainWindow", "Parameter 7", nullptr));
-        label_Module2_SettableParameter8Name->setText(QCoreApplication::translate("MainWindow", "Parameter 8", nullptr));
-        label_Module2_SettableParameter9Name->setText(QCoreApplication::translate("MainWindow", "Parameter 9", nullptr));
-        label_Module2_SettableParameter10Name->setText(QCoreApplication::translate("MainWindow", "Parameter 10", nullptr));
-        groupBox_Module3->setTitle(QCoreApplication::translate("MainWindow", "Module 3", nullptr));
-        label_Module3_SettableParameter1_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module3_SettableParameter2_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module3_SettableParameter3_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module3_SettableParameter4_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module3_SettableParameter5_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module3_SettableParameter6_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module3_SettableParameter7_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module3_SettableParameter8_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module3_SettableParameter9_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module3_SettableParameter10_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
-        label_Module3_SettableParameter1Name->setText(QCoreApplication::translate("MainWindow", "Parameter 1", nullptr));
-        label_Module3_SettableParameter2Name->setText(QCoreApplication::translate("MainWindow", "Parameter 2", nullptr));
-        label_Module3_SettableParameter3Name->setText(QCoreApplication::translate("MainWindow", "Parameter 3", nullptr));
-        label_Module3_SettableParameter4Name->setText(QCoreApplication::translate("MainWindow", "Parameter 4", nullptr));
-        label_Module3_SettableParameter5Name->setText(QCoreApplication::translate("MainWindow", "Parameter 5", nullptr));
-        label_Module3_SettableParameter6Name->setText(QCoreApplication::translate("MainWindow", "Parameter 6", nullptr));
-        label_Module3_SettableParameter7Name->setText(QCoreApplication::translate("MainWindow", "Parameter 7", nullptr));
-        label_Module3_SettableParameter8Name->setText(QCoreApplication::translate("MainWindow", "Parameter 8", nullptr));
-        label_Module3_SettableParameter9Name->setText(QCoreApplication::translate("MainWindow", "Parameter 9", nullptr));
-        label_Module3_SettableParameter10Name->setText(QCoreApplication::translate("MainWindow", "Parameter 10", nullptr));
-        groupBox_PacketDisplay->setTitle(QCoreApplication::translate("MainWindow", "Packet display", nullptr));
-        pushButton_ClearTable->setText(QCoreApplication::translate("MainWindow", "CLEAR TABLE", nullptr));
         groupBox_ComPortControls->setTitle(QCoreApplication::translate("MainWindow", "COM Port Settings", nullptr));
         label_Status->setText(QCoreApplication::translate("MainWindow", "Status", nullptr));
         pushButton_Open->setText(QCoreApplication::translate("MainWindow", "Open", nullptr));
@@ -3740,41 +3685,116 @@ public:
         lineEdit_Source->setText(QCoreApplication::translate("MainWindow", "1", nullptr));
         label_Parameter->setText(QCoreApplication::translate("MainWindow", "Parameter", nullptr));
         groupBox_GraphControls->setTitle(QCoreApplication::translate("MainWindow", "Graph", nullptr));
-        label_StartLinear->setText(QCoreApplication::translate("MainWindow", "Start", nullptr));
-        label_SignalCount->setText(QCoreApplication::translate("MainWindow", "Signal count", nullptr));
-        label_StepLinear->setText(QCoreApplication::translate("MainWindow", "Step", nullptr));
+        lineEdit_StartLinear->setText(QCoreApplication::translate("MainWindow", "-10000", nullptr));
         lineEdit_RangeMaximum->setText(QCoreApplication::translate("MainWindow", "10000", nullptr));
-        label_StartDegrees->setText(QCoreApplication::translate("MainWindow", "Start degrees", nullptr));
-        lineEdit_StepLinear->setText(QCoreApplication::translate("MainWindow", "1", nullptr));
-        lineEdit_StopDegrees->setText(QCoreApplication::translate("MainWindow", "720", nullptr));
-        label_Linear->setText(QCoreApplication::translate("MainWindow", "Linear", nullptr));
+        label_SignalCount->setText(QCoreApplication::translate("MainWindow", "Signal count", nullptr));
         pushButton_Stop->setText(QCoreApplication::translate("MainWindow", "STOP", nullptr));
-        label_RangeMaximum->setText(QCoreApplication::translate("MainWindow", "Range maximum", nullptr));
+        label_Linear->setText(QCoreApplication::translate("MainWindow", "Linear", nullptr));
         pushButton_SetRanges->setText(QCoreApplication::translate("MainWindow", "Set Ranges", nullptr));
-        comboBox_GraphModule->setItemText(0, QCoreApplication::translate("MainWindow", "1", nullptr));
-        comboBox_GraphModule->setItemText(1, QCoreApplication::translate("MainWindow", "2", nullptr));
-        comboBox_GraphModule->setItemText(2, QCoreApplication::translate("MainWindow", "3", nullptr));
-
-        pushButton_StartLinear->setText(QCoreApplication::translate("MainWindow", "Start Linear", nullptr));
+        pushButton_StartSine->setText(QCoreApplication::translate("MainWindow", "Start Sine", nullptr));
+        label_StepLinear->setText(QCoreApplication::translate("MainWindow", "Step", nullptr));
         comboBox_GraphSignalCount->setItemText(0, QCoreApplication::translate("MainWindow", "1", nullptr));
         comboBox_GraphSignalCount->setItemText(1, QCoreApplication::translate("MainWindow", "2", nullptr));
         comboBox_GraphSignalCount->setItemText(2, QCoreApplication::translate("MainWindow", "3", nullptr));
         comboBox_GraphSignalCount->setItemText(3, QCoreApplication::translate("MainWindow", "4", nullptr));
 
-        label_Sine->setText(QCoreApplication::translate("MainWindow", "Sine", nullptr));
-        lineEdit_RangeMinimum->setText(QCoreApplication::translate("MainWindow", "-10000", nullptr));
-        pushButton_StartSine->setText(QCoreApplication::translate("MainWindow", "Start Sine", nullptr));
-        label_RangeMinimum->setText(QCoreApplication::translate("MainWindow", "Range minimum", nullptr));
-        lineEdit_StartLinear->setText(QCoreApplication::translate("MainWindow", "-10000", nullptr));
-        lineEdit_StopLinear->setText(QCoreApplication::translate("MainWindow", "10000", nullptr));
-        label_MultiplierSine->setText(QCoreApplication::translate("MainWindow", "Multiplier", nullptr));
-        lineEdit_MultiplierSine->setText(QCoreApplication::translate("MainWindow", "1", nullptr));
+        label_RangeMaximum->setText(QCoreApplication::translate("MainWindow", "Range maximum", nullptr));
         label_StopDegrees->setText(QCoreApplication::translate("MainWindow", "Stop degrees", nullptr));
-        lineEdit_TimeRange->setText(QCoreApplication::translate("MainWindow", "720", nullptr));
-        lineEdit_StartDegrees->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
-        label_GraphModule->setText(QCoreApplication::translate("MainWindow", "Module", nullptr));
-        label_StopLinear->setText(QCoreApplication::translate("MainWindow", "Stop", nullptr));
+        lineEdit_MultiplierSine->setText(QCoreApplication::translate("MainWindow", "1", nullptr));
+        label_MultiplierSine->setText(QCoreApplication::translate("MainWindow", "Multiplier", nullptr));
+        lineEdit_StepLinear->setText(QCoreApplication::translate("MainWindow", "1", nullptr));
+        label_RangeMinimum->setText(QCoreApplication::translate("MainWindow", "Range minimum", nullptr));
         label_TimeRange->setText(QCoreApplication::translate("MainWindow", "Time range", nullptr));
+        label_GraphModule->setText(QCoreApplication::translate("MainWindow", "Module", nullptr));
+        label_Sine->setText(QCoreApplication::translate("MainWindow", "Sine", nullptr));
+        lineEdit_StopDegrees->setText(QCoreApplication::translate("MainWindow", "720", nullptr));
+        comboBox_GraphModule->setItemText(0, QCoreApplication::translate("MainWindow", "1", nullptr));
+        comboBox_GraphModule->setItemText(1, QCoreApplication::translate("MainWindow", "2", nullptr));
+        comboBox_GraphModule->setItemText(2, QCoreApplication::translate("MainWindow", "3", nullptr));
+
+        pushButton_StartLinear->setText(QCoreApplication::translate("MainWindow", "Start Linear", nullptr));
+        lineEdit_StartDegrees->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
+        label_StopLinear->setText(QCoreApplication::translate("MainWindow", "Stop", nullptr));
+        lineEdit_RangeMinimum->setText(QCoreApplication::translate("MainWindow", "-10000", nullptr));
+        label_StartLinear->setText(QCoreApplication::translate("MainWindow", "Start", nullptr));
+        lineEdit_StopLinear->setText(QCoreApplication::translate("MainWindow", "10000", nullptr));
+        label_StartDegrees->setText(QCoreApplication::translate("MainWindow", "Start degrees", nullptr));
+        comboBox_TimeRange->setItemText(0, QCoreApplication::translate("MainWindow", "360", nullptr));
+        comboBox_TimeRange->setItemText(1, QCoreApplication::translate("MainWindow", "720", nullptr));
+        comboBox_TimeRange->setItemText(2, QCoreApplication::translate("MainWindow", "1080", nullptr));
+        comboBox_TimeRange->setItemText(3, QCoreApplication::translate("MainWindow", "1440", nullptr));
+        comboBox_TimeRange->setItemText(4, QCoreApplication::translate("MainWindow", "1800", nullptr));
+        comboBox_TimeRange->setItemText(5, QCoreApplication::translate("MainWindow", "2160", nullptr));
+        comboBox_TimeRange->setItemText(6, QCoreApplication::translate("MainWindow", "2520", nullptr));
+        comboBox_TimeRange->setItemText(7, QCoreApplication::translate("MainWindow", "2880", nullptr));
+        comboBox_TimeRange->setItemText(8, QCoreApplication::translate("MainWindow", "3240", nullptr));
+        comboBox_TimeRange->setItemText(9, QCoreApplication::translate("MainWindow", "3600", nullptr));
+
+        groupBox_PacketDisplay->setTitle(QCoreApplication::translate("MainWindow", "Packet display", nullptr));
+        pushButton_ClearTable->setText(QCoreApplication::translate("MainWindow", "CLEAR TABLE", nullptr));
+        groupBox_Module1->setTitle(QCoreApplication::translate("MainWindow", "Module 1", nullptr));
+        label_Module1_SettableParameter1_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module1_SettableParameter2_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module1_SettableParameter3_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module1_SettableParameter4_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module1_SettableParameter5_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module1_SettableParameter6_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module1_SettableParameter7_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module1_SettableParameter8_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module1_SettableParameter9_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module1_SettableParameter10_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module1_SettableParameter1Name->setText(QCoreApplication::translate("MainWindow", "Parameter 1", nullptr));
+        label_Module1_SettableParameter2Name->setText(QCoreApplication::translate("MainWindow", "Parameter 2", nullptr));
+        label_Module1_SettableParameter3Name->setText(QCoreApplication::translate("MainWindow", "Parameter 3", nullptr));
+        label_Module1_SettableParameter4Name->setText(QCoreApplication::translate("MainWindow", "Parameter 4", nullptr));
+        label_Module1_SettableParameter5Name->setText(QCoreApplication::translate("MainWindow", "Parameter 5", nullptr));
+        label_Module1_SettableParameter6Name->setText(QCoreApplication::translate("MainWindow", "Parameter 6", nullptr));
+        label_Module1_SettableParameter7Name->setText(QCoreApplication::translate("MainWindow", "Parameter 7", nullptr));
+        label_Module1_SettableParameter8Name->setText(QCoreApplication::translate("MainWindow", "Parameter 8", nullptr));
+        label_Module1_SettableParameter9Name->setText(QCoreApplication::translate("MainWindow", "Parameter 9", nullptr));
+        label_Module1_SettableParameter10Name->setText(QCoreApplication::translate("MainWindow", "Parameter 10", nullptr));
+        groupBox_Module2->setTitle(QCoreApplication::translate("MainWindow", "Module 2", nullptr));
+        label_Module2_SettableParameter1_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module2_SettableParameter2_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module2_SettableParameter3_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module2_SettableParameter4_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module2_SettableParameter5_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module2_SettableParameter6_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module2_SettableParameter7_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module2_SettableParameter8_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module2_SettableParameter9_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module2_SettableParameter10_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module2_SettableParameter1Name->setText(QCoreApplication::translate("MainWindow", "Parameter 1", nullptr));
+        label_Module2_SettableParameter2Name->setText(QCoreApplication::translate("MainWindow", "Parameter 2", nullptr));
+        label_Module2_SettableParameter3Name->setText(QCoreApplication::translate("MainWindow", "Parameter 3", nullptr));
+        label_Module2_SettableParameter4Name->setText(QCoreApplication::translate("MainWindow", "Parameter 4", nullptr));
+        label_Module2_SettableParameter5Name->setText(QCoreApplication::translate("MainWindow", "Parameter 5", nullptr));
+        label_Module2_SettableParameter6Name->setText(QCoreApplication::translate("MainWindow", "Parameter 6", nullptr));
+        label_Module2_SettableParameter7Name->setText(QCoreApplication::translate("MainWindow", "Parameter 7", nullptr));
+        label_Module2_SettableParameter8Name->setText(QCoreApplication::translate("MainWindow", "Parameter 8", nullptr));
+        label_Module2_SettableParameter9Name->setText(QCoreApplication::translate("MainWindow", "Parameter 9", nullptr));
+        label_Module2_SettableParameter10Name->setText(QCoreApplication::translate("MainWindow", "Parameter 10", nullptr));
+        groupBox_Module3->setTitle(QCoreApplication::translate("MainWindow", "Module 3", nullptr));
+        label_Module3_SettableParameter1_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module3_SettableParameter2_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module3_SettableParameter3_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module3_SettableParameter4_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module3_SettableParameter5_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module3_SettableParameter6_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module3_SettableParameter7_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module3_SettableParameter8_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module3_SettableParameter9_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module3_SettableParameter10_State->setText(QCoreApplication::translate("MainWindow", "<font color='red'>Disabled</font>", nullptr));
+        label_Module3_SettableParameter1Name->setText(QCoreApplication::translate("MainWindow", "Parameter 1", nullptr));
+        label_Module3_SettableParameter2Name->setText(QCoreApplication::translate("MainWindow", "Parameter 2", nullptr));
+        label_Module3_SettableParameter3Name->setText(QCoreApplication::translate("MainWindow", "Parameter 3", nullptr));
+        label_Module3_SettableParameter4Name->setText(QCoreApplication::translate("MainWindow", "Parameter 4", nullptr));
+        label_Module3_SettableParameter5Name->setText(QCoreApplication::translate("MainWindow", "Parameter 5", nullptr));
+        label_Module3_SettableParameter6Name->setText(QCoreApplication::translate("MainWindow", "Parameter 6", nullptr));
+        label_Module3_SettableParameter7Name->setText(QCoreApplication::translate("MainWindow", "Parameter 7", nullptr));
+        label_Module3_SettableParameter8Name->setText(QCoreApplication::translate("MainWindow", "Parameter 8", nullptr));
+        label_Module3_SettableParameter9Name->setText(QCoreApplication::translate("MainWindow", "Parameter 9", nullptr));
+        label_Module3_SettableParameter10Name->setText(QCoreApplication::translate("MainWindow", "Parameter 10", nullptr));
     } // retranslateUi
 
 };

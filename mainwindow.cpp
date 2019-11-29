@@ -793,7 +793,7 @@ void MainWindow::setRangeTime()
     uartPacket.setFunction(Function::SET_GRAPH_TIME_RANGE);
     uartPacket.setParameter(Parameter::NULL_PARAMETER);
 
-    QString enteredPayload = ui->lineEdit_TimeRange->text();
+    QString enteredPayload = ui->comboBox_TimeRange->currentText();
 
     if(enteredPayload.at(0).toLatin1() == '-')
     {
