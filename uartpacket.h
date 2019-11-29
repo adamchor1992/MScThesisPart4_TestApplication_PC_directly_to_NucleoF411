@@ -11,9 +11,11 @@ public:
     UartPacket(const uint8_t uartPacketTable[]);
 
     void setSource(Source source);
+    void setSource(uint8_t source);
     void setModule(ModuleID module);
     void setModule(uint8_t module);
     void setFunction(Function function);
+    void setFunction(uint8_t function);
     void setParameter(Parameter parameter);
     void setParameter(uint8_t parameter);
     void setSign(Sign sign);

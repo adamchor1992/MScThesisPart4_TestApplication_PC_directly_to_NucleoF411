@@ -6,8 +6,6 @@
 
 class Serial : public QSerialPort
 {
-
-
 public:
     Serial(Ui::MainWindow* pUiHandle);
     void initPortList();

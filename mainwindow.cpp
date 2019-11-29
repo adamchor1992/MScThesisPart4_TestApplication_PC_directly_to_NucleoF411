@@ -832,16 +832,16 @@ void MainWindow::sendCustomDataPacket()
 
     uint8_t uartPacketTable[PACKET_SIZE] = {0};
 
-    uartPacket.setSource(Source::SOURCE_TARGET1);
+    uartPacket.setSource(ui->comboBox_CustomPacketSource->currentText().at(0).toLatin1());
     uartPacket.setModule(ui->comboBox_CustomPacketModule->currentText().at(0).toLatin1());
-    uartPacket.setFunction(Function::DATA_PACKET);
-    uartPacket.setParameter(ui->comboBox_Parameter->currentText().at(0).toLatin1());
+    uartPacket.setFunction(ui->comboBox_CustomPacketFunction->currentText().at(0).toLatin1());
+    uartPacket.setParameter(ui->comboBox_CustomPacketParameter->currentText().at(0).toLatin1());
 
-    QString enteredPayload = ui->lineEdit_Payload->text();
+    QString enteredPayload = ui->lineEdit_CustomPacketPayload->text();
 
     if(enteredPayload.at(0).toLatin1() == '-')
     {
-        ui->lineEdit_Sign->setText("2");
+        ui->lineEdit_CustomPacketSign->setText("2");
         uartPacket.setSign(Sign::NEGATIVE_SIGN);
 
         /*Remove minus sign*/
@@ -849,7 +849,7 @@ void MainWindow::sendCustomDataPacket()
     }
     else
     {
-        ui->lineEdit_Sign->setText("1");
+        ui->lineEdit_CustomPacketSign->setText("1");
         uartPacket.setSign(Sign::POSITIVE_SIGN);
     }
 
@@ -862,7 +862,7 @@ void MainWindow::sendCustomDataPacket()
         uartPacket.getPayload()[i] = enteredPayload.at(i).toLatin1();
     }
 
-    ui->lineEdit_Length->setText(QString::number(lengthInt));
+    ui->lineEdit_CustomPacketLength->setText(QString::number(lengthInt));
 
     uartPacket.convertToUartPacketTable(uartPacketTable);
     appendCrcToPacketTable(uartPacketTable);
@@ -880,10 +880,10 @@ void MainWindow::sendWrongCrcDataPacket()
 
     uint8_t uartPacketTable[PACKET_SIZE] = {0};
 
-    uartPacket.setSource(Source::SOURCE_TARGET1);
+    uartPacket.setSource(ui->comboBox_CustomPacketSource->currentText().at(0).toLatin1());
     uartPacket.setModule(ui->comboBox_CustomPacketModule->currentText().at(0).toLatin1());
-    uartPacket.setFunction(Function::DATA_PACKET);
-    uartPacket.setParameter(ui->comboBox_Parameter->currentText().at(0).toLatin1());
+    uartPacket.setFunction(ui->comboBox_CustomPacketFunction->currentText().at(0).toLatin1());
+    uartPacket.setParameter(ui->comboBox_CustomPacketParameter->currentText().at(0).toLatin1());
     uartPacket.setLength(Length::NO_PAYLOAD);
 
     uartPacket.convertToUartPacketTable(uartPacketTable);
@@ -920,7 +920,6 @@ void MainWindow::generateLinearGraph(int signalCount)
     uartPacket.setSource(Source::SOURCE_TARGET1);
     uartPacket.setModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
     uartPacket.setFunction(Function::DATA_PACKET);
-    uartPacket.setSign(ui->lineEdit_Sign->text().at(0).toLatin1());
 
     int lengthInt;
     double value;
@@ -999,7 +998,6 @@ void MainWindow::generateSineGraph(int signalCount)
     uartPacket.setSource(Source::SOURCE_TARGET1);
     uartPacket.setModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
     uartPacket.setFunction(Function::DATA_PACKET);
-    uartPacket.setSign(ui->lineEdit_Sign->text().at(0).toLatin1());
 
     int lengthInt;
     double value;

@@ -1,4 +1,5 @@
 #include "uartpacket.h"
+#include <cassert>
 
 UartPacket::UartPacket() : m_Payload {0}, m_Crc{0}
 {
@@ -33,6 +34,11 @@ void UartPacket::setSource(Source source)
     {
         m_Source = '1';
     }
+}
+
+void UartPacket::setSource(uint8_t source)
+{
+    m_Source = source;
 }
 
 void UartPacket::setModule(ModuleID module)
@@ -94,6 +100,11 @@ void UartPacket::setFunction(Function function)
     {
         m_Function = '9';
     }
+}
+
+void UartPacket::setFunction(uint8_t function)
+{
+    m_Function = function;
 }
 
 void UartPacket::setParameter(Parameter parameter)
