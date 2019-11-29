@@ -1,10 +1,10 @@
 #include "tableview.h"
 #include <QStringList>
 
-TableView::TableView(Ui::MainWindow* pUiHandle)
+TableView::TableView(Ui::MainWindow* ui)
 {
-    m_pUiHandle = pUiHandle;
-    m_pTableWidget = m_pUiHandle->tableWidget_PacketDisplay;
+    m_pUi = ui;
+    m_pTableWidget = m_pUi->tableWidget_PacketDisplay;
 }
 
 void TableView::initPacketDisplay()

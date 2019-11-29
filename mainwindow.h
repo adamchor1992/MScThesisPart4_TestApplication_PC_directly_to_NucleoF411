@@ -7,10 +7,13 @@
 #include "module.h"
 #include "tableview.h"
 #include "serial.h"
+#include <memory>
 
 namespace Ui {
 class MainWindow;
 }
+
+using std::unique_ptr;
 
 class MainWindow : public QMainWindow
 {
@@ -59,11 +62,10 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    Serial* m_pSerial;
-    Module* m_pModule1;
-    Module* m_pModule2;
-    Module* m_pModule3;
-    TableView* m_pTableView;
+
+    unique_ptr<Serial> m_pSerial;
+    unique_ptr<Module> m_pModule1, m_pModule2, m_pModule3;
+    unique_ptr<TableView> m_pTableView;
 
     bool m_stopPressed = false;
 };

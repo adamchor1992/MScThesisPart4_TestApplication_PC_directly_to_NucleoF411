@@ -2,24 +2,23 @@
 #include "ui_mainwindow.h"
 #include "utilities.h"
 #include "defines.h"
-#include <fstream>
-#include <string>
 #include <QSerialPortInfo>
 #include <QMessageBox>
+#include "initparameterstxtloader.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
-    m_pSerial = new Serial(ui);
-    m_pModule1 = new Module;
-    m_pModule2 = new Module;
-    m_pModule3 = new Module;
-    m_pTableView = new TableView(ui);
+    m_pSerial = std::make_unique<Serial>(ui);
+    m_pModule1 = std::make_unique<Module>();
+    m_pModule2 = std::make_unique<Module>();
+    m_pModule3 = std::make_unique<Module>();
+    m_pTableView = std::make_unique<TableView>(ui);
 
     m_pSerial->initPortList();
 
-    connect(m_pSerial,SIGNAL(readyRead()), this, SLOT(serialDataReceived()));
+    connect(m_pSerial.get(), SIGNAL(readyRead()), this, SLOT(serialDataReceived()));
 
     updateGUI();
 
@@ -39,11 +38,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete m_pModule1;
-    delete m_pModule2;
-    delete m_pModule3;
-    delete m_pSerial;
-    delete m_pTableView;
 }
 
 void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
@@ -83,17 +77,17 @@ void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
     if(moduleID == ModuleID::MODULE1)
     {
         qDebug() << "Module 1";
-        p_CurrentModule = m_pModule1;
+        p_CurrentModule = m_pModule1.get();
     }
     else if(moduleID == ModuleID::MODULE2)
     {
         qDebug() << "Module 2";
-        p_CurrentModule = m_pModule2;
+        p_CurrentModule = m_pModule2.get();
     }
     else if(moduleID == ModuleID::MODULE3)
     {
         qDebug() << "Module 3";
-        p_CurrentModule = m_pModule3;
+        p_CurrentModule = m_pModule3.get();
     }
     else
     {
@@ -129,7 +123,7 @@ void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
     case Function::SET_PARAMETER_PACKET:
         qDebug() << "Set parameter";
 
-        valueDouble = std::stof((char*)(uartPacket.getPayload()));
+        valueDouble = double(std::stof((char*)(uartPacket.getPayload())));
 
         if(uartPacket.getSign() == Sign::NEGATIVE_SIGN)
         {
@@ -152,225 +146,7 @@ void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
     updateGUI();
 }
 
-bool MainWindow::initModuleParametersList()
-{
-    std::ifstream inputFile;
 
-    inputFile.open("parameters.txt", std::ios_base::in);
-
-    if(inputFile.is_open())
-    {
-        qDebug("parameters.txt opened successfully");
-
-        std::string inputBuffer;
-
-        /*Initialize module info from file*/
-        getline(inputFile,inputBuffer);
-        ui->label_Module1InitParameter1Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module1InitParameter2Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module1InitParameter3Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module1InitParameter4Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module1InitParameter5Name->setText(QString::fromStdString(inputBuffer));
-
-        getline(inputFile,inputBuffer);
-        ui->lineEdit_Module1InitParameter1Value->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->lineEdit_Module1InitParameter2Value->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->lineEdit_Module1InitParameter3Value->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->lineEdit_Module1InitParameter4Value->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->lineEdit_Module1InitParameter5Value->setText(QString::fromStdString(inputBuffer));
-
-        /*Initialize parameter names from file*/
-        getline(inputFile,inputBuffer);
-        ui->lineEdit_Module1Parameter1Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->lineEdit_Module1Parameter2Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->lineEdit_Module1Parameter3Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->lineEdit_Module1Parameter4Name->setText(QString::fromStdString(inputBuffer));
-
-        /*Initialize settable parameter names from file*/
-        getline(inputFile,inputBuffer);
-        ui->label_Module1_SettableParameter1Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module1_SettableParameter1Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module1_SettableParameter2Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module1_SettableParameter2Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module1_SettableParameter3Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module1_SettableParameter3Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module1_SettableParameter4Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module1_SettableParameter4Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module1_SettableParameter5Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module1_SettableParameter5Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module1_SettableParameter6Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module1_SettableParameter6Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module1_SettableParameter7Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module1_SettableParameter7Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module1_SettableParameter8Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module1_SettableParameter8Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module1_SettableParameter9Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module1_SettableParameter9Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module1_SettableParameter10Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module1_SettableParameter10Name->setText(QString::fromStdString(inputBuffer));
-
-        //////////////////////////////////////////////////////////////////////////////////////////
-
-        /*Initialize module info from file*/
-        getline(inputFile,inputBuffer);
-        ui->label_Module2InitParameter1Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module2InitParameter2Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module2InitParameter3Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module2InitParameter4Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module2InitParameter5Name->setText(QString::fromStdString(inputBuffer));
-
-        getline(inputFile,inputBuffer);
-        ui->lineEdit_Module2InitParameter1Value->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->lineEdit_Module2InitParameter2Value->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->lineEdit_Module2InitParameter3Value->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->lineEdit_Module2InitParameter4Value->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->lineEdit_Module2InitParameter5Value->setText(QString::fromStdString(inputBuffer));
-
-        /*Initialize parameter names from file*/
-        getline(inputFile,inputBuffer);
-        ui->lineEdit_Module2Parameter1Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->lineEdit_Module2Parameter2Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->lineEdit_Module2Parameter3Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->lineEdit_Module2Parameter4Name->setText(QString::fromStdString(inputBuffer));
-
-        /*Initialize settable parameter names from file*/
-        getline(inputFile,inputBuffer);
-        ui->label_Module2_SettableParameter1Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_SettableParameter1Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module2_SettableParameter2Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_SettableParameter2Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module2_SettableParameter3Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_SettableParameter3Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module2_SettableParameter4Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_SettableParameter4Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module2_SettableParameter5Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_SettableParameter5Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module2_SettableParameter6Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_SettableParameter6Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module2_SettableParameter7Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_SettableParameter7Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module2_SettableParameter8Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_SettableParameter8Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module2_SettableParameter9Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_SettableParameter9Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module2_SettableParameter10Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module2_SettableParameter10Name->setText(QString::fromStdString(inputBuffer));
-
-        //////////////////////////////////////////////////////////////////////////////////////////
-
-        /*Initialize module info from file*/
-        getline(inputFile,inputBuffer);
-        ui->label_Module3InitParameter1Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module3InitParameter2Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module3InitParameter3Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module3InitParameter4Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module3InitParameter5Name->setText(QString::fromStdString(inputBuffer));
-
-        getline(inputFile,inputBuffer);
-        ui->lineEdit_Module3InitParameter1Value->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->lineEdit_Module3InitParameter2Value->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->lineEdit_Module3InitParameter3Value->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->lineEdit_Module3InitParameter4Value->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->lineEdit_Module3InitParameter5Value->setText(QString::fromStdString(inputBuffer));
-
-        /*Initialize parameter names from file*/
-        getline(inputFile,inputBuffer);
-        ui->lineEdit_Module3Parameter1Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->lineEdit_Module3Parameter2Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->lineEdit_Module3Parameter3Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->lineEdit_Module3Parameter4Name->setText(QString::fromStdString(inputBuffer));
-
-        /*Initialize settable parameter names from file*/
-        getline(inputFile,inputBuffer);
-        ui->label_Module3_SettableParameter1Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module3_SettableParameter1Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module3_SettableParameter2Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module3_SettableParameter2Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module3_SettableParameter3Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module3_SettableParameter3Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module3_SettableParameter4Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module3_SettableParameter4Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module3_SettableParameter5Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module3_SettableParameter5Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module3_SettableParameter6Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module3_SettableParameter6Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module3_SettableParameter7Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module3_SettableParameter7Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module3_SettableParameter8Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module3_SettableParameter8Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module3_SettableParameter9Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module3_SettableParameter9Name->setText(QString::fromStdString(inputBuffer));
-        getline(inputFile,inputBuffer);
-        ui->label_Module3_SettableParameter10Name->setText(QString::fromStdString(inputBuffer));
-        ui->label_Module3_SettableParameter10Name->setText(QString::fromStdString(inputBuffer));
-
-        return true;
-    }
-    else
-    {
-        qDebug("Could not open parameters.txt");
-        return false;
-    }
-}
 
 void MainWindow::initConnectionModule(ModuleID module)
 {
@@ -999,16 +775,15 @@ void MainWindow::serialDataReceived()
 /*Button slots*/
 void MainWindow::on_pushButton_Open_clicked()
 {
-    if(initModuleParametersList() == false)
+    InitParametersTxtLoader initParametersTxtLoader(ui);
+
+    if(initParametersTxtLoader.initModuleParametersList() == false)
     {
         QMessageBox::warning(this, ".txt load error", "Parameters text file could not be opened");
         return;
     }
 
-    if(m_pSerial->openPort(ui->comboBox_Port->currentText()))
-    {
-        initModuleParametersList();
-    }
+    m_pSerial->openPort(ui->comboBox_Port->currentText());
 }
 
 void MainWindow::on_pushButton_Close_clicked()

@@ -7,12 +7,12 @@
 class Serial : public QSerialPort
 {
 public:
-    Serial(Ui::MainWindow* pUiHandle);
+    Serial(Ui::MainWindow* ui);
     void initPortList();
     bool openPort(QString portName);
     void closePort(QString portName);
     void sendPacket(uint8_t* uartPacketTable);
 
 private:
-    Ui::MainWindow* ui;
+    Ui::MainWindow* m_pUi;
 };

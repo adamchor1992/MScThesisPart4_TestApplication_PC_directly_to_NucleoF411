@@ -3,9 +3,9 @@
 #include <QDebug>
 #include <QMessageBox>
 
-Serial::Serial(Ui::MainWindow* pUiHandle)
+Serial::Serial(Ui::MainWindow* ui)
 {
-    ui = pUiHandle;
+    m_pUi = ui;
 }
 
 void Serial::initPortList()
@@ -35,7 +35,7 @@ void Serial::initPortList()
         {
             if(port.description() == myPortDescription)
             {
-                ui->comboBox_Port->addItem(port.portName());
+                m_pUi->comboBox_Port->addItem(port.portName());
             }
         }
     }
@@ -44,7 +44,7 @@ void Serial::initPortList()
         /*Add all present port names to list*/
         for(auto port : availablePortList)
         {
-            ui->comboBox_Port->addItem(port.portName());
+            m_pUi->comboBox_Port->addItem(port.portName());
         }
     }
 }
@@ -69,23 +69,23 @@ bool Serial::openPort(QString portName)
     if(open(QIODevice::ReadWrite))
     {
         qDebug("Port opened successfully");
-        ui->label_ShowStatus->setText("<font color='green'>Open</font>");
+        m_pUi->label_ShowStatus->setText("<font color='green'>Open</font>");
 
-        ui->comboBox_Port->setEnabled(false);
-        ui->groupBox_ModuleControls->setEnabled(true);
-        ui->groupBox_CustomPacketControls ->setEnabled(true);
-        ui->groupBox_GraphControls->setEnabled(true);
-        ui->groupBox_PacketDisplay->setEnabled(true);
-        ui->groupBox_Module1->setEnabled(true);
-        ui->groupBox_Module2->setEnabled(true);
-        ui->groupBox_Module3->setEnabled(true);
+        m_pUi->comboBox_Port->setEnabled(false);
+        m_pUi->groupBox_ModuleControls->setEnabled(true);
+        m_pUi->groupBox_CustomPacketControls ->setEnabled(true);
+        m_pUi->groupBox_GraphControls->setEnabled(true);
+        m_pUi->groupBox_PacketDisplay->setEnabled(true);
+        m_pUi->groupBox_Module1->setEnabled(true);
+        m_pUi->groupBox_Module2->setEnabled(true);
+        m_pUi->groupBox_Module3->setEnabled(true);
 
         return true;
     }
     else
     {
         qDebug("Could not open port");
-        ui->label_ShowStatus->setText("Closed");
+        m_pUi->label_ShowStatus->setText("Closed");
 
         return false;
     }
@@ -103,15 +103,15 @@ void Serial::closePort(QString portName)
         if(isOpen() == false)
         {
             qDebug("Port closed successfully");
-            ui->label_ShowStatus->setText("<font color='red'>Close</font>");
+            m_pUi->label_ShowStatus->setText("<font color='red'>Close</font>");
 
-            ui->comboBox_Port->setEnabled(true);
-            ui->groupBox_ModuleControls->setEnabled(false);
-            ui->groupBox_CustomPacketControls ->setEnabled(false);
-            ui->groupBox_GraphControls->setEnabled(false);
-            ui->groupBox_PacketDisplay->setEnabled(false);
-            ui->groupBox_Module1->setEnabled(false);
-            ui->groupBox_Module2->setEnabled(false);
+            m_pUi->comboBox_Port->setEnabled(true);
+            m_pUi->groupBox_ModuleControls->setEnabled(false);
+            m_pUi->groupBox_CustomPacketControls ->setEnabled(false);
+            m_pUi->groupBox_GraphControls->setEnabled(false);
+            m_pUi->groupBox_PacketDisplay->setEnabled(false);
+            m_pUi->groupBox_Module1->setEnabled(false);
+            m_pUi->groupBox_Module2->setEnabled(false);
         }
         else
         {

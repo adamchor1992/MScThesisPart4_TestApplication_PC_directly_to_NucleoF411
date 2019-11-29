@@ -22,7 +22,8 @@ private:
     TableView();
     TableView( const TableView & );
 
-    Ui::MainWindow* m_pUiHandle;
+    Ui::MainWindow* m_pUi;
+
     QTableWidget* m_pTableWidget;
 
     const int PACKET_SIZE = 20;
