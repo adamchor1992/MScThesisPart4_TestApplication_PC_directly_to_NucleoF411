@@ -23,8 +23,6 @@ public:
     void setLength(Length length);
     void setLength(int length);
     void setLengthAscii(int length);
-    void setPayload();
-    void setCrc();
 
     /*This function merely copies structure fields to table elements, no additional logic included*/
     void convertToUartPacketTable(uint8_t uartPacketTable[]);

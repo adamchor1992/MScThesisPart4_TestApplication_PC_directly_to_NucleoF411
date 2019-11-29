@@ -31,7 +31,7 @@ public:
     void setRangeTime();
     void openPort(QString portName);
     void closePort(QString portName);
-    void initModuleParametersList();
+    bool initModuleParametersList();
     void sendCustomDataPacket();
     void sendWrongCrcDataPacket();
     void generateLinearGraph(int signalCount);

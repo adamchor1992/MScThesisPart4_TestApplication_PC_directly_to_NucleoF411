@@ -1,14 +1,13 @@
 #include "uartpacket.h"
-#include <cassert>
 
 UartPacket::UartPacket() : m_Payload {0}, m_Crc{0}
 {
-     m_Source = 0;           //source/target ID
-     m_Module = 0;           //module ID
-     m_Function = 0;         //packet type
-     m_Parameter = 0;        //parameter ID
-     m_Sign = 0;             //sign of payload value, '1' - positive, '2' - negative
-     m_Length = 0;           //length of payload
+    m_Source = 0;           //source/target ID
+    m_Module = 0;           //module ID
+    m_Function = 0;         //packet type
+    m_Parameter = 0;        //parameter ID
+    m_Sign = 0;             //sign of payload value, '1' - positive, '2' - negative
+    m_Length = 0;           //length of payload
 }
 
 UartPacket::UartPacket(const uint8_t uartPacketTable[])
@@ -209,16 +208,6 @@ void UartPacket::setLength(int length)
 void UartPacket::setLengthAscii(int length)
 {
     m_Length = length + '0';
-}
-
-void UartPacket::setPayload()
-{
-
-}
-
-void UartPacket::setCrc()
-{
-
 }
 
 Source UartPacket::getSource()

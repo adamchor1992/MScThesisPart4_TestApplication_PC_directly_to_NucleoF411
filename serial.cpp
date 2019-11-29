@@ -1,6 +1,7 @@
 #include "serial.h"
 #include <QSerialPortInfo>
 #include <QDebug>
+#include <QMessageBox>
 
 Serial::Serial(Ui::MainWindow* pUiHandle)
 {
@@ -115,7 +116,7 @@ void Serial::closePort(QString portName)
         else
         {
             /*Could not close port*/
-            assert(false);
+            QMessageBox::warning(nullptr, "Port error", "Port could not be closed");
         }
     }
     else

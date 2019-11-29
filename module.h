@@ -1,12 +1,16 @@
 #pragma once
 
+#include "defines.h"
+
 class Module
 {
 public:
-    Module();
-    void enableParameter(int index);
-    void disableParameter(int index);
-    void setParameter(int index, double value);
+    void enableParameter(Parameter parameter);
+    void enableParameterByIndex(int index);
+    void disableParameter(Parameter parameter);
+    void disableParameterByIndex(int index);
+    void setParameter(Parameter parameter, double value);
+    void setParameterByIndex(int index, double value);
     bool getParameterState(int index);
     double getParameterValue(int index);
     bool* getParameterStatesTable();

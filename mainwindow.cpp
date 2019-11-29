@@ -76,32 +76,37 @@ void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
 
     QCoreApplication::processEvents();
 
-    double valueDouble;
+    Module* p_CurrentModule = nullptr;
 
-    Module* currentModule = nullptr;
+    ModuleID moduleID = uartPacket.getModule();
 
-    if(uartPacket.getModule() == ModuleID::MODULE1)
+    if(moduleID == ModuleID::MODULE1)
     {
         qDebug() << "Module 1";
-        currentModule = m_pModule1;
+        p_CurrentModule = m_pModule1;
     }
-    else if(uartPacket.getModule() == ModuleID::MODULE2)
+    else if(moduleID == ModuleID::MODULE2)
     {
         qDebug() << "Module 2";
-        currentModule = m_pModule2;
+        p_CurrentModule = m_pModule2;
     }
-    else if(uartPacket.getModule() == ModuleID::MODULE3)
+    else if(moduleID == ModuleID::MODULE3)
     {
         qDebug() << "Module 3";
-        currentModule = m_pModule3;
+        p_CurrentModule = m_pModule3;
     }
     else
     {
-        qDebug("Wrong module");
-        assert(false);
+        QMessageBox::warning(this, "Incorrect packet", "Wrong module field in received packet. Packet discarded");
+        return;
     }
 
-    switch(uartPacket.getFunction())
+    Function function = uartPacket.getFunction();
+    Parameter parameter = uartPacket.getParameter();
+
+    double valueDouble = 0;
+
+    switch(function)
     {
     case Function::DATA_PACKET:
         qDebug() << "Data transfer packet";
@@ -110,107 +115,15 @@ void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
     case Function::ENABLE_PARAMETER_PACKET:
         qDebug() << "Enable parameter";
 
-        switch(uartPacket.getParameter())
-        {
-        case Parameter::PARAMETER1:
-            qDebug() << "Parameter 1";
-            currentModule->enableParameter(0);
-            break;
-        case Parameter::PARAMETER2:
-            qDebug() << "Parameter 2";
-            currentModule->enableParameter(1);
-            break;
-        case Parameter::PARAMETER3:
-            qDebug() << "Parameter 3";
-            currentModule->enableParameter(2);
-            break;
-        case Parameter::PARAMETER4:
-            qDebug() << "Parameter 4";
-            currentModule->enableParameter(3);
-            break;
-        case Parameter::PARAMETER5:
-            qDebug() << "Parameter 5";
-            currentModule->enableParameter(4);
-            break;
-        case Parameter::PARAMETER6:
-            qDebug() << "Parameter 6";
-            currentModule->enableParameter(5);
-            break;
-        case Parameter::PARAMETER7:
-            qDebug() << "Parameter 7";
-            currentModule->enableParameter(6);
-            break;
-        case Parameter::PARAMETER8:
-            qDebug() << "Parameter 8";
-            currentModule->enableParameter(7);
-            break;
-        case Parameter::PARAMETER9:
-            qDebug() << "Parameter 9";
-            currentModule->enableParameter(8);
-            break;
-        case Parameter::PARAMETER10:
-            qDebug() << "Parameter 10";
-            currentModule->enableParameter(9);
-            break;
-        default:
-            qDebug() << "Wrong parameter number";
-            assert(false);
-        }
+        p_CurrentModule->enableParameter(parameter);
 
-        updateGUI();
         break;
 
     case Function::DISABLE_PARAMETER_PACKET:
         qDebug() << "Disable parameter";
 
-        switch(uartPacket.getParameter())
-        {
-        case Parameter::PARAMETER1:
-            qDebug() << "Parameter 1";
-            currentModule->disableParameter(0);
-            break;
-        case Parameter::PARAMETER2:
-            qDebug() << "Parameter 2";
-            currentModule->disableParameter(1);
-            break;
-        case Parameter::PARAMETER3:
-            qDebug() << "Parameter 3";
-            currentModule->disableParameter(2);
-            break;
-        case Parameter::PARAMETER4:
-            qDebug() << "Parameter 4";
-            currentModule->disableParameter(3);
-            break;
-        case Parameter::PARAMETER5:
-            qDebug() << "Parameter 5";
-            currentModule->disableParameter(4);
-            break;
-        case Parameter::PARAMETER6:
-            qDebug() << "Parameter 6";
-            currentModule->disableParameter(5);
-            break;
-        case Parameter::PARAMETER7:
-            qDebug() << "Parameter 7";
-            currentModule->disableParameter(6);
-            break;
-        case Parameter::PARAMETER8:
-            qDebug() << "Parameter 8";
-            currentModule->disableParameter(7);
-            break;
-        case Parameter::PARAMETER9:
-            qDebug() << "Parameter 9";
-            currentModule->disableParameter(8);
-            break;
-        case Parameter::PARAMETER10:
-            qDebug() << "Parameter 10";
-            currentModule->disableParameter(9);
-            break;
-        default:
-            qDebug() << "Wrong parameter number";
-            assert(false);
-        }
+        p_CurrentModule->disableParameter(parameter);
 
-        updateGUI();
         break;
 
     case Function::SET_PARAMETER_PACKET:
@@ -224,74 +137,22 @@ void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
             valueDouble = valueDouble * (-1);
         }
 
-        switch(uartPacket.getParameter())
-        {
-        case Parameter::PARAMETER1:
-            qDebug() << "Parameter 1";
-            qDebug() << "Value: " << uartPacket.getPayload();
-            currentModule->setParameter(0,valueDouble);
-            break;
-        case Parameter::PARAMETER2:
-            qDebug() << "Parameter 2";
-            qDebug() << "Value: " << uartPacket.getPayload();
-            currentModule->setParameter(1,valueDouble);
-            break;
-        case Parameter::PARAMETER3:
-            qDebug() << "Parameter 3";
-            qDebug() << "Value: " << uartPacket.getPayload();
-            currentModule->setParameter(2,valueDouble);
-            break;
-        case Parameter::PARAMETER4:
-            qDebug() << "Parameter 4";
-            qDebug() << "Value: " << uartPacket.getPayload();
-            currentModule->setParameter(3,valueDouble);
-            break;
-        case Parameter::PARAMETER5:
-            qDebug() << "Parameter 5";
-            qDebug() << "Value: " << uartPacket.getPayload();
-            currentModule->setParameter(4,valueDouble);
-            break;
-        case Parameter::PARAMETER6:
-            qDebug() << "Parameter 6";
-            qDebug() << "Value: " << uartPacket.getPayload();
-            currentModule->setParameter(5,valueDouble);
-            break;
-        case Parameter::PARAMETER7:
-            qDebug() << "Parameter 7";
-            qDebug() << "Value: " << uartPacket.getPayload();
-            currentModule->setParameter(6,valueDouble);
-            break;
-        case Parameter::PARAMETER8:
-            qDebug() << "Parameter 8";
-            qDebug() << "Value: " << uartPacket.getPayload();
-            currentModule->setParameter(7,valueDouble);
-            break;
-        case Parameter::PARAMETER9:
-            qDebug() << "Parameter 9";
-            qDebug() << "Value: " << uartPacket.getPayload();
-            currentModule->setParameter(8,valueDouble);
-            break;
-        case Parameter::PARAMETER10:
-            qDebug() << "Parameter 10";
-            qDebug() << "Value: " << uartPacket.getPayload();
-            currentModule->setParameter(9,valueDouble);
-            break;
+        p_CurrentModule->setParameter(parameter,valueDouble);
 
-        default:
-            qDebug() << "Wrong parameter number";
-            assert(false);
-        }
-
-        updateGUI();
         break;
 
     default:
-        qDebug() << "Wrong function type";
-        assert(false);
+        char wrongValue = char(function);
+
+        QString errorMessage = QString("Wrong function field in received packet. Value: ") + QString(wrongValue);
+
+        QMessageBox::warning(this, "Incorrect packet", errorMessage);
     }
+
+    updateGUI();
 }
 
-void MainWindow::initModuleParametersList()
+bool MainWindow::initModuleParametersList()
 {
     std::ifstream inputFile;
 
@@ -501,11 +362,13 @@ void MainWindow::initModuleParametersList()
         getline(inputFile,inputBuffer);
         ui->label_Module3_SettableParameter10Name->setText(QString::fromStdString(inputBuffer));
         ui->label_Module3_SettableParameter10Name->setText(QString::fromStdString(inputBuffer));
+
+        return true;
     }
     else
     {
         qDebug("Could not open parameters.txt");
-        assert(false);
+        return false;
     }
 }
 
@@ -885,6 +748,7 @@ void MainWindow::sendWrongCrcDataPacket()
     uartPacket.setFunction(ui->comboBox_CustomPacketFunction->currentText().at(0).toLatin1());
     uartPacket.setParameter(ui->comboBox_CustomPacketParameter->currentText().at(0).toLatin1());
     uartPacket.setLength(Length::NO_PAYLOAD);
+    uartPacket.setSign(Sign::POSITIVE_SIGN);
 
     uartPacket.convertToUartPacketTable(uartPacketTable);
 
@@ -1135,6 +999,12 @@ void MainWindow::serialDataReceived()
 /*Button slots*/
 void MainWindow::on_pushButton_Open_clicked()
 {
+    if(initModuleParametersList() == false)
+    {
+        QMessageBox::warning(this, ".txt load error", "Parameters text file could not be opened");
+        return;
+    }
+
     if(m_pSerial->openPort(ui->comboBox_Port->currentText()))
     {
         initModuleParametersList();
