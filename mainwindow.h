@@ -8,6 +8,7 @@
 #include "tableview.h"
 #include "serial.h"
 #include <memory>
+#include "validators.h"
 
 namespace Ui {
 class MainWindow;
@@ -41,6 +42,8 @@ public:
     void generateSineGraph(int signalCount);
     void sendGraphPacket(UartPacket uartPacket);
 
+    void setInputValidators();
+
 private slots:
     void serialDataReceived();
 
@@ -66,6 +69,9 @@ private:
     unique_ptr<Serial> m_pSerial;
     unique_ptr<Module> m_pModule1, m_pModule2, m_pModule3;
     unique_ptr<TableView> m_pTableView;
+
+    unique_ptr<CustomIntegerValidator> m_pCustomIntegerValidator;
+    unique_ptr<CustomFloatingPointValidator> m_pCustomFloatingPointValidator;
 
     bool m_stopPressed = false;
 };

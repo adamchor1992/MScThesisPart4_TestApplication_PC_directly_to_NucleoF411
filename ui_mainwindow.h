@@ -945,7 +945,7 @@ public:
         lineEdit_CustomPacketPayload->setObjectName(QString::fromUtf8("lineEdit_CustomPacketPayload"));
         sizePolicy.setHeightForWidth(lineEdit_CustomPacketPayload->sizePolicy().hasHeightForWidth());
         lineEdit_CustomPacketPayload->setSizePolicy(sizePolicy);
-        lineEdit_CustomPacketPayload->setMaxLength(10);
+        lineEdit_CustomPacketPayload->setMaxLength(15);
 
         gridLayout_8->addWidget(lineEdit_CustomPacketPayload, 6, 1, 1, 1);
 
@@ -978,7 +978,7 @@ public:
         lineEdit_StartLinear->setObjectName(QString::fromUtf8("lineEdit_StartLinear"));
         sizePolicy.setHeightForWidth(lineEdit_StartLinear->sizePolicy().hasHeightForWidth());
         lineEdit_StartLinear->setSizePolicy(sizePolicy);
-        lineEdit_StartLinear->setMaxLength(11);
+        lineEdit_StartLinear->setMaxLength(15);
         lineEdit_StartLinear->setAlignment(Qt::AlignCenter);
         lineEdit_StartLinear->setReadOnly(false);
 
@@ -988,7 +988,7 @@ public:
         lineEdit_RangeMaximum->setObjectName(QString::fromUtf8("lineEdit_RangeMaximum"));
         sizePolicy.setHeightForWidth(lineEdit_RangeMaximum->sizePolicy().hasHeightForWidth());
         lineEdit_RangeMaximum->setSizePolicy(sizePolicy);
-        lineEdit_RangeMaximum->setMaxLength(11);
+        lineEdit_RangeMaximum->setMaxLength(15);
         lineEdit_RangeMaximum->setAlignment(Qt::AlignCenter);
 
         gridLayout_4->addWidget(lineEdit_RangeMaximum, 6, 1, 1, 1);
@@ -1087,7 +1087,7 @@ public:
         lineEdit_MultiplierSine->setObjectName(QString::fromUtf8("lineEdit_MultiplierSine"));
         sizePolicy.setHeightForWidth(lineEdit_MultiplierSine->sizePolicy().hasHeightForWidth());
         lineEdit_MultiplierSine->setSizePolicy(sizePolicy);
-        lineEdit_MultiplierSine->setMaxLength(11);
+        lineEdit_MultiplierSine->setMaxLength(15);
         lineEdit_MultiplierSine->setAlignment(Qt::AlignCenter);
         lineEdit_MultiplierSine->setReadOnly(false);
 
@@ -1103,7 +1103,7 @@ public:
         lineEdit_StepLinear->setObjectName(QString::fromUtf8("lineEdit_StepLinear"));
         sizePolicy.setHeightForWidth(lineEdit_StepLinear->sizePolicy().hasHeightForWidth());
         lineEdit_StepLinear->setSizePolicy(sizePolicy);
-        lineEdit_StepLinear->setMaxLength(11);
+        lineEdit_StepLinear->setMaxLength(15);
         lineEdit_StepLinear->setAlignment(Qt::AlignCenter);
 
         gridLayout_4->addWidget(lineEdit_StepLinear, 13, 1, 1, 1);
@@ -1158,7 +1158,7 @@ public:
 
         lineEdit_StopDegrees = new QLineEdit(groupBox_GraphControls);
         lineEdit_StopDegrees->setObjectName(QString::fromUtf8("lineEdit_StopDegrees"));
-        lineEdit_StopDegrees->setMaxLength(11);
+        lineEdit_StopDegrees->setMaxLength(15);
         lineEdit_StopDegrees->setAlignment(Qt::AlignCenter);
 
         gridLayout_4->addWidget(lineEdit_StopDegrees, 21, 1, 1, 1);
@@ -1183,6 +1183,7 @@ public:
 
         lineEdit_StartDegrees = new QLineEdit(groupBox_GraphControls);
         lineEdit_StartDegrees->setObjectName(QString::fromUtf8("lineEdit_StartDegrees"));
+        lineEdit_StartDegrees->setMaxLength(15);
         lineEdit_StartDegrees->setAlignment(Qt::AlignCenter);
 
         gridLayout_4->addWidget(lineEdit_StartDegrees, 20, 1, 1, 1);
@@ -1197,7 +1198,8 @@ public:
         lineEdit_RangeMinimum->setObjectName(QString::fromUtf8("lineEdit_RangeMinimum"));
         sizePolicy.setHeightForWidth(lineEdit_RangeMinimum->sizePolicy().hasHeightForWidth());
         lineEdit_RangeMinimum->setSizePolicy(sizePolicy);
-        lineEdit_RangeMinimum->setMaxLength(11);
+        lineEdit_RangeMinimum->setMaxLength(15);
+        lineEdit_RangeMinimum->setFrame(true);
         lineEdit_RangeMinimum->setAlignment(Qt::AlignCenter);
 
         gridLayout_4->addWidget(lineEdit_RangeMinimum, 6, 0, 1, 1);
@@ -1212,7 +1214,7 @@ public:
         lineEdit_StopLinear->setObjectName(QString::fromUtf8("lineEdit_StopLinear"));
         sizePolicy.setHeightForWidth(lineEdit_StopLinear->sizePolicy().hasHeightForWidth());
         lineEdit_StopLinear->setSizePolicy(sizePolicy);
-        lineEdit_StopLinear->setMaxLength(11);
+        lineEdit_StopLinear->setMaxLength(15);
         lineEdit_StopLinear->setAlignment(Qt::AlignCenter);
         lineEdit_StopLinear->setReadOnly(false);
 
@@ -3701,7 +3703,7 @@ public:
         pushButton_SendWrongCrcPacket->setText(QCoreApplication::translate("MainWindow", "Send wrong CRC packet", nullptr));
         groupBox_GraphControls->setTitle(QCoreApplication::translate("MainWindow", "Graph", nullptr));
         lineEdit_StartLinear->setText(QCoreApplication::translate("MainWindow", "-10000", nullptr));
-        lineEdit_RangeMaximum->setText(QCoreApplication::translate("MainWindow", "10000", nullptr));
+        lineEdit_RangeMaximum->setText(QCoreApplication::translate("MainWindow", "+10000", nullptr));
         label_SignalCount->setText(QCoreApplication::translate("MainWindow", "Signal count", nullptr));
         pushButton_Stop->setText(QCoreApplication::translate("MainWindow", "STOP", nullptr));
         label_Linear->setText(QCoreApplication::translate("MainWindow", "Linear", nullptr));

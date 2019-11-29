@@ -32,12 +32,33 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     m_pTableView->initPacketDisplay();
 
+    setInputValidators();
+
     this->setWindowState(Qt::WindowMaximized);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::setInputValidators()
+{
+    m_pCustomIntegerValidator = std::make_unique<CustomIntegerValidator>();
+    m_pCustomFloatingPointValidator = std::make_unique<CustomFloatingPointValidator>();
+
+    /*Input widgets accepting only integers*/
+    ui->lineEdit_RangeMinimum->setValidator(m_pCustomIntegerValidator.get());
+    ui->lineEdit_RangeMaximum->setValidator(m_pCustomIntegerValidator.get());
+    ui->lineEdit_StartDegrees->setValidator(m_pCustomIntegerValidator.get());
+    ui->lineEdit_StopDegrees->setValidator(m_pCustomIntegerValidator.get());
+
+    /*Input widgets accepting floating point values*/
+    ui->lineEdit_StartLinear->setValidator(m_pCustomFloatingPointValidator.get());
+    ui->lineEdit_StopLinear->setValidator(m_pCustomFloatingPointValidator.get());
+    ui->lineEdit_StepLinear->setValidator(m_pCustomFloatingPointValidator.get());
+    ui->lineEdit_MultiplierSine->setValidator(m_pCustomFloatingPointValidator.get());
+    ui->lineEdit_CustomPacketPayload->setValidator(m_pCustomFloatingPointValidator.get());
 }
 
 void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
@@ -145,8 +166,6 @@ void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
 
     updateGUI();
 }
-
-
 
 void MainWindow::initConnectionModule(ModuleID module)
 {
@@ -346,6 +365,11 @@ void MainWindow::setRangeMinimum()
 
     QString enteredPayload = ui->lineEdit_RangeMinimum->text();
 
+    if(enteredPayload.isEmpty())
+    {
+        return;
+    }
+
     if(enteredPayload.at(0).toLatin1() == '-')
     {
         uartPacket.setSign(Sign::NEGATIVE_SIGN);
@@ -389,6 +413,11 @@ void MainWindow::setRangeMaximum()
     uartPacket.setParameter(Parameter::NULL_PARAMETER);
 
     QString enteredPayload = ui->lineEdit_RangeMaximum->text();
+
+    if(enteredPayload.isEmpty())
+    {
+        return;
+    }
 
     if(enteredPayload.at(0).toLatin1() == '-')
     {
@@ -478,6 +507,11 @@ void MainWindow::sendCustomDataPacket()
 
     QString enteredPayload = ui->lineEdit_CustomPacketPayload->text();
 
+    if(enteredPayload.isEmpty())
+    {
+        return;
+    }
+
     if(enteredPayload.at(0).toLatin1() == '-')
     {
         ui->lineEdit_CustomPacketSign->setText("2");
@@ -547,6 +581,11 @@ void MainWindow::generateLinearGraph(int signalCount)
 
     QString strStartValue = ui->lineEdit_StartLinear->text();
     QString strStopValue = ui->lineEdit_StopLinear->text();
+
+    if(strStartValue.isEmpty() || strStopValue.isEmpty())
+    {
+        return;
+    }
 
     int startValue = strStartValue.toInt();
     int stopValue = strStopValue.toInt();
@@ -626,6 +665,11 @@ void MainWindow::generateSineGraph(int signalCount)
     QString strStartValue = ui->lineEdit_StartDegrees->text();
     QString strStopValue = ui->lineEdit_StopDegrees->text();
 
+    if(strStartValue.isEmpty() || strStopValue.isEmpty())
+    {
+        return;
+    }
+
     int startValue = strStartValue.toInt();
     int stopValue = strStopValue.toInt();
 
@@ -643,7 +687,14 @@ void MainWindow::generateSineGraph(int signalCount)
     double value;
     uint8_t parameters[4] = {'b', 'c', 'd', 'e'};
 
-    double multiplier = (ui->lineEdit_MultiplierSine->text()).toDouble();
+    QString strMultiplierSine = ui->lineEdit_MultiplierSine->text();
+
+    if(strMultiplierSine.isEmpty())
+    {
+        return;
+    }
+
+    double multiplier = strMultiplierSine.toDouble();
     double radianInverse = 3.14159/180;
 
     int phaseShift[4] = {0, 120, 240, 360};

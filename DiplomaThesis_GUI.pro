@@ -43,7 +43,8 @@ HEADERS += \
     tableview.h \
     serial.h \
     uartpacket.h \
-    initparameterstxtloader.h
+    initparameterstxtloader.h \
+    validators.h
 
 FORMS += \
         mainwindow.ui
