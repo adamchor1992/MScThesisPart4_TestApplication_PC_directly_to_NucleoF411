@@ -581,18 +581,26 @@ void MainWindow::generateLinearGraph(int signalCount)
 
     QString strStartValue = ui->lineEdit_StartLinear->text();
     QString strStopValue = ui->lineEdit_StopLinear->text();
+    QString strStepValue = ui->lineEdit_StepLinear->text();
 
-    if(strStartValue.isEmpty() || strStopValue.isEmpty())
+    if(strStartValue.isEmpty() || strStopValue.isEmpty() || strStepValue.isEmpty())
     {
         return;
     }
 
-    int startValue = strStartValue.toInt();
-    int stopValue = strStopValue.toInt();
+    double startValue = strStartValue.toDouble();
+    double stopValue = strStopValue.toDouble();
+    double stepValue = strStepValue.toDouble();
 
     if(startValue > stopValue)
     {
         QMessageBox::warning(this, "Warning", "Start values is higher than stop value, aborting");
+        return;
+    }
+
+    if(stepValue < 0)
+    {
+        QMessageBox::warning(this, "Warning", "Negative step value not supported, aborting");
         return;
     }
 
@@ -605,7 +613,7 @@ void MainWindow::generateLinearGraph(int signalCount)
 
     uint8_t parameters[4] = {'b', 'c', 'd', 'e'};
 
-    for(int x = startValue; x < stopValue; x++)
+    for(double x = startValue; x < stopValue; x = x + stepValue)
     {
         for(int signalNumber = 0; signalNumber < signalCount; signalNumber++)
         {
@@ -662,18 +670,20 @@ void MainWindow::generateSineGraph(int signalCount)
 {
     UartPacket uartPacket;
 
-    QString strStartValue = ui->lineEdit_StartDegrees->text();
-    QString strStopValue = ui->lineEdit_StopDegrees->text();
+    QString strStartDegrees = ui->lineEdit_StartDegrees->text();
+    QString strStopDegrees = ui->lineEdit_StopDegrees->text();
+    QString strMultiplierSine = ui->lineEdit_MultiplierSine->text();
 
-    if(strStartValue.isEmpty() || strStopValue.isEmpty())
+    if(strStartDegrees.isEmpty() || strStopDegrees.isEmpty() || strMultiplierSine.isEmpty())
     {
         return;
     }
 
-    int startValue = strStartValue.toInt();
-    int stopValue = strStopValue.toInt();
+    int startDegrees = strStartDegrees.toInt();
+    int stopDegrees = strStopDegrees.toInt();
+    double multiplierSine = strMultiplierSine.toDouble();
 
-    if(startValue > stopValue)
+    if(strStartDegrees > strStopDegrees)
     {
         QMessageBox::warning(this, "Warning", "Start values is higher than stop value, aborting");
         return;
@@ -687,26 +697,18 @@ void MainWindow::generateSineGraph(int signalCount)
     double value;
     uint8_t parameters[4] = {'b', 'c', 'd', 'e'};
 
-    QString strMultiplierSine = ui->lineEdit_MultiplierSine->text();
-
-    if(strMultiplierSine.isEmpty())
-    {
-        return;
-    }
-
-    double multiplier = strMultiplierSine.toDouble();
-    double radianInverse = 3.14159/180;
+    constexpr double radianInverse = 3.14159/180;
 
     int phaseShift[4] = {0, 120, 240, 360};
 
-    for(int x = startValue; x < stopValue; x++)
+    for(int x = startDegrees; x < stopDegrees; x++)
     {
         for(int signalNumber = 0; signalNumber < signalCount; signalNumber++)
         {
             uartPacket.setParameter(parameters[signalNumber]); // send with one of 4 parameters
 
             /*Multiply by radian inverse to get rid of radian unit and calculate sine of x measured in degrees*/
-            value = multiplier * (sin(x * radianInverse + phaseShift[signalNumber]));
+            value = multiplierSine * (sin(x * radianInverse + phaseShift[signalNumber]));
 
             if(value < 0)
             {
