@@ -1424,7 +1424,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>1</string>
+            <string>10000</string>
            </property>
            <property name="maxLength">
             <number>15</number>
@@ -1794,11 +1794,11 @@
          <property name="columnCount">
           <number>0</number>
          </property>
-         <attribute name="horizontalHeaderDefaultSectionSize">
-          <number>49</number>
-         </attribute>
          <attribute name="horizontalHeaderMinimumSectionSize">
           <number>37</number>
+         </attribute>
+         <attribute name="horizontalHeaderDefaultSectionSize">
+          <number>49</number>
          </attribute>
          <attribute name="verticalHeaderMinimumSectionSize">
           <number>23</number>

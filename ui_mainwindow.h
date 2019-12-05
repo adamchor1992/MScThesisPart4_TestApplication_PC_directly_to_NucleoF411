@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.13.1
+** Created by: Qt User Interface Compiler version 5.13.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -3717,7 +3717,7 @@ public:
 
         label_RangeMaximum->setText(QCoreApplication::translate("MainWindow", "Range maximum", nullptr));
         label_StopDegrees->setText(QCoreApplication::translate("MainWindow", "Stop degrees", nullptr));
-        lineEdit_MultiplierSine->setText(QCoreApplication::translate("MainWindow", "1", nullptr));
+        lineEdit_MultiplierSine->setText(QCoreApplication::translate("MainWindow", "10000", nullptr));
         label_MultiplierSine->setText(QCoreApplication::translate("MainWindow", "Multiplier", nullptr));
         lineEdit_StepLinear->setText(QCoreApplication::translate("MainWindow", "1", nullptr));
         label_RangeMinimum->setText(QCoreApplication::translate("MainWindow", "Range minimum", nullptr));
