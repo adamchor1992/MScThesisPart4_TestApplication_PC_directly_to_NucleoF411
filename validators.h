@@ -8,7 +8,7 @@ class CustomFloatingPointValidator : public QValidator
 public:
     CustomFloatingPointValidator()
     {
-        m_FloatingPointValidatorPattern = ("^[+|-]?(0\\.|[1-9])(\\d{0,10})([.])?(\\d{0,10})");
+        m_FloatingPointValidatorPattern = ("^[+-]?(?!0\\d)(\\d{1,10})(\\.\\d{1,8})?$");
         m_RegExp.setPattern(m_FloatingPointValidatorPattern);
     }
 
@@ -32,7 +32,12 @@ private:
                 qDebug() << "Matched length:" << m_RegExp.matchedLength();
             }
 
-            int totalMatchLength = matchedStrings.at(1).length() + matchedStrings.at(2).length() + matchedStrings.at(3).length() + matchedStrings.at(4).length();
+            int totalMatchLength = 0;
+
+            for(int i=1; i<matchedStrings.length(); i++)
+            {
+                totalMatchLength += matchedStrings.at(i).length();
+            }
 
             if(totalMatchLength <= 10)
             {
@@ -59,7 +64,7 @@ class CustomIntegerValidator : public QValidator
 public:
     CustomIntegerValidator()
     {
-        m_IntValidatorPattern = ("^[+|-]?(0\\.|[1-9])(\\d{0,10})([.])?(\\d{0,10})");
+        m_IntValidatorPattern = "^[+|-]?(0|[1-9][0-9]{0,9})$";
         m_RegExp.setPattern(m_IntValidatorPattern);
     }
 
@@ -83,7 +88,7 @@ private:
                 qDebug() << "Matched length:" << m_RegExp.matchedLength();
             }
 
-            int totalMatchLength =  matchedStrings.at(1).length() + matchedStrings.at(2).length();
+            int totalMatchLength =  matchedStrings.at(1).length();
 
             if(totalMatchLength <= 10)
             {
