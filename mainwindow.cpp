@@ -4,7 +4,7 @@
 #include "defines.h"
 #include <QSerialPortInfo>
 #include <QMessageBox>
-#include "initparameterstxtloader.h"
+#include "initparametersxmlloader.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -192,6 +192,10 @@ void MainWindow::initConnectionModule(ModuleID module)
                                                          ui->lineEdit_Module1InitParameter3Value->text(),
                                                          ui->lineEdit_Module1InitParameter4Value->text(),
                                                          ui->lineEdit_Module1InitParameter5Value->text(),
+                                                         ui->label_Module1Parameter1Name->text(),
+                                                         ui->label_Module1Parameter2Name->text(),
+                                                         ui->label_Module1Parameter3Name->text(),
+                                                         ui->label_Module1Parameter4Name->text(),
                                                          ui->lineEdit_Module1Parameter1Name->text(),
                                                          ui->lineEdit_Module1Parameter2Name->text(),
                                                          ui->lineEdit_Module1Parameter3Name->text(),
@@ -228,6 +232,10 @@ void MainWindow::initConnectionModule(ModuleID module)
                                                          ui->lineEdit_Module2InitParameter3Value->text(),
                                                          ui->lineEdit_Module2InitParameter4Value->text(),
                                                          ui->lineEdit_Module2InitParameter5Value->text(),
+                                                         ui->label_Module2Parameter1Name->text(),
+                                                         ui->label_Module2Parameter2Name->text(),
+                                                         ui->label_Module2Parameter3Name->text(),
+                                                         ui->label_Module2Parameter4Name->text(),
                                                          ui->lineEdit_Module2Parameter1Name->text(),
                                                          ui->lineEdit_Module2Parameter2Name->text(),
                                                          ui->lineEdit_Module2Parameter3Name->text(),
@@ -264,6 +272,10 @@ void MainWindow::initConnectionModule(ModuleID module)
                                                          ui->lineEdit_Module3InitParameter3Value->text(),
                                                          ui->lineEdit_Module3InitParameter4Value->text(),
                                                          ui->lineEdit_Module3InitParameter5Value->text(),
+                                                         ui->label_Module3Parameter1Name->text(),
+                                                         ui->label_Module3Parameter2Name->text(),
+                                                         ui->label_Module3Parameter3Name->text(),
+                                                         ui->label_Module3Parameter4Name->text(),
                                                          ui->lineEdit_Module3Parameter1Name->text(),
                                                          ui->lineEdit_Module3Parameter2Name->text(),
                                                          ui->lineEdit_Module3Parameter3Name->text(),
@@ -828,11 +840,11 @@ void MainWindow::serialDataReceived()
 /*Button slots*/
 void MainWindow::on_pushButton_Open_clicked()
 {
-    InitParametersTxtLoader initParametersTxtLoader(ui);
+    InitParametersXmlLoader initParametersXmlLoader(ui);
 
-    if(initParametersTxtLoader.initModuleParametersList() == false)
+    if(initParametersXmlLoader.initModuleParametersList() == false)
     {
-        QMessageBox::warning(this, ".txt load error", "Parameters text file could not be opened");
+        QMessageBox::warning(this, ".xml load error", "Error, parameters list could not be read from XML");
         return;
     }
 

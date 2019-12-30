@@ -32,7 +32,7 @@ SOURCES += \
         utilities.cpp \
     tableview.cpp \
     serial.cpp \
-    initparameterstxtloader.cpp
+    initparametersxmlloader.cpp
 
 HEADERS += \
         crc32.h \
@@ -43,8 +43,8 @@ HEADERS += \
     tableview.h \
     serial.h \
     uartpacket.h \
-    initparameterstxtloader.h \
-    validators.h
+    validators.h \
+    initparametersxmlloader.h
 
 FORMS += \
         mainwindow.ui

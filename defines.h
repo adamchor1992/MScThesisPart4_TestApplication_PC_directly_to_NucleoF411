@@ -1,7 +1,7 @@
 #pragma once
 
 const int PACKET_SIZE = 20;
-const int INIT_PACKETS_COUNT = 24;
+const int INIT_PACKETS_COUNT = 28;
 
 /*Source/target field*/
 enum class Source {SOURCE_TARGET1};
