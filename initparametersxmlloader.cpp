@@ -48,7 +48,7 @@ void InitParametersXmlLoader::parseXmlFileToParametersList(std::ifstream & input
     {
         if(inputLine.length() != 0)
         {
-            qDebug() << "Line length: " << inputLine.length() << endl;
+//            qDebug() << "Line length: " << inputLine.length() << endl;
 
             beginningTagStartIndex = inputLine.find('<', 0);
             beginningTagEndIndex= inputLine.find('>', beginningTagStartIndex + 1);
@@ -64,15 +64,15 @@ void InitParametersXmlLoader::parseXmlFileToParametersList(std::ifstream & input
             {
                 stringLength = endingTagStartIndex - beginningTagEndIndex;
 
-                qDebug() << "BeginningStart: " << beginningTagStartIndex << endl;
-                qDebug() << "BeginningEnd: " <<  beginningTagEndIndex << endl;
-                qDebug() << "EndingStart: " << endingTagStartIndex << endl;
-                qDebug() << "EndingEnd: " <<  endingTagEndIndex << endl;
-                qDebug() << "String length: " << stringLength << endl;
-                qDebug() << endl;
+//                qDebug() << "BeginningStart: " << beginningTagStartIndex << endl;
+//                qDebug() << "BeginningEnd: " <<  beginningTagEndIndex << endl;
+//                qDebug() << "EndingStart: " << endingTagStartIndex << endl;
+//                qDebug() << "EndingEnd: " <<  endingTagEndIndex << endl;
+//                qDebug() << "String length: " << stringLength << endl;
+//                qDebug() << endl;
 
                 foundString = QString::fromStdString(inputLine.substr(beginningTagEndIndex + 1, stringLength - 1));
-                qDebug() << "Found string = " << foundString << endl;
+//                qDebug() << "Found string = " << foundString << endl;
 
                 m_Parameters.push_back(foundString);
             }

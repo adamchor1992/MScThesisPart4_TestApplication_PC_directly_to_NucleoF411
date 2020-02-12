@@ -44,7 +44,7 @@ void TableView::initPacketDisplay()
     }
 }
 
-void TableView::updatePacket(uint8_t uartPacket[], bool isReceivedPacket)
+void TableView::updatePacketDisplay(uint8_t uartPacket[], bool isReceivedPacket, bool isCrcCorrect)
 {
     int rowCount = m_pTableWidget->rowCount();
 
@@ -153,9 +153,30 @@ void TableView::updatePacket(uint8_t uartPacket[], bool isReceivedPacket)
 
     if(isReceivedPacket == true)
     {
-        for(int column = 0; column < PACKET_SIZE; column++)
+        if(isCrcCorrect == true)
         {
-            m_pTableWidget->item(rowCount, column)->setBackground(QBrush(Qt::green));
+            for(int column = 0; column < PACKET_SIZE; column++)
+            {
+                m_pTableWidget->item(rowCount, column)->setBackground(QBrush(Qt::green));
+            }
+        }
+        else
+        {
+            for(int column = 0; column < PACKET_SIZE; column++)
+            {
+                m_pTableWidget->item(rowCount, column)->setBackground(QBrush(Qt::red));
+            }
+        }
+    }
+    /*Mark also wrong CRC outbound packets with red color*/
+    else
+    {
+        if(isCrcCorrect == false)
+        {
+            for(int column = 0; column < PACKET_SIZE; column++)
+            {
+                m_pTableWidget->item(rowCount, column)->setBackground(QBrush(Qt::red));
+            }
         }
     }
 

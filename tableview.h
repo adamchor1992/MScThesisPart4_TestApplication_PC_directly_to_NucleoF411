@@ -15,7 +15,7 @@ public:
     }
 
     void initPacketDisplay();
-    void updatePacket(uint8_t UART_MessageToTransmit[], bool isReceivedPacket);
+    void updatePacketDisplay(uint8_t UART_MessageToTransmit[], bool isReceivedPacket, bool isCrcCorrect=true);
     void clearPacketDisplay();
 
 private:

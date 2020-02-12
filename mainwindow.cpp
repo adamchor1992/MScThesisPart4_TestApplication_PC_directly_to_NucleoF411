@@ -76,18 +76,16 @@ void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
         uartReceivedPacket[i] = receivedBytes.at(i);
     }
 
-    if(checkCrc32(uartReceivedPacket) == false)
+    if(checkCrc32(uartReceivedPacket) == true)
     {
-        qDebug("CRC1: %d", uartReceivedPacket[16]);
-        qDebug("CRC2: %d", uartReceivedPacket[17]);
-        qDebug("CRC3: %d", uartReceivedPacket[18]);
-        qDebug("CRC4: %d", uartReceivedPacket[19]);
+        m_pTableView->updatePacketDisplay(uartReceivedPacket, true, true);
 
-        QMessageBox::warning(this, "Bad CRC", "Received packet discarded. It has wrong CRC checksum.");
         return;
     }
-
-    m_pTableView->updatePacket(uartReceivedPacket, true);
+    else
+    {
+        m_pTableView->updatePacketDisplay(uartReceivedPacket, true, false);
+    }
 
     QCoreApplication::processEvents();
 
@@ -112,7 +110,7 @@ void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
     }
     else
     {
-        QMessageBox::warning(this, "Incorrect packet", "Wrong module field in received packet. Packet discarded");
+        qDebug() << "ERROR - Incorrect received packet - Wrong module field in received packet. Packet discarded";
         return;
     }
 
@@ -157,11 +155,7 @@ void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
         break;
 
     default:
-        char wrongValue = char(function);
-
-        QString errorMessage = QString("Wrong function field in received packet. Value: ") + QString(wrongValue);
-
-        QMessageBox::warning(this, "Incorrect packet", errorMessage);
+        qDebug() << "ERROR - Incorrect received packet - Wrong function type";
     }
 
     updateGUI();
@@ -329,7 +323,7 @@ void MainWindow::initConnectionModule(ModuleID module)
 
         qDebug("Init Packet is: %s", uartPacketTable);
 
-        m_pTableView->updatePacket(uartPacketTable, false);
+        m_pTableView->updatePacketDisplay(uartPacketTable, false);
 
         m_pSerial->sendPacket(uartPacketTable);
 
@@ -359,7 +353,7 @@ void MainWindow::deinitConnectionModule(ModuleID module)
 
     qDebug("Deinit Packet is: %s", uartPacketTable);
 
-    m_pTableView->updatePacket(uartPacketTable, false);
+    m_pTableView->updatePacketDisplay(uartPacketTable, false);
 
     m_pSerial->sendPacket(uartPacketTable);
 }
@@ -408,7 +402,7 @@ void MainWindow::setRangeMinimum()
 
     qDebug("Data Packet is: %s", uartPacketTable);
 
-    m_pTableView->updatePacket(uartPacketTable, false);
+    m_pTableView->updatePacketDisplay(uartPacketTable, false);
 
     m_pSerial->sendPacket(uartPacketTable);
 }
@@ -457,7 +451,7 @@ void MainWindow::setRangeMaximum()
 
     qDebug("Data Packet is: %s", uartPacketTable);
 
-    m_pTableView->updatePacket(uartPacketTable, false);
+    m_pTableView->updatePacketDisplay(uartPacketTable, false);
 
     m_pSerial->sendPacket(uartPacketTable);
 }
@@ -501,7 +495,7 @@ void MainWindow::setRangeTime()
 
     qDebug("Data Packet is: %s", uartPacketTable);
 
-    m_pTableView->updatePacket(uartPacketTable, false);
+    m_pTableView->updatePacketDisplay(uartPacketTable, false);
 
     m_pSerial->sendPacket(uartPacketTable);
 }
@@ -554,7 +548,7 @@ void MainWindow::sendCustomDataPacket()
 
     qDebug("Data Packet is: %s", uartPacketTable);
 
-    m_pTableView->updatePacket(uartPacketTable, false);
+    m_pTableView->updatePacketDisplay(uartPacketTable, false);
 
     m_pSerial->sendPacket(uartPacketTable);
 }
@@ -582,7 +576,7 @@ void MainWindow::sendWrongCrcDataPacket()
 
     qDebug("Wrong Crc Data Packet is: %s", uartPacketTable);
 
-    m_pTableView->updatePacket(uartPacketTable, false);
+    m_pTableView->updatePacketDisplay(uartPacketTable, false, false);
 
     m_pSerial->sendPacket(uartPacketTable);
 }
@@ -762,7 +756,7 @@ void MainWindow::sendGraphPacket(UartPacket uartPacket)
 
     qDebug("Data Packet is: %s", uartPacketTable);
 
-    m_pTableView->updatePacket(uartPacketTable, false);
+    m_pTableView->updatePacketDisplay(uartPacketTable, false);
 
     m_pSerial->sendPacket(uartPacketTable);
 

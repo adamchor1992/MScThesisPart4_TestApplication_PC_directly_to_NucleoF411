@@ -2,6 +2,7 @@
 
 #include <QString>
 #include <QMessageBox>
+#include <QDebug>
 
 void Module::enableParameter(Parameter parameter)
 {
@@ -38,13 +39,7 @@ void Module::enableParameter(Parameter parameter)
         enableParameterByIndex(9);
         break;
     default:
-        QString errorMessage;
-
-        char wrongValue = char(parameter);
-
-        errorMessage = QString("Wrong parameter field in received packet. Value: ") + QString(wrongValue);
-
-        QMessageBox::warning(nullptr, "Incorrect packet", errorMessage);
+        qDebug() << "ERROR - Incorrect received packet - Wrong parameter number";
     }
 }
 
@@ -88,13 +83,7 @@ void Module::disableParameter(Parameter parameter)
         disableParameterByIndex(9);
         break;
     default:
-        QString errorMessage;
-
-        char wrongValue = char(parameter);
-
-        errorMessage = QString("Wrong parameter field in received packet. Value: ") + QString(wrongValue);
-
-        QMessageBox::warning(nullptr, "Incorrect packet", errorMessage);
+        qDebug() << "ERROR - Incorrect received packet - Wrong parameter number";
     }
 }
 
@@ -138,13 +127,7 @@ void Module::setParameter(Parameter parameter, double value)
         setParameterByIndex(9, value);
         break;
     default:
-        QString errorMessage;
-
-        char wrongValue = char(parameter);
-
-        errorMessage = QString("Wrong parameter field in received packet. Value: ") + QString(wrongValue);
-
-        QMessageBox::warning(nullptr, "Incorrect packet", errorMessage);
+        qDebug() << "ERROR - Incorrect received packet - Wrong parameter number";
     }
 }
 
