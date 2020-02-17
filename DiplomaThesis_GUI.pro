@@ -32,7 +32,8 @@ SOURCES += \
         utilities.cpp \
     tableview.cpp \
     serial.cpp \
-    initparametersxmlloader.cpp
+    initparametersxmlloader.cpp \
+    validators.cpp
 
 HEADERS += \
         crc32.h \

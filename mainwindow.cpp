@@ -73,7 +73,7 @@ void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
 
     for(int i=0; i<PACKET_SIZE; i++)
     {
-        uartReceivedPacket[i] = receivedBytes.at(i);
+        uartReceivedPacket[i] = static_cast<uint8_t>(receivedBytes.at(i));
     }
 
     if(checkCrc32(uartReceivedPacket) == true)

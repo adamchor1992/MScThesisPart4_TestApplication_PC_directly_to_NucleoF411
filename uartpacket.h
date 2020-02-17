@@ -21,8 +21,8 @@ public:
     void setSign(Sign sign);
     void setSign(uint8_t sign);
     void setLength(Length length);
-    void setLength(int length);
-    void setLengthAscii(int length);
+    void setLength(uint8_t length);
+    void setLengthAscii(uint8_t length);
 
     /*This function merely copies structure fields to table elements, no additional logic included*/
     void convertToUartPacketTable(uint8_t uartPacketTable[]);

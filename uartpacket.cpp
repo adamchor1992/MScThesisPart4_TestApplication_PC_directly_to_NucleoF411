@@ -200,12 +200,12 @@ void UartPacket::setLength(Length length)
     }
 }
 
-void UartPacket::setLength(int length)
+void UartPacket::setLength(uint8_t length)
 {
     m_Length = length;
 }
 
-void UartPacket::setLengthAscii(int length)
+void UartPacket::setLengthAscii(uint8_t length)
 {
     m_Length = length + '0';
 }
