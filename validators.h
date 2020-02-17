@@ -1,5 +1,7 @@
 #pragma once
 
+#include <defines.h>
+
 #include <QValidator>
 #include <QDebug>
 
@@ -39,7 +41,7 @@ private:
                 totalMatchLength += matchedStrings.at(i).length();
             }
 
-            if(totalMatchLength <= 10)
+            if(totalMatchLength <= MAX_PAYLOAD_SIZE)
             {
                 return QValidator::Acceptable;
             }
@@ -90,7 +92,7 @@ private:
 
             int totalMatchLength =  matchedStrings.at(1).length();
 
-            if(totalMatchLength <= 10)
+            if(totalMatchLength <= MAX_PAYLOAD_SIZE)
             {
                 return QValidator::Acceptable;
             }

@@ -17,6 +17,6 @@ public:
     double* getParameterValuesTable();
 
 private:
-    bool parameterStates[10] {false};
-    double parameterValues[10] {0.0};
+    bool parameterStates[PARAMETER_COUNT] {false};
+    double parameterValues[PARAMETER_COUNT] {0.0};
 };

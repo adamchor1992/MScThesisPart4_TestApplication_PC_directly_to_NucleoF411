@@ -36,7 +36,7 @@ public:
     void openPort(QString portName);
     void closePort(QString portName);
     bool initModuleParametersList();
-    void sendCustomDataPacket();
+    void sendCustomPacket();
     void sendWrongCrcDataPacket();
     void generateLinearGraph(int signalCount);
     void generateSineGraph(int signalCount);

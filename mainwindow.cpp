@@ -208,7 +208,7 @@ void MainWindow::initConnectionModule(ModuleID module)
 
     for(auto value : initInfoValuesModule1)
     {
-        if(value.size() > 10)
+        if(value.size() > MAX_PAYLOAD_SIZE)
         {
             QMessageBox::warning(this, "Warning", "Module 1 initialization parameter value is too long,"
                                                   " maximum allowed length is 10. Aborting module initialization");
@@ -248,7 +248,7 @@ void MainWindow::initConnectionModule(ModuleID module)
 
     for(auto value : initInfoValuesModule2)
     {
-        if(value.size() > 10)
+        if(value.size() > MAX_PAYLOAD_SIZE)
         {
             QMessageBox::warning(this, "Warning", "Module 2 initialization parameter value is too long,"
                                                   " maximum allowed length is 10. Aborting module initialization");
@@ -288,7 +288,7 @@ void MainWindow::initConnectionModule(ModuleID module)
 
     for(auto value : initInfoValuesModule3)
     {
-        if(value.size() > 10)
+        if(value.size() > MAX_PAYLOAD_SIZE)
         {
             QMessageBox::warning(this, "Warning", "Module 3 initialization parameter value is too long,"
                                                   " maximum allowed length is 10. Aborting module initialization");
@@ -302,15 +302,16 @@ void MainWindow::initConnectionModule(ModuleID module)
     {
         if(module == ModuleID::MODULE1)
         {
-            sprintf((char*)uartPacket[i].getPayload(), "%s", initInfoValuesModule1[i].toStdString().c_str());
+            snprintf((char*)uartPacket[i].getPayload(), MAX_PAYLOAD_SIZE, "%s", initInfoValuesModule1[i].toStdString().c_str());
         }
+
         else if(module == ModuleID::MODULE2)
         {
-            sprintf((char*)uartPacket[i].getPayload(), "%s", initInfoValuesModule2[i].toStdString().c_str());
+            snprintf((char*)uartPacket[i].getPayload(), MAX_PAYLOAD_SIZE, "%s", initInfoValuesModule2[i].toStdString().c_str());
         }
         else if(module == ModuleID::MODULE3)
         {
-            sprintf((char*)uartPacket[i].getPayload(), "%s", initInfoValuesModule3[i].toStdString().c_str());
+            snprintf((char*)uartPacket[i].getPayload(), MAX_PAYLOAD_SIZE, "%s", initInfoValuesModule3[i].toStdString().c_str());
         }
 
         lengthInt = strlen((char*)uartPacket[i].getPayload());
@@ -383,9 +384,12 @@ void MainWindow::setRangeMinimum()
         /*Remove minus sign*/
         enteredPayload.remove(0,1);
     }
-    else
+    else if(enteredPayload.at(0).toLatin1() == '+')
     {
         uartPacket.setSign(Sign::POSITIVE_SIGN);
+
+        /*Remove plus sign*/
+        enteredPayload.remove(0,1);
     }
 
     int lengthInt = enteredPayload.length();
@@ -432,9 +436,12 @@ void MainWindow::setRangeMaximum()
         /*Remove minus sign*/
         enteredPayload.remove(0,1);
     }
-    else
+    else if(enteredPayload.at(0).toLatin1() == '+')
     {
         uartPacket.setSign(Sign::POSITIVE_SIGN);
+
+        /*Remove plus sign*/
+        enteredPayload.remove(0,1);
     }
 
     int lengthInt = enteredPayload.length();
@@ -500,7 +507,7 @@ void MainWindow::setRangeTime()
     m_pSerial->sendPacket(uartPacketTable);
 }
 
-void MainWindow::sendCustomDataPacket()
+void MainWindow::sendCustomPacket()
 {
     UartPacket uartPacket;
 
@@ -526,10 +533,13 @@ void MainWindow::sendCustomDataPacket()
         /*Remove minus sign*/
         enteredPayload.remove(0,1);
     }
-    else
+    else if(enteredPayload.at(0).toLatin1() == '+')
     {
         ui->lineEdit_CustomPacketSign->setText("1");
         uartPacket.setSign(Sign::POSITIVE_SIGN);
+
+        /*Remove plus sign*/
+        enteredPayload.remove(0,1);
     }
 
     int lengthInt = enteredPayload.length();
@@ -614,7 +624,7 @@ void MainWindow::generateLinearGraph(int signalCount)
     uartPacket.setModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
     uartPacket.setFunction(Function::DATA_PACKET);
 
-    int lengthInt;
+    unsigned long long lengthInt;
     double value;
 
     uint8_t parameters[4] = {'b', 'c', 'd', 'e'};
@@ -652,11 +662,19 @@ void MainWindow::generateLinearGraph(int signalCount)
                 break;
             }
 
-            sprintf((char*)uartPacket.getPayload(), "%.3lf", value);
+            /*Temporary buffer for number-string conversion with additional space for null character*/
+            char tempBuffer[MAX_PAYLOAD_SIZE+1] = {0};
 
-            lengthInt = strlen((char*)uartPacket.getPayload());
+            /*Convert double number to string and write it to temporary buffer*/
+            snprintf(tempBuffer , MAX_PAYLOAD_SIZE+1, "%lf", value);
+
+            lengthInt = strlen(tempBuffer);
+
+            memcpy((char*)uartPacket.getPayload(), tempBuffer, lengthInt);
 
             uartPacket.setLengthAscii(lengthInt);
+
+            assert(lengthInt<=MAX_PAYLOAD_SIZE);
 
             sendGraphPacket(uartPacket);
         }
@@ -699,7 +717,7 @@ void MainWindow::generateSineGraph(int signalCount)
     uartPacket.setModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
     uartPacket.setFunction(Function::DATA_PACKET);
 
-    int lengthInt;
+    unsigned long long lengthInt;
     double value;
     uint8_t parameters[4] = {'b', 'c', 'd', 'e'};
 
@@ -727,11 +745,19 @@ void MainWindow::generateSineGraph(int signalCount)
                 uartPacket.setSign(Sign::POSITIVE_SIGN);
             }
 
-            sprintf((char*)uartPacket.getPayload(), "%.3lf", value);
+            /*Temporary buffer for number-string conversion with additional space for null character*/
+            char tempBuffer[MAX_PAYLOAD_SIZE+1] = {0};
 
-            lengthInt = strlen((char*)uartPacket.getPayload());
+            /*Convert double number to string and write it to temporary buffer*/
+            snprintf(tempBuffer , MAX_PAYLOAD_SIZE+1, "%lf", value);
+
+            lengthInt = strlen(tempBuffer);
+
+            memcpy((char*)uartPacket.getPayload(), tempBuffer, lengthInt);
 
             uartPacket.setLengthAscii(lengthInt);
+
+            assert(lengthInt<=MAX_PAYLOAD_SIZE);
 
             sendGraphPacket(uartPacket);
         }
@@ -765,14 +791,14 @@ void MainWindow::sendGraphPacket(UartPacket uartPacket)
 
 void MainWindow::updateGUI()
 {
-    QWidget* module1ParameterStateLabelsTable[10];
-    QWidget* module2ParameterStateLabelsTable[10];
-    QWidget* module3ParameterStateLabelsTable[10];
-    QWidget* module1ParameterValueLabelsTable[10];
-    QWidget* module2ParameterValueLabelsTable[10];
-    QWidget* module3ParameterValueLabelsTable[10];
+    QWidget* module1ParameterStateLabelsTable[MAX_PAYLOAD_SIZE];
+    QWidget* module2ParameterStateLabelsTable[MAX_PAYLOAD_SIZE];
+    QWidget* module3ParameterStateLabelsTable[MAX_PAYLOAD_SIZE];
+    QWidget* module1ParameterValueLabelsTable[MAX_PAYLOAD_SIZE];
+    QWidget* module2ParameterValueLabelsTable[MAX_PAYLOAD_SIZE];
+    QWidget* module3ParameterValueLabelsTable[MAX_PAYLOAD_SIZE];
 
-    for(int i = 0; i<10; i++)
+    for(int i = 0; i<MAX_PAYLOAD_SIZE; i++)
     {
         module1ParameterStateLabelsTable[i] = ui->Module1ParameterStates->itemAt(i)->widget();
         module2ParameterStateLabelsTable[i] = ui->Module2ParameterStates->itemAt(i)->widget();
@@ -782,7 +808,7 @@ void MainWindow::updateGUI()
         module3ParameterValueLabelsTable[i] = ui->ValuesModule3Parameters->itemAt(i)->widget();
     }
 
-    for(int i = 0; i<10; i++)
+    for(int i = 0; i<MAX_PAYLOAD_SIZE; i++)
     {
         if((m_pModule1->getParameterStatesTable())[i] == true)
         {
@@ -852,7 +878,7 @@ void MainWindow::on_pushButton_Close_clicked()
 
 void MainWindow::on_pushButton_Send_pressed()
 {
-    sendCustomDataPacket();
+    sendCustomPacket();
 }
 
 void MainWindow::on_pushButton_InitConnectionModule1_clicked()

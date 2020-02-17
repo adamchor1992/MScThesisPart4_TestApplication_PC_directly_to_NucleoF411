@@ -1,7 +1,10 @@
 #pragma once
 
-const int PACKET_SIZE = 20;
-const int INIT_PACKETS_COUNT = 28;
+int const PACKET_SIZE = 20;
+int const INIT_PACKETS_COUNT = 28;
+int const MAX_PAYLOAD_SIZE = 10;
+int const PARAMETER_COUNT = 10;
+int const CRC_SIZE = 4;
 
 /*Source/target field*/
 enum class Source {SOURCE_TARGET1};
