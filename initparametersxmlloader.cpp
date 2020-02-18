@@ -72,7 +72,7 @@ void InitParametersXmlLoader::parseXmlFileToParametersList(std::ifstream & input
 //                qDebug() << endl;
 
                 foundString = QString::fromStdString(inputLine.substr(beginningTagEndIndex + 1, stringLength - 1));
-//                qDebug() << "Found string = " << foundString << endl;
+                //qDebug() << "Found string = " << foundString << endl;
 
                 m_Parameters.push_back(foundString);
             }

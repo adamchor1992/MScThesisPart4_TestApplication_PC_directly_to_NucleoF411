@@ -302,16 +302,15 @@ void MainWindow::initConnectionModule(ModuleID module)
     {
         if(module == ModuleID::MODULE1)
         {
-            snprintf((char*)uartPacket[i].getPayload(), MAX_PAYLOAD_SIZE, "%s", initInfoValuesModule1[i].toStdString().c_str());
+            memcpy((char*)uartPacket[i].getPayload(), initInfoValuesModule1[i].toStdString().c_str(), MAX_PAYLOAD_SIZE);
         }
-
         else if(module == ModuleID::MODULE2)
         {
-            snprintf((char*)uartPacket[i].getPayload(), MAX_PAYLOAD_SIZE, "%s", initInfoValuesModule2[i].toStdString().c_str());
+            memcpy((char*)uartPacket[i].getPayload(), initInfoValuesModule2[i].toStdString().c_str(), MAX_PAYLOAD_SIZE);
         }
         else if(module == ModuleID::MODULE3)
         {
-            snprintf((char*)uartPacket[i].getPayload(), MAX_PAYLOAD_SIZE, "%s", initInfoValuesModule3[i].toStdString().c_str());
+            memcpy((char*)uartPacket[i].getPayload(), initInfoValuesModule3[i].toStdString().c_str(), MAX_PAYLOAD_SIZE);
         }
 
         lengthInt = strlen((char*)uartPacket[i].getPayload());
