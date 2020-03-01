@@ -165,7 +165,7 @@ void MainWindow::initConnectionModule(ModuleID module)
 {
     UartPacket uartPacket[INIT_PACKETS_COUNT];
 
-    uint8_t uartPacketTable[PACKET_SIZE] = {0};
+    uint8_t uartPacketTable[INIT_PACKETS_COUNT][PACKET_SIZE] = { {0} };
 
     for(int i = 0; i < INIT_PACKETS_COUNT; i++)
     {
@@ -317,15 +317,15 @@ void MainWindow::initConnectionModule(ModuleID module)
 
         uartPacket[i].setLengthAscii(lengthInt); // convert from int to ASCII
 
-        uartPacket[i].convertToUartPacketTable(uartPacketTable);
+        uartPacket[i].convertToUartPacketTable(uartPacketTable[i]);
 
-        appendCrcToPacketTable(uartPacketTable);
+        appendCrcToPacketTable(uartPacketTable[i]);
 
-        qDebug("Init Packet is: %s", uartPacketTable);
+        qDebug("Init Packet is: %s", uartPacketTable[i]);
 
-        m_pTableView->updatePacketDisplay(uartPacketTable, false);
+        m_pTableView->updatePacketDisplay(uartPacketTable[i], false);
 
-        m_pSerial->sendPacket(uartPacketTable);
+        m_pSerial->sendPacket(uartPacketTable[i]);
 
         Sleep(uint(20));
 
