@@ -9,11 +9,11 @@ class InitParametersXmlLoader
 {
 public:
     InitParametersXmlLoader(Ui::MainWindow* ui);
-    bool initModuleParametersList();
+    bool InitModuleParametersList();
 
 private:
-    void parseXmlFileToParametersList(std::ifstream & inputFile);
-    void fillWidgetsTextsFromParametersList();
+    void ParseXmlFileToParametersList(std::ifstream & inputFile);
+    void FillWidgetsTextsFromParametersList();
 
     Ui::MainWindow* m_pUi;
     std::vector<QString> m_Parameters;

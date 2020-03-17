@@ -1,4 +1,5 @@
 #include "tableview.h"
+#include "packet_field_definitions.h"
 #include <QStringList>
 
 TableView::TableView(Ui::MainWindow* ui)

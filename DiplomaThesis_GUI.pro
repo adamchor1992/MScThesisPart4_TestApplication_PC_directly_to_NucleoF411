@@ -37,9 +37,9 @@ SOURCES += \
 
 HEADERS += \
         crc32.h \
-        defines.h \
         mainwindow.h \
         module.h \
+    packet_field_definitions.h \
         utilities.h \
     tableview.h \
     serial.h \

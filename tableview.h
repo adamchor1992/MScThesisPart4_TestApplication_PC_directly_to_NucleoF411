@@ -17,6 +17,4 @@ public:
 private:
     Ui::MainWindow* m_pUi = nullptr;
     QTableWidget* m_pTableWidget = nullptr;
-
-    const int PACKET_SIZE = 20;
 };

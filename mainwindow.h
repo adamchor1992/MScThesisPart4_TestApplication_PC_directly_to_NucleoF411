@@ -14,8 +14,6 @@ namespace Ui {
 class MainWindow;
 }
 
-using std::unique_ptr;
-
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -24,27 +22,26 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void initPacketDisplay();
-    void initPortList();
-    void fullPacketReceived(QByteArray & receivedBytes);
-    void updateGUI();
-    void initConnectionModule(ModuleID module);
-    void deinitConnectionModule(ModuleID module);
-    void setRangeMinimum();
-    void setRangeMaximum();
-    void setRangeTime();
-    void openPort(QString portName);
-    void closePort(QString portName);
-    bool initModuleParametersList();
-    void sendCustomPacket();
-    void sendWrongCrcDataPacket();
-    void generateLinearGraph(int signalCount);
-    void generateSineGraph(int signalCount);
-    void sendGraphPacket(UartPacket uartPacket);
-    void setInputValidators();
+    void InitPacketDisplay();
+    void InitPortList();
+
+    void UpdateGUI();
+    void SetInputValidators();
+
+    /*Functionalities*/
+    void InitConnectionModule(ModuleID module);
+    void DeinitConnectionModule(ModuleID module);
+    void SetRangeMinimum();
+    void SetRangeMaximum();
+    void SetRangeTime();
+    void SendCustomPacket();
+    void SendWrongCrcDataPacket();
+    void GenerateLinearGraph(int signalCount);
+    void GenerateSineGraph(int signalCount);
+    void SendGraphPacket(UartPacket uartPacket);
 
 private slots:
-    void serialDataReceived();
+    void ProcessReceivedPacket(QByteArray& receivedBytes);
 
     void on_pushButton_Open_clicked();
     void on_pushButton_Send_pressed();

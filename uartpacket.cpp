@@ -2,12 +2,12 @@
 
 UartPacket::UartPacket() : m_Payload {0}, m_Crc{0}
 {
-    m_Source = 0;           //source/target ID
-    m_Module = 0;           //module ID
-    m_Function = 0;         //packet type
-    m_Parameter = 0;        //parameter ID
-    m_Sign = 0;             //sign of payload value, '1' - positive, '2' - negative
-    m_Length = 0;           //length of payload
+    m_Source = 0;
+    m_Module = 0;
+    m_Function = 0;
+    m_Parameter = 0;
+    m_Sign = 0;
+    m_Length = 0;
 }
 
 UartPacket::UartPacket(const uint8_t uartPacketTable[])
@@ -27,7 +27,7 @@ UartPacket::UartPacket(const uint8_t uartPacketTable[])
     }
 }
 
-void UartPacket::setSource(Source source)
+void UartPacket::SetSource(Source source)
 {
     if(source == Source::SOURCE_TARGET1)
     {
@@ -35,12 +35,12 @@ void UartPacket::setSource(Source source)
     }
 }
 
-void UartPacket::setSource(uint8_t source)
+void UartPacket::SetSource(uint8_t source)
 {
     m_Source = source;
 }
 
-void UartPacket::setModule(ModuleID module)
+void UartPacket::SetModule(ModuleID module)
 {
     if(module == ModuleID::MODULE1)
     {
@@ -56,12 +56,12 @@ void UartPacket::setModule(ModuleID module)
     }
 }
 
-void UartPacket::setModule(uint8_t module)
+void UartPacket::SetModule(uint8_t module)
 {
     m_Module = module;
 }
 
-void UartPacket::setFunction(Function function)
+void UartPacket::SetFunction(Function function)
 {
     if(function == Function::DATA_PACKET)
     {
@@ -101,32 +101,16 @@ void UartPacket::setFunction(Function function)
     }
 }
 
-void UartPacket::setFunction(uint8_t function)
+void UartPacket::SetFunction(uint8_t function)
 {
     m_Function = function;
 }
 
-void UartPacket::setParameter(Parameter parameter)
+void UartPacket::SetParameter(Parameter parameter)
 {
     if(parameter == Parameter::NULL_PARAMETER)
     {
         m_Parameter = '0';
-    }
-    else if(parameter == Parameter::VOLTAGE_PARAMETER)
-    {
-        m_Parameter = 'v';
-    }
-    else if(parameter == Parameter::CURRENT_PARAMETER)
-    {
-        m_Parameter = 'c';
-    }
-    else if(parameter == Parameter::FREQUENCY_PARAMETER)
-    {
-        m_Parameter = 'f';
-    }
-    else if(parameter == Parameter::POWER_PARAMETER)
-    {
-        m_Parameter = 'p';
     }
     else if(parameter == Parameter::PARAMETER1)
     {
@@ -168,14 +152,30 @@ void UartPacket::setParameter(Parameter parameter)
     {
         m_Parameter = 'a';
     }
+    else if(parameter == Parameter::GRAPH_PARAMETER1)
+    {
+        m_Parameter = 'b';
+    }
+    else if(parameter == Parameter::GRAPH_PARAMETER2)
+    {
+        m_Parameter = 'c';
+    }
+    else if(parameter == Parameter::GRAPH_PARAMETER3)
+    {
+        m_Parameter = 'd';
+    }
+    else if(parameter == Parameter::GRAPH_PARAMETER4)
+    {
+        m_Parameter = 'e';
+    }
 }
 
-void UartPacket::setParameter(uint8_t parameter)
+void UartPacket::SetParameter(uint8_t parameter)
 {
     m_Parameter = parameter;
 }
 
-void UartPacket::setSign(Sign sign)
+void UartPacket::SetSign(Sign sign)
 {
     if(sign == Sign::POSITIVE_SIGN)
     {
@@ -187,12 +187,12 @@ void UartPacket::setSign(Sign sign)
     }
 }
 
-void UartPacket::setSign(uint8_t sign)
+void UartPacket::SetSign(uint8_t sign)
 {
     m_Sign = sign;
 }
 
-void UartPacket::setLength(Length length)
+void UartPacket::SetLength(Length length)
 {
     if(length == Length::NO_PAYLOAD)
     {
@@ -200,17 +200,17 @@ void UartPacket::setLength(Length length)
     }
 }
 
-void UartPacket::setLength(uint8_t length)
+void UartPacket::SetLength(uint8_t length)
 {
     m_Length = length;
 }
 
-void UartPacket::setLengthAscii(uint8_t length)
+void UartPacket::SetLengthAscii(uint8_t length)
 {
     m_Length = length + '0';
 }
 
-Source UartPacket::getSource()
+Source UartPacket::GetSource()
 {
     if(m_Source == '1')
     {
@@ -218,7 +218,7 @@ Source UartPacket::getSource()
     }
 }
 
-ModuleID UartPacket::getModule()
+ModuleID UartPacket::GetModule()
 {
     if(m_Module == '1')
     {
@@ -234,7 +234,7 @@ ModuleID UartPacket::getModule()
     }
 }
 
-Function UartPacket::getFunction()
+Function UartPacket::GetFunction()
 {
     if(m_Function == '1')
     {
@@ -270,27 +270,11 @@ Function UartPacket::getFunction()
     }
 }
 
-Parameter UartPacket::getParameter()
+Parameter UartPacket::GetParameter()
 {
     if(m_Parameter == '0')
     {
         return Parameter::NULL_PARAMETER;
-    }
-    else if(m_Parameter == 'v')
-    {
-        return Parameter::VOLTAGE_PARAMETER;
-    }
-    else if(m_Parameter == 'c')
-    {
-        return Parameter::CURRENT_PARAMETER;
-    }
-    else if(m_Parameter == 'f')
-    {
-        return Parameter::FREQUENCY_PARAMETER;
-    }
-    else if(m_Parameter == 'p')
-    {
-        return Parameter::POWER_PARAMETER;
     }
     else if(m_Parameter == '1')
     {
@@ -332,9 +316,25 @@ Parameter UartPacket::getParameter()
     {
         return Parameter::PARAMETER10;
     }
+    else if(m_Parameter == 'b')
+    {
+        return Parameter::GRAPH_PARAMETER1;
+    }
+    else if(m_Parameter == 'c')
+    {
+        return Parameter::GRAPH_PARAMETER2;
+    }
+    else if(m_Parameter == 'd')
+    {
+        return Parameter::GRAPH_PARAMETER3;
+    }
+    else if(m_Parameter == 'e')
+    {
+        return Parameter::GRAPH_PARAMETER4;
+    }
 }
 
-Sign UartPacket::getSign()
+Sign UartPacket::GetSign()
 {
     if(m_Sign == '1')
     {
@@ -346,12 +346,12 @@ Sign UartPacket::getSign()
     }
 }
 
-uint8_t* UartPacket::getPayload()
+uint8_t* UartPacket::GetPayload()
 {
     return m_Payload;
 }
 
-void UartPacket::convertToUartPacketTable(uint8_t uartPacketTable[])
+void UartPacket::ConvertToUartPacketTable(uint8_t uartPacketTable[])
 {
     uartPacketTable[0] = m_Source;
     uartPacketTable[1] = m_Module;

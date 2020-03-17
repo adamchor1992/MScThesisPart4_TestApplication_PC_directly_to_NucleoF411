@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "utilities.h"
-#include "defines.h"
+#include "packet_field_definitions.h"
 #include <QSerialPortInfo>
 #include <QMessageBox>
 #include "initparametersxmlloader.h"
@@ -14,9 +14,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     m_pTableView = std::make_unique<TableView>(ui);
 
-    connect(&m_Serial, &Serial::readyRead, this, &MainWindow::serialDataReceived);
+    connect(&m_Serial, &Serial::FullPacketReceived, this, &MainWindow::ProcessReceivedPacket);
 
-    setInputValidators();
+    SetInputValidators();
 
     this->setWindowState(Qt::WindowMaximized);
 }
@@ -26,7 +26,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::setInputValidators()
+void MainWindow::SetInputValidators()
 {
     /*Input widgets accepting only integers*/
     ui->lineEdit_RangeMinimum->setValidator(&m_CustomIntegerValidator);
@@ -42,13 +42,12 @@ void MainWindow::setInputValidators()
     ui->lineEdit_CustomPacketPayload->setValidator(&m_CustomFloatingPointValidator);
 }
 
-void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
+/*Slot*/
+void MainWindow::ProcessReceivedPacket(QByteArray& receivedBytes)
 {
-    qDebug("FULL PACKET RECEIVED");
+    qDebug() << "Processing received packet";
 
     UartPacket uartPacket(reinterpret_cast<const uint8_t*>(receivedBytes.constData()));
-
-    qDebug("Received Packet is: %.16s", receivedBytes.constData());
 
     uint8_t uartReceivedPacket[PACKET_SIZE] = {0};
 
@@ -60,19 +59,21 @@ void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
     if(checkCrc32(uartReceivedPacket) == true)
     {
         m_pTableView->UpdatePacketDisplay(uartReceivedPacket, true, true);
-
-        return;
     }
     else
     {
         m_pTableView->UpdatePacketDisplay(uartReceivedPacket, true, false);
+
+        qDebug("Wrong CRC, packet discarded");
+
+        return;
     }
 
     QCoreApplication::processEvents();
 
     Module* p_CurrentModule = nullptr;
 
-    ModuleID moduleID = uartPacket.getModule();
+    ModuleID moduleID = uartPacket.GetModule();
 
     if(moduleID == ModuleID::MODULE1)
     {
@@ -95,10 +96,13 @@ void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
         return;
     }
 
-    Function function = uartPacket.getFunction();
-    Parameter parameter = uartPacket.getParameter();
+    Function function = uartPacket.GetFunction();
+    Parameter parameter = uartPacket.GetParameter();
 
     double valueDouble = 0;
+
+    qDebug("Function %c", function);
+    qDebug("Parameter %c", parameter);
 
     switch(function)
     {
@@ -123,9 +127,9 @@ void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
     case Function::SET_PARAMETER_PACKET:
         qDebug() << "Set parameter";
 
-        valueDouble = double(std::stof((char*)(uartPacket.getPayload())));
+        valueDouble = double(std::stof((char*)(uartPacket.GetPayload())));
 
-        if(uartPacket.getSign() == Sign::NEGATIVE_SIGN)
+        if(uartPacket.GetSign() == Sign::NEGATIVE_SIGN)
         {
             /*Make value negative if it was marked as negative in UART Packet*/
             valueDouble = valueDouble * (-1);
@@ -139,10 +143,10 @@ void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
         qDebug() << "ERROR - Incorrect received packet - Wrong function type";
     }
 
-    updateGUI();
+    UpdateGUI();
 }
 
-void MainWindow::initConnectionModule(ModuleID module)
+void MainWindow::InitConnectionModule(ModuleID module)
 {
     UartPacket uartPacket[INIT_PACKETS_COUNT];
 
@@ -150,11 +154,11 @@ void MainWindow::initConnectionModule(ModuleID module)
 
     for(int i = 0; i < INIT_PACKETS_COUNT; i++)
     {
-        uartPacket[i].setSource(Source::SOURCE_TARGET1);
-        uartPacket[i].setModule(module);
-        uartPacket[i].setFunction(Function::INIT_PACKET);
-        uartPacket[i].setParameter(Parameter::NULL_PARAMETER);
-        uartPacket[i].setSign(Sign::POSITIVE_SIGN);
+        uartPacket[i].SetSource(Source::SOURCE_TARGET1);
+        uartPacket[i].SetModule(module);
+        uartPacket[i].SetFunction(Function::INIT_PACKET);
+        uartPacket[i].SetParameter(Parameter::NULL_PARAMETER);
+        uartPacket[i].SetSign(Sign::POSITIVE_SIGN);
     }
 
     QString initInfoValuesModule1[INIT_PACKETS_COUNT] = {ui->label_Module1InitParameter1Name->text(),
@@ -189,7 +193,7 @@ void MainWindow::initConnectionModule(ModuleID module)
 
     for(auto value : initInfoValuesModule1)
     {
-        if(value.size() > MAX_PAYLOAD_SIZE)
+        if(value.size() > PAYLOAD_SIZE)
         {
             QMessageBox::warning(this, "Warning", "Module 1 initialization parameter value is too long,"
                                                   " maximum allowed length is 10. Aborting module initialization");
@@ -229,7 +233,7 @@ void MainWindow::initConnectionModule(ModuleID module)
 
     for(auto value : initInfoValuesModule2)
     {
-        if(value.size() > MAX_PAYLOAD_SIZE)
+        if(value.size() > PAYLOAD_SIZE)
         {
             QMessageBox::warning(this, "Warning", "Module 2 initialization parameter value is too long,"
                                                   " maximum allowed length is 10. Aborting module initialization");
@@ -269,7 +273,7 @@ void MainWindow::initConnectionModule(ModuleID module)
 
     for(auto value : initInfoValuesModule3)
     {
-        if(value.size() > MAX_PAYLOAD_SIZE)
+        if(value.size() > PAYLOAD_SIZE)
         {
             QMessageBox::warning(this, "Warning", "Module 3 initialization parameter value is too long,"
                                                   " maximum allowed length is 10. Aborting module initialization");
@@ -283,22 +287,22 @@ void MainWindow::initConnectionModule(ModuleID module)
     {
         if(module == ModuleID::MODULE1)
         {
-            memcpy((char*)uartPacket[i].getPayload(), initInfoValuesModule1[i].toStdString().c_str(), MAX_PAYLOAD_SIZE);
+            memcpy((char*)uartPacket[i].GetPayload(), initInfoValuesModule1[i].toStdString().c_str(), PAYLOAD_SIZE);
         }
         else if(module == ModuleID::MODULE2)
         {
-            memcpy((char*)uartPacket[i].getPayload(), initInfoValuesModule2[i].toStdString().c_str(), MAX_PAYLOAD_SIZE);
+            memcpy((char*)uartPacket[i].GetPayload(), initInfoValuesModule2[i].toStdString().c_str(), PAYLOAD_SIZE);
         }
         else if(module == ModuleID::MODULE3)
         {
-            memcpy((char*)uartPacket[i].getPayload(), initInfoValuesModule3[i].toStdString().c_str(), MAX_PAYLOAD_SIZE);
+            memcpy((char*)uartPacket[i].GetPayload(), initInfoValuesModule3[i].toStdString().c_str(), PAYLOAD_SIZE);
         }
 
-        lengthInt = strlen((char*)uartPacket[i].getPayload());
+        lengthInt = strlen((char*)uartPacket[i].GetPayload());
 
-        uartPacket[i].setLengthAscii(lengthInt); // convert from int to ASCII
+        uartPacket[i].SetLengthAscii(lengthInt); // convert from int to ASCII
 
-        uartPacket[i].convertToUartPacketTable(uartPacketTable[i]);
+        uartPacket[i].ConvertToUartPacketTable(uartPacketTable[i]);
 
         appendCrcToPacketTable(uartPacketTable[i]);
 
@@ -314,21 +318,21 @@ void MainWindow::initConnectionModule(ModuleID module)
     }
 }
 
-void MainWindow::deinitConnectionModule(ModuleID module)
+void MainWindow::DeinitConnectionModule(ModuleID module)
 {
     UartPacket uartPacket;
 
     uint8_t uartPacketTable[PACKET_SIZE] = {0};
 
-    uartPacket.setSource(Source::SOURCE_TARGET1);
+    uartPacket.SetSource(Source::SOURCE_TARGET1);
 
-    uartPacket.setModule(module);
-    uartPacket.setFunction(Function::DEINIT_PACKET);
-    uartPacket.setSign(Sign::POSITIVE_SIGN);
-    uartPacket.setParameter(Parameter::NULL_PARAMETER);
-    uartPacket.setLength(Length::NO_PAYLOAD);
+    uartPacket.SetModule(module);
+    uartPacket.SetFunction(Function::DEINIT_PACKET);
+    uartPacket.SetSign(Sign::POSITIVE_SIGN);
+    uartPacket.SetParameter(Parameter::NULL_PARAMETER);
+    uartPacket.SetLength(Length::NO_PAYLOAD);
 
-    uartPacket.convertToUartPacketTable(uartPacketTable);
+    uartPacket.ConvertToUartPacketTable(uartPacketTable);
 
     appendCrcToPacketTable(uartPacketTable);
 
@@ -339,16 +343,16 @@ void MainWindow::deinitConnectionModule(ModuleID module)
     m_Serial.SendPacket(uartPacketTable);
 }
 
-void MainWindow::setRangeMinimum()
+void MainWindow::SetRangeMinimum()
 {
     UartPacket uartPacket;
 
     uint8_t uartPacketTable[PACKET_SIZE] = {0};
 
-    uartPacket.setSource(Source::SOURCE_TARGET1);
-    uartPacket.setModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
-    uartPacket.setFunction(Function::SET_GRAPH_RANGE_MIN);
-    uartPacket.setParameter(Parameter::NULL_PARAMETER);
+    uartPacket.SetSource(Source::SOURCE_TARGET1);
+    uartPacket.SetModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
+    uartPacket.SetFunction(Function::SET_GRAPH_RANGE_MIN);
+    uartPacket.SetParameter(Parameter::NULL_PARAMETER);
 
     QString enteredPayload = ui->lineEdit_RangeMinimum->text();
 
@@ -359,14 +363,14 @@ void MainWindow::setRangeMinimum()
 
     if(enteredPayload.at(0).toLatin1() == '-')
     {
-        uartPacket.setSign(Sign::NEGATIVE_SIGN);
+        uartPacket.SetSign(Sign::NEGATIVE_SIGN);
 
         /*Remove minus sign*/
         enteredPayload.remove(0,1);
     }
     else if(enteredPayload.at(0).toLatin1() == '+')
     {
-        uartPacket.setSign(Sign::POSITIVE_SIGN);
+        uartPacket.SetSign(Sign::POSITIVE_SIGN);
 
         /*Remove plus sign*/
         enteredPayload.remove(0,1);
@@ -374,14 +378,14 @@ void MainWindow::setRangeMinimum()
 
     int lengthInt = enteredPayload.length();
 
-    uartPacket.setLengthAscii(lengthInt);
+    uartPacket.SetLengthAscii(lengthInt);
 
     for(int i=0; i<lengthInt;i++)
     {
-        uartPacket.getPayload()[i] = enteredPayload.at(i).toLatin1();
+        uartPacket.GetPayload()[i] = enteredPayload.at(i).toLatin1();
     }
 
-    uartPacket.convertToUartPacketTable(uartPacketTable);
+    uartPacket.ConvertToUartPacketTable(uartPacketTable);
     appendCrcToPacketTable(uartPacketTable);
 
     qDebug("Data Packet is: %s", uartPacketTable);
@@ -391,16 +395,16 @@ void MainWindow::setRangeMinimum()
     m_Serial.SendPacket(uartPacketTable);
 }
 
-void MainWindow::setRangeMaximum()
+void MainWindow::SetRangeMaximum()
 {
     UartPacket uartPacket;
 
     uint8_t uartPacketTable[PACKET_SIZE] = {0};
 
-    uartPacket.setSource(Source::SOURCE_TARGET1);
-    uartPacket.setModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
-    uartPacket.setFunction(Function::SET_GRAPH_RANGE_MAX);
-    uartPacket.setParameter(Parameter::NULL_PARAMETER);
+    uartPacket.SetSource(Source::SOURCE_TARGET1);
+    uartPacket.SetModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
+    uartPacket.SetFunction(Function::SET_GRAPH_RANGE_MAX);
+    uartPacket.SetParameter(Parameter::NULL_PARAMETER);
 
     QString enteredPayload = ui->lineEdit_RangeMaximum->text();
 
@@ -411,14 +415,14 @@ void MainWindow::setRangeMaximum()
 
     if(enteredPayload.at(0).toLatin1() == '-')
     {
-        uartPacket.setSign(Sign::NEGATIVE_SIGN);
+        uartPacket.SetSign(Sign::NEGATIVE_SIGN);
 
         /*Remove minus sign*/
         enteredPayload.remove(0,1);
     }
     else if(enteredPayload.at(0).toLatin1() == '+')
     {
-        uartPacket.setSign(Sign::POSITIVE_SIGN);
+        uartPacket.SetSign(Sign::POSITIVE_SIGN);
 
         /*Remove plus sign*/
         enteredPayload.remove(0,1);
@@ -426,14 +430,14 @@ void MainWindow::setRangeMaximum()
 
     int lengthInt = enteredPayload.length();
 
-    uartPacket.setLengthAscii(lengthInt);
+    uartPacket.SetLengthAscii(lengthInt);
 
     for(int i=0; i<lengthInt;i++)
     {
-        uartPacket.getPayload()[i] = enteredPayload.at(i).toLatin1();
+        uartPacket.GetPayload()[i] = enteredPayload.at(i).toLatin1();
     }
 
-    uartPacket.convertToUartPacketTable(uartPacketTable);
+    uartPacket.ConvertToUartPacketTable(uartPacketTable);
     appendCrcToPacketTable(uartPacketTable);
 
     qDebug("Data Packet is: %s", uartPacketTable);
@@ -443,41 +447,41 @@ void MainWindow::setRangeMaximum()
     m_Serial.SendPacket(uartPacketTable);
 }
 
-void MainWindow::setRangeTime()
+void MainWindow::SetRangeTime()
 {
     UartPacket uartPacket;
 
     uint8_t uartPacketTable[PACKET_SIZE] = {0};
 
-    uartPacket.setSource(Source::SOURCE_TARGET1);
-    uartPacket.setModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
-    uartPacket.setFunction(Function::SET_GRAPH_TIME_RANGE);
-    uartPacket.setParameter(Parameter::NULL_PARAMETER);
+    uartPacket.SetSource(Source::SOURCE_TARGET1);
+    uartPacket.SetModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
+    uartPacket.SetFunction(Function::SET_GRAPH_TIME_RANGE);
+    uartPacket.SetParameter(Parameter::NULL_PARAMETER);
 
     QString enteredPayload = ui->comboBox_TimeRange->currentText();
 
     if(enteredPayload.at(0).toLatin1() == '-')
     {
-        uartPacket.setSign(Sign::NEGATIVE_SIGN);
+        uartPacket.SetSign(Sign::NEGATIVE_SIGN);
 
         /*Remove minus sign*/
         enteredPayload.remove(0,1);
     }
     else
     {
-        uartPacket.setSign(Sign::POSITIVE_SIGN);
+        uartPacket.SetSign(Sign::POSITIVE_SIGN);
     }
 
     int lengthInt = enteredPayload.length();
 
-    uartPacket.setLengthAscii(lengthInt);
+    uartPacket.SetLengthAscii(lengthInt);
 
     for(int i=0; i<lengthInt;i++)
     {
-        uartPacket.getPayload()[i] = enteredPayload.at(i).toLatin1();
+        uartPacket.GetPayload()[i] = enteredPayload.at(i).toLatin1();
     }
 
-    uartPacket.convertToUartPacketTable(uartPacketTable);
+    uartPacket.ConvertToUartPacketTable(uartPacketTable);
     appendCrcToPacketTable(uartPacketTable);
 
     qDebug("Data Packet is: %s", uartPacketTable);
@@ -487,16 +491,16 @@ void MainWindow::setRangeTime()
     m_Serial.SendPacket(uartPacketTable);
 }
 
-void MainWindow::sendCustomPacket()
+void MainWindow::SendCustomPacket()
 {
     UartPacket uartPacket;
 
     uint8_t uartPacketTable[PACKET_SIZE] = {0};
 
-    uartPacket.setSource(ui->comboBox_CustomPacketSource->currentText().at(0).toLatin1());
-    uartPacket.setModule(ui->comboBox_CustomPacketModule->currentText().at(0).toLatin1());
-    uartPacket.setFunction(ui->comboBox_CustomPacketFunction->currentText().at(0).toLatin1());
-    uartPacket.setParameter(ui->comboBox_CustomPacketParameter->currentText().at(0).toLatin1());
+    uartPacket.SetSource(ui->comboBox_CustomPacketSource->currentText().at(0).toLatin1());
+    uartPacket.SetModule(ui->comboBox_CustomPacketModule->currentText().at(0).toLatin1());
+    uartPacket.SetFunction(ui->comboBox_CustomPacketFunction->currentText().at(0).toLatin1());
+    uartPacket.SetParameter(ui->comboBox_CustomPacketParameter->currentText().at(0).toLatin1());
 
     QString enteredPayload = ui->lineEdit_CustomPacketPayload->text();
 
@@ -508,7 +512,7 @@ void MainWindow::sendCustomPacket()
     if(enteredPayload.at(0).toLatin1() == '-')
     {
         ui->lineEdit_CustomPacketSign->setText("2");
-        uartPacket.setSign(Sign::NEGATIVE_SIGN);
+        uartPacket.SetSign(Sign::NEGATIVE_SIGN);
 
         /*Remove minus sign*/
         enteredPayload.remove(0,1);
@@ -516,7 +520,7 @@ void MainWindow::sendCustomPacket()
     else if(enteredPayload.at(0).toLatin1() == '+')
     {
         ui->lineEdit_CustomPacketSign->setText("1");
-        uartPacket.setSign(Sign::POSITIVE_SIGN);
+        uartPacket.SetSign(Sign::POSITIVE_SIGN);
 
         /*Remove plus sign*/
         enteredPayload.remove(0,1);
@@ -524,16 +528,16 @@ void MainWindow::sendCustomPacket()
 
     int lengthInt = enteredPayload.length();
 
-    uartPacket.setLengthAscii(lengthInt); //convert int to ascii representation of the int
+    uartPacket.SetLengthAscii(lengthInt); //convert int to ascii representation of the int
 
     for(int i=0; i<lengthInt;i++)
     {
-        uartPacket.getPayload()[i] = enteredPayload.at(i).toLatin1();
+        uartPacket.GetPayload()[i] = enteredPayload.at(i).toLatin1();
     }
 
     ui->lineEdit_CustomPacketLength->setText(QString::number(lengthInt));
 
-    uartPacket.convertToUartPacketTable(uartPacketTable);
+    uartPacket.ConvertToUartPacketTable(uartPacketTable);
     appendCrcToPacketTable(uartPacketTable);
 
     qDebug("Data Packet is: %s", uartPacketTable);
@@ -543,20 +547,20 @@ void MainWindow::sendCustomPacket()
     m_Serial.SendPacket(uartPacketTable);
 }
 
-void MainWindow::sendWrongCrcDataPacket()
+void MainWindow::SendWrongCrcDataPacket()
 {
     UartPacket uartPacket;
 
     uint8_t uartPacketTable[PACKET_SIZE] = {0};
 
-    uartPacket.setSource(ui->comboBox_CustomPacketSource->currentText().at(0).toLatin1());
-    uartPacket.setModule(ui->comboBox_CustomPacketModule->currentText().at(0).toLatin1());
-    uartPacket.setFunction(ui->comboBox_CustomPacketFunction->currentText().at(0).toLatin1());
-    uartPacket.setParameter(ui->comboBox_CustomPacketParameter->currentText().at(0).toLatin1());
-    uartPacket.setLength(Length::NO_PAYLOAD);
-    uartPacket.setSign(Sign::POSITIVE_SIGN);
+    uartPacket.SetSource(ui->comboBox_CustomPacketSource->currentText().at(0).toLatin1());
+    uartPacket.SetModule(ui->comboBox_CustomPacketModule->currentText().at(0).toLatin1());
+    uartPacket.SetFunction(ui->comboBox_CustomPacketFunction->currentText().at(0).toLatin1());
+    uartPacket.SetParameter(ui->comboBox_CustomPacketParameter->currentText().at(0).toLatin1());
+    uartPacket.SetLength(Length::NO_PAYLOAD);
+    uartPacket.SetSign(Sign::POSITIVE_SIGN);
 
-    uartPacket.convertToUartPacketTable(uartPacketTable);
+    uartPacket.ConvertToUartPacketTable(uartPacketTable);
 
     /*Set wrong all zeros CRC*/
     uartPacketTable[19] = 0;
@@ -571,7 +575,7 @@ void MainWindow::sendWrongCrcDataPacket()
     m_Serial.SendPacket(uartPacketTable);
 }
 
-void MainWindow::generateLinearGraph(int signalCount)
+void MainWindow::GenerateLinearGraph(int signalCount)
 {
     UartPacket uartPacket;
 
@@ -600,9 +604,9 @@ void MainWindow::generateLinearGraph(int signalCount)
         return;
     }
 
-    uartPacket.setSource(Source::SOURCE_TARGET1);
-    uartPacket.setModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
-    uartPacket.setFunction(Function::DATA_PACKET);
+    uartPacket.SetSource(Source::SOURCE_TARGET1);
+    uartPacket.SetModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
+    uartPacket.SetFunction(Function::DATA_PACKET);
 
     unsigned long long lengthInt;
     double value;
@@ -613,7 +617,7 @@ void MainWindow::generateLinearGraph(int signalCount)
     {
         for(int signalNumber = 0; signalNumber < signalCount; signalNumber++)
         {
-            uartPacket.setParameter(parameters[signalNumber]); // send with one of 4 parameters
+            uartPacket.SetParameter(parameters[signalNumber]); // send with one of 4 parameters
 
             value = x;
 
@@ -621,11 +625,11 @@ void MainWindow::generateLinearGraph(int signalCount)
             {
                 /*Change value sign back to positive and mark it as negative in UART packet*/
                 value = value * (-1);
-                uartPacket.setSign(Sign::NEGATIVE_SIGN);
+                uartPacket.SetSign(Sign::NEGATIVE_SIGN);
             }
             else
             {
-                uartPacket.setSign(Sign::POSITIVE_SIGN);
+                uartPacket.SetSign(Sign::POSITIVE_SIGN);
             }
 
             /*Change parameter values so that graph lines do not overlap each other*/
@@ -643,20 +647,20 @@ void MainWindow::generateLinearGraph(int signalCount)
             }
 
             /*Temporary buffer for number-string conversion with additional space for null character*/
-            char tempBuffer[MAX_PAYLOAD_SIZE+1] = {0};
+            char tempBuffer[PAYLOAD_SIZE + 1] = {0};
 
             /*Convert double number to string and write it to temporary buffer*/
-            snprintf(tempBuffer , MAX_PAYLOAD_SIZE+1, "%lf", value);
+            snprintf(tempBuffer , PAYLOAD_SIZE + 1, "%lf", value);
 
             lengthInt = strlen(tempBuffer);
 
-            memcpy((char*)uartPacket.getPayload(), tempBuffer, lengthInt);
+            memcpy((char*)uartPacket.GetPayload(), tempBuffer, lengthInt);
 
-            uartPacket.setLengthAscii(lengthInt);
+            uartPacket.SetLengthAscii(lengthInt);
 
-            assert(lengthInt<=MAX_PAYLOAD_SIZE);
+            assert(lengthInt <= PAYLOAD_SIZE);
 
-            sendGraphPacket(uartPacket);
+            SendGraphPacket(uartPacket);
         }
 
         if (m_stopPressed)
@@ -670,7 +674,7 @@ void MainWindow::generateLinearGraph(int signalCount)
     }
 }
 
-void MainWindow::generateSineGraph(int signalCount)
+void MainWindow::GenerateSineGraph(int signalCount)
 {
     UartPacket uartPacket;
 
@@ -693,9 +697,9 @@ void MainWindow::generateSineGraph(int signalCount)
         return;
     }
 
-    uartPacket.setSource(Source::SOURCE_TARGET1);
-    uartPacket.setModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
-    uartPacket.setFunction(Function::DATA_PACKET);
+    uartPacket.SetSource(Source::SOURCE_TARGET1);
+    uartPacket.SetModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
+    uartPacket.SetFunction(Function::DATA_PACKET);
 
     unsigned long long lengthInt;
     double value;
@@ -709,7 +713,7 @@ void MainWindow::generateSineGraph(int signalCount)
     {
         for(int signalNumber = 0; signalNumber < signalCount; signalNumber++)
         {
-            uartPacket.setParameter(parameters[signalNumber]); // send with one of 4 parameters
+            uartPacket.SetParameter(parameters[signalNumber]); // send with one of 4 parameters
 
             /*Multiply by radian inverse to get rid of radian unit and calculate sine of x measured in degrees*/
             value = multiplierSine * (sin(x * radianInverse + phaseShift[signalNumber]));
@@ -718,28 +722,28 @@ void MainWindow::generateSineGraph(int signalCount)
             {
                 /*Change value sign back to positive and mark it as negative in UART packet*/
                 value = value * (-1);
-                uartPacket.setSign(Sign::NEGATIVE_SIGN);
+                uartPacket.SetSign(Sign::NEGATIVE_SIGN);
             }
             else
             {
-                uartPacket.setSign(Sign::POSITIVE_SIGN);
+                uartPacket.SetSign(Sign::POSITIVE_SIGN);
             }
 
             /*Temporary buffer for number-string conversion with additional space for null character*/
-            char tempBuffer[MAX_PAYLOAD_SIZE+1] = {0};
+            char tempBuffer[PAYLOAD_SIZE + 1] = {0};
 
             /*Convert double number to string and write it to temporary buffer*/
-            snprintf(tempBuffer , MAX_PAYLOAD_SIZE+1, "%lf", value);
+            snprintf(tempBuffer , PAYLOAD_SIZE + 1, "%lf", value);
 
             lengthInt = strlen(tempBuffer);
 
-            memcpy((char*)uartPacket.getPayload(), tempBuffer, lengthInt);
+            memcpy((char*)uartPacket.GetPayload(), tempBuffer, lengthInt);
 
-            uartPacket.setLengthAscii(lengthInt);
+            uartPacket.SetLengthAscii(lengthInt);
 
-            assert(lengthInt<=MAX_PAYLOAD_SIZE);
+            assert(lengthInt <= PAYLOAD_SIZE);
 
-            sendGraphPacket(uartPacket);
+            SendGraphPacket(uartPacket);
         }
 
         if (m_stopPressed)
@@ -753,11 +757,11 @@ void MainWindow::generateSineGraph(int signalCount)
     }
 }
 
-void MainWindow::sendGraphPacket(UartPacket uartPacket)
+void MainWindow::SendGraphPacket(UartPacket uartPacket)
 {
     uint8_t uartPacketTable[PACKET_SIZE] = {0};
 
-    uartPacket.convertToUartPacketTable(uartPacketTable);
+    uartPacket.ConvertToUartPacketTable(uartPacketTable);
     appendCrcToPacketTable(uartPacketTable);
 
     qDebug("Data Packet is: %s", uartPacketTable);
@@ -769,16 +773,16 @@ void MainWindow::sendGraphPacket(UartPacket uartPacket)
     Sleep(uint(20));
 }
 
-void MainWindow::updateGUI()
+void MainWindow::UpdateGUI()
 {
-    QWidget* module1ParameterStateLabelsTable[MAX_PAYLOAD_SIZE];
-    QWidget* module2ParameterStateLabelsTable[MAX_PAYLOAD_SIZE];
-    QWidget* module3ParameterStateLabelsTable[MAX_PAYLOAD_SIZE];
-    QWidget* module1ParameterValueLabelsTable[MAX_PAYLOAD_SIZE];
-    QWidget* module2ParameterValueLabelsTable[MAX_PAYLOAD_SIZE];
-    QWidget* module3ParameterValueLabelsTable[MAX_PAYLOAD_SIZE];
+    QWidget* module1ParameterStateLabelsTable[PAYLOAD_SIZE];
+    QWidget* module2ParameterStateLabelsTable[PAYLOAD_SIZE];
+    QWidget* module3ParameterStateLabelsTable[PAYLOAD_SIZE];
+    QWidget* module1ParameterValueLabelsTable[PAYLOAD_SIZE];
+    QWidget* module2ParameterValueLabelsTable[PAYLOAD_SIZE];
+    QWidget* module3ParameterValueLabelsTable[PAYLOAD_SIZE];
 
-    for(int i = 0; i<MAX_PAYLOAD_SIZE; i++)
+    for(int i = 0; i<PAYLOAD_SIZE; i++)
     {
         module1ParameterStateLabelsTable[i] = ui->Module1ParameterStates->itemAt(i)->widget();
         module2ParameterStateLabelsTable[i] = ui->Module2ParameterStates->itemAt(i)->widget();
@@ -788,7 +792,7 @@ void MainWindow::updateGUI()
         module3ParameterValueLabelsTable[i] = ui->ValuesModule3Parameters->itemAt(i)->widget();
     }
 
-    for(int i = 0; i<MAX_PAYLOAD_SIZE; i++)
+    for(int i = 0; i<PAYLOAD_SIZE; i++)
     {
         if((m_Module1.getParameterStatesTable())[i] == true)
         {
@@ -823,26 +827,12 @@ void MainWindow::updateGUI()
     }
 }
 
-/*Slot*/
-void MainWindow::serialDataReceived()
-{
-    static QByteArray receivedBytes;
-
-    receivedBytes += m_Serial.readAll();
-
-    if(receivedBytes.size() >= PACKET_SIZE)
-    {
-        fullPacketReceived(receivedBytes);
-        receivedBytes.clear();
-    }
-}
-
 /*Button slots*/
 void MainWindow::on_pushButton_Open_clicked()
 {
     InitParametersXmlLoader initParametersXmlLoader(ui);
 
-    if(initParametersXmlLoader.initModuleParametersList() == false)
+    if(initParametersXmlLoader.InitModuleParametersList() == false)
     {
         QMessageBox::warning(this, ".xml load error", "Error, parameters list could not be read from XML");
         return;
@@ -858,37 +848,37 @@ void MainWindow::on_pushButton_Close_clicked()
 
 void MainWindow::on_pushButton_Send_pressed()
 {
-    sendCustomPacket();
+    SendCustomPacket();
 }
 
 void MainWindow::on_pushButton_InitConnectionModule1_clicked()
 {
-    initConnectionModule(ModuleID::MODULE1);
+    InitConnectionModule(ModuleID::MODULE1);
 }
 
 void MainWindow::on_pushButton_InitConnectionModule2_clicked()
 {
-    initConnectionModule(ModuleID::MODULE2);
+    InitConnectionModule(ModuleID::MODULE2);
 }
 
 void MainWindow::on_pushButton_InitConnectionModule3_clicked()
 {
-    initConnectionModule(ModuleID::MODULE3);
+    InitConnectionModule(ModuleID::MODULE3);
 }
 
 void MainWindow::on_pushButton_DeinitConnectionModule1_clicked()
 {
-    deinitConnectionModule(ModuleID::MODULE1);
+    DeinitConnectionModule(ModuleID::MODULE1);
 }
 
 void MainWindow::on_pushButton_DeinitConnectionModule2_clicked()
 {
-    deinitConnectionModule(ModuleID::MODULE2);
+    DeinitConnectionModule(ModuleID::MODULE2);
 }
 
 void MainWindow::on_pushButton_DeinitConnectionModule3_clicked()
 {
-    deinitConnectionModule(ModuleID::MODULE3);
+    DeinitConnectionModule(ModuleID::MODULE3);
 }
 
 void MainWindow::on_pushButton_StartLinear_clicked()
@@ -898,16 +888,16 @@ void MainWindow::on_pushButton_StartLinear_clicked()
     switch(signalCount)
     {
     case '1':
-        generateLinearGraph(1);
+        GenerateLinearGraph(1);
         break;
     case '2':
-        generateLinearGraph(2);
+        GenerateLinearGraph(2);
         break;
     case '3':
-        generateLinearGraph(3);
+        GenerateLinearGraph(3);
         break;
     case '4':
-        generateLinearGraph(4);
+        GenerateLinearGraph(4);
         break;
     default:
         qDebug("Unsupported ammount of linear signals");
@@ -921,16 +911,16 @@ void MainWindow::on_pushButton_StartSine_clicked()
     switch(signalCount)
     {
     case '1':
-        generateSineGraph(1);
+        GenerateSineGraph(1);
         break;
     case '2':
-        generateSineGraph(2);
+        GenerateSineGraph(2);
         break;
     case '3':
-        generateSineGraph(3);
+        GenerateSineGraph(3);
         break;
     case '4':
-        generateSineGraph(4);
+        GenerateSineGraph(4);
         break;
     default:
         qDebug("Unsupported ammount of sine signals");
@@ -944,16 +934,16 @@ void MainWindow::on_pushButton_Stop_clicked()
 
 void MainWindow::on_pushButton_SendWrongCrcPacket_clicked()
 {
-    sendWrongCrcDataPacket();
+    SendWrongCrcDataPacket();
 }
 
 void MainWindow::on_pushButton_SetRanges_clicked()
 {
-    setRangeMinimum();
+    SetRangeMinimum();
     Sleep(100);
-    setRangeMaximum();
+    SetRangeMaximum();
     Sleep(100);
-    setRangeTime();
+    SetRangeTime();
 }
 
 void MainWindow::on_pushButton_ClearTable_clicked()

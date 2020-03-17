@@ -2,10 +2,12 @@
 
 #include <QSerialPort>
 #include "ui_mainwindow.h"
-#include "defines.h"
+#include "packet_field_definitions.h"
 
 class Serial : public QSerialPort
 {
+    Q_OBJECT
+
 public:
     Serial(Ui::MainWindow* ui);
     void InitPortList();
@@ -18,4 +20,10 @@ private:
 
     void EnableGui();
     void DisableGui();
+
+signals:
+    void FullPacketReceived(QByteArray& receivedBytes);
+
+private slots:
+    void SerialDataReceived();
 };

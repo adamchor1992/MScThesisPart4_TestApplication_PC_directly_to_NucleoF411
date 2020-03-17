@@ -2,15 +2,12 @@
 #include <QDebug>
 #include <QMessageBox>
 
-using std::string;
-using std::endl;
-
 InitParametersXmlLoader::InitParametersXmlLoader(Ui::MainWindow* ui)
 {
     m_pUi = ui;
 }
 
-bool InitParametersXmlLoader::initModuleParametersList()
+bool InitParametersXmlLoader::InitModuleParametersList()
 {
     std::ifstream inputFile;
 
@@ -20,9 +17,9 @@ bool InitParametersXmlLoader::initModuleParametersList()
     {
         qDebug("parameters.xml opened successfully");
 
-        parseXmlFileToParametersList(inputFile);
+        ParseXmlFileToParametersList(inputFile);
 
-        fillWidgetsTextsFromParametersList();
+        FillWidgetsTextsFromParametersList();
 
         return true;
     }
@@ -33,9 +30,9 @@ bool InitParametersXmlLoader::initModuleParametersList()
     }
 }
 
-void InitParametersXmlLoader::parseXmlFileToParametersList(std::ifstream & inputFile)
+void InitParametersXmlLoader::ParseXmlFileToParametersList(std::ifstream & inputFile)
 {
-    string inputLine;
+    std::string inputLine;
     QString foundString;
 
     size_t beginningTagStartIndex;
@@ -48,8 +45,6 @@ void InitParametersXmlLoader::parseXmlFileToParametersList(std::ifstream & input
     {
         if(inputLine.length() != 0)
         {
-//            qDebug() << "Line length: " << inputLine.length() << endl;
-
             beginningTagStartIndex = inputLine.find('<', 0);
             beginningTagEndIndex= inputLine.find('>', beginningTagStartIndex + 1);
 
@@ -64,15 +59,7 @@ void InitParametersXmlLoader::parseXmlFileToParametersList(std::ifstream & input
             {
                 stringLength = endingTagStartIndex - beginningTagEndIndex;
 
-//                qDebug() << "BeginningStart: " << beginningTagStartIndex << endl;
-//                qDebug() << "BeginningEnd: " <<  beginningTagEndIndex << endl;
-//                qDebug() << "EndingStart: " << endingTagStartIndex << endl;
-//                qDebug() << "EndingEnd: " <<  endingTagEndIndex << endl;
-//                qDebug() << "String length: " << stringLength << endl;
-//                qDebug() << endl;
-
                 foundString = QString::fromStdString(inputLine.substr(beginningTagEndIndex + 1, stringLength - 1));
-                //qDebug() << "Found string = " << foundString << endl;
 
                 m_Parameters.push_back(foundString);
             }
@@ -80,7 +67,7 @@ void InitParametersXmlLoader::parseXmlFileToParametersList(std::ifstream & input
     }
 }
 
-void InitParametersXmlLoader::fillWidgetsTextsFromParametersList()
+void InitParametersXmlLoader::FillWidgetsTextsFromParametersList()
 {
     /*Initialize module info parameter names*/
     m_pUi->label_Module1InitParameter1Name->setText((m_Parameters.at(0)));

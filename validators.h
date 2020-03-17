@@ -1,6 +1,6 @@
 #pragma once
 
-#include <defines.h>
+#include <packet_field_definitions.h>
 
 #include <QValidator>
 #include <QDebug>

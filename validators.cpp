@@ -35,7 +35,7 @@ QValidator::State CustomFloatingPointValidator::validate(QString &input, int &po
             totalMatchLength += matchedStrings.at(i).length();
         }
 
-        if(totalMatchLength <= MAX_PAYLOAD_SIZE)
+        if(totalMatchLength <= PAYLOAD_SIZE)
         {
             return QValidator::Acceptable;
         }
@@ -81,7 +81,7 @@ QValidator::State CustomIntegerValidator::validate(QString &input, int &pos) con
 
         int totalMatchLength =  matchedStrings.at(1).length();
 
-        if(totalMatchLength <= MAX_PAYLOAD_SIZE)
+        if(totalMatchLength <= PAYLOAD_SIZE)
         {
             return QValidator::Acceptable;
         }

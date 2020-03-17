@@ -6,6 +6,8 @@
 Serial::Serial(Ui::MainWindow* ui)
 {
     m_pUi = ui;
+
+    connect(this, &Serial::readyRead, this, &Serial::SerialDataReceived);
 }
 
 void Serial::InitPortList()
@@ -117,6 +119,22 @@ void Serial::SendPacket(uint8_t *uartPacketTable)
     write((const char*)uartPacketTable, PACKET_SIZE);
     waitForBytesWritten(3000);
     flush();
+}
+
+/*Slot*/
+void Serial::SerialDataReceived()
+{
+    static QByteArray receivedBytes;
+
+    receivedBytes += readAll();
+
+    if(receivedBytes.size() >= PACKET_SIZE)
+    {
+        qDebug("FULL PACKET RECEIVED");
+        qDebug("Received Packet is: %.16s", receivedBytes.constData());
+        emit(FullPacketReceived(receivedBytes));
+        receivedBytes.clear();
+    }
 }
 
 void Serial::EnableGui()
