@@ -127,6 +127,9 @@
         </item>
         <item>
          <widget class="QGroupBox" name="groupBox_ModuleControls">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="styleSheet">
            <string notr="true">font:bold</string>
           </property>
@@ -867,6 +870,9 @@
       </item>
       <item>
        <widget class="QGroupBox" name="groupBox_CustomPacketControls">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="styleSheet">
          <string notr="true">font:bold</string>
         </property>
@@ -1189,6 +1195,9 @@
       </item>
       <item>
        <widget class="QGroupBox" name="groupBox_GraphControls">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="styleSheet">
          <string notr="true">font:bold</string>
         </property>
@@ -1761,6 +1770,9 @@
     </item>
     <item row="1" column="0">
      <widget class="QGroupBox" name="groupBox_PacketDisplay">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="styleSheet">
        <string notr="true">font:bold</string>
       </property>
@@ -1819,6 +1831,9 @@
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <widget class="QGroupBox" name="groupBox_Module1">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="styleSheet">
          <string notr="true">font:bold</string>
         </property>
@@ -6545,6 +6560,9 @@
       </item>
       <item>
        <widget class="QGroupBox" name="groupBox_Module2">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="styleSheet">
          <string notr="true">font:bold</string>
         </property>
@@ -11271,6 +11289,9 @@
       </item>
       <item>
        <widget class="QGroupBox" name="groupBox_Module3">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="styleSheet">
          <string notr="true">font:bold</string>
         </property>

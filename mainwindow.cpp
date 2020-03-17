@@ -6,31 +6,15 @@
 #include <QMessageBox>
 #include "initparametersxmlloader.h"
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow), m_Serial(ui)
 {
     ui->setupUi(this);
 
-    m_pSerial = std::make_unique<Serial>(ui);
-    m_pModule1 = std::make_unique<Module>();
-    m_pModule2 = std::make_unique<Module>();
-    m_pModule3 = std::make_unique<Module>();
+    m_Serial.InitPortList();
+
     m_pTableView = std::make_unique<TableView>(ui);
 
-    m_pSerial->initPortList();
-
-    connect(m_pSerial.get(), SIGNAL(readyRead()), this, SLOT(serialDataReceived()));
-
-    updateGUI();
-
-    ui->groupBox_ModuleControls->setEnabled(false);
-    ui->groupBox_CustomPacketControls ->setEnabled(false);
-    ui->groupBox_GraphControls->setEnabled(false);
-    ui->groupBox_PacketDisplay->setEnabled(false);
-    ui->groupBox_Module1->setEnabled(false);
-    ui->groupBox_Module2->setEnabled(false);
-    ui->groupBox_Module3->setEnabled(false);
-
-    m_pTableView->initPacketDisplay();
+    connect(&m_Serial, &Serial::readyRead, this, &MainWindow::serialDataReceived);
 
     setInputValidators();
 
@@ -44,21 +28,18 @@ MainWindow::~MainWindow()
 
 void MainWindow::setInputValidators()
 {
-    m_pCustomIntegerValidator = std::make_unique<CustomIntegerValidator>();
-    m_pCustomFloatingPointValidator = std::make_unique<CustomFloatingPointValidator>();
-
     /*Input widgets accepting only integers*/
-    ui->lineEdit_RangeMinimum->setValidator(m_pCustomIntegerValidator.get());
-    ui->lineEdit_RangeMaximum->setValidator(m_pCustomIntegerValidator.get());
-    ui->lineEdit_StartDegrees->setValidator(m_pCustomIntegerValidator.get());
-    ui->lineEdit_StopDegrees->setValidator(m_pCustomIntegerValidator.get());
+    ui->lineEdit_RangeMinimum->setValidator(&m_CustomIntegerValidator);
+    ui->lineEdit_RangeMaximum->setValidator(&m_CustomIntegerValidator);
+    ui->lineEdit_StartDegrees->setValidator(&m_CustomIntegerValidator);
+    ui->lineEdit_StopDegrees->setValidator(&m_CustomIntegerValidator);
 
     /*Input widgets accepting floating point values*/
-    ui->lineEdit_StartLinear->setValidator(m_pCustomFloatingPointValidator.get());
-    ui->lineEdit_StopLinear->setValidator(m_pCustomFloatingPointValidator.get());
-    ui->lineEdit_StepLinear->setValidator(m_pCustomFloatingPointValidator.get());
-    ui->lineEdit_MultiplierSine->setValidator(m_pCustomFloatingPointValidator.get());
-    ui->lineEdit_CustomPacketPayload->setValidator(m_pCustomFloatingPointValidator.get());
+    ui->lineEdit_StartLinear->setValidator(&m_CustomFloatingPointValidator);
+    ui->lineEdit_StopLinear->setValidator(&m_CustomFloatingPointValidator);
+    ui->lineEdit_StepLinear->setValidator(&m_CustomFloatingPointValidator);
+    ui->lineEdit_MultiplierSine->setValidator(&m_CustomFloatingPointValidator);
+    ui->lineEdit_CustomPacketPayload->setValidator(&m_CustomFloatingPointValidator);
 }
 
 void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
@@ -78,13 +59,13 @@ void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
 
     if(checkCrc32(uartReceivedPacket) == true)
     {
-        m_pTableView->updatePacketDisplay(uartReceivedPacket, true, true);
+        m_pTableView->UpdatePacketDisplay(uartReceivedPacket, true, true);
 
         return;
     }
     else
     {
-        m_pTableView->updatePacketDisplay(uartReceivedPacket, true, false);
+        m_pTableView->UpdatePacketDisplay(uartReceivedPacket, true, false);
     }
 
     QCoreApplication::processEvents();
@@ -96,17 +77,17 @@ void MainWindow::fullPacketReceived(QByteArray & receivedBytes)
     if(moduleID == ModuleID::MODULE1)
     {
         qDebug() << "Module 1";
-        p_CurrentModule = m_pModule1.get();
+        p_CurrentModule = &m_Module1;
     }
     else if(moduleID == ModuleID::MODULE2)
     {
         qDebug() << "Module 2";
-        p_CurrentModule = m_pModule2.get();
+        p_CurrentModule = &m_Module2;
     }
     else if(moduleID == ModuleID::MODULE3)
     {
         qDebug() << "Module 3";
-        p_CurrentModule = m_pModule3.get();
+        p_CurrentModule = &m_Module3;
     }
     else
     {
@@ -323,9 +304,9 @@ void MainWindow::initConnectionModule(ModuleID module)
 
         qDebug("Init Packet is: %s", uartPacketTable[i]);
 
-        m_pTableView->updatePacketDisplay(uartPacketTable[i], false);
+        m_pTableView->UpdatePacketDisplay(uartPacketTable[i], false);
 
-        m_pSerial->sendPacket(uartPacketTable[i]);
+        m_Serial.SendPacket(uartPacketTable[i]);
 
         Sleep(uint(20));
 
@@ -353,9 +334,9 @@ void MainWindow::deinitConnectionModule(ModuleID module)
 
     qDebug("Deinit Packet is: %s", uartPacketTable);
 
-    m_pTableView->updatePacketDisplay(uartPacketTable, false);
+    m_pTableView->UpdatePacketDisplay(uartPacketTable, false);
 
-    m_pSerial->sendPacket(uartPacketTable);
+    m_Serial.SendPacket(uartPacketTable);
 }
 
 void MainWindow::setRangeMinimum()
@@ -405,9 +386,9 @@ void MainWindow::setRangeMinimum()
 
     qDebug("Data Packet is: %s", uartPacketTable);
 
-    m_pTableView->updatePacketDisplay(uartPacketTable, false);
+    m_pTableView->UpdatePacketDisplay(uartPacketTable, false);
 
-    m_pSerial->sendPacket(uartPacketTable);
+    m_Serial.SendPacket(uartPacketTable);
 }
 
 void MainWindow::setRangeMaximum()
@@ -457,9 +438,9 @@ void MainWindow::setRangeMaximum()
 
     qDebug("Data Packet is: %s", uartPacketTable);
 
-    m_pTableView->updatePacketDisplay(uartPacketTable, false);
+    m_pTableView->UpdatePacketDisplay(uartPacketTable, false);
 
-    m_pSerial->sendPacket(uartPacketTable);
+    m_Serial.SendPacket(uartPacketTable);
 }
 
 void MainWindow::setRangeTime()
@@ -501,9 +482,9 @@ void MainWindow::setRangeTime()
 
     qDebug("Data Packet is: %s", uartPacketTable);
 
-    m_pTableView->updatePacketDisplay(uartPacketTable, false);
+    m_pTableView->UpdatePacketDisplay(uartPacketTable, false);
 
-    m_pSerial->sendPacket(uartPacketTable);
+    m_Serial.SendPacket(uartPacketTable);
 }
 
 void MainWindow::sendCustomPacket()
@@ -557,9 +538,9 @@ void MainWindow::sendCustomPacket()
 
     qDebug("Data Packet is: %s", uartPacketTable);
 
-    m_pTableView->updatePacketDisplay(uartPacketTable, false);
+    m_pTableView->UpdatePacketDisplay(uartPacketTable, false);
 
-    m_pSerial->sendPacket(uartPacketTable);
+    m_Serial.SendPacket(uartPacketTable);
 }
 
 void MainWindow::sendWrongCrcDataPacket()
@@ -585,9 +566,9 @@ void MainWindow::sendWrongCrcDataPacket()
 
     qDebug("Wrong Crc Data Packet is: %s", uartPacketTable);
 
-    m_pTableView->updatePacketDisplay(uartPacketTable, false, false);
+    m_pTableView->UpdatePacketDisplay(uartPacketTable, false, false);
 
-    m_pSerial->sendPacket(uartPacketTable);
+    m_Serial.SendPacket(uartPacketTable);
 }
 
 void MainWindow::generateLinearGraph(int signalCount)
@@ -781,9 +762,9 @@ void MainWindow::sendGraphPacket(UartPacket uartPacket)
 
     qDebug("Data Packet is: %s", uartPacketTable);
 
-    m_pTableView->updatePacketDisplay(uartPacketTable, false);
+    m_pTableView->UpdatePacketDisplay(uartPacketTable, false);
 
-    m_pSerial->sendPacket(uartPacketTable);
+    m_Serial.SendPacket(uartPacketTable);
 
     Sleep(uint(20));
 }
@@ -809,7 +790,7 @@ void MainWindow::updateGUI()
 
     for(int i = 0; i<MAX_PAYLOAD_SIZE; i++)
     {
-        if((m_pModule1->getParameterStatesTable())[i] == true)
+        if((m_Module1.getParameterStatesTable())[i] == true)
         {
             dynamic_cast<QLabel*>(*(module1ParameterStateLabelsTable + i))->setText("<font color='green'>Enabled</font>");
         }
@@ -818,7 +799,7 @@ void MainWindow::updateGUI()
             dynamic_cast<QLabel*>(*(module1ParameterStateLabelsTable + i))->setText("<font color='red'>Disabled</font>");
         }
 
-        if((m_pModule2->getParameterStatesTable())[i] == true)
+        if((m_Module2.getParameterStatesTable())[i] == true)
         {
             dynamic_cast<QLabel*>(*(module2ParameterStateLabelsTable + i))->setText("<font color='green'>Enabled</font>");
         }
@@ -827,7 +808,7 @@ void MainWindow::updateGUI()
             dynamic_cast<QLabel*>(*(module2ParameterStateLabelsTable + i))->setText("<font color='red'>Disabled</font>");
         }
 
-        if((m_pModule3->getParameterStatesTable())[i] == true)
+        if((m_Module3.getParameterStatesTable())[i] == true)
         {
             dynamic_cast<QLabel*>(*(module3ParameterStateLabelsTable + i))->setText("<font color='green'>Enabled</font>");
         }
@@ -836,9 +817,9 @@ void MainWindow::updateGUI()
             dynamic_cast<QLabel*>(*(module3ParameterStateLabelsTable + i))->setText("<font color='red'>Disabled</font>");
         }
 
-        dynamic_cast<QLCDNumber*>(*(module1ParameterValueLabelsTable + i))->display((m_pModule1->getParameterValuesTable())[i]);
-        dynamic_cast<QLCDNumber*>(*(module2ParameterValueLabelsTable + i))->display((m_pModule2->getParameterValuesTable())[i]);
-        dynamic_cast<QLCDNumber*>(*(module3ParameterValueLabelsTable + i))->display((m_pModule3->getParameterValuesTable())[i]);
+        dynamic_cast<QLCDNumber*>(*(module1ParameterValueLabelsTable + i))->display((m_Module1.getParameterValuesTable())[i]);
+        dynamic_cast<QLCDNumber*>(*(module2ParameterValueLabelsTable + i))->display((m_Module2.getParameterValuesTable())[i]);
+        dynamic_cast<QLCDNumber*>(*(module3ParameterValueLabelsTable + i))->display((m_Module3.getParameterValuesTable())[i]);
     }
 }
 
@@ -847,7 +828,7 @@ void MainWindow::serialDataReceived()
 {
     static QByteArray receivedBytes;
 
-    receivedBytes += m_pSerial->readAll();
+    receivedBytes += m_Serial.readAll();
 
     if(receivedBytes.size() >= PACKET_SIZE)
     {
@@ -867,12 +848,12 @@ void MainWindow::on_pushButton_Open_clicked()
         return;
     }
 
-    m_pSerial->openPort(ui->comboBox_Port->currentText());
+    m_Serial.OpenPort(ui->comboBox_Port->currentText());
 }
 
 void MainWindow::on_pushButton_Close_clicked()
 {
-    m_pSerial->closePort(ui->comboBox_Port->currentText());
+    m_Serial.ClosePort(ui->comboBox_Port->currentText());
 }
 
 void MainWindow::on_pushButton_Send_pressed()
@@ -977,5 +958,5 @@ void MainWindow::on_pushButton_SetRanges_clicked()
 
 void MainWindow::on_pushButton_ClearTable_clicked()
 {
-    m_pTableView->clearPacketDisplay();
+    m_pTableView->ClearPacketDisplay();
 }

@@ -8,7 +8,7 @@ Serial::Serial(Ui::MainWindow* ui)
     m_pUi = ui;
 }
 
-void Serial::initPortList()
+void Serial::InitPortList()
 {
     QString myPortDescription = "Prolific USB-to-Serial Comm Port";
     quint16 myPortIdentifier = 8963;
@@ -49,7 +49,7 @@ void Serial::initPortList()
     }
 }
 
-bool Serial::openPort(QString portName)
+bool Serial::OpenPort(QString portName)
 {
     setPortName(portName);
 
@@ -71,14 +71,7 @@ bool Serial::openPort(QString portName)
         qDebug("Port opened successfully");
         m_pUi->label_ShowStatus->setText("<font color='green'>Open</font>");
 
-        m_pUi->comboBox_Port->setEnabled(false);
-        m_pUi->groupBox_ModuleControls->setEnabled(true);
-        m_pUi->groupBox_CustomPacketControls ->setEnabled(true);
-        m_pUi->groupBox_GraphControls->setEnabled(true);
-        m_pUi->groupBox_PacketDisplay->setEnabled(true);
-        m_pUi->groupBox_Module1->setEnabled(true);
-        m_pUi->groupBox_Module2->setEnabled(true);
-        m_pUi->groupBox_Module3->setEnabled(true);
+        EnableGui();
 
         return true;
     }
@@ -91,7 +84,7 @@ bool Serial::openPort(QString portName)
     }
 }
 
-void Serial::closePort(QString portName)
+void Serial::ClosePort(QString portName)
 {
     setPortName(portName);
 
@@ -105,13 +98,7 @@ void Serial::closePort(QString portName)
             qDebug("Port closed successfully");
             m_pUi->label_ShowStatus->setText("<font color='red'>Close</font>");
 
-            m_pUi->comboBox_Port->setEnabled(true);
-            m_pUi->groupBox_ModuleControls->setEnabled(false);
-            m_pUi->groupBox_CustomPacketControls ->setEnabled(false);
-            m_pUi->groupBox_GraphControls->setEnabled(false);
-            m_pUi->groupBox_PacketDisplay->setEnabled(false);
-            m_pUi->groupBox_Module1->setEnabled(false);
-            m_pUi->groupBox_Module2->setEnabled(false);
+            DisableGui();
         }
         else
         {
@@ -125,9 +112,32 @@ void Serial::closePort(QString portName)
     }
 }
 
-void Serial::sendPacket(uint8_t *uartPacketTable)
+void Serial::SendPacket(uint8_t *uartPacketTable)
 {
     write((const char*)uartPacketTable, PACKET_SIZE);
     waitForBytesWritten(3000);
     flush();
+}
+
+void Serial::EnableGui()
+{
+    m_pUi->comboBox_Port->setEnabled(false);
+    m_pUi->groupBox_ModuleControls->setEnabled(true);
+    m_pUi->groupBox_CustomPacketControls ->setEnabled(true);
+    m_pUi->groupBox_GraphControls->setEnabled(true);
+    m_pUi->groupBox_PacketDisplay->setEnabled(true);
+    m_pUi->groupBox_Module1->setEnabled(true);
+    m_pUi->groupBox_Module2->setEnabled(true);
+    m_pUi->groupBox_Module3->setEnabled(true);
+}
+
+void Serial::DisableGui()
+{
+    m_pUi->comboBox_Port->setEnabled(true);
+    m_pUi->groupBox_ModuleControls->setEnabled(false);
+    m_pUi->groupBox_CustomPacketControls ->setEnabled(false);
+    m_pUi->groupBox_GraphControls->setEnabled(false);
+    m_pUi->groupBox_PacketDisplay->setEnabled(false);
+    m_pUi->groupBox_Module1->setEnabled(false);
+    m_pUi->groupBox_Module2->setEnabled(false);
 }

@@ -41,7 +41,6 @@ public:
     void generateLinearGraph(int signalCount);
     void generateSineGraph(int signalCount);
     void sendGraphPacket(UartPacket uartPacket);
-
     void setInputValidators();
 
 private slots:
@@ -64,14 +63,17 @@ private slots:
     void on_pushButton_ClearTable_clicked();
 
 private:
-    Ui::MainWindow *ui;
+    Ui::MainWindow* ui;
 
-    unique_ptr<Serial> m_pSerial;
-    unique_ptr<Module> m_pModule1, m_pModule2, m_pModule3;
-    unique_ptr<TableView> m_pTableView;
+    Serial m_Serial;
+    std::unique_ptr<TableView> m_pTableView;
 
-    unique_ptr<CustomIntegerValidator> m_pCustomIntegerValidator;
-    unique_ptr<CustomFloatingPointValidator> m_pCustomFloatingPointValidator;
+    Module m_Module1;
+    Module m_Module2;
+    Module m_Module3;
+
+    CustomIntegerValidator m_CustomIntegerValidator;
+    CustomFloatingPointValidator m_CustomFloatingPointValidator;
 
     bool m_stopPressed = false;
 };

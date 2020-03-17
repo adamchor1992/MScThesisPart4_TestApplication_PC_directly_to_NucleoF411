@@ -6,25 +6,17 @@
 class TableView
 {
 public:
+    TableView() = delete;
+    TableView(const TableView&) = delete;
     TableView(Ui::MainWindow* pUiHandle);
 
-    static TableView & getSingleton()
-    {
-        static TableView singleton;
-        return singleton;
-    }
-
-    void initPacketDisplay();
-    void updatePacketDisplay(uint8_t UART_MessageToTransmit[], bool isReceivedPacket, bool isCrcCorrect=true);
-    void clearPacketDisplay();
+    void InitPacketDisplay();
+    void UpdatePacketDisplay(uint8_t UART_MessageToTransmit[], bool isReceivedPacket, bool isCrcCorrect=true);
+    void ClearPacketDisplay();
 
 private:
-    TableView();
-    TableView( const TableView & );
-
-    Ui::MainWindow* m_pUi;
-
-    QTableWidget* m_pTableWidget;
+    Ui::MainWindow* m_pUi = nullptr;
+    QTableWidget* m_pTableWidget = nullptr;
 
     const int PACKET_SIZE = 20;
 };

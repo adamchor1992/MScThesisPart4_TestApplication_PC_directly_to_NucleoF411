@@ -5,9 +5,11 @@ TableView::TableView(Ui::MainWindow* ui)
 {
     m_pUi = ui;
     m_pTableWidget = m_pUi->tableWidget_PacketDisplay;
+
+    InitPacketDisplay();
 }
 
-void TableView::initPacketDisplay()
+void TableView::InitPacketDisplay()
 {
     QStringList packetFieldNames;
 
@@ -16,21 +18,21 @@ void TableView::initPacketDisplay()
     packetFieldNames.insert(2, "Function");
     packetFieldNames.insert(3, "Parameter");
     packetFieldNames.insert(4, "Sign");
-    packetFieldNames.insert(5,"Length");
-    packetFieldNames.insert(6,"P1");
-    packetFieldNames.insert(7,"P2");
-    packetFieldNames.insert(8,"P3");
-    packetFieldNames.insert(9,"P4");
-    packetFieldNames.insert(10,"P5");
-    packetFieldNames.insert(11,"P6");
-    packetFieldNames.insert(12,"P7");
-    packetFieldNames.insert(13,"P8");
-    packetFieldNames.insert(14,"P9");
-    packetFieldNames.insert(15,"P10");
-    packetFieldNames.insert(16,"CRC1");
-    packetFieldNames.insert(17,"CRC2");
-    packetFieldNames.insert(18,"CRC3");
-    packetFieldNames.insert(19,"CRC4");
+    packetFieldNames.insert(5, "Length");
+    packetFieldNames.insert(6, "P1");
+    packetFieldNames.insert(7, "P2");
+    packetFieldNames.insert(8, "P3");
+    packetFieldNames.insert(9, "P4");
+    packetFieldNames.insert(10, "P5");
+    packetFieldNames.insert(11, "P6");
+    packetFieldNames.insert(12, "P7");
+    packetFieldNames.insert(13, "P8");
+    packetFieldNames.insert(14, "P9");
+    packetFieldNames.insert(15, "P10");
+    packetFieldNames.insert(16, "CRC1");
+    packetFieldNames.insert(17, "CRC2");
+    packetFieldNames.insert(18, "CRC3");
+    packetFieldNames.insert(19, "CRC4");
 
     m_pTableWidget->setColumnCount(PACKET_SIZE);
 
@@ -44,7 +46,7 @@ void TableView::initPacketDisplay()
     }
 }
 
-void TableView::updatePacketDisplay(uint8_t uartPacket[], bool isReceivedPacket, bool isCrcCorrect)
+void TableView::UpdatePacketDisplay(uint8_t uartPacket[], bool isReceivedPacket, bool isCrcCorrect)
 {
     int rowCount = m_pTableWidget->rowCount();
 
@@ -183,7 +185,7 @@ void TableView::updatePacketDisplay(uint8_t uartPacket[], bool isReceivedPacket,
     m_pTableWidget->scrollToBottom();
 }
 
-void TableView::clearPacketDisplay()
+void TableView::ClearPacketDisplay()
 {
     m_pTableWidget->clearContents();
     m_pTableWidget->setRowCount(0);

@@ -352,6 +352,7 @@ public:
 
         groupBox_ModuleControls = new QGroupBox(centralWidget);
         groupBox_ModuleControls->setObjectName(QString::fromUtf8("groupBox_ModuleControls"));
+        groupBox_ModuleControls->setEnabled(false);
         groupBox_ModuleControls->setStyleSheet(QString::fromUtf8("font:bold"));
         groupBox_ModuleControls->setAlignment(Qt::AlignCenter);
         gridLayout_9 = new QGridLayout(groupBox_ModuleControls);
@@ -824,6 +825,7 @@ public:
 
         groupBox_CustomPacketControls = new QGroupBox(centralWidget);
         groupBox_CustomPacketControls->setObjectName(QString::fromUtf8("groupBox_CustomPacketControls"));
+        groupBox_CustomPacketControls->setEnabled(false);
         groupBox_CustomPacketControls->setStyleSheet(QString::fromUtf8("font:bold"));
         groupBox_CustomPacketControls->setAlignment(Qt::AlignCenter);
         gridLayout_8 = new QGridLayout(groupBox_CustomPacketControls);
@@ -966,6 +968,7 @@ public:
 
         groupBox_GraphControls = new QGroupBox(centralWidget);
         groupBox_GraphControls->setObjectName(QString::fromUtf8("groupBox_GraphControls"));
+        groupBox_GraphControls->setEnabled(false);
         groupBox_GraphControls->setStyleSheet(QString::fromUtf8("font:bold"));
         groupBox_GraphControls->setAlignment(Qt::AlignCenter);
         gridLayout_4 = new QGridLayout(groupBox_GraphControls);
@@ -1251,6 +1254,7 @@ public:
 
         groupBox_PacketDisplay = new QGroupBox(centralWidget);
         groupBox_PacketDisplay->setObjectName(QString::fromUtf8("groupBox_PacketDisplay"));
+        groupBox_PacketDisplay->setEnabled(false);
         groupBox_PacketDisplay->setStyleSheet(QString::fromUtf8("font:bold"));
         groupBox_PacketDisplay->setAlignment(Qt::AlignCenter);
         gridLayout_12 = new QGridLayout(groupBox_PacketDisplay);
@@ -1281,6 +1285,7 @@ public:
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         groupBox_Module1 = new QGroupBox(centralWidget);
         groupBox_Module1->setObjectName(QString::fromUtf8("groupBox_Module1"));
+        groupBox_Module1->setEnabled(false);
         groupBox_Module1->setStyleSheet(QString::fromUtf8("font:bold"));
         groupBox_Module1->setAlignment(Qt::AlignCenter);
         gridLayout_5 = new QGridLayout(groupBox_Module1);
@@ -2060,6 +2065,7 @@ public:
 
         groupBox_Module2 = new QGroupBox(centralWidget);
         groupBox_Module2->setObjectName(QString::fromUtf8("groupBox_Module2"));
+        groupBox_Module2->setEnabled(false);
         groupBox_Module2->setStyleSheet(QString::fromUtf8("font:bold"));
         groupBox_Module2->setAlignment(Qt::AlignCenter);
         gridLayout_6 = new QGridLayout(groupBox_Module2);
@@ -2831,6 +2837,7 @@ public:
 
         groupBox_Module3 = new QGroupBox(centralWidget);
         groupBox_Module3->setObjectName(QString::fromUtf8("groupBox_Module3"));
+        groupBox_Module3->setEnabled(false);
         groupBox_Module3->setStyleSheet(QString::fromUtf8("font:bold"));
         groupBox_Module3->setAlignment(Qt::AlignCenter);
         gridLayout_7 = new QGridLayout(groupBox_Module3);
