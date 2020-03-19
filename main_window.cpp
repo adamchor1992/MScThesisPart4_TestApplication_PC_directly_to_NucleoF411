@@ -4,7 +4,7 @@
 #include "packet_field_definitions.h"
 #include <QSerialPortInfo>
 #include <QMessageBox>
-#include "initparametersxmlloader.h"
+#include "init_parameters_xml_loader.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow), m_Serial(ui)
 {
@@ -56,7 +56,7 @@ void MainWindow::ProcessReceivedPacket(QByteArray& receivedBytes)
         uartReceivedPacket[i] = static_cast<uint8_t>(receivedBytes.at(i));
     }
 
-    if(checkCrc32(uartReceivedPacket) == true)
+    if(CheckCrc32(uartReceivedPacket) == true)
     {
         m_pTableView->UpdatePacketDisplay(uartReceivedPacket, true, true);
     }
@@ -113,14 +113,14 @@ void MainWindow::ProcessReceivedPacket(QByteArray& receivedBytes)
     case Function::ENABLE_PARAMETER_PACKET:
         qDebug() << "Enable parameter";
 
-        p_CurrentModule->enableParameter(parameter);
+        p_CurrentModule->EnableParameter(parameter);
 
         break;
 
     case Function::DISABLE_PARAMETER_PACKET:
         qDebug() << "Disable parameter";
 
-        p_CurrentModule->disableParameter(parameter);
+        p_CurrentModule->DisableParameter(parameter);
 
         break;
 
@@ -135,7 +135,7 @@ void MainWindow::ProcessReceivedPacket(QByteArray& receivedBytes)
             valueDouble = valueDouble * (-1);
         }
 
-        p_CurrentModule->setParameter(parameter,valueDouble);
+        p_CurrentModule->SetParameter(parameter,valueDouble);
 
         break;
 
@@ -304,7 +304,7 @@ void MainWindow::InitConnectionModule(ModuleID module)
 
         uartPacket[i].ConvertToUartPacketTable(uartPacketTable[i]);
 
-        appendCrcToPacketTable(uartPacketTable[i]);
+        AppendCrcToPacketTable(uartPacketTable[i]);
 
         qDebug("Init Packet is: %s", uartPacketTable[i]);
 
@@ -334,7 +334,7 @@ void MainWindow::DeinitConnectionModule(ModuleID module)
 
     uartPacket.ConvertToUartPacketTable(uartPacketTable);
 
-    appendCrcToPacketTable(uartPacketTable);
+    AppendCrcToPacketTable(uartPacketTable);
 
     qDebug("Deinit Packet is: %s", uartPacketTable);
 
@@ -386,7 +386,7 @@ void MainWindow::SetRangeMinimum()
     }
 
     uartPacket.ConvertToUartPacketTable(uartPacketTable);
-    appendCrcToPacketTable(uartPacketTable);
+    AppendCrcToPacketTable(uartPacketTable);
 
     qDebug("Data Packet is: %s", uartPacketTable);
 
@@ -438,7 +438,7 @@ void MainWindow::SetRangeMaximum()
     }
 
     uartPacket.ConvertToUartPacketTable(uartPacketTable);
-    appendCrcToPacketTable(uartPacketTable);
+    AppendCrcToPacketTable(uartPacketTable);
 
     qDebug("Data Packet is: %s", uartPacketTable);
 
@@ -482,7 +482,7 @@ void MainWindow::SetRangeTime()
     }
 
     uartPacket.ConvertToUartPacketTable(uartPacketTable);
-    appendCrcToPacketTable(uartPacketTable);
+    AppendCrcToPacketTable(uartPacketTable);
 
     qDebug("Data Packet is: %s", uartPacketTable);
 
@@ -538,7 +538,7 @@ void MainWindow::SendCustomPacket()
     ui->lineEdit_CustomPacketLength->setText(QString::number(lengthInt));
 
     uartPacket.ConvertToUartPacketTable(uartPacketTable);
-    appendCrcToPacketTable(uartPacketTable);
+    AppendCrcToPacketTable(uartPacketTable);
 
     qDebug("Data Packet is: %s", uartPacketTable);
 
@@ -762,7 +762,7 @@ void MainWindow::SendGraphPacket(UartPacket uartPacket)
     uint8_t uartPacketTable[PACKET_SIZE] = {0};
 
     uartPacket.ConvertToUartPacketTable(uartPacketTable);
-    appendCrcToPacketTable(uartPacketTable);
+    AppendCrcToPacketTable(uartPacketTable);
 
     qDebug("Data Packet is: %s", uartPacketTable);
 
@@ -794,7 +794,7 @@ void MainWindow::UpdateGUI()
 
     for(int i = 0; i<PAYLOAD_SIZE; i++)
     {
-        if((m_Module1.getParameterStatesTable())[i] == true)
+        if((m_Module1.GetParameterStatesTable())[i] == true)
         {
             dynamic_cast<QLabel*>(*(module1ParameterStateLabelsTable + i))->setText("<font color='green'>Enabled</font>");
         }
@@ -803,7 +803,7 @@ void MainWindow::UpdateGUI()
             dynamic_cast<QLabel*>(*(module1ParameterStateLabelsTable + i))->setText("<font color='red'>Disabled</font>");
         }
 
-        if((m_Module2.getParameterStatesTable())[i] == true)
+        if((m_Module2.GetParameterStatesTable())[i] == true)
         {
             dynamic_cast<QLabel*>(*(module2ParameterStateLabelsTable + i))->setText("<font color='green'>Enabled</font>");
         }
@@ -812,7 +812,7 @@ void MainWindow::UpdateGUI()
             dynamic_cast<QLabel*>(*(module2ParameterStateLabelsTable + i))->setText("<font color='red'>Disabled</font>");
         }
 
-        if((m_Module3.getParameterStatesTable())[i] == true)
+        if((m_Module3.GetParameterStatesTable())[i] == true)
         {
             dynamic_cast<QLabel*>(*(module3ParameterStateLabelsTable + i))->setText("<font color='green'>Enabled</font>");
         }
@@ -821,9 +821,9 @@ void MainWindow::UpdateGUI()
             dynamic_cast<QLabel*>(*(module3ParameterStateLabelsTable + i))->setText("<font color='red'>Disabled</font>");
         }
 
-        dynamic_cast<QLCDNumber*>(*(module1ParameterValueLabelsTable + i))->display((m_Module1.getParameterValuesTable())[i]);
-        dynamic_cast<QLCDNumber*>(*(module2ParameterValueLabelsTable + i))->display((m_Module2.getParameterValuesTable())[i]);
-        dynamic_cast<QLCDNumber*>(*(module3ParameterValueLabelsTable + i))->display((m_Module3.getParameterValuesTable())[i]);
+        dynamic_cast<QLCDNumber*>(*(module1ParameterValueLabelsTable + i))->display((m_Module1.GetParameterValuesTable())[i]);
+        dynamic_cast<QLCDNumber*>(*(module2ParameterValueLabelsTable + i))->display((m_Module2.GetParameterValuesTable())[i]);
+        dynamic_cast<QLCDNumber*>(*(module3ParameterValueLabelsTable + i))->display((m_Module3.GetParameterValuesTable())[i]);
     }
 }
 

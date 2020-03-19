@@ -1,4 +1,4 @@
-#include "initparametersxmlloader.h"
+#include "init_parameters_xml_loader.h"
 #include <QDebug>
 #include <QMessageBox>
 

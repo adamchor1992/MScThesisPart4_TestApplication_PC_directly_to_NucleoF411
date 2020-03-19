@@ -1,4 +1,4 @@
-#include "tableview.h"
+#include "table_view.h"
 #include "packet_field_definitions.h"
 #include <QStringList>
 

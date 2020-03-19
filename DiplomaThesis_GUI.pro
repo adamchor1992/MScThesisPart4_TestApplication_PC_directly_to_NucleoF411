@@ -25,27 +25,27 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++14
 
 SOURCES += \
+    init_parameters_xml_loader.cpp \
         main.cpp \
-        mainwindow.cpp \
+    main_window.cpp \
         module.cpp \
-    uartpacket.cpp \
+    table_view.cpp \
+    uart_packet.cpp \
         utilities.cpp \
-    tableview.cpp \
     serial.cpp \
-    initparametersxmlloader.cpp \
     validators.cpp
 
 HEADERS += \
         crc32.h \
+    init_parameters_xml_loader.h \
         mainwindow.h \
         module.h \
     packet_field_definitions.h \
+    table_view.h \
+    uart_packet.h \
         utilities.h \
-    tableview.h \
     serial.h \
-    uartpacket.h \
-    validators.h \
-    initparametersxmlloader.h
+    validators.h
 
 FORMS += \
         mainwindow.ui

@@ -5,18 +5,18 @@
 class Module
 {
 public:
-    void enableParameter(Parameter parameter);
-    void enableParameterByIndex(int index);
-    void disableParameter(Parameter parameter);
-    void disableParameterByIndex(int index);
-    void setParameter(Parameter parameter, double value);
-    void setParameterByIndex(int index, double value);
-    bool getParameterState(int index);
-    double getParameterValue(int index);
-    bool* getParameterStatesTable();
-    double* getParameterValuesTable();
+    void EnableParameter(Parameter parameter);
+    void EnableParameterByIndex(int index);
+    void DisableParameter(Parameter parameter);
+    void DisableParameterByIndex(int index);
+    void SetParameter(Parameter parameter, double value);
+    void SetParameterByIndex(int index, double value);
+    bool GetParameterState(int index);
+    double GetParameterValue(int index);
+    bool* GetParameterStatesTable();
+    double* GetParameterValuesTable();
 
 private:
-    bool parameterStates[PARAMETER_COUNT] {false};
-    double parameterValues[PARAMETER_COUNT] {0.0};
+    bool m_ParameterStates[PARAMETER_COUNT] {false};
+    double m_ParameterValues[PARAMETER_COUNT] {0.0};
 };

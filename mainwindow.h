@@ -3,9 +3,9 @@
 #include <QMainWindow>
 #include <QDebug>
 #include "QtSerialPort/QSerialPort"
-#include "uartpacket.h"
+#include "uart_packet.h"
 #include "module.h"
-#include "tableview.h"
+#include "table_view.h"
 #include "serial.h"
 #include <memory>
 #include "validators.h"
