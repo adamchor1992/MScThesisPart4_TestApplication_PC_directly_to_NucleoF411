@@ -13,7 +13,7 @@ public:
     void InitPortList();
     bool OpenPort(QString portName);
     void ClosePort(QString portName);
-    void SendPacket(uint8_t* uartPacketTable);
+    void SendPacket(uint8_t * const uartPacketTable);
 
 private:
     Ui::MainWindow* m_pUi;

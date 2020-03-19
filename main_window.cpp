@@ -101,9 +101,6 @@ void MainWindow::ProcessReceivedPacket(QByteArray& receivedBytes)
 
     double valueDouble = 0;
 
-    qDebug("Function %c", function);
-    qDebug("Parameter %c", parameter);
-
     switch(function)
     {
     case Function::DATA_PACKET:
@@ -127,7 +124,7 @@ void MainWindow::ProcessReceivedPacket(QByteArray& receivedBytes)
     case Function::SET_PARAMETER_PACKET:
         qDebug() << "Set parameter";
 
-        valueDouble = double(std::stof((char*)(uartPacket.GetPayload())));
+        valueDouble = double(std::stof(reinterpret_cast<char*>(uartPacket.GetPayloadPointer())));
 
         if(uartPacket.GetSign() == Sign::NEGATIVE_SIGN)
         {
@@ -281,26 +278,26 @@ void MainWindow::InitConnectionModule(ModuleID module)
         }
     }
 
-    uint8_t lengthInt;
+    uint8_t length;
 
     for(int i = 0; i < INIT_PACKETS_COUNT; i++)
     {
         if(module == ModuleID::MODULE1)
         {
-            memcpy((char*)uartPacket[i].GetPayload(), initInfoValuesModule1[i].toStdString().c_str(), PAYLOAD_SIZE);
+            memcpy(reinterpret_cast<char*>(uartPacket[i].GetPayloadPointer()), initInfoValuesModule1[i].toStdString().c_str(), PAYLOAD_SIZE);
         }
         else if(module == ModuleID::MODULE2)
         {
-            memcpy((char*)uartPacket[i].GetPayload(), initInfoValuesModule2[i].toStdString().c_str(), PAYLOAD_SIZE);
+            memcpy(reinterpret_cast<char*>(uartPacket[i].GetPayloadPointer()), initInfoValuesModule2[i].toStdString().c_str(), PAYLOAD_SIZE);
         }
         else if(module == ModuleID::MODULE3)
         {
-            memcpy((char*)uartPacket[i].GetPayload(), initInfoValuesModule3[i].toStdString().c_str(), PAYLOAD_SIZE);
+            memcpy(reinterpret_cast<char*>(uartPacket[i].GetPayloadPointer()), initInfoValuesModule3[i].toStdString().c_str(), PAYLOAD_SIZE);
         }
 
-        lengthInt = strlen((char*)uartPacket[i].GetPayload());
+        length = static_cast<uint8_t>(strlen(reinterpret_cast<char*>(uartPacket[i].GetPayloadPointer())));
 
-        uartPacket[i].SetLengthAscii(lengthInt); // convert from int to ASCII
+        uartPacket[i].SetLength(length);
 
         uartPacket[i].ConvertToUartPacketTable(uartPacketTable[i]);
 
@@ -354,41 +351,41 @@ void MainWindow::SetRangeMinimum()
     uartPacket.SetFunction(Function::SET_GRAPH_RANGE_MIN);
     uartPacket.SetParameter(Parameter::NULL_PARAMETER);
 
-    QString enteredPayload = ui->lineEdit_RangeMinimum->text();
+    QString enteredMinimumRange = ui->lineEdit_RangeMinimum->text();
 
-    if(enteredPayload.isEmpty())
+    if(enteredMinimumRange.isEmpty())
     {
         return;
     }
 
-    if(enteredPayload.at(0).toLatin1() == '-')
+    if(enteredMinimumRange.at(0).toLatin1() == '-')
     {
         uartPacket.SetSign(Sign::NEGATIVE_SIGN);
 
         /*Remove minus sign*/
-        enteredPayload.remove(0,1);
+        enteredMinimumRange.remove(0,1);
     }
-    else if(enteredPayload.at(0).toLatin1() == '+')
+    else if(enteredMinimumRange.at(0).toLatin1() == '+')
     {
         uartPacket.SetSign(Sign::POSITIVE_SIGN);
 
         /*Remove plus sign*/
-        enteredPayload.remove(0,1);
+        enteredMinimumRange.remove(0,1);
     }
 
-    int lengthInt = enteredPayload.length();
+    int length = enteredMinimumRange.length();
 
-    uartPacket.SetLengthAscii(lengthInt);
+    uartPacket.SetLength(length);
 
-    for(int i=0; i<lengthInt;i++)
+    for(int i=0; i<length;i++)
     {
-        uartPacket.GetPayload()[i] = enteredPayload.at(i).toLatin1();
+        uartPacket.GetPayloadPointer()[i] =  static_cast<uint8_t>(enteredMinimumRange.at(i).toLatin1());
     }
 
     uartPacket.ConvertToUartPacketTable(uartPacketTable);
     AppendCrcToPacketTable(uartPacketTable);
 
-    qDebug("Data Packet is: %s", uartPacketTable);
+    qDebug("Set range minimum packet is: %s", uartPacketTable);
 
     m_pTableView->UpdatePacketDisplay(uartPacketTable, false);
 
@@ -406,41 +403,41 @@ void MainWindow::SetRangeMaximum()
     uartPacket.SetFunction(Function::SET_GRAPH_RANGE_MAX);
     uartPacket.SetParameter(Parameter::NULL_PARAMETER);
 
-    QString enteredPayload = ui->lineEdit_RangeMaximum->text();
+    QString enteredMaximumRange = ui->lineEdit_RangeMaximum->text();
 
-    if(enteredPayload.isEmpty())
+    if(enteredMaximumRange.isEmpty())
     {
         return;
     }
 
-    if(enteredPayload.at(0).toLatin1() == '-')
+    if(enteredMaximumRange.at(0).toLatin1() == '-')
     {
         uartPacket.SetSign(Sign::NEGATIVE_SIGN);
 
         /*Remove minus sign*/
-        enteredPayload.remove(0,1);
+        enteredMaximumRange.remove(0,1);
     }
-    else if(enteredPayload.at(0).toLatin1() == '+')
+    else if(enteredMaximumRange.at(0).toLatin1() == '+')
     {
         uartPacket.SetSign(Sign::POSITIVE_SIGN);
 
         /*Remove plus sign*/
-        enteredPayload.remove(0,1);
+        enteredMaximumRange.remove(0,1);
     }
 
-    int lengthInt = enteredPayload.length();
+    int length = enteredMaximumRange.length();
 
-    uartPacket.SetLengthAscii(lengthInt);
+    uartPacket.SetLength(length);
 
-    for(int i=0; i<lengthInt;i++)
+    for(int i=0; i<length;i++)
     {
-        uartPacket.GetPayload()[i] = enteredPayload.at(i).toLatin1();
+        uartPacket.GetPayloadPointer()[i] = static_cast<uint8_t>(enteredMaximumRange.at(i).toLatin1());
     }
 
     uartPacket.ConvertToUartPacketTable(uartPacketTable);
     AppendCrcToPacketTable(uartPacketTable);
 
-    qDebug("Data Packet is: %s", uartPacketTable);
+    qDebug("Set range maximum packet is: %s", uartPacketTable);
 
     m_pTableView->UpdatePacketDisplay(uartPacketTable, false);
 
@@ -457,34 +454,31 @@ void MainWindow::SetRangeTime()
     uartPacket.SetModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
     uartPacket.SetFunction(Function::SET_GRAPH_TIME_RANGE);
     uartPacket.SetParameter(Parameter::NULL_PARAMETER);
+    uartPacket.SetSign(Sign::POSITIVE_SIGN);
 
-    QString enteredPayload = ui->comboBox_TimeRange->currentText();
+    QString enteredTimeRangeString = ui->comboBox_TimeRange->currentText();
 
-    if(enteredPayload.at(0).toLatin1() == '-')
+    int enteredTimeRangeInteger = enteredTimeRangeString.toInt();
+
+    if((enteredTimeRangeString.at(0).toLatin1() == '-') || enteredTimeRangeInteger < 360 || enteredTimeRangeInteger > 3600 || enteredTimeRangeInteger % 360 != 0)
     {
-        uartPacket.SetSign(Sign::NEGATIVE_SIGN);
-
-        /*Remove minus sign*/
-        enteredPayload.remove(0,1);
-    }
-    else
-    {
-        uartPacket.SetSign(Sign::POSITIVE_SIGN);
+        qDebug() << "Wrong time range entered";
+        return;
     }
 
-    int lengthInt = enteredPayload.length();
+    int length = enteredTimeRangeString.length();
 
-    uartPacket.SetLengthAscii(lengthInt);
+    uartPacket.SetLength(length);
 
-    for(int i=0; i<lengthInt;i++)
+    for(int i=0; i<length;i++)
     {
-        uartPacket.GetPayload()[i] = enteredPayload.at(i).toLatin1();
+        uartPacket.GetPayloadPointer()[i] = static_cast<uint8_t>(enteredTimeRangeString.at(i).toLatin1());
     }
 
     uartPacket.ConvertToUartPacketTable(uartPacketTable);
     AppendCrcToPacketTable(uartPacketTable);
 
-    qDebug("Data Packet is: %s", uartPacketTable);
+     qDebug("Set range time packet is: %s", uartPacketTable);
 
     m_pTableView->UpdatePacketDisplay(uartPacketTable, false);
 
@@ -526,21 +520,21 @@ void MainWindow::SendCustomPacket()
         enteredPayload.remove(0,1);
     }
 
-    int lengthInt = enteredPayload.length();
+    int length = enteredPayload.length();
 
-    uartPacket.SetLengthAscii(lengthInt); //convert int to ascii representation of the int
+    uartPacket.SetLength(length);
 
-    for(int i=0; i<lengthInt;i++)
+    for(int i=0; i < length; i++)
     {
-        uartPacket.GetPayload()[i] = enteredPayload.at(i).toLatin1();
+        uartPacket.GetPayloadPointer()[i] = static_cast<uint8_t>(enteredPayload.at(i).toLatin1());
     }
 
-    ui->lineEdit_CustomPacketLength->setText(QString::number(lengthInt));
+    ui->lineEdit_CustomPacketLength->setText(QString::number(length));
 
     uartPacket.ConvertToUartPacketTable(uartPacketTable);
     AppendCrcToPacketTable(uartPacketTable);
 
-    qDebug("Data Packet is: %s", uartPacketTable);
+    qDebug("Custom Packet is: %s", uartPacketTable);
 
     m_pTableView->UpdatePacketDisplay(uartPacketTable, false);
 
@@ -568,7 +562,7 @@ void MainWindow::SendWrongCrcDataPacket()
     uartPacketTable[17] = 0;
     uartPacketTable[16] = 0;
 
-    qDebug("Wrong Crc Data Packet is: %s", uartPacketTable);
+    qDebug("Wrong crc packet is: %s", uartPacketTable);
 
     m_pTableView->UpdatePacketDisplay(uartPacketTable, false, false);
 
@@ -608,10 +602,11 @@ void MainWindow::GenerateLinearGraph(int signalCount)
     uartPacket.SetModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
     uartPacket.SetFunction(Function::DATA_PACKET);
 
-    unsigned long long lengthInt;
+    uint8_t length;
+
     double value;
 
-    uint8_t parameters[4] = {'b', 'c', 'd', 'e'};
+    Parameter parameters[4] = {Parameter::GRAPH_PARAMETER1, Parameter::GRAPH_PARAMETER2, Parameter::GRAPH_PARAMETER3, Parameter::GRAPH_PARAMETER4};
 
     for(double x = startValue; x < stopValue; x = x + stepValue)
     {
@@ -652,13 +647,11 @@ void MainWindow::GenerateLinearGraph(int signalCount)
             /*Convert double number to string and write it to temporary buffer*/
             snprintf(tempBuffer , PAYLOAD_SIZE + 1, "%lf", value);
 
-            lengthInt = strlen(tempBuffer);
+            length = static_cast<uint8_t>(strlen(tempBuffer));
 
-            memcpy((char*)uartPacket.GetPayload(), tempBuffer, lengthInt);
+            memcpy(reinterpret_cast<char*>(uartPacket.GetPayloadPointer()), tempBuffer, length);
 
-            uartPacket.SetLengthAscii(lengthInt);
-
-            assert(lengthInt <= PAYLOAD_SIZE);
+            uartPacket.SetLength(length);
 
             SendGraphPacket(uartPacket);
         }
@@ -701,9 +694,10 @@ void MainWindow::GenerateSineGraph(int signalCount)
     uartPacket.SetModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
     uartPacket.SetFunction(Function::DATA_PACKET);
 
-    unsigned long long lengthInt;
+    uint8_t length;
     double value;
-    uint8_t parameters[4] = {'b', 'c', 'd', 'e'};
+
+    Parameter parameters[4] = {Parameter::GRAPH_PARAMETER1, Parameter::GRAPH_PARAMETER2, Parameter::GRAPH_PARAMETER3, Parameter::GRAPH_PARAMETER4};
 
     constexpr double radianInverse = 3.14159/180;
 
@@ -735,13 +729,11 @@ void MainWindow::GenerateSineGraph(int signalCount)
             /*Convert double number to string and write it to temporary buffer*/
             snprintf(tempBuffer , PAYLOAD_SIZE + 1, "%lf", value);
 
-            lengthInt = strlen(tempBuffer);
+            length = static_cast<uint8_t>(strlen(tempBuffer));
 
-            memcpy((char*)uartPacket.GetPayload(), tempBuffer, lengthInt);
+            memcpy(reinterpret_cast<char*>(uartPacket.GetPayloadPointer()), tempBuffer, length);
 
-            uartPacket.SetLengthAscii(lengthInt);
-
-            assert(lengthInt <= PAYLOAD_SIZE);
+            uartPacket.SetLength(length);
 
             SendGraphPacket(uartPacket);
         }
@@ -764,7 +756,7 @@ void MainWindow::SendGraphPacket(UartPacket uartPacket)
     uartPacket.ConvertToUartPacketTable(uartPacketTable);
     AppendCrcToPacketTable(uartPacketTable);
 
-    qDebug("Data Packet is: %s", uartPacketTable);
+    qDebug("Graph packet is: %s", uartPacketTable);
 
     m_pTableView->UpdatePacketDisplay(uartPacketTable, false);
 

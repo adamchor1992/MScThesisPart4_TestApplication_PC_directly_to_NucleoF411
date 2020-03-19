@@ -7,5 +7,5 @@
 #include "crc32.h"
 
 uint32_t CalculateCrc32 (char *data, int len);
-bool CheckCrc32(const uint8_t uartPacketTable[]);
+bool CheckCrc32(uint8_t const uartPacketTable[]);
 void AppendCrcToPacketTable(uint8_t packet[]);

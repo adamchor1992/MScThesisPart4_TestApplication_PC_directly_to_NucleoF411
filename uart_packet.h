@@ -11,28 +11,27 @@ public:
     UartPacket(const uint8_t uartPacketTable[]);
 
     void SetSource(Source source);
-    void SetSource(uint8_t source);
+    void SetSource(char source);
     void SetModule(ModuleID module);
-    void SetModule(uint8_t module);
+    void SetModule(char module);
     void SetFunction(Function function);
-    void SetFunction(uint8_t function);
+    void SetFunction(char function);
     void SetParameter(Parameter parameter);
-    void SetParameter(uint8_t parameter);
+    void SetParameter(char parameter);
     void SetSign(Sign sign);
-    void SetSign(uint8_t sign);
+    void SetSign(char sign);
     void SetLength(Length length);
-    void SetLength(uint8_t length);
-    void SetLengthAscii(uint8_t length);
+    void SetLength(int length);
 
     /*This function merely copies structure fields to table elements, no additional logic included*/
     void ConvertToUartPacketTable(uint8_t uartPacketTable[]);
 
-    Source GetSource();
-    ModuleID GetModule();
-    Function GetFunction();
-    Parameter GetParameter();
-    Sign GetSign();
-    uint8_t* GetPayload();
+    Source GetSource() const;
+    ModuleID GetModule() const;
+    Function GetFunction() const;
+    Parameter GetParameter() const;
+    Sign GetSign() const;
+    uint8_t* GetPayloadPointer();
 
 private:
     uint8_t m_Source;

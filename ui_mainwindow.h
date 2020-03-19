@@ -915,6 +915,7 @@ public:
 
         lineEdit_CustomPacketSign = new QLineEdit(groupBox_CustomPacketControls);
         lineEdit_CustomPacketSign->setObjectName(QString::fromUtf8("lineEdit_CustomPacketSign"));
+        lineEdit_CustomPacketSign->setEnabled(false);
         sizePolicy.setHeightForWidth(lineEdit_CustomPacketSign->sizePolicy().hasHeightForWidth());
         lineEdit_CustomPacketSign->setSizePolicy(sizePolicy);
         lineEdit_CustomPacketSign->setMaxLength(1);

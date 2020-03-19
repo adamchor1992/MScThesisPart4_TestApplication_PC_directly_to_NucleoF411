@@ -114,9 +114,9 @@ void Serial::ClosePort(QString portName)
     }
 }
 
-void Serial::SendPacket(uint8_t *uartPacketTable)
+void Serial::SendPacket(uint8_t* const uartPacketTable)
 {
-    write((const char*)uartPacketTable, PACKET_SIZE);
+    write(reinterpret_cast<const char*>(uartPacketTable), PACKET_SIZE);
     waitForBytesWritten(3000);
     flush();
 }
