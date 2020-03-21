@@ -38,7 +38,7 @@ public:
     void SendWrongCrcDataPacket();
     void GenerateLinearGraph(int signalCount);
     void GenerateSineGraph(int signalCount);
-    void SendGraphPacket(UartPacket uartPacket);
+    void SendGraphPacket(UartPacket& uartPacket);
 
 private slots:
     void ProcessReceivedPacket(QByteArray& receivedBytes);

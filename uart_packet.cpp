@@ -1,30 +1,18 @@
 #include "uart_packet.h"
 
-UartPacket::UartPacket() : m_Payload {0}, m_Crc{0}
+UartPacket::UartPacket()
 {
-    m_Source = 0;
-    m_Module = 0;
-    m_Function = 0;
-    m_Parameter = 0;
-    m_Sign = 0;
-    m_Length = 0;
+    m_PacketTable.fill(0);
 }
 
 UartPacket::UartPacket(const uint8_t uartPacketTable[])
 {
-    m_Source = uartPacketTable[0];
-    m_Module = uartPacketTable[1];
-    m_Function = uartPacketTable[2];
-    m_Parameter = uartPacketTable[3];
-    m_Sign = uartPacketTable[4];
-    m_Length = uartPacketTable[5];
+    memcpy(m_PacketTable.data(), uartPacketTable, PACKET_SIZE);
+}
 
-    uint8_t length_int = m_Length - '0';
-
-    for(uint8_t i=0; i < length_int; i++)
-    {
-        m_Payload[i] = uartPacketTable[6 + i];
-    }
+UartPacket::operator uint8_t*()
+{
+  return m_PacketTable.data();
 }
 
 void UartPacket::SetSource(Source source)
@@ -217,6 +205,11 @@ Source UartPacket::GetSource() const
     }
 }
 
+void UartPacket::SetPayload(char const* payload, unsigned int payloadLength)
+{
+    memcpy(m_Payload, payload, payloadLength);
+}
+
 ModuleID UartPacket::GetModule() const
 {
     if(m_Module == '1')
@@ -361,24 +354,41 @@ Sign UartPacket::GetSign() const
     }
 }
 
-uint8_t* UartPacket::GetPayloadPointer()
+void UartPacket::SetWrongCrc()
 {
-    return m_Payload;
+    m_PacketTable[CRC_BYTE1_POSITION] = 0;
+    m_PacketTable[CRC_BYTE2_POSITION] = 0;
+    m_PacketTable[CRC_BYTE3_POSITION] = 0;
+    m_PacketTable[CRC_BYTE4_POSITION] = 0;
 }
 
-void UartPacket::ConvertToUartPacketTable(uint8_t uartPacketTable[])
+void UartPacket::AppendCrcToPacket()
 {
-    uartPacketTable[0] = m_Source;
-    uartPacketTable[1] = m_Module;
-    uartPacketTable[2] = m_Function;
-    uartPacketTable[3] = m_Parameter;
-    uartPacketTable[4] = m_Sign;
-    uartPacketTable[5] = m_Length;
+  uint32_t crcValueCalculated = CalculateCrc32(m_PacketTable.data(), PACKET_SIZE_WITHOUT_CRC);
+  uint32_t* crcAddress = &crcValueCalculated;
 
-    uint8_t lengthInt = m_Length - '0';
+  uint8_t* p1 = reinterpret_cast<uint8_t*>(crcAddress);
+  uint8_t* p2 = reinterpret_cast<uint8_t*>(crcAddress) + 1;
+  uint8_t* p3 = reinterpret_cast<uint8_t*>(crcAddress) + 2;
+  uint8_t* p4 = reinterpret_cast<uint8_t*>(crcAddress) + 3;
 
-    for(uint8_t i=0; i < lengthInt; i++)
-    {
-        uartPacketTable[6 + i] = m_Payload[i]; //payload starts from 6th element up to [6 + length] element
-    }
+  m_PacketTable[CRC_BYTE1_POSITION] = *p1;
+  m_PacketTable[CRC_BYTE2_POSITION] = *p2;
+  m_PacketTable[CRC_BYTE3_POSITION] = *p3;
+  m_PacketTable[CRC_BYTE4_POSITION] = *p4;
+}
+
+bool UartPacket::CheckCrc32() const
+{
+    uint8_t crcValueReceivedRaw8Bit[4] = {0};
+    uint32_t crcValueCalculated = CalculateCrc32(m_PacketTable.data(), PACKET_SIZE_WITHOUT_CRC);
+
+    crcValueReceivedRaw8Bit[0] = m_PacketTable[CRC_BYTE4_POSITION];
+    crcValueReceivedRaw8Bit[1] = m_PacketTable[CRC_BYTE3_POSITION];
+    crcValueReceivedRaw8Bit[2] = m_PacketTable[CRC_BYTE2_POSITION];
+    crcValueReceivedRaw8Bit[3] = m_PacketTable[CRC_BYTE1_POSITION];
+
+    uint32_t crcValueReceived = crcValueReceivedRaw8Bit[3] | crcValueReceivedRaw8Bit[2] << 8 | crcValueReceivedRaw8Bit[1] << 16 | crcValueReceivedRaw8Bit[0] << 24;
+
+    return crcValueCalculated == crcValueReceived;
 }

@@ -5,6 +5,7 @@
 #include <QSerialPortInfo>
 #include <QMessageBox>
 #include "init_parameters_xml_loader.h"
+#include <cmath> //for sin()
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow), m_Serial(ui)
 {
@@ -56,7 +57,7 @@ void MainWindow::ProcessReceivedPacket(QByteArray& receivedBytes)
         uartReceivedPacket[i] = static_cast<uint8_t>(receivedBytes.at(i));
     }
 
-    if(CheckCrc32(uartReceivedPacket) == true)
+    if(uartPacket.CheckCrc32() == true)
     {
         m_pTableView->UpdatePacketDisplay(uartReceivedPacket, true, true);
     }
@@ -124,7 +125,7 @@ void MainWindow::ProcessReceivedPacket(QByteArray& receivedBytes)
     case Function::SET_PARAMETER_PACKET:
         qDebug() << "Set parameter";
 
-        valueDouble = double(std::stof(reinterpret_cast<char*>(uartPacket.GetPayloadPointer())));
+        valueDouble = std::stod(reinterpret_cast<char const*>(uartPacket.GetPayload()));
 
         if(uartPacket.GetSign() == Sign::NEGATIVE_SIGN)
         {
@@ -146,8 +147,6 @@ void MainWindow::ProcessReceivedPacket(QByteArray& receivedBytes)
 void MainWindow::InitConnectionModule(ModuleID module)
 {
     UartPacket uartPacket[INIT_PACKETS_COUNT];
-
-    uint8_t uartPacketTable[INIT_PACKETS_COUNT][PACKET_SIZE] = { {0} };
 
     for(int i = 0; i < INIT_PACKETS_COUNT; i++)
     {
@@ -284,30 +283,28 @@ void MainWindow::InitConnectionModule(ModuleID module)
     {
         if(module == ModuleID::MODULE1)
         {
-            memcpy(reinterpret_cast<char*>(uartPacket[i].GetPayloadPointer()), initInfoValuesModule1[i].toStdString().c_str(), PAYLOAD_SIZE);
+            uartPacket[i].SetPayload(initInfoValuesModule1[i].toStdString().c_str());
         }
         else if(module == ModuleID::MODULE2)
         {
-            memcpy(reinterpret_cast<char*>(uartPacket[i].GetPayloadPointer()), initInfoValuesModule2[i].toStdString().c_str(), PAYLOAD_SIZE);
+            uartPacket[i].SetPayload(initInfoValuesModule2[i].toStdString().c_str());
         }
         else if(module == ModuleID::MODULE3)
         {
-            memcpy(reinterpret_cast<char*>(uartPacket[i].GetPayloadPointer()), initInfoValuesModule3[i].toStdString().c_str(), PAYLOAD_SIZE);
+            uartPacket[i].SetPayload(initInfoValuesModule3[i].toStdString().c_str());
         }
 
-        length = static_cast<uint8_t>(strlen(reinterpret_cast<char*>(uartPacket[i].GetPayloadPointer())));
+        length = static_cast<uint8_t>(strlen(reinterpret_cast<char const*>(uartPacket[i].GetPayload())));
 
         uartPacket[i].SetLength(length);
 
-        uartPacket[i].ConvertToUartPacketTable(uartPacketTable[i]);
+        uartPacket[i].AppendCrcToPacket();
 
-        AppendCrcToPacketTable(uartPacketTable[i]);
+        qDebug("Init Packet is: %s", static_cast<uint8_t*>(uartPacket[i]));
 
-        qDebug("Init Packet is: %s", uartPacketTable[i]);
+        m_pTableView->UpdatePacketDisplay(static_cast<uint8_t*>(uartPacket[i]), false);
 
-        m_pTableView->UpdatePacketDisplay(uartPacketTable[i], false);
-
-        m_Serial.SendPacket(uartPacketTable[i]);
+        m_Serial.SendPacket(static_cast<uint8_t*>(uartPacket[i]));
 
         Sleep(uint(20));
 
@@ -319,32 +316,25 @@ void MainWindow::DeinitConnectionModule(ModuleID module)
 {
     UartPacket uartPacket;
 
-    uint8_t uartPacketTable[PACKET_SIZE] = {0};
-
     uartPacket.SetSource(Source::SOURCE_TARGET1);
-
     uartPacket.SetModule(module);
     uartPacket.SetFunction(Function::DEINIT_PACKET);
     uartPacket.SetSign(Sign::POSITIVE_SIGN);
     uartPacket.SetParameter(Parameter::NULL_PARAMETER);
     uartPacket.SetLength(Length::NO_PAYLOAD);
 
-    uartPacket.ConvertToUartPacketTable(uartPacketTable);
+    uartPacket.AppendCrcToPacket();
 
-    AppendCrcToPacketTable(uartPacketTable);
+    qDebug("Deinit Packet is: %s", static_cast<uint8_t*>(uartPacket));
 
-    qDebug("Deinit Packet is: %s", uartPacketTable);
+    m_pTableView->UpdatePacketDisplay(static_cast<uint8_t*>(uartPacket), false);
 
-    m_pTableView->UpdatePacketDisplay(uartPacketTable, false);
-
-    m_Serial.SendPacket(uartPacketTable);
+    m_Serial.SendPacket(static_cast<uint8_t*>(uartPacket));
 }
 
 void MainWindow::SetRangeMinimum()
 {
     UartPacket uartPacket;
-
-    uint8_t uartPacketTable[PACKET_SIZE] = {0};
 
     uartPacket.SetSource(Source::SOURCE_TARGET1);
     uartPacket.SetModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
@@ -377,26 +367,20 @@ void MainWindow::SetRangeMinimum()
 
     uartPacket.SetLength(length);
 
-    for(int i=0; i<length;i++)
-    {
-        uartPacket.GetPayloadPointer()[i] =  static_cast<uint8_t>(enteredMinimumRange.at(i).toLatin1());
-    }
+    uartPacket.SetPayload(enteredMinimumRange.toLatin1(), length);
 
-    uartPacket.ConvertToUartPacketTable(uartPacketTable);
-    AppendCrcToPacketTable(uartPacketTable);
+    uartPacket.AppendCrcToPacket();
 
-    qDebug("Set range minimum packet is: %s", uartPacketTable);
+    qDebug("Set range minimum packet is: %s", static_cast<uint8_t*>(uartPacket));
 
-    m_pTableView->UpdatePacketDisplay(uartPacketTable, false);
+    m_pTableView->UpdatePacketDisplay(static_cast<uint8_t*>(uartPacket), false);
 
-    m_Serial.SendPacket(uartPacketTable);
+    m_Serial.SendPacket(static_cast<uint8_t*>(uartPacket));
 }
 
 void MainWindow::SetRangeMaximum()
 {
     UartPacket uartPacket;
-
-    uint8_t uartPacketTable[PACKET_SIZE] = {0};
 
     uartPacket.SetSource(Source::SOURCE_TARGET1);
     uartPacket.SetModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
@@ -429,26 +413,20 @@ void MainWindow::SetRangeMaximum()
 
     uartPacket.SetLength(length);
 
-    for(int i=0; i<length;i++)
-    {
-        uartPacket.GetPayloadPointer()[i] = static_cast<uint8_t>(enteredMaximumRange.at(i).toLatin1());
-    }
+    uartPacket.SetPayload(enteredMaximumRange.toLatin1(), length);
 
-    uartPacket.ConvertToUartPacketTable(uartPacketTable);
-    AppendCrcToPacketTable(uartPacketTable);
+    uartPacket.AppendCrcToPacket();
 
-    qDebug("Set range maximum packet is: %s", uartPacketTable);
+    qDebug("Set range maximum packet is: %s", static_cast<uint8_t*>(uartPacket));
 
-    m_pTableView->UpdatePacketDisplay(uartPacketTable, false);
+    m_pTableView->UpdatePacketDisplay(static_cast<uint8_t*>(uartPacket), false);
 
-    m_Serial.SendPacket(uartPacketTable);
+    m_Serial.SendPacket(static_cast<uint8_t*>(uartPacket));
 }
 
 void MainWindow::SetRangeTime()
 {
     UartPacket uartPacket;
-
-    uint8_t uartPacketTable[PACKET_SIZE] = {0};
 
     uartPacket.SetSource(Source::SOURCE_TARGET1);
     uartPacket.SetModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
@@ -470,26 +448,20 @@ void MainWindow::SetRangeTime()
 
     uartPacket.SetLength(length);
 
-    for(int i=0; i<length;i++)
-    {
-        uartPacket.GetPayloadPointer()[i] = static_cast<uint8_t>(enteredTimeRangeString.at(i).toLatin1());
-    }
+    uartPacket.SetPayload(enteredTimeRangeString.toLatin1(), length);
 
-    uartPacket.ConvertToUartPacketTable(uartPacketTable);
-    AppendCrcToPacketTable(uartPacketTable);
+    uartPacket.AppendCrcToPacket();
 
-     qDebug("Set range time packet is: %s", uartPacketTable);
+     qDebug("Set range time packet is: %s", static_cast<uint8_t*>(uartPacket));
 
-    m_pTableView->UpdatePacketDisplay(uartPacketTable, false);
+    m_pTableView->UpdatePacketDisplay(static_cast<uint8_t*>(uartPacket), false);
 
-    m_Serial.SendPacket(uartPacketTable);
+    m_Serial.SendPacket(static_cast<uint8_t*>(uartPacket));
 }
 
 void MainWindow::SendCustomPacket()
 {
     UartPacket uartPacket;
-
-    uint8_t uartPacketTable[PACKET_SIZE] = {0};
 
     uartPacket.SetSource(ui->comboBox_CustomPacketSource->currentText().at(0).toLatin1());
     uartPacket.SetModule(ui->comboBox_CustomPacketModule->currentText().at(0).toLatin1());
@@ -519,33 +491,32 @@ void MainWindow::SendCustomPacket()
         /*Remove plus sign*/
         enteredPayload.remove(0,1);
     }
+    else
+    {
+        ui->lineEdit_CustomPacketSign->setText("1");
+        uartPacket.SetSign(Sign::POSITIVE_SIGN);
+    }
 
     int length = enteredPayload.length();
 
     uartPacket.SetLength(length);
 
-    for(int i=0; i < length; i++)
-    {
-        uartPacket.GetPayloadPointer()[i] = static_cast<uint8_t>(enteredPayload.at(i).toLatin1());
-    }
+    uartPacket.SetPayload(enteredPayload.toLatin1(), length);
 
     ui->lineEdit_CustomPacketLength->setText(QString::number(length));
 
-    uartPacket.ConvertToUartPacketTable(uartPacketTable);
-    AppendCrcToPacketTable(uartPacketTable);
+    uartPacket.AppendCrcToPacket();
 
-    qDebug("Custom Packet is: %s", uartPacketTable);
+    qDebug("Custom Packet is: %s", static_cast<uint8_t*>(uartPacket));
 
-    m_pTableView->UpdatePacketDisplay(uartPacketTable, false);
+    m_pTableView->UpdatePacketDisplay(static_cast<uint8_t*>(uartPacket), false);
 
-    m_Serial.SendPacket(uartPacketTable);
+    m_Serial.SendPacket(static_cast<uint8_t*>(uartPacket));
 }
 
 void MainWindow::SendWrongCrcDataPacket()
 {
     UartPacket uartPacket;
-
-    uint8_t uartPacketTable[PACKET_SIZE] = {0};
 
     uartPacket.SetSource(ui->comboBox_CustomPacketSource->currentText().at(0).toLatin1());
     uartPacket.SetModule(ui->comboBox_CustomPacketModule->currentText().at(0).toLatin1());
@@ -554,19 +525,14 @@ void MainWindow::SendWrongCrcDataPacket()
     uartPacket.SetLength(Length::NO_PAYLOAD);
     uartPacket.SetSign(Sign::POSITIVE_SIGN);
 
-    uartPacket.ConvertToUartPacketTable(uartPacketTable);
-
     /*Set wrong all zeros CRC*/
-    uartPacketTable[19] = 0;
-    uartPacketTable[18] = 0;
-    uartPacketTable[17] = 0;
-    uartPacketTable[16] = 0;
+    uartPacket.SetWrongCrc();
 
-    qDebug("Wrong crc packet is: %s", uartPacketTable);
+    qDebug("Wrong crc packet is: %s", static_cast<uint8_t*>(uartPacket));
 
-    m_pTableView->UpdatePacketDisplay(uartPacketTable, false, false);
+    m_pTableView->UpdatePacketDisplay(static_cast<uint8_t*>(uartPacket), false, false);
 
-    m_Serial.SendPacket(uartPacketTable);
+    m_Serial.SendPacket(static_cast<uint8_t*>(uartPacket));
 }
 
 void MainWindow::GenerateLinearGraph(int signalCount)
@@ -612,7 +578,7 @@ void MainWindow::GenerateLinearGraph(int signalCount)
     {
         for(int signalNumber = 0; signalNumber < signalCount; signalNumber++)
         {
-            uartPacket.SetParameter(parameters[signalNumber]); // send with one of 4 parameters
+            uartPacket.SetParameter(parameters[signalNumber]);
 
             value = x;
 
@@ -649,7 +615,7 @@ void MainWindow::GenerateLinearGraph(int signalCount)
 
             length = static_cast<uint8_t>(strlen(tempBuffer));
 
-            memcpy(reinterpret_cast<char*>(uartPacket.GetPayloadPointer()), tempBuffer, length);
+            uartPacket.SetPayload(tempBuffer, length);
 
             uartPacket.SetLength(length);
 
@@ -707,7 +673,7 @@ void MainWindow::GenerateSineGraph(int signalCount)
     {
         for(int signalNumber = 0; signalNumber < signalCount; signalNumber++)
         {
-            uartPacket.SetParameter(parameters[signalNumber]); // send with one of 4 parameters
+            uartPacket.SetParameter(parameters[signalNumber]);
 
             /*Multiply by radian inverse to get rid of radian unit and calculate sine of x measured in degrees*/
             value = multiplierSine * (sin(x * radianInverse + phaseShift[signalNumber]));
@@ -731,7 +697,7 @@ void MainWindow::GenerateSineGraph(int signalCount)
 
             length = static_cast<uint8_t>(strlen(tempBuffer));
 
-            memcpy(reinterpret_cast<char*>(uartPacket.GetPayloadPointer()), tempBuffer, length);
+            uartPacket.SetPayload(tempBuffer, length);
 
             uartPacket.SetLength(length);
 
@@ -749,18 +715,15 @@ void MainWindow::GenerateSineGraph(int signalCount)
     }
 }
 
-void MainWindow::SendGraphPacket(UartPacket uartPacket)
+void MainWindow::SendGraphPacket(UartPacket& uartPacket)
 {
-    uint8_t uartPacketTable[PACKET_SIZE] = {0};
+    uartPacket.AppendCrcToPacket();
 
-    uartPacket.ConvertToUartPacketTable(uartPacketTable);
-    AppendCrcToPacketTable(uartPacketTable);
+    qDebug("Graph packet is: %s", static_cast<uint8_t*>(uartPacket));
 
-    qDebug("Graph packet is: %s", uartPacketTable);
+    m_pTableView->UpdatePacketDisplay(static_cast<uint8_t*>(uartPacket), false);
 
-    m_pTableView->UpdatePacketDisplay(uartPacketTable, false);
-
-    m_Serial.SendPacket(uartPacketTable);
+    m_Serial.SendPacket(static_cast<uint8_t*>(uartPacket));
 
     Sleep(uint(20));
 }
