@@ -1,7 +1,8 @@
-#include "utilities.h"
 #include <cstring>
+#include "crc32.h"
+#include "packet_field_definitions.h"
 
-uint32_t CalculateCrc32 (uint8_t const*  uartPacketTable, int length)
+uint32_t CalculateCrc32 (uint8_t const* uartPacketTable, int length)
 {
   uint32_t crcValue = 0xFFFFFFFF;
 

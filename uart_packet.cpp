@@ -1,4 +1,10 @@
 #include "uart_packet.h"
+#include "crc32.h"
+
+int const CRC_BYTE1_POSITION = 19;
+int const CRC_BYTE2_POSITION = 18;
+int const CRC_BYTE3_POSITION = 17;
+int const CRC_BYTE4_POSITION = 16;
 
 UartPacket::UartPacket()
 {

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "packet_field_definitions.h"
-#include "utilities.h"
 #include <cstdint>
 #include <array>
 

@@ -1,11 +1,11 @@
 #include "main_window.h"
 #include "ui_mainwindow.h"
-#include "utilities.h"
 #include "packet_field_definitions.h"
 #include <QSerialPortInfo>
 #include <QMessageBox>
 #include "init_parameters_xml_loader.h"
 #include <cmath> //for sin()
+#include "windows.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow), m_Serial(ui)
 {
