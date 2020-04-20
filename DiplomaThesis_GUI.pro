@@ -32,23 +32,21 @@ SOURCES += \
     table_view.cpp \
     uart_packet.cpp \
         utilities.cpp \
-    serial.cpp \
-    validators.cpp
+    serial.cpp
 
 HEADERS += \
         crc32.h \
     init_parameters_xml_loader.h \
-        mainwindow.h \
+    main_window.h \
         module.h \
     packet_field_definitions.h \
     table_view.h \
     uart_packet.h \
         utilities.h \
-    serial.h \
-    validators.h
+    serial.h
 
 FORMS += \
-        mainwindow.ui
+    main_window.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

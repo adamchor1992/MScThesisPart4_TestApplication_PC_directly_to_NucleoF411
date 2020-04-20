@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "main_window.h"
 #include "ui_mainwindow.h"
 #include "utilities.h"
 #include "packet_field_definitions.h"
@@ -17,30 +17,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     connect(&m_Serial, &Serial::FullPacketReceived, this, &MainWindow::ProcessReceivedPacket);
 
-    SetInputValidators();
-
     this->setWindowState(Qt::WindowMaximized);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-void MainWindow::SetInputValidators()
-{
-    /*Input widgets accepting only integers*/
-    ui->lineEdit_RangeMinimum->setValidator(&m_CustomIntegerValidator);
-    ui->lineEdit_RangeMaximum->setValidator(&m_CustomIntegerValidator);
-    ui->lineEdit_StartDegrees->setValidator(&m_CustomIntegerValidator);
-    ui->lineEdit_StopDegrees->setValidator(&m_CustomIntegerValidator);
-
-    /*Input widgets accepting floating point values*/
-    ui->lineEdit_StartLinear->setValidator(&m_CustomFloatingPointValidator);
-    ui->lineEdit_StopLinear->setValidator(&m_CustomFloatingPointValidator);
-    ui->lineEdit_StepLinear->setValidator(&m_CustomFloatingPointValidator);
-    ui->lineEdit_MultiplierSine->setValidator(&m_CustomFloatingPointValidator);
-    ui->lineEdit_CustomPacketPayload->setValidator(&m_CustomFloatingPointValidator);
 }
 
 /*Slot*/
@@ -343,7 +325,7 @@ void MainWindow::SetRangeMinimum()
 
     QString enteredMinimumRange = ui->lineEdit_RangeMinimum->text();
 
-    if(enteredMinimumRange.isEmpty())
+    if(!ValidateIntegerInput(enteredMinimumRange, "SetRangeMinimum"))
     {
         return;
     }
@@ -389,7 +371,7 @@ void MainWindow::SetRangeMaximum()
 
     QString enteredMaximumRange = ui->lineEdit_RangeMaximum->text();
 
-    if(enteredMaximumRange.isEmpty())
+    if(!ValidateIntegerInput(enteredMaximumRange, "SetRangeMaximum"))
     {
         return;
     }
@@ -436,6 +418,11 @@ void MainWindow::SetRangeTime()
 
     QString enteredTimeRangeString = ui->comboBox_TimeRange->currentText();
 
+    if(!ValidateIntegerInput(enteredTimeRangeString, "SetRangeTime"))
+    {
+        return;
+    }
+
     int enteredTimeRangeInteger = enteredTimeRangeString.toInt();
 
     if((enteredTimeRangeString.at(0).toLatin1() == '-') || enteredTimeRangeInteger < 360 || enteredTimeRangeInteger > 3600 || enteredTimeRangeInteger % 360 != 0)
@@ -452,7 +439,7 @@ void MainWindow::SetRangeTime()
 
     uartPacket.AppendCrcToPacket();
 
-     qDebug("Set range time packet is: %s", static_cast<uint8_t*>(uartPacket));
+    qDebug("Set range time packet is: %s", static_cast<uint8_t*>(uartPacket));
 
     m_pTableView->UpdatePacketDisplay(static_cast<uint8_t*>(uartPacket), false);
 
@@ -470,7 +457,7 @@ void MainWindow::SendCustomPacket()
 
     QString enteredPayload = ui->lineEdit_CustomPacketPayload->text();
 
-    if(enteredPayload.isEmpty())
+    if(!ValidateFloatingPointInput(enteredPayload, "SendCustomPacket"))
     {
         return;
     }
@@ -543,7 +530,11 @@ void MainWindow::GenerateLinearGraph(int signalCount)
     QString strStopValue = ui->lineEdit_StopLinear->text();
     QString strStepValue = ui->lineEdit_StepLinear->text();
 
-    if(strStartValue.isEmpty() || strStopValue.isEmpty() || strStepValue.isEmpty())
+    QString functionName = "GenerateLinearGraph";
+
+    if(!ValidateFloatingPointInput(strStartValue, functionName) ||
+            !ValidateFloatingPointInput(strStopValue, functionName) ||
+            !ValidateFloatingPointInput(strStepValue, functionName))
     {
         return;
     }
@@ -641,7 +632,11 @@ void MainWindow::GenerateSineGraph(int signalCount)
     QString strStopDegrees = ui->lineEdit_StopDegrees->text();
     QString strMultiplierSine = ui->lineEdit_MultiplierSine->text();
 
-    if(strStartDegrees.isEmpty() || strStopDegrees.isEmpty() || strMultiplierSine.isEmpty())
+    QString functionName = "GenerateSineGraph";
+
+    if(!ValidateIntegerInput(strStartDegrees, functionName) ||
+            !ValidateIntegerInput(strStopDegrees, functionName) ||
+            !ValidateFloatingPointInput(strMultiplierSine, functionName))
     {
         return;
     }
@@ -904,4 +899,78 @@ void MainWindow::on_pushButton_SetRanges_clicked()
 void MainWindow::on_pushButton_ClearTable_clicked()
 {
     m_pTableView->ClearPacketDisplay();
+}
+
+bool MainWindow::ValidateFloatingPointInput(QString input, QString functionName)
+{
+    /*Remove sign*/
+    if(input.at(0).toLatin1() == '-' || input.at(0).toLatin1() == '+')
+    {
+        input.remove(0,1);
+    }
+
+    if(input.size() > PAYLOAD_SIZE)
+    {
+        QString errorMessage = "Payload too long";
+        QMessageBox::warning(this, "VALIDATION ERROR", functionName + ": " + errorMessage);
+        return false;
+    }
+
+    if(input.isEmpty())
+    {
+        QString errorMessage = "Payload is empty";
+        QMessageBox::warning(this, "VALIDATION ERROR", functionName + ": " + errorMessage);
+        return false;
+    }
+
+    QString floatingPointPattern = "^(?!0\\d)(\\d{1,10})(\\.\\d{1,8})?$";
+    QRegularExpression regExp(floatingPointPattern);
+
+    if(regExp.match(input).hasMatch())
+    {
+        return true;
+    }
+    else
+    {
+        QString errorMessage = "Regex does not match";
+        QMessageBox::warning(this, "VALIDATION ERROR", functionName + ": " + errorMessage);
+        return false;
+    }
+}
+
+bool MainWindow::ValidateIntegerInput(QString input, QString functionName)
+{
+    /*Remove sign*/
+    if(input.at(0).toLatin1() == '-' || input.at(0).toLatin1() == '+')
+    {
+        input.remove(0,1);
+    }
+
+    if(input.size() > PAYLOAD_SIZE)
+    {
+        QString errorMessage = "Payload too long";
+        QMessageBox::warning(this, "VALIDATION ERROR", functionName + ": " + errorMessage);
+        return false;
+    }
+
+    if(input.isEmpty())
+    {
+        QString errorMessage = "Payload is empty";
+        QMessageBox::warning(this, "VALIDATION ERROR", functionName + ": " + errorMessage);
+        return false;
+    }
+
+    QString integerPattern = "^(0|[1-9][0-9]{0,9})$";
+    QRegularExpression regExp(integerPattern);
+
+    if(regExp.match(input).hasMatch())
+    {
+        return true;
+    }
+    else
+    {
+        QString errorMessage = "Regex does not match";
+        QMessageBox::warning(this, "VALIDATION ERROR", functionName + ": " + errorMessage);
+        return false;
+    }
 }

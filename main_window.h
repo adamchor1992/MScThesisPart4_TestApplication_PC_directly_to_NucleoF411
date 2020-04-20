@@ -8,7 +8,6 @@
 #include "table_view.h"
 #include "serial.h"
 #include <memory>
-#include "validators.h"
 
 namespace Ui {
 class MainWindow;
@@ -26,7 +25,6 @@ public:
     void InitPortList();
 
     void UpdateGUI();
-    void SetInputValidators();
 
     /*Functionalities*/
     void InitConnectionModule(ModuleID module);
@@ -39,6 +37,8 @@ public:
     void GenerateLinearGraph(int signalCount);
     void GenerateSineGraph(int signalCount);
     void SendGraphPacket(UartPacket& uartPacket);
+    bool ValidateFloatingPointInput(QString input, QString functionName);
+    bool ValidateIntegerInput(QString input, QString functionName);
 
 private slots:
     void ProcessReceivedPacket(QByteArray& receivedBytes);
@@ -68,9 +68,6 @@ private:
     Module m_Module1;
     Module m_Module2;
     Module m_Module3;
-
-    CustomIntegerValidator m_CustomIntegerValidator;
-    CustomFloatingPointValidator m_CustomFloatingPointValidator;
 
     bool m_stopPressed = false;
 };
