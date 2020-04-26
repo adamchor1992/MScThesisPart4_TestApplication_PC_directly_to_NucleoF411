@@ -154,6 +154,12 @@ void TableView::UpdatePacketDisplay(uint8_t uartPacket[], bool isReceivedPacket,
     m_pTableWidget->setItem(rowCount, 18, crc3);
     m_pTableWidget->setItem(rowCount, 19, crc4);
 
+    /*Mark every packet's payload in yellow*/
+    for(int column = 6; column < 16; column++)
+    {
+        m_pTableWidget->item(rowCount, column)->setBackground(QBrush(Qt::yellow));
+    }
+
     if(isReceivedPacket == true)
     {
         if(isCrcCorrect == true)
@@ -161,6 +167,11 @@ void TableView::UpdatePacketDisplay(uint8_t uartPacket[], bool isReceivedPacket,
             for(int column = 0; column < PACKET_SIZE; column++)
             {
                 m_pTableWidget->item(rowCount, column)->setBackground(QBrush(Qt::green));
+            }
+
+            for(int column = 6; column < 16; column++)
+            {
+                m_pTableWidget->item(rowCount, column)->setBackground(QBrush(Qt::yellow));
             }
         }
         else
