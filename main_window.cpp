@@ -107,7 +107,16 @@ void MainWindow::ProcessReceivedPacket(QByteArray& receivedBytes)
     case Function::SET_PARAMETER_PACKET:
         qDebug() << "Set parameter";
 
-        valueDouble = std::stod(reinterpret_cast<char const*>(uartPacket.GetPayload()));
+        try
+        {
+            /*Try to convert packet payload to real number*/
+            valueDouble = std::stod(reinterpret_cast<const char*>(uartPacket.GetPayload()));
+        }
+        catch (std::invalid_argument)
+        {
+            QMessageBox::warning(this, "ERROR", "Packet payload could not be converted to number, aborting");
+            return;
+        }
 
         if(uartPacket.GetSign() == Sign::NEGATIVE_SIGN)
         {
@@ -259,8 +268,6 @@ void MainWindow::InitConnectionModule(ModuleID module)
         }
     }
 
-    uint8_t length;
-
     for(int i = 0; i < INIT_PACKETS_COUNT; i++)
     {
         if(module == ModuleID::MODULE1)
@@ -276,7 +283,7 @@ void MainWindow::InitConnectionModule(ModuleID module)
             uartPacket[i].SetPayload(initInfoValuesModule3[i].toStdString().c_str());
         }
 
-        length = static_cast<uint8_t>(strlen(reinterpret_cast<char const*>(uartPacket[i].GetPayload())));
+        uint8_t length = static_cast<uint8_t>(strlen(reinterpret_cast<char const*>(uartPacket[i].GetPayload())));
 
         uartPacket[i].SetLength(length);
 
