@@ -25,7 +25,7 @@ public:
     void SetSign(char sign);
     void SetLength(Length length);
     void SetLength(int length);
-    void SetPayload(char const* payload, unsigned int payloadLength = PACKET_SIZE);
+    void SetPayload(const char* payload);
 
     Source GetSource() const;
     ModuleID GetModule() const;

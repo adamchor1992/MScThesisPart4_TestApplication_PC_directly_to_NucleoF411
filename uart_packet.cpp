@@ -1,5 +1,7 @@
 #include "uart_packet.h"
 #include "crc32.h"
+#include <cstring>
+#include <cassert>
 
 int const CRC_BYTE1_POSITION = 19;
 int const CRC_BYTE2_POSITION = 18;
@@ -211,8 +213,15 @@ Source UartPacket::GetSource() const
     }
 }
 
-void UartPacket::SetPayload(char const* payload, unsigned int payloadLength)
+void UartPacket::SetPayload(const char* payload)
 {
+    int payloadLength = strlen(payload);
+
+    assert(payloadLength <= PAYLOAD_SIZE);
+
+    /*Reset payload to all zeroes*/
+    memset(m_Payload, 0, PAYLOAD_SIZE);
+
     memcpy(m_Payload, payload, payloadLength);
 }
 

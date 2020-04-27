@@ -108,10 +108,10 @@ void MainWindow::ProcessReceivedPacket(QByteArray& receivedBytes)
         qDebug() << "Set parameter";
 
         try
-        {
-            /*Try to convert packet payload to real number*/
-            valueDouble = std::stod(reinterpret_cast<const char*>(uartPacket.GetPayload()));
-        }
+    {
+        /*Try to convert packet payload to real number*/
+        valueDouble = std::stod(reinterpret_cast<const char*>(uartPacket.GetPayload()));
+    }
         catch (std::invalid_argument)
         {
             QMessageBox::warning(this, "ERROR", "Packet payload could not be converted to number, aborting");
@@ -356,7 +356,7 @@ void MainWindow::SetRangeMinimum()
 
     uartPacket.SetLength(length);
 
-    uartPacket.SetPayload(enteredMinimumRange.toLatin1(), length);
+    uartPacket.SetPayload(enteredMinimumRange.toLatin1());
 
     uartPacket.AppendCrcToPacket();
 
@@ -402,7 +402,7 @@ void MainWindow::SetRangeMaximum()
 
     uartPacket.SetLength(length);
 
-    uartPacket.SetPayload(enteredMaximumRange.toLatin1(), length);
+    uartPacket.SetPayload(enteredMaximumRange.toLatin1());
 
     uartPacket.AppendCrcToPacket();
 
@@ -442,7 +442,7 @@ void MainWindow::SetRangeTime()
 
     uartPacket.SetLength(length);
 
-    uartPacket.SetPayload(enteredTimeRangeString.toLatin1(), length);
+    uartPacket.SetPayload(enteredTimeRangeString.toLatin1());
 
     uartPacket.AppendCrcToPacket();
 
@@ -495,7 +495,7 @@ void MainWindow::SendCustomPacket()
 
     uartPacket.SetLength(length);
 
-    uartPacket.SetPayload(enteredPayload.toLatin1(), length);
+    uartPacket.SetPayload(enteredPayload.toLatin1());
 
     ui->lineEdit_CustomPacketLength->setText(QString::number(length));
 
@@ -552,13 +552,13 @@ void MainWindow::GenerateLinearGraph(int signalCount)
 
     if(startValue > stopValue)
     {
-        QMessageBox::warning(this, "Warning", "Start values is higher than stop value, aborting");
+        QMessageBox::warning(this, "ERROR", "GenerateLinearGraph: Start values is higher than stop value, aborting");
         return;
     }
 
     if(stepValue < 0)
     {
-        QMessageBox::warning(this, "Warning", "Negative step value not supported, aborting");
+        QMessageBox::warning(this, "ERROR", "GenerateLinearGraph: Negative step value not supported, aborting");
         return;
     }
 
@@ -613,7 +613,7 @@ void MainWindow::GenerateLinearGraph(int signalCount)
 
             length = static_cast<uint8_t>(strlen(tempBuffer));
 
-            uartPacket.SetPayload(tempBuffer, length);
+            uartPacket.SetPayload(tempBuffer);
 
             uartPacket.SetLength(length);
 
@@ -652,9 +652,9 @@ void MainWindow::GenerateSineGraph(int signalCount)
     int stopDegrees = strStopDegrees.toInt();
     double multiplierSine = strMultiplierSine.toDouble();
 
-    if(strStartDegrees > strStopDegrees)
+    if(startDegrees > stopDegrees)
     {
-        QMessageBox::warning(this, "Warning", "Start values is higher than stop value, aborting");
+        QMessageBox::warning(this, "ERROR", "GenerateSineGraph: Start values is higher than stop value, aborting");
         return;
     }
 
@@ -669,7 +669,7 @@ void MainWindow::GenerateSineGraph(int signalCount)
 
     constexpr double radianInverse = 3.14159/180;
 
-    int phaseShift[4] = {0, 120, 240, 360};
+    double phaseShift[4] = {0.0, 120.0, 240.0, 360.0};
 
     for(int x = startDegrees; x < stopDegrees; x++)
     {
@@ -678,7 +678,7 @@ void MainWindow::GenerateSineGraph(int signalCount)
             uartPacket.SetParameter(parameters[signalNumber]);
 
             /*Multiply by radian inverse to get rid of radian unit and calculate sine of x measured in degrees*/
-            value = multiplierSine * (sin(x * radianInverse + phaseShift[signalNumber]));
+            value = multiplierSine * (sin(static_cast<double>(x) * radianInverse + phaseShift[signalNumber]));
 
             if(value < 0)
             {
@@ -699,7 +699,7 @@ void MainWindow::GenerateSineGraph(int signalCount)
 
             length = static_cast<uint8_t>(strlen(tempBuffer));
 
-            uartPacket.SetPayload(tempBuffer, length);
+            uartPacket.SetPayload(tempBuffer);
 
             uartPacket.SetLength(length);
 
@@ -896,6 +896,26 @@ void MainWindow::on_pushButton_SendWrongCrcPacket_clicked()
 
 void MainWindow::on_pushButton_SetRanges_clicked()
 {
+    QString rangeMinimumStr = ui->lineEdit_RangeMinimum->text();
+    QString rangeMaximumStr = ui->lineEdit_RangeMaximum->text();
+
+    QString functionName = "SetRanges";
+
+    if(!ValidateIntegerInput(rangeMinimumStr, functionName) ||
+            !ValidateIntegerInput(rangeMaximumStr, functionName))
+    {
+        return;
+    }
+
+    long long int rangeMinimumInt = rangeMinimumStr.toLongLong();
+    long long int rangeMaximumInt = rangeMaximumStr.toLongLong();
+
+    if(rangeMinimumInt >= rangeMaximumInt)
+    {
+        QMessageBox::warning(this, "Warning", "Minimum range value is higher than or equal to maximum range value, aborting");
+        return;
+    }
+
     SetRangeMinimum();
     Sleep(100);
     SetRangeMaximum();
