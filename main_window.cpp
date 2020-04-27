@@ -550,9 +550,9 @@ void MainWindow::GenerateLinearGraph(int signalCount)
     double stopValue = strStopValue.toDouble();
     double stepValue = strStepValue.toDouble();
 
-    if(startValue > stopValue)
+    if(startValue >= stopValue)
     {
-        QMessageBox::warning(this, "ERROR", "GenerateLinearGraph: Start values is higher than stop value, aborting");
+        QMessageBox::warning(this, "ERROR", "GenerateLinearGraph: Start values is higher than or equal to stop value, aborting");
         return;
     }
 
@@ -953,16 +953,27 @@ bool MainWindow::ValidateFloatingPointInput(QString input, QString functionName)
     QString floatingPointPattern = "^(?!0\\d)(\\d{1,10})(\\.\\d{1,8})?$";
     QRegularExpression regExp(floatingPointPattern);
 
-    if(regExp.match(input).hasMatch())
-    {
-        return true;
-    }
-    else
+    if(!regExp.match(input).hasMatch())
     {
         QString errorMessage = "Regex does not match";
         QMessageBox::warning(this, "VALIDATION ERROR", functionName + ": " + errorMessage);
         return false;
     }
+
+    bool conversionSuccessFlag = true;
+
+    double numericValue = input.toDouble(&conversionSuccessFlag);
+
+    qDebug() << "Numeric value after conversion: " << numericValue;
+
+    if(!conversionSuccessFlag)
+    {
+        QString errorMessage = "Input floating point numeric value is not convertable to numeric value";
+        QMessageBox::warning(this, "VALIDATION ERROR", functionName + ": " + errorMessage);
+        return false;
+    }
+
+    return true;
 }
 
 bool MainWindow::ValidateIntegerInput(QString input, QString functionName)
@@ -990,14 +1001,25 @@ bool MainWindow::ValidateIntegerInput(QString input, QString functionName)
     QString integerPattern = "^(0|[1-9][0-9]{0,9})$";
     QRegularExpression regExp(integerPattern);
 
-    if(regExp.match(input).hasMatch())
-    {
-        return true;
-    }
-    else
+    if(!regExp.match(input).hasMatch())
     {
         QString errorMessage = "Regex does not match";
         QMessageBox::warning(this, "VALIDATION ERROR", functionName + ": " + errorMessage);
         return false;
     }
+
+    bool conversionSuccessFlag = true;
+
+    int numericValue = input.toLongLong(&conversionSuccessFlag);
+
+    qDebug() << "Numeric value after conversion: " << numericValue;
+
+    if(!conversionSuccessFlag)
+    {
+        QString errorMessage = "Input numeric value is not convertable to numeric value";
+        QMessageBox::warning(this, "VALIDATION ERROR", functionName + ": " + errorMessage);
+        return false;
+    }
+
+    return true;
 }
