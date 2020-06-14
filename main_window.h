@@ -36,6 +36,7 @@ public:
     void SendWrongCrcDataPacket();
     void GenerateLinearGraph(int signalCount);
     void GenerateSineGraph(int signalCount);
+    void GenerateSquareGraph(int signalCount);
     void SendGraphPacket(UartPacket& uartPacket);
     bool ValidateFloatingPointInput(QString input, QString functionName);
     bool ValidateIntegerInput(QString input, QString functionName);
@@ -53,6 +54,7 @@ private slots:
     void on_pushButton_DeinitConnectionModule3_clicked();
     void on_pushButton_StartLinear_clicked();
     void on_pushButton_StartSine_clicked();
+    void on_pushButton_StartSquare_clicked();
     void on_pushButton_Stop_clicked();
     void on_pushButton_Close_clicked();
     void on_pushButton_SendWrongCrcPacket_clicked();

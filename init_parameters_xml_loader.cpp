@@ -375,3 +375,5 @@ void InitParametersXmlLoader::SetModuleSettableParametersInitialValues(Module& m
     module.SetParameter(Parameter::PARAMETER9, settableParametersInitialValues.at(8).toDouble());
     module.SetParameter(Parameter::PARAMETER10, settableParametersInitialValues.at(9).toDouble());
 }
+
+

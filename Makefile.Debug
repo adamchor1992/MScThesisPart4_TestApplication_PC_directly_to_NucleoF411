@@ -248,7 +248,7 @@ debug/moc_main_window.cpp: main_window.h \
 		module.h \
 		table_view.h \
 		C:/Qt/5.13.0/mingw73_64/include/QtWidgets/QWidget \
-		ui_mainwindow.h \
+		ui_main_window.h \
 		C:/Qt/5.13.0/mingw73_64/include/QtCore/QVariant \
 		C:/Qt/5.13.0/mingw73_64/include/QtWidgets/QApplication \
 		C:/Qt/5.13.0/mingw73_64/include/QtWidgets/qapplication.h \
@@ -363,7 +363,7 @@ debug/moc_serial.cpp: serial.h \
 		C:/Qt/5.13.0/mingw73_64/include/QtCore/qcontainerfwd.h \
 		C:/Qt/5.13.0/mingw73_64/include/QtCore/qobject_impl.h \
 		C:/Qt/5.13.0/mingw73_64/include/QtSerialPort/qserialportglobal.h \
-		ui_mainwindow.h \
+		ui_main_window.h \
 		C:/Qt/5.13.0/mingw73_64/include/QtCore/QVariant \
 		C:/Qt/5.13.0/mingw73_64/include/QtCore/qvariant.h \
 		C:/Qt/5.13.0/mingw73_64/include/QtCore/qmap.h \
@@ -505,7 +505,7 @@ debug/crc32.o: crc32.cpp crc32.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\crc32.o crc32.cpp
 
 debug/init_parameters_xml_loader.o: init_parameters_xml_loader.cpp init_parameters_xml_loader.h \
-		ui_mainwindow.h \
+		ui_main_window.h \
 		C:/Qt/5.13.0/mingw73_64/include/QtCore/QVariant \
 		C:/Qt/5.13.0/mingw73_64/include/QtCore/qvariant.h \
 		C:/Qt/5.13.0/mingw73_64/include/QtCore/qatomic.h \
@@ -790,7 +790,7 @@ debug/main.o: main.cpp main_window.h \
 		module.h \
 		table_view.h \
 		C:/Qt/5.13.0/mingw73_64/include/QtWidgets/QWidget \
-		ui_mainwindow.h \
+		ui_main_window.h \
 		C:/Qt/5.13.0/mingw73_64/include/QtCore/QVariant \
 		C:/Qt/5.13.0/mingw73_64/include/QtWidgets/QApplication \
 		C:/Qt/5.13.0/mingw73_64/include/QtWidgets/qapplication.h \
@@ -963,7 +963,7 @@ debug/main_window.o: main_window.cpp main_window.h \
 		module.h \
 		table_view.h \
 		C:/Qt/5.13.0/mingw73_64/include/QtWidgets/QWidget \
-		ui_mainwindow.h \
+		ui_main_window.h \
 		C:/Qt/5.13.0/mingw73_64/include/QtCore/QVariant \
 		C:/Qt/5.13.0/mingw73_64/include/QtWidgets/QApplication \
 		C:/Qt/5.13.0/mingw73_64/include/QtWidgets/qapplication.h \
@@ -1241,7 +1241,7 @@ debug/table_view.o: table_view.cpp table_view.h \
 		C:/Qt/5.13.0/mingw73_64/include/QtCore/qfiledevice.h \
 		C:/Qt/5.13.0/mingw73_64/include/QtGui/qvector2d.h \
 		C:/Qt/5.13.0/mingw73_64/include/QtGui/qtouchdevice.h \
-		ui_mainwindow.h \
+		ui_main_window.h \
 		C:/Qt/5.13.0/mingw73_64/include/QtCore/QVariant \
 		C:/Qt/5.13.0/mingw73_64/include/QtWidgets/QApplication \
 		C:/Qt/5.13.0/mingw73_64/include/QtWidgets/qapplication.h \
@@ -1364,7 +1364,7 @@ debug/serial.o: serial.cpp serial.h \
 		C:/Qt/5.13.0/mingw73_64/include/QtCore/qcontainerfwd.h \
 		C:/Qt/5.13.0/mingw73_64/include/QtCore/qobject_impl.h \
 		C:/Qt/5.13.0/mingw73_64/include/QtSerialPort/qserialportglobal.h \
-		ui_mainwindow.h \
+		ui_main_window.h \
 		C:/Qt/5.13.0/mingw73_64/include/QtCore/QVariant \
 		C:/Qt/5.13.0/mingw73_64/include/QtCore/qvariant.h \
 		C:/Qt/5.13.0/mingw73_64/include/QtCore/qmap.h \

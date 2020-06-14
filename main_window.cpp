@@ -1,5 +1,5 @@
 #include "main_window.h"
-#include "ui_mainwindow.h"
+#include "ui_main_window.h"
 #include "packet_field_definitions.h"
 #include <QSerialPortInfo>
 #include <QMessageBox>
@@ -533,9 +533,9 @@ void MainWindow::GenerateLinearGraph(int signalCount)
 {
     UartPacket uartPacket;
 
-    QString strStartValue = ui->lineEdit_StartLinear->text();
-    QString strStopValue = ui->lineEdit_StopLinear->text();
-    QString strStepValue = ui->lineEdit_StepLinear->text();
+    QString strStartValue = ui->lineEdit_LinearStart->text();
+    QString strStopValue = ui->lineEdit_LinearStop->text();
+    QString strStepValue = ui->lineEdit_LinearStep->text();
 
     QString functionName = "GenerateLinearGraph";
 
@@ -635,22 +635,22 @@ void MainWindow::GenerateSineGraph(int signalCount)
 {
     UartPacket uartPacket;
 
-    QString strStartDegrees = ui->lineEdit_StartDegrees->text();
-    QString strStopDegrees = ui->lineEdit_StopDegrees->text();
-    QString strMultiplierSine = ui->lineEdit_MultiplierSine->text();
+    QString strStartDegrees = ui->lineEdit_SineStartDegrees->text();
+    QString strStopDegrees = ui->lineEdit_SineStopDegrees->text();
+    QString strAmplitude = ui->lineEdit_SineAmplitude->text();
 
     QString functionName = "GenerateSineGraph";
 
     if(!ValidateIntegerInput(strStartDegrees, functionName) ||
             !ValidateIntegerInput(strStopDegrees, functionName) ||
-            !ValidateFloatingPointInput(strMultiplierSine, functionName))
+            !ValidateFloatingPointInput(strAmplitude, functionName))
     {
         return;
     }
 
     int startDegrees = strStartDegrees.toInt();
     int stopDegrees = strStopDegrees.toInt();
-    double multiplierSine = strMultiplierSine.toDouble();
+    double amplitude = strAmplitude.toDouble();
 
     if(startDegrees > stopDegrees)
     {
@@ -678,7 +678,7 @@ void MainWindow::GenerateSineGraph(int signalCount)
             uartPacket.SetParameter(parameters[signalNumber]);
 
             /*Multiply by radian inverse to get rid of radian unit and calculate sine of x measured in degrees*/
-            value = multiplierSine * (sin(static_cast<double>(x) * radianInverse + phaseShift[signalNumber]));
+            value = amplitude * (sin(static_cast<double>(x) * radianInverse + phaseShift[signalNumber]));
 
             if(value < 0)
             {
@@ -717,6 +717,136 @@ void MainWindow::GenerateSineGraph(int signalCount)
     }
 }
 
+void MainWindow::GenerateSquareGraph(int signalCount)
+{
+    UartPacket uartPacket;
+
+    QString strStartDegrees = ui->lineEdit_SquareStart->text();
+    QString strStopDegrees = ui->lineEdit_SquareStop->text();
+    QString strAmplitude = ui->lineEdit_SquareAmplitude->text();
+    QString strPeriod = ui->lineEdit_SquarePeriod->text();
+
+    QString functionName = "GenerateSquareGraph";
+
+    if(!ValidateIntegerInput(strStartDegrees, functionName) ||
+            !ValidateIntegerInput(strStopDegrees, functionName) ||
+            !ValidateFloatingPointInput(strAmplitude, functionName))
+    {
+        return;
+    }
+
+    int startDegrees = strStartDegrees.toInt();
+    int stopDegrees = strStopDegrees.toInt();
+    double amplitude = strAmplitude.toDouble();
+    int period = strPeriod.toInt();
+
+    if(startDegrees > stopDegrees)
+    {
+        QMessageBox::warning(this, "ERROR", "GenerateSquareGraph: Start values is higher than stop value, aborting");
+        return;
+    }
+
+    uartPacket.SetSource(Source::SOURCE_TARGET1);
+    uartPacket.SetModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
+    uartPacket.SetFunction(Function::DATA_PACKET);
+
+    uint8_t length;
+    double value;
+
+    const int periodShift = period / 2;
+
+    int multiplierSignal1 = +1;
+    int multiplierSignal2 = +1;
+
+    for(int x = startDegrees; x < stopDegrees; x++)
+    {
+        if(signalCount >= 1)
+        {
+            uartPacket.SetParameter(Parameter::GRAPH_PARAMETER1);
+
+            value = amplitude * multiplierSignal1;
+
+            if(value < 0)
+            {
+                /*Change value sign back to positive and mark it as negative in UART packet*/
+                value = value * (-1);
+                uartPacket.SetSign(Sign::NEGATIVE_SIGN);
+            }
+            else
+            {
+                uartPacket.SetSign(Sign::POSITIVE_SIGN);
+            }
+
+            /*Temporary buffer for number-string conversion with additional space for null character*/
+            char tempBuffer[PAYLOAD_SIZE + 1] = {0};
+
+            /*Convert double number to string and write it to temporary buffer*/
+            snprintf(tempBuffer , PAYLOAD_SIZE + 1, "%lf", value);
+
+            length = static_cast<uint8_t>(strlen(tempBuffer));
+
+            uartPacket.SetPayload(tempBuffer);
+
+            uartPacket.SetLength(length);
+
+            SendGraphPacket(uartPacket);
+
+            if(x % period == 0)
+            {
+                multiplierSignal1 = multiplierSignal1 * (-1);
+            }
+
+            QCoreApplication::processEvents();
+        }
+
+        if(signalCount >= 2)
+        {
+            uartPacket.SetParameter(Parameter::GRAPH_PARAMETER2);
+
+            value = amplitude * multiplierSignal2;
+
+            if(value < 0)
+            {
+                /*Change value sign back to positive and mark it as negative in UART packet*/
+                value = value * (-1);
+                uartPacket.SetSign(Sign::NEGATIVE_SIGN);
+            }
+            else
+            {
+                uartPacket.SetSign(Sign::POSITIVE_SIGN);
+            }
+
+            /*Temporary buffer for number-string conversion with additional space for null character*/
+            char tempBuffer[PAYLOAD_SIZE + 1] = {0};
+
+            /*Convert double number to string and write it to temporary buffer*/
+            snprintf(tempBuffer , PAYLOAD_SIZE + 1, "%lf", value);
+
+            length = static_cast<uint8_t>(strlen(tempBuffer));
+
+            uartPacket.SetPayload(tempBuffer);
+
+            uartPacket.SetLength(length);
+
+            SendGraphPacket(uartPacket);
+
+            if(((x + periodShift ) % period) == 0)
+            {
+                multiplierSignal2 = multiplierSignal2 * (-1);
+            }
+
+            QCoreApplication::processEvents();
+        }
+
+        if (m_stopPressed)
+        {
+            qDebug("STOP PRESSED");
+            m_stopPressed = false;
+            return;
+        }
+    }
+}
+
 void MainWindow::SendGraphPacket(UartPacket& uartPacket)
 {
     uartPacket.AppendCrcToPacket();
@@ -727,7 +857,7 @@ void MainWindow::SendGraphPacket(UartPacket& uartPacket)
 
     m_Serial.SendPacket(static_cast<uint8_t*>(uartPacket));
 
-    Sleep(uint(20));
+    Sleep(uint(10));
 }
 
 void MainWindow::UpdateGUI()
@@ -881,6 +1011,29 @@ void MainWindow::on_pushButton_StartSine_clicked()
         break;
     default:
         qDebug("Unsupported ammount of sine signals");
+    }
+}
+
+void MainWindow::on_pushButton_StartSquare_clicked()
+{
+    char signalCount = ui->comboBox_GraphSignalCount->currentText().at(0).toLatin1();
+
+    switch(signalCount)
+    {
+    case '1':
+        GenerateSquareGraph(1);
+        break;
+    case '2':
+        GenerateSquareGraph(2);
+        break;
+    case '3':
+        GenerateSquareGraph(3);
+        break;
+    case '4':
+        GenerateSquareGraph(4);
+        break;
+    default:
+        qDebug("Unsupported ammount of square signals");
     }
 }
 

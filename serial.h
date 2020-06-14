@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QSerialPort>
-#include "ui_mainwindow.h"
+#include "ui_main_window.h"
 #include "packet_field_definitions.h"
 
 class Serial : public QSerialPort

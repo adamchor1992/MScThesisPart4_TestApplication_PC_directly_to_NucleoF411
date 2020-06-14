@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ui_mainwindow.h"
+#include "ui_main_window.h"
 #include <string>
 #include <vector>
 #include <fstream>
