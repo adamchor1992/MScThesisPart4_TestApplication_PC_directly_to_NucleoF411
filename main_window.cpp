@@ -789,7 +789,7 @@ void MainWindow::on_pushButton_Open_clicked()
 {
     InitParametersXmlLoader initParametersXmlLoader(ui);
 
-    if(initParametersXmlLoader.InitModuleParametersList() == false)
+    if(initParametersXmlLoader.InitModuleParametersList(m_Module1, m_Module2, m_Module3) == false)
     {
         QMessageBox::warning(this, ".xml load error", "Error, parameters list could not be read from XML");
         return;
