@@ -295,7 +295,7 @@ void MainWindow::InitConnectionModule(ModuleID module)
 
         m_Serial.SendPacket(static_cast<uint8_t*>(uartPacket[i]));
 
-        Sleep(uint(20));
+        Sleep(uint(10));
 
         QCoreApplication::processEvents();
     }
@@ -851,7 +851,7 @@ void MainWindow::SendGraphPacket(UartPacket& uartPacket)
 {
     uartPacket.AppendCrcToPacket();
 
-    qDebug("Graph packet is: %s", static_cast<uint8_t*>(uartPacket));
+    //qDebug("Graph packet is: %s", static_cast<uint8_t*>(uartPacket));
 
     m_pTableView->UpdatePacketDisplay(static_cast<uint8_t*>(uartPacket), false);
 
@@ -1117,7 +1117,7 @@ bool MainWindow::ValidateFloatingPointInput(QString input, QString functionName)
 
     double numericValue = input.toDouble(&conversionSuccessFlag);
 
-    qDebug() << "Numeric value after conversion: " << numericValue;
+    //qDebug() << "Numeric value after conversion: " << numericValue;
 
     if(!conversionSuccessFlag)
     {
@@ -1165,7 +1165,7 @@ bool MainWindow::ValidateIntegerInput(QString input, QString functionName)
 
     int numericValue = input.toLongLong(&conversionSuccessFlag);
 
-    qDebug() << "Numeric value after conversion: " << numericValue;
+    //qDebug() << "Numeric value after conversion: " << numericValue;
 
     if(!conversionSuccessFlag)
     {
