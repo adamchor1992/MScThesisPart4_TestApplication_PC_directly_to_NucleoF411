@@ -10,12 +10,12 @@ class InitParametersXmlLoader
 {
 public:
     InitParametersXmlLoader(Ui::MainWindow* ui);
-    bool InitModuleParametersList(Module& module1, Module module2, Module& module3);
+    bool InitModuleParametersList(Module& module1, Module& module2, Module& module3);
 
 private:
     void ParseXmlFileToParametersList(std::ifstream & inputFile);
     void FillWidgetsTextsFromParametersList(Module& module1, Module& module2, Module& module3);
-    void SetModuleSettableParametersInitialValues(Module& module, std::vector<QString> settableParametersInitialValues);
+    void SetModuleSettableParametersInitialValues(Module& module, std::vector<QString>& settableParametersInitialValues);
 
     Ui::MainWindow* m_pUi;
     std::vector<QString> m_Parameters;

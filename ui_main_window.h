@@ -3844,7 +3844,7 @@ public:
 
         label_LinearStep->setText(QCoreApplication::translate("MainWindow", "Step", nullptr));
         lineEdit_RangeMinimum->setText(QCoreApplication::translate("MainWindow", "-10000", nullptr));
-        label_SquarePeriod->setText(QCoreApplication::translate("MainWindow", "Frequency", nullptr));
+        label_SquarePeriod->setText(QCoreApplication::translate("MainWindow", "Period", nullptr));
         groupBox_PacketDisplay->setTitle(QCoreApplication::translate("MainWindow", "Packet display", nullptr));
         pushButton_ClearTable->setText(QCoreApplication::translate("MainWindow", "CLEAR TABLE", nullptr));
         groupBox_Module1->setTitle(QCoreApplication::translate("MainWindow", "Module 1", nullptr));

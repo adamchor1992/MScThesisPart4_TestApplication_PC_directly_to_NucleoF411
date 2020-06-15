@@ -7,7 +7,7 @@ InitParametersXmlLoader::InitParametersXmlLoader(Ui::MainWindow* ui)
     m_pUi = ui;
 }
 
-bool InitParametersXmlLoader::InitModuleParametersList(Module& module1, Module module2, Module& module3)
+bool InitParametersXmlLoader::InitModuleParametersList(Module& module1, Module& module2, Module& module3)
 {
     std::ifstream inputFile;
 
@@ -362,7 +362,7 @@ void InitParametersXmlLoader::FillWidgetsTextsFromParametersList(Module& module1
     SetModuleSettableParametersInitialValues(module3, module3SettableParametersValues);
 }
 
-void InitParametersXmlLoader::SetModuleSettableParametersInitialValues(Module& module, std::vector<QString> settableParametersInitialValues)
+void InitParametersXmlLoader::SetModuleSettableParametersInitialValues(Module& module, std::vector<QString>& settableParametersInitialValues)
 {
     module.SetParameter(Parameter::PARAMETER1, settableParametersInitialValues.at(0).toDouble());
     module.SetParameter(Parameter::PARAMETER2, settableParametersInitialValues.at(1).toDouble());
