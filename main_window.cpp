@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     m_pTableView = std::make_unique<TableView>(ui);
 
-    connect(&m_Serial, &Serial::FullPacketReceived, this, &MainWindow::ProcessReceivedPacket);
+    //connect(&m_Serial, &Serial::FullPacketReceived, this, &MainWindow::ProcessReceivedPacket);
 
     this->setWindowState(Qt::WindowMaximized);
 }
@@ -137,199 +137,21 @@ void MainWindow::ProcessReceivedPacket(QByteArray& receivedBytes)
 
 void MainWindow::InitConnectionModule(ModuleID module)
 {
-    UartPacket uartPacket[INIT_PACKETS_COUNT];
+    qDebug("InitConnectionModule");
 
-    for(int i = 0; i < INIT_PACKETS_COUNT; i++)
-    {
-        uartPacket[i].SetSource(Source::SOURCE_TARGET1);
-        uartPacket[i].SetModule(module);
-        uartPacket[i].SetFunction(Function::INIT_PACKET);
-        uartPacket[i].SetParameter(Parameter::NULL_PARAMETER);
-        uartPacket[i].SetSign(Sign::POSITIVE_SIGN);
-    }
-
-    QString initInfoValuesModule1[INIT_PACKETS_COUNT] = {ui->label_Module1InitParameter1Name->text(),
-                                                         ui->label_Module1InitParameter2Name->text(),
-                                                         ui->label_Module1InitParameter3Name->text(),
-                                                         ui->label_Module1InitParameter4Name->text(),
-                                                         ui->label_Module1InitParameter5Name->text(),
-                                                         ui->lineEdit_Module1InitParameter1Value->text(),
-                                                         ui->lineEdit_Module1InitParameter2Value->text(),
-                                                         ui->lineEdit_Module1InitParameter3Value->text(),
-                                                         ui->lineEdit_Module1InitParameter4Value->text(),
-                                                         ui->lineEdit_Module1InitParameter5Value->text(),
-                                                         ui->label_Module1Parameter1Name->text(),
-                                                         ui->label_Module1Parameter2Name->text(),
-                                                         ui->label_Module1Parameter3Name->text(),
-                                                         ui->label_Module1Parameter4Name->text(),
-                                                         ui->lineEdit_Module1Parameter1Name->text(),
-                                                         ui->lineEdit_Module1Parameter2Name->text(),
-                                                         ui->lineEdit_Module1Parameter3Name->text(),
-                                                         ui->lineEdit_Module1Parameter4Name->text(),
-                                                         ui->label_Module1_SettableParameter1Name->text(),
-                                                         ui->label_Module1_SettableParameter2Name->text(),
-                                                         ui->label_Module1_SettableParameter3Name->text(),
-                                                         ui->label_Module1_SettableParameter4Name->text(),
-                                                         ui->label_Module1_SettableParameter5Name->text(),
-                                                         ui->label_Module1_SettableParameter6Name->text(),
-                                                         ui->label_Module1_SettableParameter7Name->text(),
-                                                         ui->label_Module1_SettableParameter8Name->text(),
-                                                         ui->label_Module1_SettableParameter9Name->text(),
-                                                         ui->label_Module1_SettableParameter10Name->text()
-                                                        };
-
-    for(auto value : initInfoValuesModule1)
-    {
-        if(value.size() > PAYLOAD_SIZE)
-        {
-            QMessageBox::warning(this, "Warning", "Module 1 initialization parameter value is too long,"
-                                                  " maximum allowed length is 10. Aborting module initialization");
-            return;
-        }
-    }
-
-    QString initInfoValuesModule2[INIT_PACKETS_COUNT] = {ui->label_Module2InitParameter1Name->text(),
-                                                         ui->label_Module2InitParameter2Name->text(),
-                                                         ui->label_Module2InitParameter3Name->text(),
-                                                         ui->label_Module2InitParameter4Name->text(),
-                                                         ui->label_Module2InitParameter5Name->text(),
-                                                         ui->lineEdit_Module2InitParameter1Value->text(),
-                                                         ui->lineEdit_Module2InitParameter2Value->text(),
-                                                         ui->lineEdit_Module2InitParameter3Value->text(),
-                                                         ui->lineEdit_Module2InitParameter4Value->text(),
-                                                         ui->lineEdit_Module2InitParameter5Value->text(),
-                                                         ui->label_Module2Parameter1Name->text(),
-                                                         ui->label_Module2Parameter2Name->text(),
-                                                         ui->label_Module2Parameter3Name->text(),
-                                                         ui->label_Module2Parameter4Name->text(),
-                                                         ui->lineEdit_Module2Parameter1Name->text(),
-                                                         ui->lineEdit_Module2Parameter2Name->text(),
-                                                         ui->lineEdit_Module2Parameter3Name->text(),
-                                                         ui->lineEdit_Module2Parameter4Name->text(),
-                                                         ui->label_Module2_SettableParameter1Name->text(),
-                                                         ui->label_Module2_SettableParameter2Name->text(),
-                                                         ui->label_Module2_SettableParameter3Name->text(),
-                                                         ui->label_Module2_SettableParameter4Name->text(),
-                                                         ui->label_Module2_SettableParameter5Name->text(),
-                                                         ui->label_Module2_SettableParameter6Name->text(),
-                                                         ui->label_Module2_SettableParameter7Name->text(),
-                                                         ui->label_Module2_SettableParameter8Name->text(),
-                                                         ui->label_Module2_SettableParameter9Name->text(),
-                                                         ui->label_Module2_SettableParameter10Name->text()
-                                                        };
-
-    for(auto value : initInfoValuesModule2)
-    {
-        if(value.size() > PAYLOAD_SIZE)
-        {
-            QMessageBox::warning(this, "Warning", "Module 2 initialization parameter value is too long,"
-                                                  " maximum allowed length is 10. Aborting module initialization");
-            return;
-        }
-    }
-
-    QString initInfoValuesModule3[INIT_PACKETS_COUNT] = {ui->label_Module3InitParameter1Name->text(),
-                                                         ui->label_Module3InitParameter2Name->text(),
-                                                         ui->label_Module3InitParameter3Name->text(),
-                                                         ui->label_Module3InitParameter4Name->text(),
-                                                         ui->label_Module3InitParameter5Name->text(),
-                                                         ui->lineEdit_Module3InitParameter1Value->text(),
-                                                         ui->lineEdit_Module3InitParameter2Value->text(),
-                                                         ui->lineEdit_Module3InitParameter3Value->text(),
-                                                         ui->lineEdit_Module3InitParameter4Value->text(),
-                                                         ui->lineEdit_Module3InitParameter5Value->text(),
-                                                         ui->label_Module3Parameter1Name->text(),
-                                                         ui->label_Module3Parameter2Name->text(),
-                                                         ui->label_Module3Parameter3Name->text(),
-                                                         ui->label_Module3Parameter4Name->text(),
-                                                         ui->lineEdit_Module3Parameter1Name->text(),
-                                                         ui->lineEdit_Module3Parameter2Name->text(),
-                                                         ui->lineEdit_Module3Parameter3Name->text(),
-                                                         ui->lineEdit_Module3Parameter4Name->text(),
-                                                         ui->label_Module3_SettableParameter1Name->text(),
-                                                         ui->label_Module3_SettableParameter2Name->text(),
-                                                         ui->label_Module3_SettableParameter3Name->text(),
-                                                         ui->label_Module3_SettableParameter4Name->text(),
-                                                         ui->label_Module3_SettableParameter5Name->text(),
-                                                         ui->label_Module3_SettableParameter6Name->text(),
-                                                         ui->label_Module3_SettableParameter7Name->text(),
-                                                         ui->label_Module3_SettableParameter8Name->text(),
-                                                         ui->label_Module3_SettableParameter9Name->text(),
-                                                         ui->label_Module3_SettableParameter10Name->text()
-                                                        };
-
-    for(auto value : initInfoValuesModule3)
-    {
-        if(value.size() > PAYLOAD_SIZE)
-        {
-            QMessageBox::warning(this, "Warning", "Module 3 initialization parameter value is too long,"
-                                                  " maximum allowed length is 10. Aborting module initialization");
-            return;
-        }
-    }
-
-    for(int i = 0; i < INIT_PACKETS_COUNT; i++)
-    {
-        if(module == ModuleID::MODULE1)
-        {
-            uartPacket[i].SetPayload(initInfoValuesModule1[i].toStdString().c_str());
-        }
-        else if(module == ModuleID::MODULE2)
-        {
-            uartPacket[i].SetPayload(initInfoValuesModule2[i].toStdString().c_str());
-        }
-        else if(module == ModuleID::MODULE3)
-        {
-            uartPacket[i].SetPayload(initInfoValuesModule3[i].toStdString().c_str());
-        }
-
-        uint8_t length = static_cast<uint8_t>(strlen(reinterpret_cast<char const*>(uartPacket[i].GetPayload())));
-
-        uartPacket[i].SetLength(length);
-
-        uartPacket[i].AppendCrcToPacket();
-
-        qDebug("Init Packet is: %s", static_cast<uint8_t*>(uartPacket[i]));
-
-        m_pTableView->UpdatePacketDisplay(static_cast<uint8_t*>(uartPacket[i]), false);
-
-        m_Serial.SendPacket(static_cast<uint8_t*>(uartPacket[i]));
-
-        Sleep(uint(10));
-
-        QCoreApplication::processEvents();
-    }
+    SendString("#initmodule", QString(static_cast<int>(module)));
 }
 
 void MainWindow::DeinitConnectionModule(ModuleID module)
 {
-    UartPacket uartPacket;
+    qDebug("DeinitConnectionModule");
 
-    uartPacket.SetSource(Source::SOURCE_TARGET1);
-    uartPacket.SetModule(module);
-    uartPacket.SetFunction(Function::DEINIT_PACKET);
-    uartPacket.SetSign(Sign::POSITIVE_SIGN);
-    uartPacket.SetParameter(Parameter::NULL_PARAMETER);
-    uartPacket.SetLength(Length::NO_PAYLOAD);
-
-    uartPacket.AppendCrcToPacket();
-
-    qDebug("Deinit Packet is: %s", static_cast<uint8_t*>(uartPacket));
-
-    m_pTableView->UpdatePacketDisplay(static_cast<uint8_t*>(uartPacket), false);
-
-    m_Serial.SendPacket(static_cast<uint8_t*>(uartPacket));
+    SendString("#deinitmodule", QString(static_cast<int>(module)));
 }
 
 void MainWindow::SetRangeMinimum()
 {
-    UartPacket uartPacket;
-
-    uartPacket.SetSource(Source::SOURCE_TARGET1);
-    uartPacket.SetModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
-    uartPacket.SetFunction(Function::SET_GRAPH_RANGE_MIN);
-    uartPacket.SetParameter(Parameter::NULL_PARAMETER);
-
+    QString module = ui->comboBox_GraphModule->currentText();
     QString enteredMinimumRange = ui->lineEdit_RangeMinimum->text();
 
     if(!ValidateIntegerInput(enteredMinimumRange, "SetRangeMinimum"))
@@ -337,45 +159,12 @@ void MainWindow::SetRangeMinimum()
         return;
     }
 
-    if(enteredMinimumRange.at(0).toLatin1() == '-')
-    {
-        uartPacket.SetSign(Sign::NEGATIVE_SIGN);
-
-        /*Remove minus sign*/
-        enteredMinimumRange.remove(0,1);
-    }
-    else if(enteredMinimumRange.at(0).toLatin1() == '+')
-    {
-        uartPacket.SetSign(Sign::POSITIVE_SIGN);
-
-        /*Remove plus sign*/
-        enteredMinimumRange.remove(0,1);
-    }
-
-    int length = enteredMinimumRange.length();
-
-    uartPacket.SetLength(length);
-
-    uartPacket.SetPayload(enteredMinimumRange.toLatin1());
-
-    uartPacket.AppendCrcToPacket();
-
-    qDebug("Set range minimum packet is: %s", static_cast<uint8_t*>(uartPacket));
-
-    m_pTableView->UpdatePacketDisplay(static_cast<uint8_t*>(uartPacket), false);
-
-    m_Serial.SendPacket(static_cast<uint8_t*>(uartPacket));
+    SendString("#setgraphmin", module, enteredMinimumRange);
 }
 
 void MainWindow::SetRangeMaximum()
 {
-    UartPacket uartPacket;
-
-    uartPacket.SetSource(Source::SOURCE_TARGET1);
-    uartPacket.SetModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
-    uartPacket.SetFunction(Function::SET_GRAPH_RANGE_MAX);
-    uartPacket.SetParameter(Parameter::NULL_PARAMETER);
-
+    QString module = ui->comboBox_GraphModule->currentText();
     QString enteredMaximumRange = ui->lineEdit_RangeMaximum->text();
 
     if(!ValidateIntegerInput(enteredMaximumRange, "SetRangeMaximum"))
@@ -383,46 +172,12 @@ void MainWindow::SetRangeMaximum()
         return;
     }
 
-    if(enteredMaximumRange.at(0).toLatin1() == '-')
-    {
-        uartPacket.SetSign(Sign::NEGATIVE_SIGN);
-
-        /*Remove minus sign*/
-        enteredMaximumRange.remove(0,1);
-    }
-    else if(enteredMaximumRange.at(0).toLatin1() == '+')
-    {
-        uartPacket.SetSign(Sign::POSITIVE_SIGN);
-
-        /*Remove plus sign*/
-        enteredMaximumRange.remove(0,1);
-    }
-
-    int length = enteredMaximumRange.length();
-
-    uartPacket.SetLength(length);
-
-    uartPacket.SetPayload(enteredMaximumRange.toLatin1());
-
-    uartPacket.AppendCrcToPacket();
-
-    qDebug("Set range maximum packet is: %s", static_cast<uint8_t*>(uartPacket));
-
-    m_pTableView->UpdatePacketDisplay(static_cast<uint8_t*>(uartPacket), false);
-
-    m_Serial.SendPacket(static_cast<uint8_t*>(uartPacket));
+    SendString("#setgraphmax", module, enteredMaximumRange);
 }
 
 void MainWindow::SetRangeTime()
 {
-    UartPacket uartPacket;
-
-    uartPacket.SetSource(Source::SOURCE_TARGET1);
-    uartPacket.SetModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
-    uartPacket.SetFunction(Function::SET_GRAPH_TIME_RANGE);
-    uartPacket.SetParameter(Parameter::NULL_PARAMETER);
-    uartPacket.SetSign(Sign::POSITIVE_SIGN);
-
+    QString module = ui->comboBox_GraphModule->currentText();
     QString enteredTimeRangeString = ui->comboBox_TimeRange->currentText();
 
     if(!ValidateIntegerInput(enteredTimeRangeString, "SetRangeTime"))
@@ -430,109 +185,13 @@ void MainWindow::SetRangeTime()
         return;
     }
 
-    int enteredTimeRangeInteger = enteredTimeRangeString.toInt();
-
-    if((enteredTimeRangeString.at(0).toLatin1() == '-') || enteredTimeRangeInteger < 360 || enteredTimeRangeInteger > 3600 || enteredTimeRangeInteger % 360 != 0)
-    {
-        qDebug() << "Wrong time range entered";
-        return;
-    }
-
-    int length = enteredTimeRangeString.length();
-
-    uartPacket.SetLength(length);
-
-    uartPacket.SetPayload(enteredTimeRangeString.toLatin1());
-
-    uartPacket.AppendCrcToPacket();
-
-    qDebug("Set range time packet is: %s", static_cast<uint8_t*>(uartPacket));
-
-    m_pTableView->UpdatePacketDisplay(static_cast<uint8_t*>(uartPacket), false);
-
-    m_Serial.SendPacket(static_cast<uint8_t*>(uartPacket));
+    SendString("#setgraphtime", module, enteredTimeRangeString);
 }
 
-void MainWindow::SendCustomPacket()
+void MainWindow::GraphLinear()
 {
-    UartPacket uartPacket;
-
-    uartPacket.SetSource(ui->comboBox_CustomPacketSource->currentText().at(0).toLatin1());
-    uartPacket.SetModule(ui->comboBox_CustomPacketModule->currentText().at(0).toLatin1());
-    uartPacket.SetFunction(ui->comboBox_CustomPacketFunction->currentText().at(0).toLatin1());
-    uartPacket.SetParameter(ui->comboBox_CustomPacketParameter->currentText().at(0).toLatin1());
-
-    QString enteredPayload = ui->lineEdit_CustomPacketPayload->text();
-
-    if(!ValidateFloatingPointInput(enteredPayload, "SendCustomPacket"))
-    {
-        return;
-    }
-
-    if(enteredPayload.at(0).toLatin1() == '-')
-    {
-        ui->lineEdit_CustomPacketSign->setText("2");
-        uartPacket.SetSign(Sign::NEGATIVE_SIGN);
-
-        /*Remove minus sign*/
-        enteredPayload.remove(0,1);
-    }
-    else if(enteredPayload.at(0).toLatin1() == '+')
-    {
-        ui->lineEdit_CustomPacketSign->setText("1");
-        uartPacket.SetSign(Sign::POSITIVE_SIGN);
-
-        /*Remove plus sign*/
-        enteredPayload.remove(0,1);
-    }
-    else
-    {
-        ui->lineEdit_CustomPacketSign->setText("1");
-        uartPacket.SetSign(Sign::POSITIVE_SIGN);
-    }
-
-    int length = enteredPayload.length();
-
-    uartPacket.SetLength(length);
-
-    uartPacket.SetPayload(enteredPayload.toLatin1());
-
-    ui->lineEdit_CustomPacketLength->setText(QString::number(length));
-
-    uartPacket.AppendCrcToPacket();
-
-    qDebug("Custom Packet is: %s", static_cast<uint8_t*>(uartPacket));
-
-    m_pTableView->UpdatePacketDisplay(static_cast<uint8_t*>(uartPacket), false);
-
-    m_Serial.SendPacket(static_cast<uint8_t*>(uartPacket));
-}
-
-void MainWindow::SendWrongCrcDataPacket()
-{
-    UartPacket uartPacket;
-
-    uartPacket.SetSource(ui->comboBox_CustomPacketSource->currentText().at(0).toLatin1());
-    uartPacket.SetModule(ui->comboBox_CustomPacketModule->currentText().at(0).toLatin1());
-    uartPacket.SetFunction(ui->comboBox_CustomPacketFunction->currentText().at(0).toLatin1());
-    uartPacket.SetParameter(ui->comboBox_CustomPacketParameter->currentText().at(0).toLatin1());
-    uartPacket.SetLength(Length::NO_PAYLOAD);
-    uartPacket.SetSign(Sign::POSITIVE_SIGN);
-
-    /*Set wrong all zeros CRC*/
-    uartPacket.SetWrongCrc();
-
-    qDebug("Wrong crc packet is: %s", static_cast<uint8_t*>(uartPacket));
-
-    m_pTableView->UpdatePacketDisplay(static_cast<uint8_t*>(uartPacket), false, false);
-
-    m_Serial.SendPacket(static_cast<uint8_t*>(uartPacket));
-}
-
-void MainWindow::GenerateLinearGraph(int signalCount)
-{
-    UartPacket uartPacket;
-
+    QString strModule= ui->comboBox_GraphModule->currentText();
+    QString strSignalCount = ui->comboBox_GraphSignalCount->currentText();
     QString strStartValue = ui->lineEdit_LinearStart->text();
     QString strStopValue = ui->lineEdit_LinearStop->text();
     QString strStepValue = ui->lineEdit_LinearStep->text();
@@ -562,79 +221,16 @@ void MainWindow::GenerateLinearGraph(int signalCount)
         return;
     }
 
-    uartPacket.SetSource(Source::SOURCE_TARGET1);
-    uartPacket.SetModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
-    uartPacket.SetFunction(Function::DATA_PACKET);
+    QMessageBox::warning(this, "UNSUPPORTED YET", "GenerateLinearGraph: UNSUPPORTED YET");
 
-    uint8_t length;
-
-    double value;
-
-    Parameter parameters[4] = {Parameter::GRAPH_PARAMETER1, Parameter::GRAPH_PARAMETER2, Parameter::GRAPH_PARAMETER3, Parameter::GRAPH_PARAMETER4};
-
-    for(double x = startValue; x < stopValue; x = x + stepValue)
-    {
-        for(int signalNumber = 0; signalNumber < signalCount; signalNumber++)
-        {
-            uartPacket.SetParameter(parameters[signalNumber]);
-
-            value = x;
-
-            if(value < 0)
-            {
-                /*Change value sign back to positive and mark it as negative in UART packet*/
-                value = value * (-1);
-                uartPacket.SetSign(Sign::NEGATIVE_SIGN);
-            }
-            else
-            {
-                uartPacket.SetSign(Sign::POSITIVE_SIGN);
-            }
-
-            /*Change parameter values so that graph lines do not overlap each other*/
-            switch(signalNumber)
-            {
-            case 1:
-                value = value * 0.75;
-                break;
-            case 2:
-                value = value * 0.5;
-                break;
-            case 3:
-                value = value * 0.25;
-                break;
-            }
-
-            /*Temporary buffer for number-string conversion with additional space for null character*/
-            char tempBuffer[PAYLOAD_SIZE + 1] = {0};
-
-            /*Convert double number to string and write it to temporary buffer*/
-            snprintf(tempBuffer , PAYLOAD_SIZE + 1, "%lf", value);
-
-            length = static_cast<uint8_t>(strlen(tempBuffer));
-
-            uartPacket.SetPayload(tempBuffer);
-
-            uartPacket.SetLength(length);
-
-            SendGraphPacket(uartPacket);
-        }
-
-        if (m_stopPressed)
-        {
-            qDebug("STOP PRESSED");
-            m_stopPressed = false;
-            return;
-        }
-
-        QCoreApplication::processEvents();
-    }
+    //UNSUPPORTED YET
+    //SendString()
 }
 
-void MainWindow::GenerateSineGraph(int signalCount)
+void MainWindow::GraphSine()
 {
-    UartPacket uartPacket;
-
+    QString strModule= ui->comboBox_GraphModule->currentText();
+    QString strSignalCount = ui->comboBox_GraphSignalCount->currentText();
     QString strStartDegrees = ui->lineEdit_SineStartDegrees->text();
     QString strStopDegrees = ui->lineEdit_SineStopDegrees->text();
     QString strAmplitude = ui->lineEdit_SineAmplitude->text();
@@ -658,85 +254,39 @@ void MainWindow::GenerateSineGraph(int signalCount)
         return;
     }
 
-    uartPacket.SetSource(Source::SOURCE_TARGET1);
-    uartPacket.SetModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
-    uartPacket.SetFunction(Function::DATA_PACKET);
-
-    uint8_t length;
-    double value;
-
-    Parameter parameters[4] = {Parameter::GRAPH_PARAMETER1, Parameter::GRAPH_PARAMETER2, Parameter::GRAPH_PARAMETER3, Parameter::GRAPH_PARAMETER4};
-
-    constexpr double radianInverse = 3.14159/180;
-
-    double phaseShift[4] = {0.0, 120.0, 240.0, 360.0};
-
-    for(int x = startDegrees; x < stopDegrees; x++)
+    if(amplitude <= 0)
     {
-        for(int signalNumber = 0; signalNumber < signalCount; signalNumber++)
-        {
-            uartPacket.SetParameter(parameters[signalNumber]);
-
-            /*Multiply by radian inverse to get rid of radian unit and calculate sine of x measured in degrees*/
-            value = amplitude * (sin(static_cast<double>(x) * radianInverse + phaseShift[signalNumber]));
-
-            if(value < 0)
-            {
-                /*Change value sign back to positive and mark it as negative in UART packet*/
-                value = value * (-1);
-                uartPacket.SetSign(Sign::NEGATIVE_SIGN);
-            }
-            else
-            {
-                uartPacket.SetSign(Sign::POSITIVE_SIGN);
-            }
-
-            /*Temporary buffer for number-string conversion with additional space for null character*/
-            char tempBuffer[PAYLOAD_SIZE + 1] = {0};
-
-            /*Convert double number to string and write it to temporary buffer*/
-            snprintf(tempBuffer , PAYLOAD_SIZE + 1, "%lf", value);
-
-            length = static_cast<uint8_t>(strlen(tempBuffer));
-
-            uartPacket.SetPayload(tempBuffer);
-
-            uartPacket.SetLength(length);
-
-            SendGraphPacket(uartPacket);
-        }
-
-        if (m_stopPressed)
-        {
-            qDebug("STOP PRESSED");
-            m_stopPressed = false;
-            return;
-        }
-
-        QCoreApplication::processEvents();
+        QMessageBox::warning(this, "ERROR", "GenerateSineGraph: Amplitude cannot be less than or equal 0, aborting");
+        return;
     }
+
+    QMessageBox::warning(this, "UNSUPPORTED YET", "GenerateSineGraph: UNSUPPORTED YET");
+
+    //UNSUPPORTED YET
+    //SendString()
 }
 
-void MainWindow::GenerateSquareGraph(int signalCount)
+void MainWindow::GraphSquare()
 {
-    UartPacket uartPacket;
-
-    QString strStartDegrees = ui->lineEdit_SquareStart->text();
-    QString strStopDegrees = ui->lineEdit_SquareStop->text();
+    QString strModule= ui->comboBox_GraphModule->currentText();
+    QString strSignalCount = ui->comboBox_GraphSignalCount->currentText();
+    QString strStartValue = ui->lineEdit_SquareStart->text();
+    QString strStopValue = ui->lineEdit_SquareStop->text();
     QString strAmplitude = ui->lineEdit_SquareAmplitude->text();
     QString strPeriod = ui->lineEdit_SquarePeriod->text();
 
     QString functionName = "GenerateSquareGraph";
 
-    if(!ValidateIntegerInput(strStartDegrees, functionName) ||
-            !ValidateIntegerInput(strStopDegrees, functionName) ||
-            !ValidateFloatingPointInput(strAmplitude, functionName))
+    if(!ValidateIntegerInput(strStartValue, functionName) ||
+            !ValidateIntegerInput(strStopValue, functionName) ||
+            !ValidateFloatingPointInput(strAmplitude, functionName) ||
+            !ValidateIntegerInput(strPeriod, functionName))
     {
         return;
     }
 
-    int startDegrees = strStartDegrees.toInt();
-    int stopDegrees = strStopDegrees.toInt();
+    int startDegrees = strStartValue.toInt();
+    int stopDegrees = strStopValue.toInt();
     double amplitude = strAmplitude.toDouble();
     int period = strPeriod.toInt();
 
@@ -746,118 +296,55 @@ void MainWindow::GenerateSquareGraph(int signalCount)
         return;
     }
 
-    uartPacket.SetSource(Source::SOURCE_TARGET1);
-    uartPacket.SetModule(ui->comboBox_GraphModule->currentText().at(0).toLatin1());
-    uartPacket.SetFunction(Function::DATA_PACKET);
-
-    uint8_t length;
-    double value;
-
-    const int periodShift = period / 2;
-
-    int multiplierSignal1 = +1;
-    int multiplierSignal2 = +1;
-
-    for(int x = startDegrees; x < stopDegrees; x++)
+    if(amplitude <= 0)
     {
-        if(signalCount >= 1)
-        {
-            uartPacket.SetParameter(Parameter::GRAPH_PARAMETER1);
-
-            value = amplitude * multiplierSignal1;
-
-            if(value < 0)
-            {
-                /*Change value sign back to positive and mark it as negative in UART packet*/
-                value = value * (-1);
-                uartPacket.SetSign(Sign::NEGATIVE_SIGN);
-            }
-            else
-            {
-                uartPacket.SetSign(Sign::POSITIVE_SIGN);
-            }
-
-            /*Temporary buffer for number-string conversion with additional space for null character*/
-            char tempBuffer[PAYLOAD_SIZE + 1] = {0};
-
-            /*Convert double number to string and write it to temporary buffer*/
-            snprintf(tempBuffer , PAYLOAD_SIZE + 1, "%lf", value);
-
-            length = static_cast<uint8_t>(strlen(tempBuffer));
-
-            uartPacket.SetPayload(tempBuffer);
-
-            uartPacket.SetLength(length);
-
-            SendGraphPacket(uartPacket);
-
-            if(x % period == 0)
-            {
-                multiplierSignal1 = multiplierSignal1 * (-1);
-            }
-
-            QCoreApplication::processEvents();
-        }
-
-        if(signalCount >= 2)
-        {
-            uartPacket.SetParameter(Parameter::GRAPH_PARAMETER2);
-
-            value = amplitude * multiplierSignal2;
-
-            if(value < 0)
-            {
-                /*Change value sign back to positive and mark it as negative in UART packet*/
-                value = value * (-1);
-                uartPacket.SetSign(Sign::NEGATIVE_SIGN);
-            }
-            else
-            {
-                uartPacket.SetSign(Sign::POSITIVE_SIGN);
-            }
-
-            /*Temporary buffer for number-string conversion with additional space for null character*/
-            char tempBuffer[PAYLOAD_SIZE + 1] = {0};
-
-            /*Convert double number to string and write it to temporary buffer*/
-            snprintf(tempBuffer , PAYLOAD_SIZE + 1, "%lf", value);
-
-            length = static_cast<uint8_t>(strlen(tempBuffer));
-
-            uartPacket.SetPayload(tempBuffer);
-
-            uartPacket.SetLength(length);
-
-            SendGraphPacket(uartPacket);
-
-            if(((x + periodShift ) % period) == 0)
-            {
-                multiplierSignal2 = multiplierSignal2 * (-1);
-            }
-
-            QCoreApplication::processEvents();
-        }
-
-        if (m_stopPressed)
-        {
-            qDebug("STOP PRESSED");
-            m_stopPressed = false;
-            return;
-        }
+        QMessageBox::warning(this, "ERROR", "GenerateSineGraph: Amplitude cannot be less than or equal 0, aborting");
+        return;
     }
+
+    if(period < 1)
+    {
+        QMessageBox::warning(this, "ERROR", "GenerateSineGraph: Period cannot be less than 1, aborting");
+        return;
+    }
+
+    QMessageBox::warning(this, "UNSUPPORTED YET", "GenerateSquareGraph: UNSUPPORTED YET");
+
+    //UNSUPPORTED YET
+    //SendString()
 }
 
-void MainWindow::SendGraphPacket(UartPacket& uartPacket)
+void MainWindow::StopGraph()
 {
-    uartPacket.AppendCrcToPacket();
+    QMessageBox::warning(this, "UNSUPPORTED YET", "GenerateSquareGraph: UNSUPPORTED YET");
 
-    //qDebug("Graph packet is: %s", static_cast<uint8_t*>(uartPacket));
+    //UNSUPPORTED YET
+    //SendString()
+}
 
-    m_pTableView->UpdatePacketDisplay(static_cast<uint8_t*>(uartPacket), false);
+void MainWindow::SendCustomPacket()
+{    
+    QString module = ui->comboBox_CustomPacketModule->currentText();
+    QString parameter = ui->comboBox_CustomPacketParameter->currentText();
+    QString enteredPayload = ui->lineEdit_CustomPacketPayload->text();
 
-    m_Serial.SendPacket(static_cast<uint8_t*>(uartPacket));
+    if(!ValidateFloatingPointInput(enteredPayload, "SendCustomPacket"))
+    {
+        return;
+    }
 
-    Sleep(uint(10));
+    SendString("#sendpacket",
+               module,
+               parameter,
+               enteredPayload);
+}
+
+void MainWindow::SendWrongCrcDataPacket()
+{
+    QMessageBox::warning(this, "UNSUPPORTED YET", "SendWrongCrcDataPacket: UNSUPPORTED YET");
+
+    //UNSUPPORTED YET
+    //SendString()
 }
 
 void MainWindow::UpdateGUI()
@@ -970,76 +457,22 @@ void MainWindow::on_pushButton_DeinitConnectionModule3_clicked()
 
 void MainWindow::on_pushButton_StartLinear_clicked()
 {
-    char signalCount = ui->comboBox_GraphSignalCount->currentText().at(0).toLatin1();
-
-    switch(signalCount)
-    {
-    case '1':
-        GenerateLinearGraph(1);
-        break;
-    case '2':
-        GenerateLinearGraph(2);
-        break;
-    case '3':
-        GenerateLinearGraph(3);
-        break;
-    case '4':
-        GenerateLinearGraph(4);
-        break;
-    default:
-        qDebug("Unsupported ammount of linear signals");
-    }
+    GraphLinear();
 }
 
 void MainWindow::on_pushButton_StartSine_clicked()
 {
-    char signalCount = ui->comboBox_GraphSignalCount->currentText().at(0).toLatin1();
-
-    switch(signalCount)
-    {
-    case '1':
-        GenerateSineGraph(1);
-        break;
-    case '2':
-        GenerateSineGraph(2);
-        break;
-    case '3':
-        GenerateSineGraph(3);
-        break;
-    case '4':
-        GenerateSineGraph(4);
-        break;
-    default:
-        qDebug("Unsupported ammount of sine signals");
-    }
+    GraphSine();
 }
 
 void MainWindow::on_pushButton_StartSquare_clicked()
 {
-    char signalCount = ui->comboBox_GraphSignalCount->currentText().at(0).toLatin1();
-
-    switch(signalCount)
-    {
-    case '1':
-        GenerateSquareGraph(1);
-        break;
-    case '2':
-        GenerateSquareGraph(2);
-        break;
-    case '3':
-        GenerateSquareGraph(3);
-        break;
-    case '4':
-        GenerateSquareGraph(4);
-        break;
-    default:
-        qDebug("Unsupported ammount of square signals");
-    }
+    GraphSquare();
 }
 
 void MainWindow::on_pushButton_Stop_clicked()
 {
-    m_stopPressed = true;
+    StopGraph();
 }
 
 void MainWindow::on_pushButton_SendWrongCrcPacket_clicked()
@@ -1070,9 +503,9 @@ void MainWindow::on_pushButton_SetRanges_clicked()
     }
 
     SetRangeMinimum();
-    Sleep(100);
+    Sleep(1000);
     SetRangeMaximum();
-    Sleep(100);
+    Sleep(1000);
     SetRangeTime();
 }
 
@@ -1176,3 +609,65 @@ bool MainWindow::ValidateIntegerInput(QString input, QString functionName)
 
     return true;
 }
+
+void MainWindow::SendString(QString command, QString module)
+{
+    SendString(command, module, "", "");
+}
+
+void MainWindow::SendString(QString command, QString module, QString arg1)
+{
+    SendString(command, module, arg1, "");
+}
+
+void MainWindow::SendString(QString command, QString module, QString arg1, QString arg2)
+{
+    QByteArray array;
+
+    array.append(command);
+    array.append(",");
+    array.append(module);
+
+    if(!arg1.isEmpty())
+    {
+        array.append(",");
+        array.append(arg1);
+    }
+
+    if(!arg2.isEmpty())
+    {
+        array.append(",");
+        array.append(arg2);
+    }
+
+    qDebug() << "Full command: " << array;
+
+    //m_Serial.write("\n");
+
+    m_Serial.write(array);
+
+    m_Serial.waitForBytesWritten(1000);
+
+    //    for(int i=0; i<array.size(); i++)
+    //    {
+    //        QByteArray characterArray = QByteArray(1, array.at(i));
+
+    //        m_Serial.write(characterArray);
+
+    //        m_Serial.waitForBytesWritten(1000);
+
+    //        Sleep(uint(100));
+
+    //        qDebug() << "Sent " << characterArray << " character";
+
+    //        m_Serial.flush();
+    //    }
+
+    //m_Serial.write("\n");
+}
+
+//void MainWindow::on_pushButton_getparameters_clicked()
+//{
+//    SendString("#getparameters",
+//               ui->tableWidget->item(6, 1)->text());
+//}

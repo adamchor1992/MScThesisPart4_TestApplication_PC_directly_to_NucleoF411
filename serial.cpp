@@ -128,13 +128,15 @@ void Serial::SerialDataReceived()
 
     receivedBytes += readAll();
 
-    if(receivedBytes.size() >= PACKET_SIZE)
-    {
-        qDebug("FULL PACKET RECEIVED");
-        qDebug("Received Packet is: %.16s", receivedBytes.constData());
-        emit(FullPacketReceived(receivedBytes));
-        receivedBytes.clear();
-    }
+   // qDebug() << "Received data: " << receivedBytes;
+
+//    if(receivedBytes.size() >= PACKET_SIZE)
+//    {
+//        qDebug("FULL PACKET RECEIVED");
+//        qDebug("Received Packet is: %.16s", receivedBytes.constData());
+//        emit(FullPacketReceived(receivedBytes));
+//        receivedBytes.clear();
+//    }
 }
 
 void Serial::EnableGui()

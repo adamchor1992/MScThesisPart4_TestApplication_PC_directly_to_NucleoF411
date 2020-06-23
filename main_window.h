@@ -34,10 +34,10 @@ public:
     void SetRangeTime();
     void SendCustomPacket();
     void SendWrongCrcDataPacket();
-    void GenerateLinearGraph(int signalCount);
-    void GenerateSineGraph(int signalCount);
-    void GenerateSquareGraph(int signalCount);
-    void SendGraphPacket(UartPacket& uartPacket);
+    void GraphLinear();
+    void GraphSine();
+    void GraphSquare();
+    void StopGraph();
     bool ValidateFloatingPointInput(QString input, QString functionName);
     bool ValidateIntegerInput(QString input, QString functionName);
 
@@ -71,5 +71,44 @@ private:
     Module m_Module2;
     Module m_Module3;
 
-    bool m_stopPressed = false;
+    void SendString(QString command, QString module);
+    void SendString(QString command, QString module, QString arg1);
+    void SendString(QString command, QString module, QString arg1, QString arg2);
 };
+
+
+
+
+
+//class Main_Window : public QMainWindow
+//{
+//    Q_OBJECT
+
+//public:
+//    Main_Window(QWidget *parent = nullptr);
+//    ~Main_Window();
+
+//private slots:
+//    void on_pushButton_initmodule_clicked();
+
+//    void on_pushButton_deinitmodule_clicked();
+
+//    void on_pushButton_sendpacket_clicked();
+
+//    void on_pushButton_setgraphmin_clicked();
+
+//    void on_pushButton_setgraphmax_clicked();
+
+//    void on_pushButton_setgraphtime_clicked();
+
+//    void on_pushButton_getparameters_clicked();
+
+//private:
+//    Ui::Main_Window *ui;
+
+//    QSerialPort m_serialPort;
+
+//    void SendString(QString command, QString module);
+//    void SendString(QString command, QString module, QString arg1);
+//    void SendString(QString command, QString module, QString arg1, QString arg2);
+//};
