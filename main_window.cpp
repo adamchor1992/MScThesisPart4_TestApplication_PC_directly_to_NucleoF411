@@ -139,14 +139,14 @@ void MainWindow::InitConnectionModule(ModuleID module)
 {
     qDebug("InitConnectionModule");
 
-    SendString("#initmodule", QString(static_cast<int>(module)));
+    SendString("#InitModule", QString(static_cast<int>(module)));
 }
 
 void MainWindow::DeinitConnectionModule(ModuleID module)
 {
     qDebug("DeinitConnectionModule");
 
-    SendString("#deinitmodule", QString(static_cast<int>(module)));
+    SendString("#DeinitModule", QString(static_cast<int>(module)));
 }
 
 void MainWindow::SetRangeMinimum()
@@ -159,7 +159,7 @@ void MainWindow::SetRangeMinimum()
         return;
     }
 
-    SendString("#setgraphmin", module, enteredMinimumRange);
+    SendString("#SetGraphMin", module, enteredMinimumRange);
 }
 
 void MainWindow::SetRangeMaximum()
@@ -172,7 +172,7 @@ void MainWindow::SetRangeMaximum()
         return;
     }
 
-    SendString("#setgraphmax", module, enteredMaximumRange);
+    SendString("#SetGraphMax", module, enteredMaximumRange);
 }
 
 void MainWindow::SetRangeTime()
@@ -185,7 +185,7 @@ void MainWindow::SetRangeTime()
         return;
     }
 
-    SendString("#setgraphtime", module, enteredTimeRangeString);
+    SendString("#SetGraphTime", module, enteredTimeRangeString);
 }
 
 void MainWindow::GraphLinear()
@@ -196,7 +196,7 @@ void MainWindow::GraphLinear()
     QString strStopValue = ui->lineEdit_LinearStop->text();
     QString strStepValue = ui->lineEdit_LinearStep->text();
 
-    QString functionName = "GenerateLinearGraph";
+    QString functionName = "GraphLinear";
 
     if(!ValidateFloatingPointInput(strStartValue, functionName) ||
             !ValidateFloatingPointInput(strStopValue, functionName) ||
@@ -221,10 +221,7 @@ void MainWindow::GraphLinear()
         return;
     }
 
-    QMessageBox::warning(this, "UNSUPPORTED YET", "GenerateLinearGraph: UNSUPPORTED YET");
-
-    //UNSUPPORTED YET
-    //SendString()
+    SendString("#GraphLinear", strModule, strSignalCount, strStartValue, strStopValue, strStepValue);
 }
 
 void MainWindow::GraphSine()
@@ -260,10 +257,7 @@ void MainWindow::GraphSine()
         return;
     }
 
-    QMessageBox::warning(this, "UNSUPPORTED YET", "GenerateSineGraph: UNSUPPORTED YET");
-
-    //UNSUPPORTED YET
-    //SendString()
+    SendString("#GraphSine", strModule, strSignalCount, strStartDegrees, strStopDegrees, strAmplitude);
 }
 
 void MainWindow::GraphSquare()
@@ -285,12 +279,12 @@ void MainWindow::GraphSquare()
         return;
     }
 
-    int startDegrees = strStartValue.toInt();
-    int stopDegrees = strStopValue.toInt();
+    int startValue = strStartValue.toInt();
+    int stopValue = strStopValue.toInt();
     double amplitude = strAmplitude.toDouble();
     int period = strPeriod.toInt();
 
-    if(startDegrees > stopDegrees)
+    if(startValue > stopValue)
     {
         QMessageBox::warning(this, "ERROR", "GenerateSquareGraph: Start values is higher than stop value, aborting");
         return;
@@ -298,28 +292,22 @@ void MainWindow::GraphSquare()
 
     if(amplitude <= 0)
     {
-        QMessageBox::warning(this, "ERROR", "GenerateSineGraph: Amplitude cannot be less than or equal 0, aborting");
+        QMessageBox::warning(this, "ERROR", "GenerateSquareGraph: Amplitude cannot be less than or equal 0, aborting");
         return;
     }
 
     if(period < 1)
     {
-        QMessageBox::warning(this, "ERROR", "GenerateSineGraph: Period cannot be less than 1, aborting");
+        QMessageBox::warning(this, "ERROR", "GenerateSquareGraph: Period cannot be less than 1, aborting");
         return;
     }
 
-    QMessageBox::warning(this, "UNSUPPORTED YET", "GenerateSquareGraph: UNSUPPORTED YET");
-
-    //UNSUPPORTED YET
-    //SendString()
+    SendString("#GraphSquare", strModule, strSignalCount, strStartValue, strStopValue, strAmplitude, strPeriod);
 }
 
 void MainWindow::StopGraph()
 {
-    QMessageBox::warning(this, "UNSUPPORTED YET", "GenerateSquareGraph: UNSUPPORTED YET");
-
-    //UNSUPPORTED YET
-    //SendString()
+    SendString("#StopGraph");
 }
 
 void MainWindow::SendCustomPacket()
@@ -333,7 +321,7 @@ void MainWindow::SendCustomPacket()
         return;
     }
 
-    SendString("#sendpacket",
+    SendString("#SendPacket",
                module,
                parameter,
                enteredPayload);
@@ -341,10 +329,7 @@ void MainWindow::SendCustomPacket()
 
 void MainWindow::SendWrongCrcDataPacket()
 {
-    QMessageBox::warning(this, "UNSUPPORTED YET", "SendWrongCrcDataPacket: UNSUPPORTED YET");
-
-    //UNSUPPORTED YET
-    //SendString()
+    SendString("#SendWrongCrc");
 }
 
 void MainWindow::UpdateGUI()
@@ -610,60 +595,94 @@ bool MainWindow::ValidateIntegerInput(QString input, QString functionName)
     return true;
 }
 
-void MainWindow::SendString(QString command, QString module)
+void MainWindow::SendString(QString command)
 {
-    SendString(command, module, "", "");
+    SendString(command, "", "", "", "", "", "");
 }
 
-void MainWindow::SendString(QString command, QString module, QString arg1)
+void MainWindow::SendString(QString command, QString arg1)
 {
-    SendString(command, module, arg1, "");
+    SendString(command, arg1, "", "", "", "", "");
 }
 
-void MainWindow::SendString(QString command, QString module, QString arg1, QString arg2)
+void MainWindow::SendString(QString command, QString arg1, QString arg2)
 {
-    QByteArray array;
+    SendString(command, arg1, arg2, "", "", "", "");
+}
 
-    array.append(command);
-    array.append(",");
-    array.append(module);
+void MainWindow::SendString(QString command, QString arg1, QString arg2, QString arg3)
+{
+    SendString(command, arg1, arg2, arg3, "", "", "");
+}
+
+void MainWindow::SendString(QString command, QString arg1, QString arg2, QString arg3, QString arg4)
+{
+    SendString(command, arg1, arg2, arg3, arg4, "", "");
+}
+
+void MainWindow::SendString(QString command, QString arg1, QString arg2, QString arg3, QString arg4, QString arg5)
+{
+    SendString(command, arg1, arg2, arg3, arg4, arg5, "");
+}
+
+void MainWindow::SendString(QString command, QString arg1, QString arg2, QString arg3, QString arg4, QString arg5, QString arg6)
+{
+    QByteArray commandBuffer;
+
+    commandBuffer.append(command);
 
     if(!arg1.isEmpty())
     {
-        array.append(",");
-        array.append(arg1);
+        commandBuffer.append(",");
+        commandBuffer.append(arg1);
     }
 
     if(!arg2.isEmpty())
     {
-        array.append(",");
-        array.append(arg2);
+        commandBuffer.append(",");
+        commandBuffer.append(arg2);
     }
 
-    qDebug() << "Full command: " << array;
+    if(!arg3.isEmpty())
+    {
+        commandBuffer.append(",");
+        commandBuffer.append(arg3);
+    }
 
-    //m_Serial.write("\n");
+    if(!arg4.isEmpty())
+    {
+        commandBuffer.append(",");
+        commandBuffer.append(arg4);
+    }
 
-    m_Serial.write(array);
+    if(!arg5.isEmpty())
+    {
+        commandBuffer.append(",");
+        commandBuffer.append(arg5);
+    }
+
+    if(!arg6.isEmpty())
+    {
+        commandBuffer.append(",");
+        commandBuffer.append(arg6);
+    }
+
+    if(commandBuffer.size() > 50)
+    {
+        assert(false);
+    }
+
+    while(commandBuffer.size() != COMMAND_LENGTH)
+    {
+        commandBuffer.append('\0');
+    }
+
+    qDebug() << "Full command size: " << commandBuffer.size();
+    qDebug() << "Full command: " << commandBuffer;
+
+    m_Serial.write(commandBuffer);
 
     m_Serial.waitForBytesWritten(1000);
-
-    //    for(int i=0; i<array.size(); i++)
-    //    {
-    //        QByteArray characterArray = QByteArray(1, array.at(i));
-
-    //        m_Serial.write(characterArray);
-
-    //        m_Serial.waitForBytesWritten(1000);
-
-    //        Sleep(uint(100));
-
-    //        qDebug() << "Sent " << characterArray << " character";
-
-    //        m_Serial.flush();
-    //    }
-
-    //m_Serial.write("\n");
 }
 
 //void MainWindow::on_pushButton_getparameters_clicked()

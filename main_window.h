@@ -71,9 +71,15 @@ private:
     Module m_Module2;
     Module m_Module3;
 
-    void SendString(QString command, QString module);
-    void SendString(QString command, QString module, QString arg1);
-    void SendString(QString command, QString module, QString arg1, QString arg2);
+    const int COMMAND_LENGTH = 50;
+
+    void SendString(QString command);
+    void SendString(QString command, QString arg1);
+    void SendString(QString command, QString arg1, QString arg2);
+    void SendString(QString command, QString arg1, QString arg2, QString arg3);
+    void SendString(QString command, QString arg1, QString arg2, QString arg3, QString arg4);
+    void SendString(QString command, QString arg1, QString arg2, QString arg3, QString arg4, QString arg5);
+    void SendString(QString command, QString arg1, QString arg2, QString arg3, QString arg4, QString arg5, QString arg6);
 };
 
 
