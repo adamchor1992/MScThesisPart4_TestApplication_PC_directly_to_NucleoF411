@@ -571,7 +571,7 @@ void MainWindow::SendString(QString command, QString arg1, QString arg2, QString
         commandBuffer.append(arg6);
     }
 
-    if(commandBuffer.size() > 50)
+    if(commandBuffer.size() > COMMAND_LENGTH)
     {
         assert(false);
     }
@@ -581,8 +581,8 @@ void MainWindow::SendString(QString command, QString arg1, QString arg2, QString
         commandBuffer.append('\0');
     }
 
-    qDebug() << "Full command size: " << commandBuffer.size();
-    qDebug() << "Full command: " << commandBuffer;
+    qDebug() << "Command size: " << commandBuffer.size();
+    qDebug() << "Sending command: " << commandBuffer;
 
     m_Serial.write(commandBuffer);
 

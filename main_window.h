@@ -73,7 +73,7 @@ private:
     Module m_Module2;
     Module m_Module3;
 
-    const int COMMAND_LENGTH = 50;
+    const int COMMAND_LENGTH = 60;
 
     void SendString(QString command);
     void SendString(QString command, QString arg1);
