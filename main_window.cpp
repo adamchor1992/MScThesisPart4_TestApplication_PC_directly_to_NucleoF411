@@ -212,7 +212,9 @@ void MainWindow::SendCustomPacket()
 
 void MainWindow::SendWrongCrcDataPacket()
 {
-    SendString("#SendWrongCrc");
+    QString module = ui->comboBox_CustomPacketModule->currentText();
+
+    SendString("#SendWrongCrc", module);
 }
 
 /*Button slots*/
@@ -334,6 +336,71 @@ void MainWindow::on_pushButton_GetParametersModule3_clicked()
     qDebug() << "Get parameters module 3";
 
     SendString("#GetParameters", QString("3"));
+}
+
+void MainWindow::on_pushButton_Module1ADCToGraph_clicked()
+{
+    QString module = "1";
+    QString packetCount = ui->lineEdit_Module1ADCPacketCount->text();
+
+    if(!ValidateIntegerInput(packetCount, "ADC to graph module 1"))
+    {
+        return;
+    }
+
+    qDebug() << "ADC data to graph module 1";
+
+    SendString("#Adc1", module, packetCount);
+}
+
+void MainWindow::on_pushButton_Module1ADCToTable_clicked()
+{
+    QString module = "1";
+    QString packetCount = ui->lineEdit_Module1ADCPacketCount->text();
+
+    qDebug() << "ADC data to table module 1";
+
+    SendString("#Adc2", module, packetCount);
+}
+
+void MainWindow::on_pushButton_Module2ADCToGraph_clicked()
+{
+    QString module = "2";
+    QString packetCount = ui->lineEdit_Module2ADCPacketCount->text();
+
+    qDebug() << "ADC data to graph module 2";
+
+    SendString("#Adc1", module, packetCount);
+}
+
+void MainWindow::on_pushButton_Module2ADCToTable_clicked()
+{
+    QString module = "2";
+    QString packetCount = ui->lineEdit_Module2ADCPacketCount->text();
+
+    qDebug() << "ADC data to table module 2";
+
+    SendString("#Adc2", module, packetCount);
+}
+
+void MainWindow::on_pushButton_Module3ADCToGraph_clicked()
+{
+    QString module = "3";
+    QString packetCount = ui->lineEdit_Module3ADCPacketCount->text();
+
+    qDebug() << "ADC data to graph module 3";
+
+    SendString("#Adc1", module, packetCount);
+}
+
+void MainWindow::on_pushButton_Module3ADCToTable_clicked()
+{
+    QString module = "3";
+    QString packetCount = ui->lineEdit_Module3ADCPacketCount->text();
+
+    qDebug() << "ADC data to table module 3";
+
+    SendString("#Adc2", module, packetCount);
 }
 
 bool MainWindow::ValidateFloatingPointInput(QString input, QString functionName)

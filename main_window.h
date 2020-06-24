@@ -57,6 +57,12 @@ private slots:
     void on_pushButton_GetParametersModule1_clicked();
     void on_pushButton_GetParametersModule2_clicked();
     void on_pushButton_GetParametersModule3_clicked();
+    void on_pushButton_Module1ADCToGraph_clicked();
+    void on_pushButton_Module1ADCToTable_clicked();
+    void on_pushButton_Module2ADCToGraph_clicked();
+    void on_pushButton_Module2ADCToTable_clicked();
+    void on_pushButton_Module3ADCToGraph_clicked();
+    void on_pushButton_Module3ADCToTable_clicked();
 
 private:
     Ui::MainWindow* ui;
