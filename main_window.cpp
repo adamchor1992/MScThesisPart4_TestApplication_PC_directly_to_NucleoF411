@@ -3,7 +3,6 @@
 #include "packet_field_definitions.h"
 #include <QSerialPortInfo>
 #include <QMessageBox>
-#include "init_parameters_xml_loader.h"
 #include <cmath> //for sin()
 #include "windows.h"
 
@@ -12,127 +11,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->setupUi(this);
 
     m_Serial.InitPortList();
-
-    m_pTableView = std::make_unique<TableView>(ui);
-
-    //connect(&m_Serial, &Serial::FullPacketReceived, this, &MainWindow::ProcessReceivedPacket);
-
-    this->setWindowState(Qt::WindowMaximized);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-/*Slot*/
-void MainWindow::ProcessReceivedPacket(QByteArray& receivedBytes)
-{
-    qDebug() << "Processing received packet";
-
-    UartPacket uartPacket(reinterpret_cast<const uint8_t*>(receivedBytes.constData()));
-
-    uint8_t uartReceivedPacket[PACKET_SIZE] = {0};
-
-    for(int i=0; i<PACKET_SIZE; i++)
-    {
-        uartReceivedPacket[i] = static_cast<uint8_t>(receivedBytes.at(i));
-    }
-
-    if(uartPacket.CheckCrc32() == true)
-    {
-        m_pTableView->UpdatePacketDisplay(uartReceivedPacket, true, true);
-    }
-    else
-    {
-        m_pTableView->UpdatePacketDisplay(uartReceivedPacket, true, false);
-
-        qDebug("Wrong CRC, packet discarded");
-
-        return;
-    }
-
-    QCoreApplication::processEvents();
-
-    Module* p_CurrentModule = nullptr;
-
-    ModuleID moduleID = uartPacket.GetModule();
-
-    if(moduleID == ModuleID::MODULE1)
-    {
-        qDebug() << "Module 1";
-        p_CurrentModule = &m_Module1;
-    }
-    else if(moduleID == ModuleID::MODULE2)
-    {
-        qDebug() << "Module 2";
-        p_CurrentModule = &m_Module2;
-    }
-    else if(moduleID == ModuleID::MODULE3)
-    {
-        qDebug() << "Module 3";
-        p_CurrentModule = &m_Module3;
-    }
-    else
-    {
-        qDebug() << "ERROR - Incorrect received packet - Wrong module field in received packet. Packet discarded";
-        return;
-    }
-
-    Function function = uartPacket.GetFunction();
-    Parameter parameter = uartPacket.GetParameter();
-
-    double valueDouble = 0;
-
-    switch(function)
-    {
-    case Function::DATA_PACKET:
-        qDebug() << "Data transfer packet";
-        break;
-
-    case Function::ENABLE_PARAMETER_PACKET:
-        qDebug() << "Enable parameter";
-
-        p_CurrentModule->EnableParameter(parameter);
-
-        break;
-
-    case Function::DISABLE_PARAMETER_PACKET:
-        qDebug() << "Disable parameter";
-
-        p_CurrentModule->DisableParameter(parameter);
-
-        break;
-
-    case Function::SET_PARAMETER_PACKET:
-        qDebug() << "Set parameter";
-
-        try
-    {
-        /*Try to convert packet payload to real number*/
-        valueDouble = std::stod(reinterpret_cast<const char*>(uartPacket.GetPayload()));
-    }
-        catch (std::invalid_argument)
-        {
-            QMessageBox::warning(this, "ERROR", "Packet payload could not be converted to number, aborting");
-            return;
-        }
-
-        if(uartPacket.GetSign() == Sign::NEGATIVE_SIGN)
-        {
-            /*Make value negative if it was marked as negative in UART Packet*/
-            valueDouble = valueDouble * (-1);
-        }
-
-        p_CurrentModule->SetParameter(parameter,valueDouble);
-
-        break;
-
-    default:
-        qDebug() << "ERROR - Incorrect received packet - Wrong function type";
-    }
-
-    UpdateGUI();
 }
 
 void MainWindow::InitConnectionModule(ModuleID module)
@@ -332,71 +215,9 @@ void MainWindow::SendWrongCrcDataPacket()
     SendString("#SendWrongCrc");
 }
 
-void MainWindow::UpdateGUI()
-{
-    QWidget* module1ParameterStateLabelsTable[PAYLOAD_SIZE];
-    QWidget* module2ParameterStateLabelsTable[PAYLOAD_SIZE];
-    QWidget* module3ParameterStateLabelsTable[PAYLOAD_SIZE];
-    QWidget* module1ParameterValueLabelsTable[PAYLOAD_SIZE];
-    QWidget* module2ParameterValueLabelsTable[PAYLOAD_SIZE];
-    QWidget* module3ParameterValueLabelsTable[PAYLOAD_SIZE];
-
-    for(int i = 0; i<PAYLOAD_SIZE; i++)
-    {
-        module1ParameterStateLabelsTable[i] = ui->Module1ParameterStates->itemAt(i)->widget();
-        module2ParameterStateLabelsTable[i] = ui->Module2ParameterStates->itemAt(i)->widget();
-        module3ParameterStateLabelsTable[i] = ui->Module3ParameterStates->itemAt(i)->widget();
-        module1ParameterValueLabelsTable[i] = ui->ValuesModule1Parameters->itemAt(i)->widget();
-        module2ParameterValueLabelsTable[i] = ui->ValuesModule2Parameters->itemAt(i)->widget();
-        module3ParameterValueLabelsTable[i] = ui->ValuesModule3Parameters->itemAt(i)->widget();
-    }
-
-    for(int i = 0; i<PAYLOAD_SIZE; i++)
-    {
-        if((m_Module1.GetParameterStatesTable())[i] == true)
-        {
-            dynamic_cast<QLabel*>(*(module1ParameterStateLabelsTable + i))->setText("<font color='green'>Enabled</font>");
-        }
-        else
-        {
-            dynamic_cast<QLabel*>(*(module1ParameterStateLabelsTable + i))->setText("<font color='red'>Disabled</font>");
-        }
-
-        if((m_Module2.GetParameterStatesTable())[i] == true)
-        {
-            dynamic_cast<QLabel*>(*(module2ParameterStateLabelsTable + i))->setText("<font color='green'>Enabled</font>");
-        }
-        else
-        {
-            dynamic_cast<QLabel*>(*(module2ParameterStateLabelsTable + i))->setText("<font color='red'>Disabled</font>");
-        }
-
-        if((m_Module3.GetParameterStatesTable())[i] == true)
-        {
-            dynamic_cast<QLabel*>(*(module3ParameterStateLabelsTable + i))->setText("<font color='green'>Enabled</font>");
-        }
-        else
-        {
-            dynamic_cast<QLabel*>(*(module3ParameterStateLabelsTable + i))->setText("<font color='red'>Disabled</font>");
-        }
-
-        dynamic_cast<QLCDNumber*>(*(module1ParameterValueLabelsTable + i))->display((m_Module1.GetParameterValuesTable())[i]);
-        dynamic_cast<QLCDNumber*>(*(module2ParameterValueLabelsTable + i))->display((m_Module2.GetParameterValuesTable())[i]);
-        dynamic_cast<QLCDNumber*>(*(module3ParameterValueLabelsTable + i))->display((m_Module3.GetParameterValuesTable())[i]);
-    }
-}
-
 /*Button slots*/
 void MainWindow::on_pushButton_Open_clicked()
 {
-    InitParametersXmlLoader initParametersXmlLoader(ui);
-
-    if(initParametersXmlLoader.InitModuleParametersList(m_Module1, m_Module2, m_Module3) == false)
-    {
-        QMessageBox::warning(this, ".xml load error", "Error, parameters list could not be read from XML");
-        return;
-    }
-
     m_Serial.OpenPort(ui->comboBox_Port->currentText());
 }
 
@@ -494,9 +315,25 @@ void MainWindow::on_pushButton_SetRanges_clicked()
     SetRangeTime();
 }
 
-void MainWindow::on_pushButton_ClearTable_clicked()
+void MainWindow::on_pushButton_GetParametersModule1_clicked()
 {
-    m_pTableView->ClearPacketDisplay();
+    qDebug() << "Get parameters module 1";
+
+    SendString("#GetParameters", QString("1"));
+}
+
+void MainWindow::on_pushButton_GetParametersModule2_clicked()
+{
+    qDebug() << "Get parameters module 2";
+
+    SendString("#GetParameters", QString("2"));
+}
+
+void MainWindow::on_pushButton_GetParametersModule3_clicked()
+{
+    qDebug() << "Get parameters module 3";
+
+    SendString("#GetParameters", QString("3"));
 }
 
 bool MainWindow::ValidateFloatingPointInput(QString input, QString functionName)
@@ -684,9 +521,3 @@ void MainWindow::SendString(QString command, QString arg1, QString arg2, QString
 
     m_Serial.waitForBytesWritten(1000);
 }
-
-//void MainWindow::on_pushButton_getparameters_clicked()
-//{
-//    SendString("#getparameters",
-//               ui->tableWidget->item(6, 1)->text());
-//}

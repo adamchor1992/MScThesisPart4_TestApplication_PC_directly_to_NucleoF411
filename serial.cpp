@@ -145,7 +145,6 @@ void Serial::EnableGui()
     m_pUi->groupBox_ModuleControls->setEnabled(true);
     m_pUi->groupBox_CustomPacketControls ->setEnabled(true);
     m_pUi->groupBox_GraphControls->setEnabled(true);
-    m_pUi->groupBox_PacketDisplay->setEnabled(true);
     m_pUi->groupBox_Module1->setEnabled(true);
     m_pUi->groupBox_Module2->setEnabled(true);
     m_pUi->groupBox_Module3->setEnabled(true);
@@ -157,7 +156,6 @@ void Serial::DisableGui()
     m_pUi->groupBox_ModuleControls->setEnabled(false);
     m_pUi->groupBox_CustomPacketControls ->setEnabled(false);
     m_pUi->groupBox_GraphControls->setEnabled(false);
-    m_pUi->groupBox_PacketDisplay->setEnabled(false);
     m_pUi->groupBox_Module1->setEnabled(false);
     m_pUi->groupBox_Module2->setEnabled(false);
 }

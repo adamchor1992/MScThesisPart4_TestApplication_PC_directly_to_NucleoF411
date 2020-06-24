@@ -26,21 +26,17 @@ CONFIG += c++14
 
 SOURCES += \
     crc32.cpp \
-    init_parameters_xml_loader.cpp \
         main.cpp \
     main_window.cpp \
         module.cpp \
-    table_view.cpp \
     uart_packet.cpp \
     serial.cpp
 
 HEADERS += \
         crc32.h \
-    init_parameters_xml_loader.h \
     main_window.h \
         module.h \
     packet_field_definitions.h \
-    table_view.h \
     uart_packet.h \
     serial.h
 
